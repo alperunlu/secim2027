@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Kelime markası: oyunun başlık ekranındaki hiyerarşinin aynısı —
+       SEÇİM altın ve baskın, 2027 kırmızı ve altında.
+       Tipografi oyunun kendi --font-text yığınından (Charter).
+       NOT: SVG letter-spacing son harften SONRA da boşluk ekler, bu yüzden
+       text-anchor="middle" metni yarım aralık sola kaydırır — x değerleri
+       bunu telafi edecek şekilde kaydırıldı. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="78%">
+      <stop offset="0%"   stop-color="#2b2218"/>
+      <stop offset="48%"  stop-color="#1d1710"/>
+      <stop offset="100%" stop-color="#0a0b0d"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#f0d492"/>
+      <stop offset="52%"  stop-color="#d2a83c"/>
+      <stop offset="100%" stop-color="#a8842c"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#d0455a"/>
+      <stop offset="100%" stop-color="#8e2231"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="54%">
+      <stop offset="0%"   stop-color="#d2a83c" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#d2a83c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <circle cx="512" cy="440" r="400" fill="url(#glow)"/>
+
+  <!-- Kenardan kenara: iOS zaten kendi köşe maskesini uyguluyor, ekstra
+       çerçeve eklemek küçük boyutlarda çift-çerçeve/küçülme etkisi
+       yaratıyordu — kaldırıldı. -->
+
+  <!-- SEÇİM — baskın öğe. Ç kuyruğuna yer bırakmak için 2027'yle arası açık. -->
+  <text x="518" y="482" text-anchor="middle"
+        font-family="Charter, 'Bitstream Charter', 'Liberation Serif', Georgia, serif"
+        font-size="196" font-weight="bold" letter-spacing="12"
+        fill="url(#gold)">SEÇİM</text>
+
+  <!-- 2027 — altta, kırmızı -->
+  <text x="521" y="712" text-anchor="middle"
+        font-family="Charter, 'Bitstream Charter', 'Liberation Serif', Georgia, serif"
+        font-size="158" font-weight="bold" letter-spacing="18"
+        fill="url(#red)">2027</text>
+
+  <!-- mühür vurguları: üst ve altta ince nokta -->
+  <g fill="#8f7526" opacity="0.7">
+    <circle cx="512" cy="152" r="7"/>
+    <circle cx="512" cy="872" r="7"/>
+  </g>
+</svg>

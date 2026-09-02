@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gizlilik Politikası — Seçim 2027</title>
+<style>
+  :root{
+    --ink:#0a0b0d; --paper:#fdfbf6; --text:#1c1a16; --text-dim:#5a5548;
+    --gold:#a8801f; --rule:#e4ddc9;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Noto Serif', serif;
+    --mono: ui-monospace, 'SF Mono', 'Roboto Mono', Consolas, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--paper); color:var(--text); font-family:var(--serif);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:640px;margin:0 auto;padding:3.5rem 1.5rem 5rem}
+  header{margin-bottom:2.5rem}
+  .eyebrow{
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.28em;
+    text-transform:uppercase; color:var(--gold); margin:0 0 .9rem;
+  }
+  h1{
+    font-size:clamp(1.9rem,5vw,2.4rem); margin:0 0 .6rem; font-weight:700;
+    letter-spacing:.01em;
+  }
+  .updated{
+    font-family:var(--mono); font-size:.8rem; color:var(--text-dim);
+    letter-spacing:.02em; margin:0;
+  }
+  hr{border:none; border-top:1px solid var(--rule); margin:2.2rem 0}
+  h2{
+    font-size:1.15rem; margin:2.4rem 0 .9rem; color:var(--ink);
+    border-bottom:1px solid var(--rule); padding-bottom:.5rem;
+  }
+  p{margin:0 0 1rem; color:var(--text)}
+  ul{margin:0 0 1rem; padding-left:1.3rem}
+  li{margin-bottom:.5rem}
+  strong{color:var(--ink)}
+  a{color:var(--gold); text-decoration:underline; text-decoration-color:var(--rule); text-underline-offset:.15em}
+  a:hover{text-decoration-color:currentColor}
+  footer{
+    margin-top:3.5rem; padding-top:1.5rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.72rem; color:var(--text-dim);
+    letter-spacing:.03em;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#100d09; --text:#e8dcc0; --text-dim:#8a8272;
+      --gold:#d2a83c; --rule:#2a2419; --ink:#f3ecd8;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <p class="eyebrow">Seçim 2027</p>
+    <h1>Gizlilik Politikası</h1>
+    <p class="updated">Son güncelleme: 20 Ağustos 2026</p>
+  </header>
+
+  <p>Seçim 2027 (“uygulama”), hiçbir kişisel veri toplamaz, sunucuya göndermez ve üçüncü taraflarla paylaşmaz.</p>
+
+  <hr>
+
+  <h2>Ne saklanır, nerede saklanır</h2>
+  <ul>
+    <li>Kampanya ilerlemeniz (seçtiğiniz ittifak, lider adınız, verdiğiniz kararlar, anket durumunuz vb.) yalnızca <strong>kendi cihazınızda</strong>, cihazın yerel depolama alanında tutulur.</li>
+    <li>Bu veri hiçbir sunucuya gönderilmez. Uygulamanın çalışması için internet bağlantısı gerekmez.</li>
+    <li>Uygulamayı sildiğinizde bu veriler cihazınızdan da silinir.</li>
+  </ul>
+
+  <h2>Analitik, reklam ve izleme</h2>
+  <p>Uygulama hiçbir analitik araç, reklam ağı veya izleme SDK’sı içermez. Kullanım verisi toplanmaz, cihaz kimliği okunmaz.</p>
+
+  <h2>Paylaşım özelliği</h2>
+  <p>Sonuç ekranındaki “paylaş” düğmesi, cihazınızın kendi paylaşım menüsünü (native share sheet) açar. Paylaşılacak metni siz onaylarsınız; bu işlem sırasında hiçbir veri bize ya da başka bir sunucuya gönderilmez.</p>
+
+  <h2>Lider adı</h2>
+  <p>Kampanya sırasında girdiğiniz lider adı yalnızca kendi cihazınızdaki oyun oturumunda kullanılır, hiçbir yere iletilmez.</p>
+
+  <h2>Çocukların gizliliği</h2>
+  <p>Uygulama veri toplamadığı için çocuklardan da veri toplanmaz.</p>
+
+  <h2>Değişiklikler</h2>
+  <p>Bu politika değişirse, güncel hâli bu sayfada yayınlanır.</p>
+
+  <h2>İletişim</h2>
+  <p>Sorularınız için: <a href="https://github.com/alperunlu/secim2027/issues">github.com/alperunlu/secim2027/issues</a></p>
+
+  <footer>Seçim 2027 · Bu sayfa PRIVACY.md kaynağından üretilmiştir.</footer>
+</div>
+</body>
+</html>

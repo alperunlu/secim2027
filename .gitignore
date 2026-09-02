@@ -1,0 +1,34 @@
+# Bu dosya yalnız KÖK dizini kapsar. mobile/ kendi .gitignore'unu
+# taşıyor (node_modules, .expo, dist, native klasörler) — burada
+# tekrarlanmıyor, git iç içe .gitignore'ları zaten doğru uyguluyor.
+
+# İşletim sistemi / editör
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+.claude/
+legacy/
+tools/
+
+# Ortam ve sırlar
+.env
+.env.*
+!.env.example
+
+# Kök seviyesinde bir araç kurulursa
+node_modules/
+npm-debug.log*
+
+# Test/geliştirme sırasında üretilen ekran görüntüleri — bu oturumda
+# birkaç kez yanlışlıkla commit'e karıştı (d-round1.png, seats.png vb.).
+# Kalıcı olarak kökte tutulan bir PNG yok, hepsi assets/ altında SVG.
+/*.png
+/*.jpg
+/*.jpeg
+
+# Geçici / yedek dosyalar
+*.orig
+*.bak
+*.tmp

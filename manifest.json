@@ -1,0 +1,19 @@
+{
+  "name": "Seçim 2027 - Kriz Masası",
+  "short_name": "Seçim 2027",
+  "description": "Türkiye'nin nefes kesen seçim strateji oyunu. 2027 erken seçimlerinde partini zafere taşı.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#120e0a",
+  "theme_color": "#8b0000",
+  "orientation": "portrait",
+  "lang": "tr-TR",
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

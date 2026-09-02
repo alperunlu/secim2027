@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Seçim 2027",
+    "slug": "secim2027",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "secim2027",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0a0b0d",
+    "primaryColor": "#d2a83c",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.alu.secim2027",
+      "buildNumber": "1",
+      "supportsTablet": false,
+      "requireFullScreen": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIViewControllerBasedStatusBarAppearance": false,
+        "CFBundleDisplayName": "Seçim 2027"
+      }
+    },
+    "android": {
+      "package": "com.alu.secim2027",
+      "adaptiveIcon": {
+        "backgroundColor": "#0a0b0d",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "backgroundColor": "#0a0b0d",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "012bd056-d554-4a3f-b223-bafe1b40c923"
+      }
+    }
+  }
+}

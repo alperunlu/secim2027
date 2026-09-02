@@ -1,0 +1,22 @@
+{
+  "name": "secim2027",
+  "version": "1.0.0",
+  "description": "Seçim 2027 - Türkiye'nin Seçim Strateji Oyunu",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "serve": "npx serve .",
+    "cap:add:ios": "npx cap add ios",
+    "cap:sync": "npx cap sync",
+    "cap:open:ios": "npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/status-bar": "^6.0.0",
+    "@capacitor/splash-screen": "^6.0.0",
+    "@capacitor/haptics": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  }
+}
