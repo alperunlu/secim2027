@@ -1,4 +1,4 @@
-// Seçim 2027 — Service Worker
+// Seçim 2027 - Service Worker
 const CACHE = 'secim2027-v3';
 const URLS = [
   'index.html',

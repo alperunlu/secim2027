@@ -3,7 +3,7 @@
  * Bu betik onu WebView'a gömülebilir bir JS modülüne çevirir.
  *
  * Artifact yapısından farkı: burada GERÇEK bir WebView viewport'u var, yani
- * oyunun position:fixed + 100dvh modeli olduğu gibi doğru çalışır — Artifact
+ * oyunun position:fixed + 100dvh modeli olduğu gibi doğru çalışır - Artifact
  * için yazdığımız #frame-stage sarmalayıcısı buraya UYGULANMAZ.
  *
  * Çıkarılanlar: yalnızca native pakette 404 verecek ya da anlamsız olan
@@ -26,7 +26,7 @@ const before = html.length;
 // kaynak Prettier ile yeniden biçimlendirilince tutmaz oldu. Burada satır
 // sayısına bağlı değiliz: "if (...serviceWorker..." ifadesinin başladığı
 // yerden, ondan SONRA gelen ilk kapanış satırına kadar (üst düzey ifadenin
-// kendi kapanışı — gövde tek satır olduğu için araya başka bir "}" girmiyor).
+// kendi kapanışı - gövde tek satır olduğu için araya başka bir "}" girmiyor).
 // \r?\n kullanıyoruz: kaynak CRLF'e (Windows) döndüğünde de kırılmasın.
 {
   const marker = 'if ("serviceWorker" in navigator';
@@ -50,7 +50,7 @@ html = html.replace(/^\s*<link rel="apple-touch-icon"[^>]*>\s*$/m, '');
 
 for (const banned of ['serviceWorker', 'manifest.json', 'apple-touch-icon']) {
   if (html.includes(banned)) {
-    throw new Error(`build-html: "${banned}" hâlâ çıktıda — regex tutmadı`);
+    throw new Error(`build-html: "${banned}" hâlâ çıktıda - regex tutmadı`);
   }
 }
 if (!html.includes('btn-newgame')) {
@@ -60,7 +60,7 @@ if (!html.includes('btn-newgame')) {
 mkdirSync(dirname(OUT), { recursive: true });
 writeFileSync(
   OUT,
-  '// ÜRETİLMİŞ DOSYA — elle düzenlemeyin.\n' +
+  '// ÜRETİLMİŞ DOSYA - elle düzenlemeyin.\n' +
     '// Kaynak: ../index.html · Üretici: scripts/build-html.mjs\n' +
     `export const GAME_HTML = ${JSON.stringify(html)};\n`,
   'utf8'

@@ -1,7 +1,7 @@
 /**
  * Hermes .hbc dosyasında dize arar. Hermes salt-ASCII dizeleri tek bayt,
- * ASCII-dışı (Türkçe karakter, emoji, — gibi) dizeleri UTF-16 saklar.
- * Düz bir grep bu yüzden var olan bir dizeyi "yok" gibi gösterebilir —
+ * ASCII-dışı (Türkçe karakter, emoji, - gibi) dizeleri UTF-16 saklar.
+ * Düz bir grep bu yüzden var olan bir dizeyi "yok" gibi gösterebilir -
  * her iki kodlamayı da tarıyoruz.
  */
 import { readFileSync } from 'node:fs';

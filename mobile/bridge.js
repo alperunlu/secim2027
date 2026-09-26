@@ -42,7 +42,7 @@ export function makeBridge(seed) {
   try {
     Object.defineProperty(window, 'localStorage', { value: shim, configurable: true });
   } catch (e) {
-    /* Tanımlanamıyorsa yerleşik olanı tohumla ve yazmaları aynala —
+    /* Tanımlanamıyorsa yerleşik olanı tohumla ve yazmaları aynala;
        her iki yolda da kayıt native tarafta tutulur. */
     try {
       var native = window.localStorage;

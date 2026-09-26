@@ -1,6 +1,6 @@
 /**
  * 1024×1024 uygulama simgesini SVG'den PNG'ye headless render eder.
- * App Store 1024 master'da alfa kanalı istemiyor — arka plan sayfada
+ * App Store 1024 master'da alfa kanalı istemiyor - arka plan sayfada
  * zaten opak, ama emin olmak için PNG'yi alfasız yeniden kodluyoruz.
  */
 import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';

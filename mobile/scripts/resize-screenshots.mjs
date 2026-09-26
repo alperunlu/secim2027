@@ -6,7 +6,7 @@
  * simülatör çözünürlüğü) olarak alınmış, ama App Store Connect'in ekran
  * görüntüsü slotu yalnızca şu tam ölçüleri kabul ediyor:
  *   1242×2688, 2688×1242, 1284×2778, 2778×1284
- * En/boy oranı farkı ~%0.18 — göz ile fark edilmez, düz ölçekleme yeterli.
+ * En/boy oranı farkı ~%0.18 - göz ile fark edilmez, düz ölçekleme yeterli.
  */
 import Jimp from 'jimp-compact';
 import { readdirSync } from 'node:fs';

@@ -10,9 +10,10 @@ import { File, Paths } from 'expo-file-system';
 
 import { GAME_HTML } from './game-html';
 import { makeBridge } from './bridge';
+import GameCenter from './modules/game-center';
 
 /* Oyunun kalıcı tuttuğu iki anahtar (index.html: SAVE_KEY, AUDIO_KEY).
-   Tohumlama bunlarla sınırlı — WebView'a gereksiz veri taşımıyoruz. */
+   Tohumlama bunlarla sınırlı; WebView'a gereksiz veri taşımıyoruz. */
 const KEYS = ['secim2027_save_v4', 'secim2027_audio'];
 
 /* Sayfanın kendi origin'i olsun: göreli hiçbir istek yok ama tanımlı bir
@@ -26,6 +27,14 @@ SplashScreen.preventAutoHideAsync().catch(() => {});
 export default function App() {
   const [seed, setSeed] = useState(null);
   const webRef = useRef(null);
+  // Game Center girişi açılışta bir kez yapılır; başarım/skor mesajları bu
+  // sözü bekler, böylece giriş bitmeden gelen bir başarım kaybolmaz.
+  const gcReady = useRef(null);
+
+  useEffect(() => {
+    if (!GameCenter) return;
+    gcReady.current = GameCenter.signIn().catch(() => false);
+  }, []);
 
   // Kayıt native'den okunmadan WebView'ı KURMUYORUZ; yoksa oyun boş
   // depolamayla açılır ve "Devam Et" görünmez.
@@ -37,7 +46,7 @@ export default function App() {
         const pairs = await AsyncStorage.multiGet(KEYS);
         for (const [k, v] of pairs) if (v != null) store[k] = v;
       } catch (e) {
-        // depolama okunamadıysa oyun yeni kampanyayla açılır — çökmez
+        // depolama okunamadıysa oyun yeni kampanyayla açılır, çökmez
       }
       if (alive) setSeed({ store });
     })();
@@ -85,9 +94,23 @@ export default function App() {
         if (await Sharing.isAvailableAsync()) {
           await Sharing.shareAsync(file.uri, {
             mimeType: 'image/png',
-            dialogTitle: 'Seçim 2027 — Sonuç',
+            dialogTitle: 'Seçim 2027 · Sonuç',
             UTI: 'public.png',
           });
+        }
+      } catch (e) {}
+      return;
+    }
+
+    if (msg.type === 'gc') {
+      if (!GameCenter) return;
+      try {
+        const ok = await (gcReady.current || Promise.resolve(false));
+        if (!ok) return;
+        if (msg.action === 'ach') {
+          await GameCenter.reportAchievement(String(msg.id), 100);
+        } else if (msg.action === 'score') {
+          await GameCenter.submitScore(String(msg.id), Math.round(Number(msg.value) || 0));
         }
       } catch (e) {}
       return;
