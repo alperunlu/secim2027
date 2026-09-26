@@ -5500,6 +5500,265 @@ body,
   }
 }
 </style>
+<style>
+/* ---- 2. Tur Cumhurbaşkanlığı Pazarlığı (screen-coalition) ---- */
+#screen-coalition {
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: calc(0.9rem + env(safe-area-inset-top)) 1.1rem calc(1.4rem + env(safe-area-inset-bottom));
+  gap: 0.85rem;
+}
+#screen-coalition.active {
+  display: flex;
+}
+.coal-head {
+  text-align: center;
+  flex: 0 0 auto;
+}
+.coal-head h2 {
+  font-family: var(--font-display, var(--serif));
+  font-size: clamp(1rem, 4.4vw, 1.35rem);
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin: 0.3rem 0;
+}
+.coal-round {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  color: var(--cream-dim);
+}
+.coal-meter {
+  flex: 0 0 auto;
+}
+.coal-meter-lbl,
+.coal-meter-foot {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--cream-dim);
+}
+.coal-meter-lbl {
+  margin-bottom: 0.3rem;
+  color: var(--gold-dim);
+}
+.coal-meter-foot {
+  margin-top: 0.25rem;
+  opacity: 0.7;
+}
+.coal-bar {
+  position: relative;
+  height: 13px;
+  background: #0007;
+  border: 1px solid #000;
+  overflow: hidden;
+}
+.coal-bar i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, #8f6f2c, var(--gold));
+  transition: width 0.55s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.coal-bar u {
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: rgba(232, 220, 192, 0.5);
+}
+.coal-cards {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+.coal-card {
+  flex: 1 1 7.5rem;
+  max-width: 10.5rem;
+  background: linear-gradient(180deg, #241b12, #1c150d);
+  border: 1px solid var(--brown);
+  padding: 0.65rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    opacity 0.2s;
+}
+.coal-card.sel {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, #2e2316, #241b10);
+}
+.coal-card.off {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.coal-card .cc-arma {
+  display: inline-block;
+  width: 2.1rem;
+  height: 2.1rem;
+  vertical-align: middle;
+  margin-bottom: 0.25rem;
+}
+.coal-card .cc-name {
+  font-family: var(--serif);
+  font-size: 0.82rem;
+  color: var(--cream);
+  line-height: 1.25;
+  min-height: 2.1em;
+}
+.coal-card .cc-seat {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--gold-dim);
+  margin: 0.2rem 0 0.15rem;
+}
+.coal-card .cc-status {
+  font-family: var(--mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.18em;
+  color: var(--cream-dim);
+}
+.coal-card .cc-status.joined {
+  color: #8fbf7a;
+}
+.coal-card .cc-status.walked {
+  color: var(--red-bright);
+}
+.coal-desk {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.7rem;
+  padding: 0.4rem 0 0.6rem;
+}
+.coal-q {
+  font-family: var(--font-text, var(--serif));
+  font-size: clamp(0.98rem, 4.2vw, 1.14rem);
+  line-height: 1.55;
+  color: var(--cream);
+  font-style: italic;
+  max-width: 34rem;
+  margin: 0;
+  padding: 0 0.3rem;
+}
+.coal-q::before {
+  content: "“";
+}
+.coal-q::after {
+  content: "”";
+}
+.coal-kind {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-dim);
+  border: 1px solid var(--brown);
+  padding: 0.12rem 0.5rem;
+}
+.coal-opts {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.coal-opt {
+  text-align: left;
+  font-family: var(--serif);
+  background: linear-gradient(180deg, #241b12, #1c150d);
+  border: 1px solid var(--brown);
+  color: var(--cream);
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  line-height: 1.5;
+  font-size: 0.94rem;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.coal-opt:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, #2e2316, #241b10);
+}
+.coal-opt:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.coal-opt .co-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  color: var(--gold-dim);
+  margin-bottom: 0.3rem;
+}
+.coal-opt .co-det {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--cream-dim);
+  margin-top: 0.35rem;
+  line-height: 1.6;
+}
+.coal-opt.on {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, #34281a, #271d11);
+}
+.coal-opt.dem::before {
+  content: "☐ ";
+  color: var(--gold-dim);
+  font-family: var(--mono);
+}
+.coal-opt.dem.on::before {
+  content: "☑ ";
+  color: var(--gold);
+}
+.coal-sum {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-align: center;
+  padding: 0.2rem 0;
+}
+.coal-tally {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--cream-dim);
+  margin: 0.5rem 0 0.2rem;
+  line-height: 1.6;
+}
+.coal-verdict {
+  flex: 0 0 auto;
+  text-align: center;
+}
+.coal-verdict .dv-t {
+  font-family: var(--font-display, var(--serif));
+  font-size: 1.15rem;
+  margin: 0.4rem 0 0.5rem;
+}
+.coal-verdict .dv-x {
+  font-family: var(--font-text, var(--serif));
+  color: var(--cream-dim);
+  line-height: 1.6;
+  max-width: 32rem;
+  margin: 0 auto 1rem;
+}
+</style>
 </head>
 <body>
 <svg id="sprite" aria-hidden="true" focusable="false"
@@ -6189,6 +6448,27 @@ body,
   <div class="dbt-timer"><i id="dbt-timer-bar"></i></div>
   <div class="dbt-answers" id="dbt-answers"></div>
   <div class="dbt-verdict" id="dbt-verdict"></div>
+</section>
+
+<section id="screen-coalition" class="screen">
+  <div class="breaking"><span class="brk-tag">SANDIK</span><span class="brk-txt" id="coal-brk">Sandıktan cumhurbaşkanı çıkmadı: seçim ikinci tura kaldı.</span></div>
+  <div class="coal-head">
+    <span class="live">● KAPALI KAPI ARDINDA</span>
+    <h2>2. TUR · CUMHURBAŞKANLIĞI PAZARLIĞI</h2>
+    <div class="coal-round">GÜN <span id="coal-day">1</span>/3 · <span id="coal-role">—</span></div>
+  </div>
+  <div class="coal-meter">
+    <div class="coal-meter-lbl"><span id="coal-meter-tag">2. TUR PROJEKSİYONU</span><span id="coal-seats-val">—</span></div>
+    <div class="coal-bar"><i id="coal-seats-bar"></i><u></u></div>
+    <div class="coal-meter-foot"><span id="coal-credit">—</span><span id="coal-gap-lbl">—</span></div>
+  </div>
+  <div class="coal-cards" id="coal-cards"></div>
+  <div class="coal-desk">
+    <blockquote class="coal-q" id="coal-q">Bir masa seçin; ateş her masanın üstünde değil.</blockquote>
+    <div class="coal-kind" id="coal-kind">MASA SEÇİN</div>
+  </div>
+  <div class="coal-opts" id="coal-opts"></div>
+  <div class="coal-verdict" id="coal-verdict"></div>
 </section>
 
 <section id="screen-end" class="screen">
@@ -31322,13 +31602,13 @@ function renderSeats(id, rows) {
   if (!my)
     verdict = `<b>Baraj altında kaldınız.</b> %${SEAT_THRESHOLD} eşiğini aşamayan blok Meclis'e giremiyor; ${topSeats} vekille en büyük blok ${top.n}.`;
   else if (top.me && topSeats >= SEAT_MAJORITY)
-    verdict = `<b>${my} vekille tek başına çoğunluk sizde.</b> Hükümeti kurmak için kimseye ihtiyacınız yok.`;
+    verdict = `<b>${my} vekille tek başına çoğunluk sizde.</b> Yasama çoğunluğu için kimseye ihtiyacınız yok.`;
   else if (topSeats >= SEAT_MAJORITY)
     verdict = `${top.n} ${topSeats} vekille tek başına çoğunluğu aldı. Sizin ${my} vekiliniz muhalefet sıralarında.`;
   else if (top.me)
-    verdict = `<b>Meclis'in en büyük bloğu sizsiniz: ${my} vekil.</b> Ama çoğunluk için ${gap} vekil eksik, hükümeti kurmak artık pazarlık meselesi.`;
+    verdict = `<b>Meclis'in en büyük bloğu sizsiniz: ${my} vekil.</b> Ama çoğunluk için ${gap} vekil eksik, yasama çoğunluğu artık pazarlık meselesi.`;
   else if (my >= gap)
-    verdict = `Hiçbir blok tek başına çoğunlukta değil. En büyük blok ${top.n} (${topSeats}), çoğunluğa ${gap} vekil eksiği var, <b>sizin ${my} vekiliniz o açığı tek başına kapatıyor.</b> Anahtar sizde.`;
+    verdict = `Hiçbir blok tek başına çoğunlukta değil. En büyük blok ${top.n} (${topSeats}), çoğunluğa ${gap} vekil eksiği var, <b>sizin ${my} vekiliniz o açığı tek başına kapatıyor.</b> Meclis'te anahtar sizde.`;
   else
     verdict = `Hiçbir blok tek başına çoğunlukta değil. En büyük blok ${top.n} (${topSeats}); çoğunluk için ${gap} vekil eksik, sizin ${my} vekiliniz tek başına yetmiyor.`;
   const rowsHtml = rows
@@ -31481,6 +31761,7 @@ function debateAnswer(tone, text) {
 function debateEnd() {
   DBT.done = true;
   dbtStopTimer();
+  if (DBT.hall >= 75) gcAchievement("s27_debate75");
   document.getElementById("dbt-answers").innerHTML = "";
   document.getElementById("dbt-timer-bar").style.width = "0%";
   document.getElementById("dbt-q").textContent = "Yayın bitti, stüdyo ışıkları söndü.";
@@ -31739,9 +32020,729 @@ function evaluateResult() {
     topShare,
   };
 }
+/* ============ GAME CENTER KÖPRÜSÜ (native dışında sessiz no-op) ============ */
+function gcPost(msg) {
+  try {
+    if (window.ReactNativeWebView)
+      window.ReactNativeWebView.postMessage(JSON.stringify(msg));
+  } catch (e) {}
+}
+function gcAchievement(id) {
+  gcPost({ type: "gc", action: "ach", id: id });
+}
+function gcScore(value) {
+  gcPost({ type: "gc", action: "score", id: "s27_national_vote", value: Math.round(value) });
+}
+
+/* ============ 2. TUR — CUMHURBAŞKANLIĞI PAZARLIĞI ============
+   İlk turda hiçbir aday %50'ye ulaşamazsa seçim ikinci tura kalır.
+   - Oyuncu ilk ikideyse (ADAY): elenen partilerin kapısını çalıp destek toplar.
+   - Oyuncu %4+ ile elendiyse (KİLİT PARTİ): iki adayın taleplerini karşılayıp
+     kimi destekleyeceğine karar verir; desteklediği aday genelde kazanır.
+   %50'yi ilk turda geçen aday varsa oyun doğrudan biter. */
+const RUNOFF_LINE = 50;
+const RUNOFF_MIN = 4;
+const RUNOFF_NOISE = 0.9;
+const INC_TIRED = 0.8;
+const COAL_AFFINITY = {
+  devlet: { degisim: 0.12, cephe: 0.72, mutabakat: 0.78, dayanisma: 0.08, emek: 0.05 },
+  degisim: { devlet: 0.12, cephe: 0.34, mutabakat: 0.5, dayanisma: 0.66, emek: 0.44 },
+  cephe: { devlet: 0.72, degisim: 0.34, mutabakat: 0.62, dayanisma: 0.12, emek: 0.06 },
+  mutabakat: { devlet: 0.78, degisim: 0.5, cephe: 0.62, dayanisma: 0.32, emek: 0.16 },
+  dayanisma: { devlet: 0.08, degisim: 0.66, cephe: 0.12, mutabakat: 0.32, emek: 0.82 },
+  emek: { devlet: 0.05, degisim: 0.44, cephe: 0.06, mutabakat: 0.16, dayanisma: 0.82 },
+};
+function coalAff(a, b) {
+  const m = COAL_AFFINITY[a] || {};
+  return typeof m[b] === "number" ? m[b] : 0.35;
+}
+const RUNOFF_SHORT = {
+  devlet: "İKTİDAR",
+  degisim: "DEĞİŞİM",
+  cephe: "CEPHE",
+  mutabakat: "MUTABAKAT",
+  dayanisma: "DAYANIŞMA",
+  emek: "EMEK",
+};
+/* Elenen bir partinin seçmeni ikinci turda nereye gider? */
+function runoffTransfer(e, A, B, endorse) {
+  const aA = coalAff(e.id, A.id),
+    aB = coalAff(e.id, B.id);
+  const pick = endorse[e.id];
+  if (pick && (pick.to === A.id || pick.to === B.id)) {
+    const strong = pick.by === "deal"; // pazarlıkla gelen destek tam, kendiliğinden gelen yarım
+    const aff = pick.to === A.id ? aA : aB;
+    const eff = strong ? 0.58 + 0.28 * aff : 0.4 + 0.25 * aff;
+    const gain = e.s * eff,
+      leak = e.s * (1 - eff) * 0.2;
+    return pick.to === A.id ? { a: gain, b: leak } : { a: leak, b: gain };
+  }
+  const tot = aA + aB + 0.4;
+  const fa = (A.id === "devlet" ? INC_TIRED : 1) * (aA / tot);
+  const fb = (B.id === "devlet" ? INC_TIRED : 1) * (aB / tot);
+  return { a: e.s * 0.75 * fa, b: e.s * 0.75 * fb };
+}
+/* A'nın iki aday arasındaki payı (pa) — brokerId: kilit partinin desteği ivme yaratır */
+function runoffTally(rows, A, B, endorse, brokerId) {
+  let a = A.s * (A.id === "devlet" ? 0.95 : 1),
+    b = B.s * (B.id === "devlet" ? 0.95 : 1);
+  rows.forEach((e) => {
+    if (e.id === A.id || e.id === B.id) return;
+    const t = runoffTransfer(e, A, B, endorse);
+    const en = endorse[e.id];
+    const bw = brokerId && e.id === brokerId && en && en.by === "deal" ? 1.3 : 1;
+    a += t.a * (en && en.to === A.id ? bw : 1);
+    b += t.b * (en && en.to === B.id ? bw : 1);
+  });
+  return { a, b, pa: (a / (a + b)) * 100 };
+}
+/* Elenen partiler kendiliğinden, ideolojik yakınlığı belirgin olan adaya yaslanır */
+function runoffAIEndorse(rows, A, B, skipId) {
+  const m = {};
+  rows.forEach((e) => {
+    if (e.id === A.id || e.id === B.id || e.id === skipId) return;
+    const d = coalAff(e.id, A.id) - coalAff(e.id, B.id);
+    if (Math.abs(d) >= 0.3) m[e.id] = { to: d > 0 ? A.id : B.id, by: "self" };
+  });
+  return m;
+}
+/* Oyuncu masaya oturamıyorsa sonucu yine de bilelim (ekran metni için) */
+function runoffAuto() {
+  const rows = FINAL.rows;
+  if (rows[0].s >= RUNOFF_LINE) return { first: true, winner: rows[0] };
+  const A = rows[0],
+    B = rows[1];
+  const t = runoffTally(rows, A, B, runoffAIEndorse(rows, A, B, null));
+  return { first: false, winner: t.pa >= 50 ? A : B, A, B };
+}
+function runoffAvailability() {
+  if (!FINAL || !FINAL.rows || FINAL.rows.length < 3) return null;
+  const rows = FINAL.rows;
+  if (rows[0].s >= RUNOFF_LINE) return null;
+  const A = rows[0],
+    B = rows[1];
+  const me = rows.find((r) => r.me);
+  if (!me) return null;
+  if (me.id === A.id || me.id === B.id)
+    return { mode: "chase", A, B, me, rival: me.id === A.id ? B : A };
+  if (me.s >= RUNOFF_MIN) return { mode: "broker", A, B, me };
+  return null;
+}
+
+/* ---- Pazarlık malzemesi ---- */
+const RUNOFF_PKG = [
+  {
+    id: "bildiri",
+    t: "Ortak Bildiri",
+    d: "Sıcak bir fotoğraf, ortak açıklama, meydanda teşekkür.",
+    val: 14,
+    det: "Ortak bildiri · Teşekkür konuşması",
+  },
+  {
+    id: "madde",
+    t: "Program Maddesi",
+    d: "Kırmızı çizgisini programınıza yazarsınız.",
+    val: 30,
+    det: "Bir kırmızı çizgi kanunu · Ortak bildiri",
+  },
+  {
+    id: "bakanlik",
+    t: "Bakanlık Payı",
+    d: "İki bakanlık ve programda söz hakkı.",
+    val: 52,
+    det: "İki Bakanlık · Bir program maddesi · Kadro kontenjanı",
+  },
+  {
+    id: "ortak",
+    t: "Ortak Yönetim",
+    d: "Ağır portföyler ve Cumhurbaşkanı Yardımcılığı.",
+    val: 84,
+    det: "Üç Bakanlık + Cumhurbaşkanı Yardımcılığı · İki program maddesi · Kadro kontenjanı",
+  },
+];
+const RUNOFF_DEMANDS = [
+  { id: "bakanlik", t: "İki Bakanlık", d: "Seçeceğiniz iki portföy sizin olacak.", val: 24 },
+  { id: "yardimci", t: "Cumhurbaşkanı Yardımcılığı", d: "Kabinede ikinci koltuk sizin.", val: 22 },
+  { id: "kanun", t: "Kırmızı Çizgi Kanunu", d: "", val: 26 },
+  { id: "kadro", t: "Devlet Kadro Kontenjanı", d: "Kurumlarda partinize kadro payı ayrılacak.", val: 18 },
+];
+const RUNOFF_REDLINE = {
+  devlet: "Kamu düzeni ve istikrar paketi yasalaşacak.",
+  degisim: "Yargı bağımsızlığı yasası ilk yüz günde çıkacak.",
+  cephe: "Sınır güvenliği ve geri dönüş yasası çıkarılacak.",
+  mutabakat: "KOBİ vergi ve kredi düzenlemesi yasalaşacak.",
+  dayanisma: "Yerel yönetimlere müdahaleyi yasaklayan yasa çıkacak.",
+  emek: "Asgari ücret ve iş güvenliği yasası çıkarılacak.",
+};
+/* Elenen parti (oyuncu adaysa) konuşuyor */
+const RUNOFF_ASK = {
+  devlet: {
+    open: "Köşkün yolu bizden geçmedi diye kapımız kapanmaz. Ne getirdiniz?",
+    counter: "Fotoğraf yetmez; devlet ciddiyet ister. Biraz daha somut olun.",
+    walk: "Bu masada ciddiyet yok. Biz bekleriz; seçmen de bekler.",
+    accept: "Peki. Devlet devamlılıktır; sözünüz tutanakta, desteğimiz meydanda.",
+  },
+  degisim: {
+    open: "Değişim treni bu kez sizinle mi yürür, göreceğiz. Şartlarınızı sayın.",
+    counter: "Cümleleriniz güzel ama ilkelerimiz pazarlık kaleminde değil. Bir adım daha.",
+    walk: "Kimseye açık çek imzalamayız. Kapı açık, ama bu paketle değil.",
+    accept: "Tamam. Yan yana yürümek zorundayız; sabah ortak açıklama.",
+  },
+  cephe: {
+    open: "Kısa konuşayım. Meydanda söylediğinizi masada da söyleyin. Bedeliniz ne?",
+    counter: "Kırıntıyla cephe menzillenmez. Ya gerçekçi olun ya çekin gidin.",
+    walk: "Kapı şu tarafta. Cephemiz sizin listenizde değil.",
+    accept: "İmzamız hazır. Ama bilin: denetim bizde, sabır sırası da.",
+  },
+  mutabakat: {
+    open: "Gelin, çayımızı içelim. Uzlaşmak erdemdir; erdem de bedava değildir.",
+    counter: "Niyetinizi takdir ettim, ikmâlini bekliyorum. Terazi biraz eksik.",
+    walk: "Üzüldüm ama kararlıyım: bu paketle bu kapı açılmaz. Selam söyleyin.",
+    accept: "Helâl olsun. Ortak akıl ortak kader demektir. İmzamız hazır.",
+  },
+  dayanisma: {
+    open: "Meydanlarda 'halk' dediniz. Masanın başında ne diyeceksiniz, bakalım?",
+    counter: "Halk laf ucuyla değil harmanla kazanılır. Harman biraz kısa kaldı.",
+    walk: "Sözle karnımız doymuyor. Bu paketle sandık başındaki emekçiyi ikna edemeyiz.",
+    accept: "Tamam. Harman sağlam. Halka nasıl anlatacağımızı biliriz.",
+  },
+  emek: {
+    open: "Sınıf siyaseti mührü masaya koyana kadar güzeldi. Şimdi terazi vakti.",
+    counter: "Program bir karış sola çekilmeden imza gelmez.",
+    walk: "Bloğun disiplini net: bu şartlarla omuz omuza yok.",
+    accept: "İmtihandan geçtiniz. Kamu yararı maddesi birinci sırada; imza tereddütsüz.",
+  },
+};
+/* Aday konuşuyor (oyuncu kilit parti) */
+const RUNOFF_CAND = {
+  devlet: {
+    open: "Küçük ama kilit olduğunuzu biliyoruz. Oturun; hesabı konuşalım.",
+    counter: "Talebiniz ağır. Devlet taksit sever; biraz yumuşatın, kalanına evet diyelim.",
+    walk: "Tehditle masa kurulmaz. Sandık bizi sizsiz de taşır. Görüşme bitti.",
+    accept: "Kabul. Sözümüz tutanakta; bu söz cumhurbaşkanlığının onuru ile bağlıdır.",
+  },
+  degisim: {
+    open: "Sizi bekliyorduk. Değişim tek başına yetmez; ne istiyorsunuz?",
+    counter: "Bu liste bir koalisyon hükümeti için, cumhurbaşkanlığı için fazla. Biraz azaltın.",
+    walk: "Bu fiyata zafer alınmaz. Başka kapıları da çalacağız.",
+    accept: "Anlaştık. Sabah ilk iş ortak açıklama; sözümüz sözdür.",
+  },
+  cephe: {
+    open: "Laf değil hesap konuşacağız. Ne istiyorsunuz?",
+    counter: "İstediğiniz bize de dokunuyor. Yumuşatırsanız devam ederiz.",
+    walk: "İlkelerimizi pazarlığa yatırmayız. Kapı şu taraftan.",
+    accept: "Tamam. Ayaklarımız yere basıyor; destek karşılığında bunu yazıyoruz.",
+  },
+  mutabakat: {
+    open: "Gelin, konuşalım. İki adayın arasında gerçek bir denge kurabilirsiniz.",
+    counter: "Niyetinizi takdir ettim. Ama bizim de hassasiyetlerimiz var, biraz esneyin.",
+    walk: "Üzüldüm ama bu paketi kabul edemeyiz. Selam söyleyin.",
+    accept: "Helâl olsun. Ortak akıl ortak kader. Tutanağa geçelim.",
+  },
+  dayanisma: {
+    open: "Emek ve barış... İki sözcük, tek masa. Neyi, kimin adına istiyorsunuz?",
+    counter: "Halk için verilecek söz halkça tartılır; şartlarınızı bir miktar yumuşatın.",
+    walk: "Halk pazarlıkla değil kararlılıkla kazanır. Bu paketle olmaz.",
+    accept: "Tamam. Yan yana yürüyeceğiz; sandıkta halka birlikte anlatırız.",
+  },
+  emek: {
+    open: "Sınıf ittifakının hesabı görülmeden imza atılmaz. Listeyi görelim.",
+    counter: "Program bir karış değişirse yol açık; şimdilik fazla.",
+    walk: "Bloğun disiplini net. Bu şartlarla imza yok.",
+    accept: "İmtihandan geçtiniz. Kamu yararı maddesi öncelikli; imza tereddütsüz.",
+  },
+};
+const RUNOFF_PRESS = [
+  "Sandıktan cumhurbaşkanı çıkmadı: %50 sınırı aşılamadı, seçim ikinci tura kaldı.",
+  "İkinci tura beş gün var; liderler kapı kapı dolaşıyor, telefonlar susmuyor.",
+  "Sandığa son kırk sekiz saat: kulislerde son görüşmeler sürüyor.",
+];
+let COAL = null;
+
+function runoffPct(t) {
+  return COAL.me.id === COAL.A.id ? t.pa : 100 - t.pa;
+}
+function runoffProject() {
+  return runoffTally(
+    COAL.rows,
+    COAL.A,
+    COAL.B,
+    COAL.endorse,
+    COAL.mode === "broker" ? COAL.me.id : null,
+  );
+}
+/* Kilit parti kimi seçerse seçsin sonuç değişiyor mu? */
+function runoffPivotal() {
+  const me = COAL.me.id;
+  const eA = { ...COAL.endorse, [me]: { to: COAL.A.id, by: "deal" } };
+  const eB = { ...COAL.endorse, [me]: { to: COAL.B.id, by: "deal" } };
+  const wA = runoffTally(COAL.rows, COAL.A, COAL.B, eA, me).pa >= 50;
+  const wB = runoffTally(COAL.rows, COAL.A, COAL.B, eB, me).pa >= 50;
+  return wA && !wB;
+}
+function startCoalition() {
+  const av = runoffAvailability();
+  if (!av) return;
+  const rows = FINAL.rows;
+  const ai = runoffAIEndorse(rows, av.A, av.B, av.mode === "broker" ? av.me.id : null);
+  const pool =
+    av.mode === "chase"
+      ? rows
+          .filter((r) => r.id !== av.A.id && r.id !== av.B.id)
+          .map((r) => ({ id: r.id, n: r.n, c: r.c, s: r.s }))
+          .sort((a, b) => b.s - a.s)
+      : [av.A, av.B].map((r) => ({ id: r.id, n: r.n, c: r.c, s: r.s }));
+  COAL = {
+    mode: av.mode,
+    A: av.A,
+    B: av.B,
+    me: av.me,
+    rival: av.rival || null,
+    rows,
+    pool,
+    endorse: { ...ai },
+    round: 0,
+    credit: av.mode === "chase" ? Math.round(34 + av.me.s * 1.1) : 0,
+    pressure: 1,
+    patience: 1,
+    focus: null,
+    offered: false,
+    sel: new Set(),
+    pending: null,
+    news: "",
+    deals: [],
+  };
+  showScreen("screen-coalition");
+  document.body.className = "";
+  stopMusic();
+  document.getElementById("coal-role").textContent = av.mode === "chase" ? "ADAY" : "KİLİT PARTİ";
+  document.getElementById("coal-verdict").innerHTML = "";
+  coalRender();
+}
+/* Elenen parti oyuncuya ne kadar bedel ister (aday modu)? */
+function coalNeed(p) {
+  const me = COAL.me,
+    rival = COAL.rival;
+  const en = COAL.endorse[p.id];
+  const lean = en && en.to === rival.id ? 1.35 : en && en.to === me.id ? 0.8 : 1;
+  const goalMul = ["cephe", "mutabakat", "dayanisma"].includes(p.id) ? 1.1 : 1;
+  const base =
+    (12 + p.s * 1.6) * (1.55 - coalAff(me.id, p.id) * 0.95) * lean * goalMul * COAL.pressure;
+  return p.countered ? base * 0.88 : base;
+}
+/* Aday, kilit partinin talebine ne kadar karşılık verir (kilit parti modu)? */
+function coalWill(c) {
+  const me = COAL.me;
+  const t = runoffTally(COAL.rows, COAL.A, COAL.B, COAL.endorse, null);
+  const pc = c.id === COAL.A.id ? t.pa : 100 - t.pa;
+  const need = clamp((50 - pc) / 5 + 0.45, 0.3, 1.7);
+  const w =
+    (14 + me.s * 1.7) * (0.5 + coalAff(me.id, c.id) * 0.9) * (0.5 + need) * COAL.patience;
+  return c.countered ? w * 1.15 : w;
+}
+function coalStatusLabel(p) {
+  if (p.status === "joined") return COAL.mode === "chase" ? "DESTEK VERDİ" : "DESTEĞİNİZİ ALDI";
+  if (p.status === "walked") return "MASADAN KALKTI";
+  if (p.status === "rival") return "RAKİBE GİTTİ";
+  if (COAL.mode === "chase") {
+    const en = COAL.endorse[p.id];
+    if (en && en.to === COAL.rival.id) return "RAKİBE YAKIN";
+    if (en && en.to === COAL.me.id) return "SİZE YAKIN";
+  }
+  return "AÇIK MASA";
+}
+function coalRender() {
+  const co = COAL;
+  document.getElementById("coal-day").textContent = co.round + 1;
+  document.getElementById("coal-brk").textContent =
+    co.news || RUNOFF_PRESS[Math.min(co.round, RUNOFF_PRESS.length - 1)];
+  const tag = document.getElementById("coal-meter-tag");
+  const val = document.getElementById("coal-seats-val");
+  const bar = document.getElementById("coal-seats-bar");
+  const cred = document.getElementById("coal-credit");
+  const gapL = document.getElementById("coal-gap-lbl");
+  const t = runoffProject();
+  if (co.mode === "chase") {
+    const my = runoffPct(t);
+    tag.textContent = "2. TUR PROJEKSİYONU";
+    val.textContent = "%" + f1(my) + " / %50+1";
+    bar.style.width = clamp(my, 0, 100) + "%";
+    cred.textContent = "PAZARLIK KREDİSİ " + co.credit;
+    gapL.textContent = my >= 50 ? "ÖNDESİNİZ +" + f1(my - 50) : "EKSİK: %" + f1(50 - my);
+  } else {
+    tag.textContent = "SİZSİZ 2. TUR";
+    val.textContent =
+      RUNOFF_SHORT[co.A.id] + " %" + f1(t.pa) + " · " + RUNOFF_SHORT[co.B.id] + " %" + f1(100 - t.pa);
+    bar.style.width = clamp(t.pa, 0, 100) + "%";
+    cred.textContent = "SİZİN OYUNUZ %" + f1(co.me.s);
+    gapL.textContent = runoffPivotalLabel(t);
+  }
+  const cards = document.getElementById("coal-cards");
+  cards.innerHTML = co.pool
+    .map((p) => {
+      const cls = p.status ? "off" : "";
+      const sel = co.focus && co.focus.id === p.id ? "sel" : "";
+      const sub = co.mode === "chase" ? "%" + f1(p.s) + " OY" : "%" + f1(p.s) + " · 1. TUR";
+      return `<div class="coal-card ${cls} ${sel}" data-pid="${p.id}">
+    <span class="cc-arma" style="color:${p.c}">${armaSvg(p.id, "")}</span>
+    <div class="cc-name">${p.n}</div>
+    <div class="cc-seat">${sub}</div>
+    <div class="cc-status ${p.status || ""}">${coalStatusLabel(p)}</div>
+  </div>`;
+    })
+    .join("");
+  cards.querySelectorAll(".coal-card").forEach((el) => {
+    el.onclick = () => {
+      const p = COAL.pool.find((x) => x.id === el.dataset.pid);
+      if (!p || p.status) return;
+      coalPick(p);
+    };
+  });
+  if (!co.focus || co.focus.status) {
+    const open = co.pool.filter((p) => !p.status);
+    if (open.length) coalPick(open[0]);
+    else coalOptions(null);
+  } else coalOptions(co.focus);
+  document.getElementById("coal-verdict").innerHTML = "";
+}
+function runoffPivotalLabel(t) {
+  if (runoffPivotal()) return "KİMİ SEÇERSENİZ O KAZANIR";
+  const lead = t.pa >= 50 ? COAL.A : COAL.B;
+  return RUNOFF_SHORT[lead.id] + " ÖNDE · FARK AÇIK";
+}
+function coalLines(p) {
+  return (COAL.mode === "chase" ? RUNOFF_ASK : RUNOFF_CAND)[p.id] || RUNOFF_ASK.mutabakat;
+}
+function coalPick(p) {
+  COAL.focus = p;
+  COAL.sel = new Set();
+  COAL.pending = null;
+  const line = coalLines(p);
+  document.getElementById("coal-q").textContent = p.countered ? line.counter : line.open;
+  document.getElementById("coal-kind").textContent =
+    COAL.mode === "chase" ? "PAKETİNİZİ SUNUN" : "TALEPLERİNİZİ SEÇİN";
+  haptic(8);
+  sfx("paper");
+  coalRender();
+}
+function coalOptions(p) {
+  const box = document.getElementById("coal-opts");
+  if (!p) {
+    box.innerHTML = `<button class="btn" onclick="coalEnd()">Sandığa Git ▸</button>`;
+    document.getElementById("coal-q").textContent =
+      "Açık masa kalmadı. Şimdi sözü sandık söyleyecek…";
+    document.getElementById("coal-kind").textContent = "PAZARLIK KAPANIYOR";
+    return;
+  }
+  if (COAL.mode === "chase") {
+    box.innerHTML =
+      RUNOFF_PKG.map((g) => {
+        const dis = g.val > COAL.credit ? " disabled" : "";
+        return `<button class="coal-opt" data-gid="${g.id}"${dis}>
+    <span class="co-head"><span>${g.t.toUpperCase()}</span><span>KREDİ ${g.val}</span></span>
+    <span>${g.d}</span>
+    <span class="co-det">${g.det}</span>
+  </button>`;
+      }).join("") +
+      `<button class="btn ghost" onclick="coalAdvance()">Günü Kapat →</button>
+       <button class="btn ghost" onclick="coalEnd()">Pazarlığı Bitir · Sandığa Git ▸</button>`;
+    box.querySelectorAll(".coal-opt").forEach((el) => {
+      el.onclick = () => coalOffer(el.dataset.gid);
+    });
+  } else {
+    coalDemandsUI();
+  }
+}
+/* Kilit parti: Talepler Masası */
+function coalDemandsUI() {
+  const box = document.getElementById("coal-opts");
+  const line = RUNOFF_REDLINE[COAL.me.id] || "";
+  box.innerHTML =
+    RUNOFF_DEMANDS.map((d) => {
+      const desc = d.id === "kanun" ? "Kırmızı çizginiz: " + line : d.d;
+      return `<button class="coal-opt dem${COAL.sel.has(d.id) ? " on" : ""}" data-did="${d.id}">
+    <span class="co-head"><span>${d.t.toUpperCase()}</span><span>DEĞER ${d.val}</span></span>
+    <span>${desc}</span>
+  </button>`;
+    }).join("") +
+    `<div class="coal-sum" id="coal-sum"></div>
+     <button class="btn" id="coal-send" disabled>Teklifi Sun ▸</button>
+     <button class="btn ghost" onclick="coalEnd()">Tarafsız Kal · Sandığa Git</button>`;
+  const upd = () => {
+    const tot = RUNOFF_DEMANDS.filter((d) => COAL.sel.has(d.id)).reduce((a, d) => a + d.val, 0);
+    document.getElementById("coal-sum").textContent = COAL.sel.size
+      ? "TALEP TOPLAMI: " + tot + " · " + COAL.sel.size + " KALEM"
+      : "EN AZ BİR TALEP SEÇİN";
+    document.getElementById("coal-send").disabled = !COAL.sel.size;
+  };
+  box.querySelectorAll(".coal-opt").forEach((el) => {
+    el.onclick = () => {
+      const id = el.dataset.did;
+      if (COAL.sel.has(id)) COAL.sel.delete(id);
+      else COAL.sel.add(id);
+      el.classList.toggle("on", COAL.sel.has(id));
+      haptic(6);
+      upd();
+    };
+  });
+  document.getElementById("coal-send").onclick = () => coalOffer();
+  upd();
+}
+function coalOffer(gid) {
+  const p = COAL.focus;
+  if (!p || p.status) return;
+  if (COAL.mode === "chase") {
+    const g = RUNOFF_PKG.find((x) => x.id === gid);
+    if (!g) return;
+    const need = coalNeed(p);
+    if (g.val >= need) {
+      COAL.credit -= g.val;
+      p.status = "joined";
+      COAL.endorse[p.id] = { to: COAL.me.id, by: "deal" };
+      COAL.deals.push({ id: p.id, n: p.n, val: g.val, t: g.t });
+      coalVerdict(p, "accept", "MASA KAPANDI · DESTEK VAR", "win");
+    } else if (g.val >= need * 0.6) {
+      p.countered = true;
+      coalVerdict(p, "counter", "KARŞI TEKLİF", "tick");
+    } else {
+      p.status = "walked";
+      coalVerdict(p, "walk", "MASADAN KALKTI", "crisis");
+      if (COAL.round >= 2 && !COAL.pool.some((x) => !x.status)) return coalEnd();
+    }
+    COAL.offered = true;
+    document.getElementById("coal-opts").innerHTML = `<button class="btn" onclick="coalAdvance()">Devam →</button>
+      <button class="btn ghost" onclick="coalEnd()">Sandığa Git ▸</button>`;
+  } else {
+    const items = RUNOFF_DEMANDS.filter((d) => COAL.sel.has(d.id));
+    if (!items.length) return;
+    const tot = items.reduce((a, d) => a + d.val, 0);
+    const will = coalWill(p);
+    if (tot <= will) {
+      p.status = "joined";
+      coalVerdict(p, "accept", "ANLAŞMA · DESTEK VERİLDİ", "win");
+      document.getElementById("coal-opts").innerHTML = "";
+      return setTimeout(() => coalEnd("deal", p, items), 1100);
+    }
+    if (tot <= will * 1.5) {
+      // karşı teklif: en ağır kalemleri çıkarıp kalanına evet der
+      const keep = [];
+      let sum = 0;
+      [...items]
+        .sort((a, b) => a.val - b.val)
+        .forEach((d) => {
+          if (sum + d.val <= will) {
+            keep.push(d);
+            sum += d.val;
+          }
+        });
+      if (keep.length) {
+        p.countered = true;
+        COAL.pending = { p, items: keep };
+        coalVerdict(p, "counter", "KARŞI TEKLİF", "tick");
+        const names = keep.map((d) => d.t).join(" + ");
+        document.getElementById("coal-opts").innerHTML = `<div class="coal-sum">KARŞI TEKLİF: ${names} (değer ${sum})</div>
+          <button class="btn" id="coal-acc">Karşı Teklifi Kabul Et ▸</button>
+          <button class="btn ghost" onclick="coalAdvance()">Reddet · Günü Kapat →</button>`;
+        document.getElementById("coal-acc").onclick = () => {
+          p.status = "joined";
+          coalEnd("deal", p, COAL.pending.items);
+        };
+        return;
+      }
+    }
+    p.status = "walked";
+    coalVerdict(p, "walk", "MASADAN KALKTI", "crisis");
+    COAL.offered = true;
+    document.getElementById("coal-opts").innerHTML = COAL.pool.some((x) => !x.status)
+      ? `<button class="btn" onclick="coalAdvance()">Devam →</button>
+         <button class="btn ghost" onclick="coalEnd()">Tarafsız Kal · Sandığa Git</button>`
+      : `<button class="btn" onclick="coalEnd()">Sandığa Git ▸</button>`;
+  }
+}
+function coalVerdict(p, kind, tag, sfxName) {
+  document.getElementById("coal-q").textContent = coalLines(p)[kind];
+  document.getElementById("coal-kind").textContent = tag;
+  document.getElementById("coal-verdict").innerHTML = `<div class="stamp-anim">${tag}</div>`;
+  sfx("thud");
+  setTimeout(() => sfx(sfxName), 240);
+  haptic(kind === "accept" ? [14, 60, 14] : 10);
+  coalPaintCards();
+}
+function coalPaintCards() {
+  const cards = document.getElementById("coal-cards");
+  cards.querySelectorAll(".coal-card").forEach((el) => {
+    const p = COAL.pool.find((x) => x.id === el.dataset.pid);
+    if (!p) return;
+    el.classList.toggle("off", !!p.status);
+    el.classList.toggle("sel", !p.status && COAL.focus && COAL.focus.id === p.id);
+    const st = el.querySelector(".cc-status");
+    st.textContent = coalStatusLabel(p);
+    st.className = "cc-status " + (p.status || "");
+  });
+  const t = runoffProject();
+  if (COAL.mode === "chase") {
+    const my = runoffPct(t);
+    document.getElementById("coal-seats-val").textContent = "%" + f1(my) + " / %50+1";
+    document.getElementById("coal-seats-bar").style.width = clamp(my, 0, 100) + "%";
+    document.getElementById("coal-credit").textContent = "PAZARLIK KREDİSİ " + COAL.credit;
+    document.getElementById("coal-gap-lbl").textContent =
+      my >= 50 ? "ÖNDESİNİZ +" + f1(my - 50) : "EKSİK: %" + f1(50 - my);
+  }
+}
+function coalAdvance() {
+  COAL.round++;
+  COAL.offered = false;
+  COAL.focus = null;
+  COAL.pending = null;
+  COAL.news = "";
+  if (COAL.mode === "chase") {
+    COAL.pressure *= 1.06;
+    // rakip aday da boş durmaz: rakibe yakın açık bir partiyi kapar
+    const me = COAL.me,
+      rival = COAL.rival;
+    let pick = null,
+      best = 0.05;
+    COAL.pool.forEach((p) => {
+      if (p.status) return;
+      const d = coalAff(p.id, rival.id) - coalAff(p.id, me.id);
+      if (d > best) {
+        best = d;
+        pick = p;
+      }
+    });
+    if (pick && COAL.round < 3) {
+      pick.status = "rival";
+      COAL.endorse[pick.id] = { to: rival.id, by: "deal" };
+      COAL.news = "RAKİP HAMLE: " + rival.n + ", " + pick.n + " ile anlaştı.";
+    }
+  } else {
+    COAL.patience *= 0.88;
+    COAL.news = "Adaylar sabırsızlanıyor: masalar her gün biraz daha sıkılaşıyor.";
+  }
+  if (COAL.round >= 3) return coalEnd();
+  sfx("paper");
+  coalRender();
+}
+/* Kaç puanlık talep alındı? (kilit parti) */
+function runoffScore(pivotal, dealVal, winPct) {
+  return clamp(Math.round(22 + dealVal * 0.6 + (pivotal ? 14 : 0) + (winPct > 52 ? 4 : 0)), 0, 100);
+}
+function coalEnd(kind, target, items) {
+  const co = COAL;
+  const A = co.A,
+    B = co.B,
+    me = co.me;
+  const endorse = { ...co.endorse };
+  const brokerId = co.mode === "broker" ? me.id : null;
+  if (co.mode === "broker" && kind === "deal" && target)
+    endorse[me.id] = { to: target.id, by: "deal" };
+  const pivotal = co.mode === "broker" && kind === "deal" && target ? runoffPivotalFor(target) : false;
+  const t = runoffTally(co.rows, A, B, endorse, brokerId);
+  const pa = clamp(t.pa + rnd(-RUNOFF_NOISE, RUNOFF_NOISE), 1, 99);
+  const winner = pa >= 50 ? A : B;
+  const loser = pa >= 50 ? B : A;
+  const winPct = pa >= 50 ? pa : 100 - pa;
+  const tally = `2. TUR · ${winner.n} %${f1(winPct)} — ${loser.n} %${f1(100 - winPct)}`;
+  let outcome, stamp, title, text, won;
+  let score = 0;
+  const dealVal = (items || []).reduce((a, d) => a + d.val, 0);
+  if (co.mode === "chase") {
+    won = winner.id === me.id;
+    const friends = co.deals.map((d) => d.n);
+    if (won) {
+      outcome = "pres";
+      stamp = "CUMHURBAŞKANI";
+      title = "Cumhurbaşkanlığı Sizin";
+      text = `${S.me.leader}, ikinci turda %${f1(winPct)} ile Cumhurbaşkanı seçildi. ${
+        friends.length
+          ? friends.join(", ") + " ile yapılan pazarlıklar sandıkta karşılığını buldu."
+          : "Masaları kimse çalmadı; halkın kararı tek başına yetti."
+      } Balkon konuşması yarın sabah: kürsü artık sizin.`;
+    } else {
+      outcome = "presloss";
+      const hair = winPct < 51.5; /* kıl payı kayıp */
+      stamp = hair ? "KIL PAYI" : "2. TUR KAYBI";
+      title = hair ? "Köşk Kıl Payı Kaçtı" : "Köşk Elinizden Kaydı";
+      text = `${winner.n}, ikinci turu %${f1(winPct)} ile kazandı. ${
+        friends.length
+          ? friends.join(", ") + " sizinle yürüdü ama fark kapanmadı."
+          : "Hiçbir masadan destek çıkmadı; ikinci turda yalnız kaldınız."
+      } ${S.me.leader} için yeni bir yol haritası çizilecek.`;
+    }
+  } else if (kind === "deal" && target) {
+    const list = (items || []).map((d) => d.t).join(", ");
+    won = winner.id === target.id;
+    score = won ? runoffScore(pivotal, dealVal, winPct) : 0;
+    if (won) {
+      outcome = "key";
+      stamp = "KİLİT PARTİ";
+      title = "Cumhurbaşkanını Siz Belirlediniz";
+      text = `${winner.n}, ikinci turu %${f1(winPct)} ile kazandı; ${S.me.name} desteği sandığın kaderini belirledi. Karşılığında tutanağa geçenler: ${list}. Perde arkasında sözü geçen isim artık ${S.me.leader}.`;
+    } else {
+      outcome = "keyfail";
+      stamp = "DESTEK YETMEDİ";
+      title = "Yanlış Ata Oynadınız";
+      text = `Verdiğiniz destek yetmedi: ${target.n} ikinci turu kaybetti, ${winner.n} %${f1(winPct)} ile kazandı. Masada aldığınız sözler (${list}) yeni cumhurbaşkanının takdirine kaldı.`;
+    }
+  } else {
+    won = false;
+    outcome = "neutral";
+    stamp = "MASA DAĞILDI";
+    title = "Kimseyle Anlaşamadınız";
+    text = `İkinci tur sizin desteğiniz olmadan ${winner.n} lehine %${f1(winPct)} ile sonuçlandı. ${S.me.leader} için kilit güç masada bozdurulamadı.`;
+  }
+  S.coalResult = {
+    mode: co.mode,
+    outcome,
+    won,
+    stamp,
+    title,
+    text,
+    tally,
+    winnerId: winner.id,
+    winPct,
+    score,
+    dealVal,
+    pivotal,
+    partner: target ? target.n : co.deals.map((d) => d.n),
+  };
+  if (outcome === "pres") gcAchievement("s27_president");
+  if (outcome === "key") {
+    gcAchievement("s27_kingmaker");
+    if (me.s < 15 && pivotal) gcAchievement("s27_kilit_tas");
+    if (dealVal >= 60) gcAchievement("s27_tough_bargainer");
+  }
+  document.getElementById("coal-verdict").innerHTML = `<div class="stamp-anim" style="${won ? "" : "color:#e0836b;border-color:#e0836b"}">${stamp}</div>
+   <div class="coal-tally">${esc(tally)}</div>
+   <div class="dv-t">${title}</div><div class="dv-x">${esc(text)}</div>
+   <button class="btn" id="coal-close">Sonuç Ekranına Dön →</button>`;
+  document.getElementById("coal-opts").innerHTML = "";
+  sfx("thud");
+  setTimeout(() => sfx(won ? "win" : "crisis"), 260);
+  haptic(won ? [14, 60, 14] : [12, 50, 12]);
+  document.getElementById("coal-close").onclick = () => {
+    COAL = null;
+    showEnd();
+  };
+}
+/* Kilit parti hedef adayı desteklediğinde sonuç gerçekten değişiyor muydu? */
+function runoffPivotalFor(target) {
+  const me = COAL.me.id;
+  const other = target.id === COAL.A.id ? COAL.B : COAL.A;
+  const eT = { ...COAL.endorse, [me]: { to: target.id, by: "deal" } };
+  const eO = { ...COAL.endorse, [me]: { to: other.id, by: "deal" } };
+  const pT = runoffTally(COAL.rows, COAL.A, COAL.B, eT, me).pa;
+  const pO = runoffTally(COAL.rows, COAL.A, COAL.B, eO, me).pa;
+  const winT = target.id === COAL.A.id ? pT >= 50 : pT < 50;
+  const winO = target.id === COAL.A.id ? pO >= 50 : pO < 50;
+  return winT && !winO;
+}
+
 function showEnd() {
   showScreen("screen-end");
   const R = evaluateResult();
+  const RO = S.coalResult || null; /* 2. tur sonucu */
+  const RA = RO ? null : runoffAvailability(); /* ikinci tur bekliyor mu? */
   const stamp = document.getElementById("end-stamp"),
     title = document.getElementById("end-title"),
     text = document.getElementById("end-text");
@@ -31787,9 +32788,9 @@ function showEnd() {
   } else if (R.kind === "key") {
     sc = "key";
     stmp = "ANAHTAR PARTİ";
-    title.textContent = "Kilit Parti: Hükümetin Yolu Sizden Geçiyor";
+    title.textContent = "Kilit Parti: İkinci Turun Anahtarı Sizde";
     title.style.color = "#cdb6f0";
-    text.textContent = `${S.me.name} %${f1(R.mine)} ile hedefini tutturdu. Hiçbir blok tek başına çoğunluğu kuramadı; koalisyon pazarlığının anahtarı ${S.me.leader}'ın elinde. Küçük bloğun en büyük zaferi budur.`;
+    text.textContent = `${S.me.name} %${f1(R.mine)} ile hedefini tutturdu. Hiçbir blok tek başına çoğunluğu kuramadı; ikinci turun anahtarı ${S.me.leader} elinde. Küçük bloğun en büyük zaferi budur.`;
   } else if (R.kind === "second") {
     sc = "lose";
     stmp = "KIL PAYI";
@@ -31809,13 +32810,29 @@ function showEnd() {
     title.style.color = "var(--red-bright)";
     text.textContent = `${S.me.name} %${f1(R.mine)} ile ${R.myRank}. sırada kaldı. Kurmaylar suskun. Siyasette yenilgi bir son değil ama bu gece öyle hissettiriyor.`;
   }
+  if (RA) {
+    sc = "key";
+    stmp = "2. TURA KALDI";
+    title.textContent = "İlk Turda Karar Çıkmadı";
+    title.style.color = "#cdb6f0";
+    text.textContent =
+      `Hiçbir aday %50'yi aşamadı: ${RA.A.n} %${f1(RA.A.s)}, ${RA.B.n} %${f1(RA.B.s)} ile ikinci tura kaldı. ` +
+      (RA.mode === "chase"
+        ? "Cumhurbaşkanlığı için elenen partilerin kapısını çalma vakti: her destek tek tek pazarlıkla alınacak."
+        : `Sizin %${f1(RA.me.s)} oyunuz iki adayın arasındaki farkı kapatabilir; ikinci turda kimi destekleyeceğiniz sizin elinizde.`);
+  } else if (!RO) {
+    const AUTO = runoffAuto();
+    text.textContent += AUTO.first
+      ? " Cumhurbaşkanlığı ilk turda kesinleşti."
+      : ` İkinci turda Cumhurbaşkanlığını ${AUTO.winner.n} kazandı.`;
+  }
   document.getElementById("end-portrait").innerHTML = `${armaSvg(S.me.id, "end-arma")}
    <span class="portrait pt-xl" style="color:${S.me.color}"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#${S.me.ico}"/></svg></span>
    <div class="end-ldr">${S.me.leader}<small>${S.me.name}</small></div>`;
   stamp.className = "end-stamp " + sc;
   stamp.textContent = stmp;
   sfx("thud");
-  sfx(R.won ? "win" : "fail");
+  if (!RA) sfx(RO ? (RO.won ? "win" : "fail") : R.won ? "win" : "fail");
   document.getElementById("end-stats").innerHTML = `
   <div class="end-stat"><b>%${f1(R.mine)}</b>ULUSAL OY</div>
   <div class="end-stat"><b>${R.myRank}.</b>SIRA</div>
@@ -31834,9 +32851,49 @@ function showEnd() {
   document
     .getElementById("end-stats")
     .insertAdjacentHTML("beforeend", `<div class="end-stat"><b>${SEAT.my}</b>MİLLETVEKİLİ</div>`);
+  if (S.coalResult) {
+    const cr = S.coalResult;
+    stamp.textContent = cr.stamp;
+    stamp.className = "end-stamp " + (cr.outcome === "key" ? "key" : cr.won ? "win" : "lose");
+    title.textContent = cr.title;
+    title.style.color = cr.outcome === "key" ? "#cdb6f0" : cr.won ? "var(--gold)" : "var(--red-bright)";
+    text.textContent = cr.text;
+    document
+      .getElementById("end-stats")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<div class="end-stat"><b>%${f1(cr.winPct)}</b>2. TUR${cr.winnerId === S.me.id ? "" : " · KAZANAN"}</div>` +
+          (cr.score ? `<div class="end-stat"><b>${cr.score}</b>KİLİT PUANI</div>` : ""),
+      );
+  }
+  if (!S.gcSent) {
+    S.gcSent = true;
+    gcScore(R.mine * 10);
+    if (["landslide", "first", "upset"].includes(R.kind)) gcAchievement("s27_win_first");
+    if (R.mine >= 50) gcAchievement("s27_historic");
+    if (["baraj", "barajgenis"].includes(R.kind)) gcAchievement("s27_baraj");
+    if (S.me.id === "emek" && R.won) gcAchievement("s27_emek_win");
+    if (regWon >= 7) gcAchievement("s27_all_regions");
+    if (Object.keys(S.promises).length >= 10) gcAchievement("s27_promises10");
+    const totalMiting = Object.values(S.mitingSayi || {}).reduce((a, b) => a + b, 0);
+    if (totalMiting >= 5) gcAchievement("s27_rallies5");
+  }
+  const staleBtn = document.getElementById("btn-coalition");
+  if (staleBtn) staleBtn.remove();
+  const coalAv = RA;
+  if (coalAv) {
+    const b = document.createElement("button");
+    b.className = "btn";
+    b.id = "btn-coalition";
+    b.textContent = coalAv.mode === "chase" ? "2. Tur: Kapıları Çal ▸" : "2. Tur: Kilit Masasına Otur ▸";
+    b.onclick = startCoalition;
+    document.querySelector("#screen-end .end-actions").prepend(b);
+  }
   drawShareCard(R, stmp, regWon);
 }
 function drawShareCard(R, stmp, regWon) {
+  const coal = S.coalResult;
+  const stampTxt = coal ? coal.stamp : stmp;
   const cv = document.getElementById("share-canvas"),
     x = cv.getContext("2d"),
     W = 1080,
@@ -31868,14 +32925,24 @@ function drawShareCard(R, stmp, regWon) {
   x.save();
   x.translate(W / 2, 590);
   x.rotate(-0.08);
-  const col = R.won ? (R.kind === "key" ? "#b79be0" : "#c9a227") : "#b3273b";
+  const col = coal
+    ? coal.outcome === "key"
+      ? "#b79be0"
+      : coal.won
+        ? "#c9a227"
+        : "#b3273b"
+    : R.won
+      ? R.kind === "key"
+        ? "#b79be0"
+        : "#c9a227"
+      : "#b3273b";
   x.strokeStyle = col;
   x.lineWidth = 8;
   x.font = "bold 82px 'Courier New',monospace";
   x.fillStyle = col;
-  const tw = x.measureText(stmp).width;
+  const tw = x.measureText(stampTxt).width;
   x.strokeRect(-tw / 2 - 40, -70, tw + 80, 120);
-  x.fillText(stmp, 0, 20);
+  x.fillText(stampTxt, 0, 20);
   x.restore();
   x.fillStyle = "#e8dcc0";
   x.font = "bold 190px Georgia,serif";
