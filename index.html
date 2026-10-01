@@ -8165,7 +8165,7 @@ const EVENTS = [
     id: "cri_deprem",
     cat: "KRİZ",
     title: "Marmara'da Sarsıntı",
-    body: "Hissedilen orta şiddette bir deprem toplanma alanları ve dönüşüm tartışmasını yeniden alevlendirdi. Kameralar deprem planınızı soruyor.",
+    body: "Marmara ve Ege'de hissedilen orta şiddette bir deprem, ardından gelen artçılarla halkı sokağa döktü. Can kaybı yok ama toplanma alanları ve dönüşüm tartışması yeniden alevlendi; kameralar deprem planınızı soruyor.",
     opts: [
       {
         t: "'Dirençli Şehirler' programını tanıt",
@@ -8332,52 +8332,10 @@ const EVENTS = [
     ],
   },
   {
-    id: "cri_artci",
-    cat: "KRİZ",
-    title: "Ege'de Korkutan Artçı",
-    body: "Ege açıklarındaki sarsıntı ve artçılar halkı sokağa döktü. Can kaybı yok ama kaygı büyük.",
-    opts: [
-      {
-        t: "Bölgeye git, geçmiş olsun ziyareti",
-        fx: {
-          mut: 4,
-          med: 4,
-          oy: 0.5,
-          reg: {
-            ege: 3,
-          },
-          but: -5,
-        },
-      },
-      {
-        t: "Deprem planını yeniden anlat",
-        fx: {
-          oy: 0.5,
-          med: 3,
-          reg: {
-            ege: 2,
-            mar: 2,
-          },
-          sad: -2,
-        },
-      },
-      {
-        t: "Sessiz destek gönder",
-        fx: {
-          mut: 2,
-          reg: {
-            ege: 1,
-          },
-          but: -3,
-        },
-      },
-    ],
-  },
-  {
     id: "med_kaset",
     cat: "MEDYA",
     title: "Montaj Ses Kaydı İddiası",
-    body: "Anonim bir hesap, ekibinizden birine ait olduğu iddia edilen manipülatif bir ses kaydı yaydı. Uzmanlar 'montaj izleri var' diyor ama etiket çoktan birinci.",
+    body: "Anonim bir hesap, ekibinizden birine ait olduğu iddia edilen manipülatif bir ses kaydı yaydı. Uzmanlar 'montaj izleri var' diyor ama etiket çoktan birinci. Aynı hafta doğruluğu belirsiz bir gizli kayıt daha sızdırıldığı iddiası kulisleri sardı; gazeteciler açıklama bekliyor.",
     opts: [
       {
         t: "Anında yalanla + adli inceleme başlat",
@@ -9538,8 +9496,8 @@ EVENTS.push(
   {
     id: "cal_sakin1",
     cat: "RUTİN",
-    title: "Sakin Bir Gün",
-    body: "Gündem durgun; rakipler sessiz, meydanlar sakin. Kurmaylar 'fırtına öncesi' diyor. Günü nasıl değerlendireceksiniz?",
+    title: "Sakin Bir Öğleden Sonra",
+    body: "Telefonlar sustu, gündem durgun. Genel merkezde bir kurmay çayını karıştırırken 'fırtınadan önceki sessizlik' dedi; dışarıda esnaf kepenk indiriyor. Günün sizin elinizde: sahaya mı çıkacaksınız, masaya mı oturacaksınız?",
     opts: [
       {
         t: "Saha örgütünü ziyaret et, moral ver",
@@ -10431,7 +10389,7 @@ EVENTS.push(
       promise: "findik",
     },
     title: "Fındık Taban Fiyatı Bekleniyor",
-    body: "Karadeniz'de hasat başladı; üretici taban fiyat sözünüzün rakamını istiyor.",
+    body: "Karadeniz'de hasat başladı. Kooperatif başkanı kamyonetin kasasında fındık çuvalının üstüne çıkıp sözünüzü yüksek sesle okudu: 'Rakamı bekliyoruz.' Etraftaki yüz kişi susuyor, telefonlar kayıtta.",
     opts: [
       {
         t: "Net taban fiyat rakamı açıkla",
@@ -10509,7 +10467,7 @@ EVENTS.push(
       promise: "hal",
     },
     title: "Hal Yasası Sözü Hatırlatıldı",
-    body: "Aracı komisyonları yine gündemde; pazarcı ve üretici hal yasası sözünüzün akıbetini soruyor.",
+    body: "Pazar yerinde bir tezgâhtar domates kasasını kaldırıp kameraya gösterdi: 'Tarlada üç lira, burada on beş.' Hal yasası sözünüzün akıbetini soruyor; arkasında üretici ve pazarcı aynı cümleyi alkışlıyor.",
     opts: [
       {
         t: "Yasa taslağının takvimini açıkla",
@@ -10651,7 +10609,7 @@ EVENTS.push(
       promise: "zeytin",
     },
     title: "Zeytinlik Koruma Sözü Test Ediliyor",
-    body: "Ege'de yeni bir imar tartışması patlak verdi; zeytinlik koruma sözünüz şimdi somut bir sınavda.",
+    body: "Ege'de yüzyıllık zeytin ağaçlarının olduğu bir arazi için imar planı askıya çıktı. Köylüler ağaçların dibinde nöbette; biri cep telefonuna 'sözünüzü hatırlatıyorum' diye konuşuyor ve video yayılıyor.",
     opts: [
       {
         t: "İmara karşı net 'hayır' de",
@@ -11291,8 +11249,8 @@ EVENTS.push(
   {
     id: "cal_sakin5",
     cat: "RUTİN",
-    title: "Sessiz Ama Verimli Gün",
-    body: "Gündem hafif. Böyle günler, sahayı derinleştirmek için birebirdir.",
+    title: "Yağmurlu Bir Sessizlik",
+    body: "Dışarıda yağmur var, programda boşluk. Kimse sizi aramıyor. Böyle günlerde kampanyanın görünmeyen işleri yapılır: kimin kapısının çalınmadığına, kimin unutulduğuna bakılır.",
     opts: [
       {
         t: "Muhtarlarla buluşma turu",
@@ -12258,37 +12216,6 @@ EVENTS.push(
     ],
   },
   {
-    id: "skn_kayit",
-    cat: "SKANDAL",
-    title: "Gizli Ses Kaydı İddiası",
-    body: "Doğruluğu belirsiz bir kayıt sızdırıldığı iddiası kulisleri sardı; gazeteciler açıklama bekliyor.",
-    opts: [
-      {
-        t: "Sert biçimde yalanla",
-        fx: {
-          med: -3,
-          sad: 2,
-          risk: true,
-        },
-      },
-      {
-        t: "Şeffaf ol, soruşturma başlat",
-        fx: {
-          med: 2,
-          mut: 1,
-          sos: -2,
-        },
-      },
-      {
-        t: "Gündemi değiştirmeye çalış",
-        fx: {
-          mut: -1,
-          but: 3,
-        },
-      },
-    ],
-  },
-  {
     id: "gun_anket_tartisma",
     cat: "GÜNDEM",
     title: "Anket Şirketi Metodoloji Tartışması",
@@ -12359,7 +12286,7 @@ EVENTS.push(
     only: ["devlet"],
     cat: "BÖLGE",
     title: "Dev Yatırımın Açılış Töreni",
-    body: "Yıllardır süren büyük bir altyapı yatırımının açılışı hazır. Devlet töreni, bando, canlı yayın, muhalefetin sahip olmadığı bir imkân.",
+    body: "Yıllardır süren büyük bir köprü ve bağlantı yolu projesinin açılışı hazır. Bando provası sabahtan başladı, yayın aracı akşamdan kurulu; kürsüde sizinle konuşacak yerel esnaf bile belli. Muhalefetin hiçbir meydanda bulamayacağı bir sahne.",
     opts: [
       {
         t: "Görkemli açılış, canlı yayın",
@@ -12582,7 +12509,7 @@ EVENTS.push(
     only: ["degisim"],
     cat: "TEŞKİLAT",
     title: "Rakip Bloktan Toplu Katılım",
-    body: "Rakip cepheden tanınmış bir grup partinize katılmak istiyor. Kazanç büyük; ama eski tabanınız 'dün bize ne diyorlardı' diye soruyor.",
+    body: "Rakip cepheden tanınmış bir grup partinize katılmak istiyor. Kazanç büyük; ama eski tabanınız 'dün bize ne diyorlardı' diye soruyor. Emektarlar da 'yıllardır biz taşıdık' diyor.",
     opts: [
       {
         t: "Büyük bir törenle kabul et",
@@ -12645,42 +12572,6 @@ EVENTS.push(
           sos: 3,
           mut: 2,
           sad: -2,
-        },
-      },
-    ],
-  },
-  {
-    id: "dg_taban",
-    only: ["degisim"],
-    cat: "TOPLUM",
-    title: "Tabandan 'Birleşin' Baskısı",
-    body: "Destekçileriniz sokakta ve sosyal medyada tek bir şey istiyor: bölünmeyin, birleşin. Bu baskı hem güç hem de kısıt.",
-    opts: [
-      {
-        t: "Tüm kanatlarla ortak bildiri yayınla",
-        fx: {
-          mut: 5,
-          sad: 5,
-          sos: 5,
-          oy: 0.6,
-          med: -2,
-        },
-      },
-      {
-        t: "'Birlik ancak ilkelerle olur' de",
-        fx: {
-          sad: 2,
-          oy: 0.1,
-          sos: -2,
-        },
-      },
-      {
-        t: "Tabana açık bir istişare toplantısı düzenle",
-        fx: {
-          mut: 4,
-          sos: 6,
-          oy: 0.4,
-          but: -5,
         },
       },
     ],
@@ -12846,6 +12737,7 @@ EVENTS.push(
     twist: true,
     requires: {
       flag: "masa_kuruldu",
+      notFlag: ["dg_aday_tutuklu", "dg_aday_baskent"],
     },
     title: "Ortak Aday Krizi",
     body: "Masadaki tek gerçek soru bu: ortak aday kim? Ayrılanlar kendi isimlerini masaya sürdü, sizin tabanınız sizden başkasını kabul etmiyor. Bu kararı ertelemenin yolu yok, bugün verilecek ve kampanyanın gidişatını tek başına belirleyecek.",
@@ -12984,47 +12876,6 @@ EVENTS.push(
     ],
   },
   {
-    id: "dg_ayri_hesap",
-    only: ["degisim"],
-    cat: "ARAŞTIRMA",
-    requires: {
-      flag: "ayri_yol",
-    },
-    title: "Ayrı Gitmenin Hesabı",
-    body: "Anket şirketiniz iki senaryolu bir çalışma bıraktı masaya: ayrı listelerle kaybedilen sandalye sayısı, tahmin ettiğinizden büyük. Rapor sızarsa 'inat uğruna seçim kaybediyor' başlığı hazır.",
-    opts: [
-      {
-        t: "Raporu kendin açıkla, kararının arkasında dur",
-        fx: {
-          med: 5,
-          sad: 5,
-          mut: -2,
-          oy: 0.2,
-        },
-      },
-      {
-        t: "Kararı gözden geçir, kanalları yeniden aç",
-        fx: {
-          mut: 5,
-          sos: 5,
-          oy: 0.5,
-          sad: -6,
-        },
-        sets: {
-          flag: "birlik_cagrisi",
-        },
-      },
-      {
-        t: "Raporu rafa kaldır",
-        fx: {
-          sad: 3,
-          med: -3,
-          oy: -0.3,
-        },
-      },
-    ],
-  },
-  {
     id: "dg_taban_sabirsiz",
     only: ["degisim"],
     cat: "TOPLUM",
@@ -13149,7 +13000,7 @@ EVENTS.push(
     maxDay: 30,
     chainStart: true,
     title: "Ortak Zemin Tartışması",
-    body: "Batıdaki seçmeniniz birlik arayışına sempatiyle bakıyor, kalenizdeki taban ise 'bizi yine kullanacaklar' diyor. Aynı karar iki tabanda tam ters okunuyor.",
+    body: "Batıdaki seçmeniniz birlik arayışına sempatiyle bakıyor, kalenizdeki taban ise 'bizi yine kullanacaklar' diyor. Aynı karar iki tabanda tam ters okunuyor. Meclis aritmetiği sizi kritik bir konuma taşıyabilir; ama bu rolü seçmene 'pazarlıkçılık' değil 'güç' olarak anlatmak gerek.",
     opts: [
       {
         t: "Şartları açık yaz, kamuoyuna ilan et",
@@ -15393,81 +15244,6 @@ EVENTS.push(
     ],
   },
   {
-    id: "ml_tavan",
-    only: ["cephe"],
-    cat: "ARAŞTIRMA",
-    title: "Tavan Sorunu Raporu",
-    body: "Saha ekibiniz acı gerçeği masaya koydu: mesajınız çekirdek kitlede çok güçlü, ama o kitlenin dışına çıkmıyor. Cam tavan gerçek.",
-    opts: [
-      {
-        t: "Ekonomiyi öne al, dili yumuşat",
-        fx: {
-          oy: 0.8,
-          mut: 5,
-          med: 5,
-          sad: -6,
-          reg: {
-            mar: 2,
-            ege: 2,
-          },
-        },
-      },
-      {
-        t: "Çekirdeği konsolide et, dozu artır",
-        fx: {
-          sad: 7,
-          sos: 5,
-          oy: 0.3,
-          med: -4,
-        },
-      },
-      {
-        t: "Yeni bir ikinci gündem inşa et: yolsuzluk",
-        fx: {
-          oy: 0.6,
-          med: 4,
-          sos: 4,
-          sad: -2,
-        },
-      },
-    ],
-  },
-  {
-    id: "ml_milliyetci",
-    only: ["cephe"],
-    cat: "RAKİP",
-    title: "Milliyetçi Oyda Rekabet",
-    body: "Aynı seçmene oynayan başka bir yapı sahaya indi. Aynı havuzdan içiyorsunuz ve havuz sınırlı.",
-    opts: [
-      {
-        t: "Sert bir üslupla farkını ortaya koy",
-        fx: {
-          sos: 6,
-          sad: 5,
-          oy: 0.5,
-          med: -3,
-        },
-      },
-      {
-        t: "'Milliyetçilerin tek adresi biziz' kampanyası",
-        fx: {
-          oy: 0.6,
-          sad: 6,
-          sos: 4,
-          but: -8,
-        },
-      },
-      {
-        t: "Çatışmadan kaçın, kendi gündemine dön",
-        fx: {
-          mut: 2,
-          oy: 0.1,
-          but: -3,
-        },
-      },
-    ],
-  },
-  {
     id: "ml_sosyal",
     only: ["cephe"],
     cat: "MEDYA",
@@ -15508,7 +15284,7 @@ EVENTS.push(
     only: ["cephe"],
     cat: "TOPLUM",
     title: "Protesto Oyunun Adresi",
-    body: "İki büyük bloktan da bıkmış seçmen arayış içinde. Bu boşluk sizin en büyük fırsatınız, doğru dili bulursanız.",
+    body: "İki büyük bloktan da bıkmış seçmen arayış içinde. Bu boşluk sizin en büyük fırsatınız, doğru dili bulursanız. Saha ekibiniz de acı bir not düştü: mesajınız çekirdek kitlede çok güçlü, ama o kitlenin dışına çıkmıyor.",
     opts: [
       {
         t: "'Düzenin dışındaki tek ses' kampanyası",
@@ -15653,76 +15429,6 @@ EVENTS.push(
           med: 4,
           sad: 3,
           mut: -2,
-        },
-      },
-    ],
-  },
-  {
-    id: "an_rotasyon",
-    only: ["mutabakat"],
-    cat: "TEŞKİLAT",
-    title: "Lider Rotasyonu Önerisi",
-    body: "Bileşenlerden biri dönüşümlü genel başkanlık önerdi. Adil görünüyor ama seçmene 'liderin kim?' sorusunu cevaplamak zorlaşıyor.",
-    opts: [
-      {
-        t: "Rotasyonu kabul et, birliği koru",
-        fx: {
-          sad: 6,
-          med: -3,
-          oy: -0.2,
-        },
-      },
-      {
-        t: "Tek lider, net vitrin diye diren",
-        fx: {
-          oy: 0.6,
-          med: 5,
-          sad: -5,
-        },
-      },
-      {
-        t: "Sözcü sistemiyle orta yol bul",
-        fx: {
-          oy: 0.3,
-          sad: 3,
-          med: 1,
-          mut: -2,
-        },
-      },
-    ],
-  },
-  {
-    id: "an_miting",
-    only: ["mutabakat"],
-    cat: "MEDYA",
-    title: "Ortak Miting Zorluğu",
-    body: "Ortak miting planlanıyor ama her bileşen kendi sembolünü, kendi sırasını istiyor. Sahnede dört ayrı parti görüntüsü riskli.",
-    opts: [
-      {
-        t: "Tek çatı sembolüyle sahneye çık",
-        fx: {
-          oy: 0.7,
-          med: 5,
-          sos: 4,
-          sad: -4,
-        },
-      },
-      {
-        t: "Her partiye eşit alan ver",
-        fx: {
-          sad: 5,
-          med: -2,
-          oy: 0.1,
-          but: -11,
-        },
-      },
-      {
-        t: "Ortak mitingden vazgeç, ayrı ayrı yap",
-        fx: {
-          oy: -0.3,
-          sad: 3,
-          med: -3,
-          but: -6,
         },
       },
     ],
@@ -16001,96 +15707,6 @@ EVENTS.push(
     ],
   },
   {
-    id: "hd_camtavan",
-    only: ["dayanisma"],
-    cat: "ARAŞTIRMA",
-    title: "Batıdaki Cam Tavan",
-    body: "Saha verisi net: Güneydoğu'da güçlüsünüz ama İç Anadolu ve Karadeniz'de duvara toslu­yorsunuz. Kilit parti olmak için bu duvarı aşmak gerek.",
-    opts: [
-      {
-        t: "Ekonomi ve emek diliyle batıya aç",
-        fx: {
-          oy: 0.8,
-          mut: 5,
-          med: 4,
-          reg: {
-            mar: 3,
-            ege: 3,
-          },
-          sad: -4,
-        },
-      },
-      {
-        t: "Kaleyi tahkim et, oradan maksimum çıkar",
-        fx: {
-          oy: 0.5,
-          reg: {
-            gdo: 6,
-            dog: 4,
-          },
-          sad: 5,
-          med: -2,
-        },
-      },
-      {
-        t: "Gençlik ve iklim gündemiyle metropollere aç",
-        fx: {
-          oy: 0.6,
-          sos: 8,
-          reg: {
-            mar: 3,
-            ege: 2,
-          },
-          sad: -3,
-        },
-      },
-    ],
-  },
-  {
-    id: "hd_kale",
-    only: ["dayanisma"],
-    cat: "BÖLGE",
-    title: "Kalede Katılım Kaygısı",
-    body: "En güçlü olduğunuz illerde katılım oranı düşük görünüyor. Kalede kaybedilen her oy, en pahalı oydur.",
-    opts: [
-      {
-        t: "Kapsamlı sandık ve ulaşım seferberliği",
-        fx: {
-          oy: 0.9,
-          reg: {
-            gdo: 6,
-            dog: 4,
-          },
-          but: -14,
-          sad: 5,
-        },
-      },
-      {
-        t: "Yerel kanaat önderleriyle buluş",
-        fx: {
-          oy: 0.5,
-          reg: {
-            gdo: 3,
-            dog: 2,
-          },
-          mut: 3,
-          but: -4,
-        },
-      },
-      {
-        t: "Büyük bir bölge mitingi düzenle",
-        fx: {
-          oy: 0.6,
-          reg: {
-            gdo: 5,
-          },
-          but: -9,
-          sos: 4,
-        },
-      },
-    ],
-  },
-  {
     id: "hd_kimlik_sinif",
     only: ["dayanisma"],
     cat: "TOPLUM",
@@ -16167,42 +15783,6 @@ EVENTS.push(
           oy: 0.4,
           med: -4,
           risk: true,
-        },
-      },
-    ],
-  },
-  {
-    id: "hd_anahtar",
-    only: ["dayanisma"],
-    cat: "ARAŞTIRMA",
-    title: "Anahtar Rolün Hesabı",
-    body: "Meclis aritmetiği sizi kritik bir konuma taşıyabilir. Ama bu rolü seçmene 'pazarlıkçılık' değil 'güç' olarak anlatmak gerek.",
-    opts: [
-      {
-        t: "'Denge bizde' anlatısını inşa et",
-        fx: {
-          oy: 0.8,
-          med: 5,
-          sos: 5,
-          but: -8,
-        },
-      },
-      {
-        t: "Hangi şartla kiminle çalışacağını ilan et",
-        fx: {
-          oy: 0.5,
-          med: 5,
-          sad: 3,
-          mut: -2,
-        },
-      },
-      {
-        t: "Pazarlık dilinden kaçın, icraat vaat et",
-        fx: {
-          oy: 0.4,
-          mut: 4,
-          med: 1,
-          sos: -2,
         },
       },
     ],
@@ -16377,7 +15957,7 @@ EVENTS.push(
     only: ["emek"],
     cat: "TEŞKİLAT",
     title: "Üç Bileşen, Üç Ayrı Cümle",
-    body: "Birliği kuran üç partinin sözcüleri aynı gün üç ayrı açıklama yaptı ve üçü birbirini tutmadı. Barajın altındaki bir blok için en pahalı görüntü bu.",
+    body: "Birliği kuran üç partinin sözcüleri aynı gün üç ayrı açıklama yaptı ve üçü birbirini tutmadı. Barajın altındaki bir blok için en pahalı görüntü bu. Bir köşe yazarı bloğu 'üç tabela bir araya gelmiş' diye tarif etti ve yazı çok dolaştı.",
     opts: [
       {
         t: "Tek sözcü ilkesi getir",
@@ -16407,46 +15987,6 @@ EVENTS.push(
           sad: 3,
           med: -4,
           mut: -2,
-        },
-      },
-    ],
-  },
-  {
-    id: "em_oy_israf",
-    only: ["emek"],
-    cat: "TOPLUM",
-    title: "'Oyunuz Çöpe Gidiyor'",
-    body: "Büyük muhalefet bloğunun kurmayları açıkça çağrı yapıyor: 'Bu seçimde küçük partilere oy vermek iktidara yaramaktır.' Tabanınızın bir kısmı tereddütte.",
-    opts: [
-      {
-        t: "Sert cevap ver: 'Oyumuz kimsenin mülkü değil'",
-        d: "Taban kenetlenir, kararsız uzaklaşır.",
-        fx: {
-          sad: 9,
-          sos: 6,
-          med: 3,
-          mut: -4,
-          oy: 0.2,
-        },
-      },
-      {
-        t: "Hesap yap: barajı geçersek denklem değişir",
-        d: "Rasyonel; anlaşılması zaman ister.",
-        fx: {
-          med: 6,
-          mut: 4,
-          oy: 0.4,
-          sad: -4,
-        },
-      },
-      {
-        t: "Karşılıklı desteğe kapıyı arala",
-        d: "Oy kaybını durdurur, kimliği bulandırır.",
-        fx: {
-          oy: 0.5,
-          mut: 5,
-          sad: -8,
-          sos: -4,
         },
       },
     ],
@@ -16570,46 +16110,6 @@ EVENTS.push(
           mut: 3,
           sos: -4,
           oy: 0.1,
-        },
-      },
-    ],
-  },
-  {
-    id: "em_tabela",
-    only: ["emek"],
-    cat: "SKANDAL",
-    title: "'Tabela Partisi' Suçlaması",
-    body: "Bir köşe yazarı bloğu 'üç tabela bir araya gelmiş' diye tarif etti ve yazı çok dolaştı. Bu, örgütlü bir kadro partisi için en can yakan cümle.",
-    opts: [
-      {
-        t: "Üye ve teşkilat sayılarını kamuoyuna aç",
-        d: "Rakam gerçekse en iyi cevap budur.",
-        fx: {
-          med: 7,
-          sad: 6,
-          mut: 3,
-          oy: 0.3,
-          sos: -3,
-        },
-      },
-      {
-        t: "Sahadan görüntülerle cevap ver",
-        fx: {
-          sos: 7,
-          sad: 4,
-          med: 2,
-          but: -6,
-          mut: -2,
-        },
-      },
-      {
-        t: "Ciddiye alma",
-        fx: {
-          sad: 3,
-          med: -5,
-          sos: -4,
-          mut: -2,
-          but: 4,
         },
       },
     ],
@@ -16788,49 +16288,11 @@ EVENTS.push(
 );
 EVENTS.push(
   {
-    id: "g26dv_enf",
-    only: ["devlet"],
-    cat: "EKONOMİ",
-    title: "Yıllık Enflasyon Rakamı Açıklandı",
-    body: "Kurum yıllık enflasyonu yüzde otuz ikinin üzerinde açıkladı. Hedefin epey üstünde. Ekonomi yönetimi sizsiniz; bu rakamın altında da üstünde de sizin imzanız var.",
-    opts: [
-      {
-        t: "'Zirveyi geçtik, düşüş başladı' çizgisine yaslan",
-        d: "Umut mesajı; rakam düşmezse bumerang.",
-        fx: {
-          oy: 0.3,
-          med: 4,
-          mut: -2,
-          risk: true,
-        },
-      },
-      {
-        t: "Hatayı açıkça kabul et, yol haritası göster",
-        d: "Beklenmedik dürüstlük; taban hazırlıksız yakalanır.",
-        fx: {
-          oy: 0.6,
-          mut: 5,
-          med: 6,
-          sad: -6,
-        },
-      },
-      {
-        t: "Küresel koşulları öne çıkar",
-        d: "Güvenli liman; kimseyi ikna etmiyor.",
-        fx: {
-          mut: -3,
-          med: -2,
-          sad: 2,
-        },
-      },
-    ],
-  },
-  {
     id: "g26dv_asgari",
     only: ["devlet"],
     cat: "EMEK",
-    title: "Asgari Ücret Açlık Sınırının Altında",
-    body: "Bağımsız araştırma, yeni asgari ücretin açlık sınırının altında kaldığını hesapladı. Rakam sizin masanızda belirlendi ve şimdi her mitingde önünüze konuyor.",
+    title: "Enflasyon Otuz İki, Asgari Ücret Açlık Sınırının Altında",
+    body: "Yıllık enflasyon yüzde otuz ikinin üzerinde açıklandı ve bağımsız bir araştırma yeni asgari ücretin açlık sınırının altında kaldığını hesapladı. İkisi de sizin masanızda belirlendi; şimdi her mitingde önünüze konuyor.",
     opts: [
       {
         t: "Yıl ortasında ek zam sözü ver",
@@ -18225,42 +17687,6 @@ EVENTS.push(
     ],
   },
   {
-    id: "g26dg_liste",
-    only: ["degisim"],
-    cat: "TEŞKİLAT",
-    title: "Transfer mi, Emektar mı",
-    body: "Bir başka partiden ayrılan tanınmış bir isim listenizde üst sıra istiyor. Teşkilat 'yıllardır biz taşıdık' diyor.",
-    opts: [
-      {
-        t: "Transferi üst sıraya al",
-        d: "Tanınırlık kazanırsınız; içeride yara açılır.",
-        fx: {
-          oy: 0.7,
-          med: 5,
-          sad: -8,
-        },
-      },
-      {
-        t: "Emektarı koru, transferi alt sıraya koy",
-        d: "Teşkilat coşar; haber değeri kaybolur.",
-        fx: {
-          sad: 8,
-          oy: -0.2,
-          med: -3,
-        },
-      },
-      {
-        t: "Transferi kampanya sözcüsü yap, listeye alma",
-        d: "İkisini de tutan formül.",
-        fx: {
-          oy: 0.4,
-          med: 4,
-          sad: 2,
-        },
-      },
-    ],
-  },
-  {
     id: "g26dg_deprem",
     only: ["degisim"],
     cat: "KRİZ",
@@ -19098,43 +18524,6 @@ EVENTS.push(
       },
     ],
   },
-  {
-    id: "g26cp_soru",
-    only: ["cephe"],
-    cat: "ARAŞTIRMA",
-    title: "Kararsızlarda Sizin Payınız",
-    body: "Saha verisi kararsızların içinde ciddi bir protesto oyu potansiyeli olduğunu gösteriyor. Ama aynı grup barajı aşacağınıza inanmıyor.",
-    opts: [
-      {
-        t: "'Geçiyoruz' kampanyasını merkeze al",
-        d: "Tek korkuyu hedefler.",
-        fx: {
-          oy: 1,
-          sad: 7,
-          sos: 5,
-          risk: true,
-        },
-      },
-      {
-        t: "Meclise girince ne yapacağını anlat",
-        d: "Somutluk güven verir.",
-        fx: {
-          oy: 0.8,
-          med: 6,
-          mut: 4,
-        },
-      },
-      {
-        t: "Rakip bloklara yüklen",
-        d: "Öfkeyi büyütür, korkuyu çözmez.",
-        fx: {
-          sad: 6,
-          oy: 0.1,
-          med: -3,
-        },
-      },
-    ],
-  },
 );
 EVENTS.push(
   {
@@ -19603,8 +18992,8 @@ EVENTS.push(
     id: "g26mt_butce",
     only: ["mutabakat"],
     cat: "TEŞKİLAT",
-    title: "Kampanya Kasası Dört Yere Bölünüyor",
-    body: "Ortak kasadan her bileşen kendi payını istiyor. Bölüşülen para hiçbir yerde görünür bir kampanyaya yetmiyor.",
+    title: "Dört Kasa, Dört Stant",
+    body: "Ortak kasadan her bileşen kendi payını istiyor. Bölüşülen para hiçbir yerde görünür bir kampanyaya yetmiyor; üstüne aynı mahallede iki ayrı stant açılıyor ve ortak miting için her parti kendi sembolünü, kendi sırasını istiyor. Görüntü dağınık.",
     opts: [
       {
         t: "Kasayı merkezde topla, tek kampanya yürüt",
@@ -19843,43 +19232,6 @@ EVENTS.push(
     ],
   },
   {
-    id: "g26mt_gonullu",
-    only: ["mutabakat"],
-    cat: "TEŞKİLAT",
-    title: "Gönüllü Ağı Kurulmadı",
-    body: "Dört bileşenin gönüllüleri hâlâ ayrı çalışıyor ve aynı mahallede iki ayrı stant açılıyor. Görüntü dağınık.",
-    opts: [
-      {
-        t: "Ortak gönüllü ağını zorla kur",
-        d: "Verim artar; direnç var.",
-        fx: {
-          oy: 0.6,
-          sad: -4,
-          mut: 2,
-          med: 2,
-        },
-      },
-      {
-        t: "Mahalle mahalle görev bölüşümü yap",
-        d: "Pratik ve barışçıl.",
-        fx: {
-          oy: 0.5,
-          sad: 4,
-          mut: 2,
-        },
-      },
-      {
-        t: "Ayrı çalışmaya devam et",
-        d: "Kolay; dağınıklık sürer.",
-        fx: {
-          sad: 2,
-          oy: -0.3,
-          med: -3,
-        },
-      },
-    ],
-  },
-  {
     id: "g26mt_anket",
     only: ["mutabakat"],
     cat: "ARAŞTIRMA",
@@ -20012,7 +19364,7 @@ EVENTS.push(
     only: ["dayanisma"],
     cat: "BÖLGE",
     title: "Batıda Tanınma Sorunu",
-    body: "Kalenizde oy tavan yapmış durumda ama metropollerde tanınırlığınız düşük. Büyüme oradan gelecek ve oradaki dil farklı.",
+    body: "Kalenizde oy tavan yapmış durumda ama metropollerde tanınırlığınız düşük. Büyüme oradan gelecek ve oradaki dil farklı. Üstelik kaledeki katılım da düşük görünüyor; kalede kaybedilen her oy en pahalı oydur.",
     opts: [
       {
         t: "Metropollerde emek ve kira odaklı kampanya kur",
@@ -20716,7 +20068,7 @@ EVENTS.push(
     only: ["emek"],
     cat: "ARAŞTIRMA",
     title: "'Boşa Gider' Korkusu",
-    body: "Size yakın duran ama oyunu başkasına verecek büyük bir grup var. Bunlar kararsız değil; ikna olmuş ama cesaret edememiş insanlar.",
+    body: "Size yakın duran ama oyunu başkasına verecek büyük bir grup var. Bunlar kararsız değil; ikna olmuş ama cesaret edememiş insanlar. Büyük muhalefet bloğunun kurmayları açıkça çağrı yapıyor: 'Bu seçimde küçük partilere oy vermek iktidara yaramaktır.'",
     opts: [
       {
         t: "Kampanyanın tamamını bu tek korkuya ayır",
@@ -24213,11 +23565,11 @@ EVENTS.push(
     cat: "FİNAL",
     phase: ["final"],
     title: "Cuma Çıkışı Kampanyası",
-    body: "Son cuma. Teşkilat cami çıkışlarında yoğun bir temas programı öneriyor. Etkili ama tartışma yaratabilir.",
+    body: "Son cuma. Teşkilat cami çıkışlarında yoğun bir temas programı öneriyor. Etkili görünüyor ama ibadethanelerde propaganda yasak: şikâyet gelirse işlem başlayabilir ve muhalefet 'din istismarı' manşetini şimdiden hazırlamış durumda.",
     opts: [
       {
         t: "Programı uygula, ölçülü ve saygılı yürüt",
-        d: "Tabanın doğal alanı.",
+        d: "Tabanın doğal alanı, ama yasal sınırı aşmamak şart.",
         fx: {
           oy: 0.6,
           sad: 6,
@@ -26332,6 +25684,9 @@ EVENTS.push(
     minDay: 92,
     maxDay: 45,
     chainStart: true,
+    requires: {
+      notFlag: "masa_kuruldu",
+    },
     title: "Adayınız Cezaevinde",
     body: "Kitlelerin en çok konuştuğu adayınız, büyükşehir başkanlığı sırasında açılan davada tutuklu. Diploması da ayrı bir davada iptal edildi; YSK adaylığını kabul etmeyebilir. Masada üç yol var ve hangisini seçerseniz kampanyanın yüzü o olacak.",
     opts: [
@@ -27416,6 +26771,261 @@ EVENTS.push(
           reg: {
             ica: 2,
           },
+        },
+      },
+    ],
+  },
+  {
+    id: "ort_yapayzeka",
+    cat: "MEDYA",
+    title: "Sahte Miting Videosu",
+    body: "Gece yarısı paylaşılan bir video sizi hiç söylemediğiniz bir cümleyle gösteriyor. Ses sizin, yüz sizin, arka plan sizin mitinginiz. Yapay zekâyla üretildiği ilk bakışta anlaşılmıyor; uzmanlar sabaha doğru 'üretim izleri var' dedi, o saate kadar video üç milyon kez izlendi.",
+    opts: [
+      {
+        t: "Anında canlı yayın aç, orijinal kaydı göster",
+        d: "Net ve hızlı; sahte videoya ek reklam da olur.",
+        fx: {
+          med: 4,
+          oy: 0.2,
+          mut: 2,
+          sad: 1,
+        },
+      },
+      {
+        t: "Savcılığa ve platformlara bildir, kaldırma talep et",
+        d: "Hukuki yol; yavaş işler, video yayılırken.",
+        fx: {
+          med: 2,
+          sos: -2,
+          mut: 1,
+        },
+      },
+      {
+        t: "Parodi videosuyla karşılık ver",
+        d: "Mizah öldürür ya da fitili ateşler.",
+        fx: {
+          sos: 6,
+          med: -2,
+          mut: -1,
+          oy: 0.1,
+          risk: true,
+        },
+      },
+    ],
+  },
+  {
+    id: "ort_kutuk",
+    cat: "TOPLUM",
+    minDay: 56,
+    maxDay: 40,
+    title: "Seçmen Listesinde Eksik",
+    body: "Bir mahallede yüzlerce kişi askı listesinde adını bulamadı. Yetkililer 'teknik bir hata, düzeltilecek' diyor ama sandığa elli gün var ve seçmen 'oyum kaybolacak mı' diye soruyor. Sahadan gelen haber: o mahalle sizin güçlü olduğunuz yer.",
+    opts: [
+      {
+        t: "Mahalleye hukuk ekibi gönder, itiraz dilekçesi topla",
+        d: "Somut ve görünür; ekip ve zaman ister.",
+        fx: {
+          sad: 4,
+          sos: 3,
+          oy: 0.3,
+          but: -4,
+        },
+      },
+      {
+        t: "Basın toplantısıyla seçim güvenliği çağrısı yap",
+        d: "Gündemi yönetir; 'seçim kaybetme bahanesi' eleştirisi gelir.",
+        fx: {
+          med: 4,
+          oy: 0.2,
+          mut: 1,
+        },
+      },
+      {
+        t: "Büyütme, kurumun düzeltmesini bekle",
+        d: "Güvenli; seçmen 'kimse bakmıyor' diye düşünür.",
+        fx: {
+          mut: -1,
+          sad: -2,
+          but: 3,
+          med: -1,
+        },
+      },
+    ],
+  },
+  {
+    id: "dv_imarbarisi",
+    only: [
+      "devlet",
+    ],
+    cat: "EKONOMİ",
+    minDay: 70,
+    title: "İmar Barışı Kararnamesi Masada",
+    body: "Kurmaylar seçime kala bir 'imar barışı' paketi öneriyor: kaçak yapılara af, milyonlarca hane için tapu. Seçmene dokunan, bütçeye de dokunan bir karar. Muhalefet 'seçim rüşveti' diyecek; yapı denetimi eleştirmenleri deprem bölgesini hatırlatacak.",
+    opts: [
+      {
+        t: "Tam kapsamlı af çıkar",
+        d: "Milyonlarca hanede karşılık; deprem riski eleştirisi ağır.",
+        fx: {
+          oy: 1.3,
+          mut: 5,
+          reg: {
+            mar: 3,
+            ica: 2,
+          },
+          med: -5,
+          sad: 2,
+          risk: true,
+        },
+      },
+      {
+        t: "Yalnız deprem riski taşımayan yapıları kapsa",
+        d: "Savunulabilir ama kitlesi küçük.",
+        fx: {
+          oy: 0.6,
+          mut: 3,
+          med: 3,
+          but: -3,
+        },
+      },
+      {
+        t: "Vazgeç: 'Bu dönemde değil'",
+        d: "Tutarlı görünür; kurmay 'fırsat kaçtı' der.",
+        fx: {
+          oy: -0.3,
+          mut: -2,
+          med: 2,
+          sad: -2,
+        },
+      },
+    ],
+  },
+  {
+    id: "dv_ikramiye",
+    only: [
+      "devlet",
+    ],
+    cat: "EKONOMİ",
+    maxDay: 97,
+    title: "Bayram İkramiyesi Tartışması",
+    body: "Ramazan Bayramı kapıda ve emekli derneklerinin tek talebi var: bayram ikramiyesi artsın. Her yıl zam yapılan kalem bu yıl seçim ekonomisinin simgesi sayılacak; rakam büyüdükçe bütçe de, 'seçim hediyesi' eleştirisi de büyüyor.",
+    opts: [
+      {
+        t: "İkramiyeyi iki katına çıkar",
+        d: "Emekli sevinir; kasa ve eleştiri ağırlaşır.",
+        fx: {
+          oy: 1,
+          mut: 6,
+          but: -12,
+          med: -3,
+          reg: {
+            ica: 2,
+          },
+        },
+      },
+      {
+        t: "Bu yılın zammını öne çek, tutarı koru",
+        d: "Orta yol; kimse tam memnun olmaz.",
+        fx: {
+          oy: 0.5,
+          mut: 3,
+          but: -5,
+        },
+      },
+      {
+        t: "Mevcut rakamı koru: 'Bütçe disiplini'",
+        d: "Ciddi görünür; emekli sessizce küser.",
+        fx: {
+          oy: -0.4,
+          mut: -4,
+          med: 2,
+          but: 3,
+        },
+      },
+    ],
+  },
+  {
+    id: "mt_oda",
+    only: [
+      "mutabakat",
+    ],
+    cat: "EKONOMİ",
+    title: "Oda Genel Kurulunda Son Söz",
+    body: "Bir ticaret odasının genel kurulunda iktidar ve ana muhalefet bloğu birer konuşmacı gönderdi; sıra size verildi, yani sizden önce iki kez alkışlanan bir salona çıkacaksınız. Esnaf kepenk kapatmaya yakın ve kimsenin sözüne tam inanmıyor. Kırk dakikanız var.",
+    opts: [
+      {
+        t: "Rakam ve takvim ver: 'Beş maddelik esnaf paketi'",
+        d: "Somut; kasa ve bileşenler hesap sorar.",
+        fx: {
+          oy: 0.7,
+          mut: 5,
+          med: 3,
+          but: -6,
+          reg: {
+            ica: 2,
+          },
+        },
+      },
+      {
+        t: "İki bloğa da eleştiri yap: 'İkisi de aynı faturayı kesti'",
+        d: "Cesur ve ortada; iki kapıyı da kapatır.",
+        fx: {
+          oy: 0.5,
+          sos: 4,
+          med: 2,
+          sad: 2,
+          mut: -1,
+        },
+      },
+      {
+        t: "Önce dinle: 'Sizi dinlemeye geldim'",
+        d: "Samimi; salon cümle bekliyordu.",
+        fx: {
+          mut: 5,
+          sos: 5,
+          oy: 0.3,
+          med: -2,
+          but: 2,
+        },
+      },
+    ],
+  },
+  {
+    id: "em_kurye",
+    only: [
+      "emek",
+    ],
+    cat: "EMEK",
+    title: "Kurye Eylemi Kapınızda",
+    body: "Yağmurlu bir akşam, platform kuryeleri teslimat uygulamasını kapatıp ana cadde boyunca motosikletlerini sıraladı. Talepleri net: ücret zammı, sigorta, ceza puanı sisteminin kaldırılması. Genel merkez önünde sizi bekliyorlar; kameralar da orada.",
+    opts: [
+      {
+        t: "Yanlarına katıl, sıranın sonunda yürü",
+        d: "Gerçek ve görünür; polisle karşılaşma riski var.",
+        fx: {
+          sos: 7,
+          oy: 0.6,
+          med: 3,
+          sad: 2,
+          but: -3,
+        },
+      },
+      {
+        t: "Hukukçularla toplu sözleşme çağrısı yap",
+        d: "Kalıcı çözüm; sokakta heyecan vermez.",
+        fx: {
+          sad: 4,
+          oy: 0.4,
+          med: 2,
+        },
+      },
+      {
+        t: "Mesaj gönder, kampanya takviminden taviz verme",
+        d: "Takvim korunur; 'bize gelmediler' cümlesi çıkar.",
+        fx: {
+          sad: 2,
+          sos: -5,
+          oy: -0.2,
+          but: 2,
         },
       },
     ],
@@ -29826,7 +29436,7 @@ const TWIST_MAX = 3;
 /* Konu tekrarını önler: aynı tema bir kampanyada en fazla TOPIC_MAX kez ve
    son TOPIC_GAP olay içinde ikinci kez çıkmaz. Zincir/vaat olayları muaf;
    süzgeç havuzu boşaltırsa uygulanmaz. */
-const EVENT_TOPIC = { "eco_fis": "enflasyon", "eco_kur": "enflasyon", "eco_kira": "kira", "cri_deprem": "afet", "cri_yangin": "afet", "cri_sel": "afet", "cri_artci": "afet", "dis_multeci": "goc", "soc_kadin": "kadin", "soc_saglik": "saglik", "lab_asgari_komisyon": "asgari", "lab_emekli": "emekli", "agr_kuraklik": "afet", "agr_findik": "taban", "yth_kampus": "kampus", "fin_kur": "enflasyon", "fin_anket": "anket", "eco_esnaf": "esnaf", "eco_doviz2": "enflasyon", "med_reyting": "ekran", "rak_anket2": "anket", "fin_kapanis_ruzgar": "anket", "but_gala": "kasa", "gun_mikrobagis": "kasa", "gun_anket_tartisma": "anket", "dg_transfer": "teklif", "mt_masaya_davet": "teklif", "em_baraj": "baraj", "em_kasa": "kasa", "em_ekran": "ekran", "em_oy_israf": "baraj", "g26dv_enf": "enflasyon", "g26dv_asgari": "asgari", "g26dv_emekliaylik": "emekli", "g26dv_kira": "kira", "g26dv_goc": "goc", "g26dv_ciftci": "taban", "g26dv_hekim": "saglik", "g26dv_yangin": "afet", "g26dv_esnafkredi": "esnaf", "g26dg_enf": "enflasyon", "g26dg_kira": "kira", "g26dg_goc": "goc", "g26dg_kadin": "kadin", "g26dg_anket": "anket", "g26dg_deprem": "afet", "g26cp_goc": "goc", "g26cp_baraj": "baraj", "g26cp_yayin": "ekran", "g26cp_esnaf": "esnaf", "g26cp_ittifak": "teklif", "g26cp_kadin": "kadin", "g26cp_bagis": "kasa", "g26mt_esnaf": "esnaf", "g26mt_kira": "kira", "g26mt_goc": "goc", "g26mt_kadin": "kadin", "g26mt_butce": "kasa", "g26mt_emekli": "emekli", "g26mt_anket": "baraj", "g26mt_saglik": "saglik", "g26dy_asgari": "asgari", "g26dy_medya": "ekran", "g26dy_goc": "goc", "g26dy_deprem": "kira", "g26dy_kasa": "kasa", "g26em_asgari": "asgari", "g26em_baraj": "baraj", "g26em_kira": "kira", "g26em_genclik": "kampus", "g26em_saglik": "saglik", "g26em_goc": "goc", "z2dv_f_yorgunluk": "anket", "z2dv_kayyum": "belediye", "z2dv_ekran": "ekran", "z2dv_tarim2": "taban", "z2dg_belediye": "belediye", "z2cp_f_baraj": "baraj", "z2cp_f_yayin": "ekran", "z2mt_f_baraj": "baraj", "z2dy_f_ittifak2": "teklif", "z2dy_esnaf3": "esnaf", "z2em_teklif": "teklif", "z2em_f_gorunurluk": "ekran", "z2em_uni": "kampus", "z2em_anket2": "anket", "ort_suriye": "goc" };
+const EVENT_TOPIC = { "eco_fis": "enflasyon", "eco_kur": "enflasyon", "eco_kira": "kira", "cri_deprem": "afet", "cri_yangin": "afet", "cri_sel": "afet", "dis_multeci": "goc", "soc_kadin": "kadin", "soc_saglik": "saglik", "lab_asgari_komisyon": "asgari", "lab_emekli": "emekli", "agr_kuraklik": "afet", "agr_findik": "taban", "yth_kampus": "kampus", "fin_kur": "enflasyon", "fin_anket": "anket", "eco_esnaf": "esnaf", "eco_doviz2": "enflasyon", "med_reyting": "ekran", "rak_anket2": "anket", "fin_kapanis_ruzgar": "anket", "but_gala": "kasa", "gun_mikrobagis": "kasa", "gun_anket_tartisma": "anket", "dg_transfer": "teklif", "mt_masaya_davet": "teklif", "em_baraj": "baraj", "em_kasa": "kasa", "em_ekran": "ekran", "g26dv_asgari": "asgari", "g26dv_emekliaylik": "emekli", "g26dv_kira": "kira", "g26dv_goc": "goc", "g26dv_ciftci": "taban", "g26dv_hekim": "saglik", "g26dv_yangin": "afet", "g26dv_esnafkredi": "esnaf", "g26dg_enf": "enflasyon", "g26dg_kira": "kira", "g26dg_goc": "goc", "g26dg_kadin": "kadin", "g26dg_anket": "anket", "g26dg_deprem": "afet", "g26cp_goc": "goc", "g26cp_baraj": "baraj", "g26cp_yayin": "ekran", "g26cp_esnaf": "esnaf", "g26cp_ittifak": "teklif", "g26cp_kadin": "kadin", "g26cp_bagis": "kasa", "g26mt_esnaf": "esnaf", "g26mt_kira": "kira", "g26mt_goc": "goc", "g26mt_kadin": "kadin", "g26mt_butce": "kasa", "g26mt_emekli": "emekli", "g26mt_anket": "baraj", "g26mt_saglik": "saglik", "g26dy_asgari": "asgari", "g26dy_medya": "ekran", "g26dy_goc": "goc", "g26dy_deprem": "kira", "g26dy_kasa": "kasa", "g26em_asgari": "asgari", "g26em_baraj": "baraj", "g26em_kira": "kira", "g26em_genclik": "kampus", "g26em_saglik": "saglik", "g26em_goc": "goc", "z2dv_f_yorgunluk": "anket", "z2dv_kayyum": "belediye", "z2dv_ekran": "ekran", "z2dv_tarim2": "taban", "z2dg_belediye": "belediye", "z2cp_f_baraj": "baraj", "z2cp_f_yayin": "ekran", "z2mt_f_baraj": "baraj", "z2dy_f_ittifak2": "teklif", "z2dy_esnaf3": "esnaf", "z2em_teklif": "teklif", "z2em_f_gorunurluk": "ekran", "z2em_uni": "kampus", "z2em_anket2": "anket", "ort_suriye": "goc" };
 const TOPIC_MAX = 2,
   TOPIC_GAP = 8;
 function topicFilter(pool) {
@@ -29865,7 +29475,7 @@ function eligible(e, d, ph) {
     if (e.requires.promise && !S.promises[e.requires.promise]) return false;
     if (e.requires.flag && !S.flags[e.requires.flag]) return false;
     if (e.requires.notPromise && S.promises[e.requires.notPromise]) return false;
-    if (e.requires.notFlag && S.flags[e.requires.notFlag]) return false;
+    if (e.requires.notFlag && [].concat(e.requires.notFlag).some((f) => S.flags[f])) return false;
     if (e.requires.statBelow) {
       for (const k in e.requires.statBelow)
         if (!(S.stats[k] < e.requires.statBelow[k])) return false;
