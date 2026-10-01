@@ -13391,16 +13391,19 @@ EVENTS.push(
     ],
   },
   {
-    id: "ch_kesif",
+    id: "ch_devlet_kesif",
+    only: [
+      "devlet",
+    ],
     cat: "TEŞKİLAT",
     chainStart: true,
     maxDay: 64,
-    title: "Sahadan Bir İsim Çıktı",
-    body: "Bir ilçe teşkilatından Kerem Sarıca adında yirmi dokuz yaşında bir isim, dün akşam bir esnaf toplantısında konuştu. Kayıt gece boyunca dolaştı: sade, sinirli, çok net. Kurmaylarınız ikiye bölünmüş durumda, kimi 'bu çocuk kampanyayı taşır' diyor, kimi 'bu çocuk seni gölgede bırakır' diyor.",
+    title: "Bakan Sahneye Çıktı",
+    body: "Kalkınma ve İmar Bakanı Cemil Arıkan, dün bir konut teslim töreninde kâğıda bakmadan yirmi dakika konuştu. Salon ayağa kalktı, kayıt gece boyunca dolaştı. Kulislerde ilk kez yüksek sesle 'varis' kelimesi geçti. Kurmaylarınız ikiye bölünmüş durumda: kimi 'kampanyanın yüzü o olsun' diyor, kimi 'sahne bir kez paylaşıldı mı geri alınmaz' diyor.",
     opts: [
       {
-        t: "Kürsüye çıkar, yanına al",
-        d: "Kampanyaya taze bir yüz; ama sahne paylaşılınca geri alınmaz.",
+        t: "Kampanyanın yüzü yap, yanına al",
+        d: "Kabinenin en taze yüzü seçmene sizinle çıkar; ama 'varis' manşetleri de çıkar.",
         fx: {
           sos: 8,
           mut: 4,
@@ -13410,11 +13413,11 @@ EVENTS.push(
         sets: {
           flag: "k_yukseldi",
         },
-        out: "Kerem Sarıca ilk mitingde {L'in} hemen yanında durdu ve o kare bütün gün paylaşıldı.",
+        out: "Arıkan ilk mitingde {L'in} hemen yanında durdu. O akşam 'ikili kare' bütün ekranlarda döndü.",
       },
       {
-        t: "Ekibe al ama sahne verme",
-        d: "Enerjisini kullan, görünürlüğü kendine sakla.",
+        t: "Görev ver, sahne verme",
+        d: "Saha işini ona yükle; kürsüyü kendine sakla.",
         fx: {
           sad: 6,
           mut: 2,
@@ -13423,11 +13426,11 @@ EVENTS.push(
         sets: {
           flag: "k_yaninda",
         },
-        out: "Sarıca genel merkeze çağrıldı; kürsü değil, masa verildi. Şimdilik itiraz etmedi.",
+        out: "Arıkan konut ve imar dosyasının başına geçti. Kürsü sırası sorusuna 'Bana verilen görev yeter' dedi.",
       },
       {
-        t: "Frene bas: 'Sıra beklemeyi öğrenecek'",
-        d: "Teşkilat hiyerarşisi korunur; genç kadro küser.",
+        t: "Frene bas: 'Önce bakanlığına baksın'",
+        d: "Hiyerarşi korunur; kabine ve teşkilat bunu not eder.",
         fx: {
           sad: 7,
           sos: -5,
@@ -13436,21 +13439,24 @@ EVENTS.push(
         sets: {
           flag: "k_kirildi",
         },
-        out: "Karar teşkilatta memnuniyetle karşılandı. Sarıca'nın o akşamki tek cümlesi şuydu: 'Anladım.'",
+        out: "Karar genel merkezde rahatlamayla karşılandı. Arıkan'ın o akşamki tek cümlesi şuydu: 'Takdir sizin.'",
       },
     ],
   },
   {
-    id: "ch_golge",
+    id: "ch_devlet_golge",
+    only: [
+      "devlet",
+    ],
     cat: "RAKİP",
     requires: {
       flag: "k_yukseldi",
     },
-    title: "Gölgede Kalma Riski",
-    body: "Kerem Sarıca'nın konuşma videoları artık sizinkilerden fazla izleniyor. Bir gazete bugün 'Asıl aday yanlış kişi mi?' başlığını attı. Kurmaylar cevap bekliyor: sahneyi büyütmek mi, küçültmek mi?",
+    title: "Asıl Aday Kim?",
+    body: "Cemil Arıkan'ın şantiye videoları artık sizin mitinglerinizden fazla izleniyor. Bir gazete bugün 'Yeni dönemin yüzü kim?' başlığını attı. Ortak partilerin liderleri sizi değil onu konuşuyor. Kurmaylar cevap bekliyor: sahneyi büyütmek mi, küçültmek mi?",
     opts: [
       {
-        t: "Daha da öne çıkar: 'Kampanya benim değil, bizim'",
+        t: "Daha da öne çıkar: 'Bu bir ekip, o da ekibin yarısı'",
         d: "Cömertlik güçlü görünür, ya da zayıf.",
         fx: {
           sos: 9,
@@ -13462,11 +13468,11 @@ EVENTS.push(
         sets: {
           flag: "k_ortak",
         },
-        out: "{L} sahneyi paylaştı ve o hafta kampanyanın en çok konuşulan görüntüsü bu oldu.",
+        out: "{L} sahneyi paylaştı; 'ikili' o hafta kampanyanın en çok konuşulan görüntüsü oldu.",
       },
       {
-        t: "Programını seyrelt, merkeze çek",
-        d: "Kontrol geri gelir; bedeli o çocuğun sadakati.",
+        t: "Görev alanını daralt, programını seyrelt",
+        d: "Kontrol geri gelir; bedeli Arıkan'ın sadakati.",
         fx: {
           sad: 6,
           med: 3,
@@ -13476,17 +13482,17 @@ EVENTS.push(
         sets: {
           flag: "k_kirildi",
         },
-        out: "Sarıca'nın miting takvimi bir gecede yarıya indi. Kimseye bir şey sormadı.",
+        out: "Arıkan'ın açılış takvimi bir gecede yarıya indi. Kimseye bir şey sormadı.",
       },
       {
-        t: "Zor bir bölgeye gönder: orada sınansın",
-        d: "Başarırsa kazanç senin, başaramazsa yükü onun.",
+        t: "Afet bölgesine gönder: orada sınansın",
+        d: "Başarırsa kazanç sizin, başaramazsa yük onun.",
         fx: {
           oy: 0.4,
           sad: 3,
           reg: {
-            dog: 3,
-            gdo: 2,
+            gdo: 3,
+            akd: 2,
           },
           but: -6,
           sos: -2,
@@ -13494,22 +13500,25 @@ EVENTS.push(
         sets: {
           flag: "k_ortak",
         },
-        out: "Sarıca en zor ilde üç gün kaldı ve salonu doldurdu. Genel merkezde kimse itiraz edemedi.",
+        out: "Arıkan deprem bölgesinde üç gün kaldı, anahtar teslim etti. Genel merkezde kimse itiraz edemedi.",
       },
     ],
   },
   {
-    id: "ch_teklif",
+    id: "ch_devlet_teklif",
+    only: [
+      "devlet",
+    ],
     cat: "SKANDAL",
     requires: {
       flag: "k_kirildi",
     },
-    title: "Kapısını Başkası Çaldı",
-    body: "Kerem Sarıca'nın rakip bloğun kurmaylarıyla görüştüğü konuşuluyor. Henüz bir şey imzalanmış değil ama kulis net: teklif var, cevap bekleniyor. Elinizde bir gün var.",
+    title: "Ortak Partinin Gözü Onda",
+    body: "Ortak partinin genel başkanı Cemil Arıkan'ı arka arkaya iki kez ağırladı. Kulis net: 'ittifakın adayı o olsun' önerisi masada, cevap bekleniyor. Bakanlık odasının ışığı gece yarısına kadar yanıyor. Elinizde bir gün var.",
     opts: [
       {
         t: "Kendin ara, yüz yüze konuş",
-        d: "Gururunu bir kenara koy. Tutarsa kazanılan sadece bir kadro değil.",
+        d: "Gurur bir kenara; kazanılan sadece bir bakan değil.",
         fx: {
           sos: 6,
           mut: 4,
@@ -13520,11 +13529,11 @@ EVENTS.push(
         sets: {
           flag: "k_ortak",
         },
-        out: "Görüşme iki saat sürdü. Sarıca ertesi sabah kendi hesabından tek kelime yazdı: 'Buradayım.'",
+        out: "Görüşme iki saat sürdü. Arıkan ertesi sabah şunu yazdı: 'Görev yerindeyim.'",
       },
       {
-        t: "Bırak gitsin, arkasından konuşma",
-        d: "Onurlu ama boş bir sandalye.",
+        t: "Bırak, sessiz kal",
+        d: "Ağırbaşlı görünür, ama sandalye boşalır.",
         fx: {
           sad: 4,
           med: 2,
@@ -13534,11 +13543,11 @@ EVENTS.push(
         sets: {
           flag: "k_karsida",
         },
-        out: "Sarıca ertesi gün karşı tarafın rozetiyle görüntülendi. Kimse şaşırmadı, herkes konuştu.",
+        out: "Arıkan ertesi gün istifa mektubunu açıkladı. Kimse şaşırmadı, herkes konuştu.",
       },
       {
-        t: "Önden vur: 'Zaten ihraç sürecindeydi'",
-        d: "Kontrolü elinde tutuyormuş gibi görünürsün.",
+        t: "Önden vur: 'Zaten görevden alınacaktı'",
+        d: "Kontrol sizdeymiş gibi görünürsünüz.",
         fx: {
           sad: 6,
           med: -4,
@@ -13548,19 +13557,24 @@ EVENTS.push(
         sets: {
           flag: "k_karsida",
         },
-        out: "Açıklama inandırıcı bulunmadı; 'kaçırdıkları adamı kovmuş gibi yaptılar' cümlesi trend oldu.",
+        out: "Açıklama inandırıcı bulunmadı; 'kendi bakanını kovmuş gibi yaptılar' cümlesi trend oldu.",
       },
     ],
   },
   {
-    id: "ch_final_yaninda",
+    id: "ch_devlet_final_yaninda",
+    only: [
+      "devlet",
+    ],
     cat: "FİNAL",
-    phase: ["final"],
+    phase: [
+      "final",
+    ],
     requires: {
       flag: "k_ortak",
     },
     title: "Son Mitingde Kürsü Sırası",
-    body: "Kampanyanın son büyük mitingi. Kerem Sarıca kürsü sırasını size bırakmak için sahne arkasında bekliyor, ama meydan onun adını sayıklıyor. Bu gece kimin konuşacağına siz karar vereceksiniz.",
+    body: "Kampanyanın son büyük mitingi. Cemil Arıkan kürsü sırasını size bırakmak için sahne arkasında bekliyor, ama meydan onun adını sayıklıyor. Bu gece kimin konuşacağına siz karar vereceksiniz.",
     opts: [
       {
         t: "Kürsüyü ona ver, sen arkasında dur",
@@ -13585,8 +13599,8 @@ EVENTS.push(
         },
       },
       {
-        t: "Kürsü senin: kampanyanın adı sensin",
-        d: "Liderlik netleşir, genç kadro not düşer.",
+        t: "Kürsü senin: seçimdeki isim sensin",
+        d: "Liderlik netleşir; yükselen isim not düşer.",
         fx: {
           oy: 0.6,
           sad: 6,
@@ -13597,14 +13611,19 @@ EVENTS.push(
     ],
   },
   {
-    id: "ch_final_karsida",
+    id: "ch_devlet_final_karsida",
+    only: [
+      "devlet",
+    ],
     cat: "FİNAL",
-    phase: ["final"],
+    phase: [
+      "final",
+    ],
     requires: {
       flag: "k_karsida",
     },
-    title: "Karşı Kürsüde Tanıdık Bir Yüz",
-    body: "Rakip bloğun son mitinginde kürsüye Kerem Sarıca çıktı. Sizi anlatıyor: içeriden, isim vererek, tarih vererek. Salon dinliyor. Bu akşam verdiğiniz cevap kampanyanın son sözü olacak.",
+    title: "Eski Bakan Konuşuyor",
+    body: "Cemil Arıkan'ın muhalif bir kanala çıkıp hükümeti 'içeriden' anlattığı programın son bölümü yayınlandı: isim vererek, tarih vererek, ihale ihale. Ekran başında milyonlar var. Bu akşamki cevabınız kampanyanın son sözü olacak.",
     opts: [
       {
         t: "Hiç cevap verme, kendi meydanına bak",
@@ -13618,7 +13637,7 @@ EVENTS.push(
       },
       {
         t: "'Yanılıyor ama hakkı var' de, kapıyı açık bırak",
-        d: "Olgun durur; tabanının bir kısmı yumuşaklık okur.",
+        d: "Olgun durur; tabanın bir kısmı yumuşaklık okur.",
         fx: {
           mut: 6,
           sos: 5,
@@ -13641,14 +13660,1624 @@ EVENTS.push(
     ],
   },
   {
-    id: "ch_final_sessiz",
+    id: "ch_devlet_final_sessiz",
+    only: [
+      "devlet",
+    ],
     cat: "FİNAL",
-    phase: ["final"],
+    phase: [
+      "final",
+    ],
     requires: {
       flag: "k_yaninda",
     },
-    title: "Masadaki Adam",
-    body: "Kerem Sarıca kampanya boyunca masada kaldı: veri, saha, lojistik. Kürsüyü hiç görmedi ve hiç istemedi, ya da istedi de söylemedi. Son hafta programında bir boşluk var ve o boşluğu kimin dolduracağı size kalmış.",
+    title: "Bakanlıktaki Adam",
+    body: "Cemil Arıkan kampanya boyunca masada kaldı: konut, imar, afet bölgesi. Kürsüyü hiç görmedi ve hiç istemedi, ya da istedi de söylemedi. Son hafta programında bir boşluk var ve o boşluğu kimin dolduracağı size kalmış.",
+    opts: [
+      {
+        t: "Son mitingde ilk kez kürsüye çıkar",
+        d: "Geç ama gerçek bir jest.",
+        fx: {
+          sos: 7,
+          mut: 5,
+          oy: 0.5,
+          sad: -3,
+        },
+      },
+      {
+        t: "Sahayı ona teslim et, sen ekranlarda kal",
+        d: "İş bölümü; ikiniz de kendi güçlü alanınızda.",
+        fx: {
+          med: 6,
+          oy: 0.5,
+          reg: {
+            ica: 2,
+            kar: 2,
+          },
+          sad: 2,
+          sos: -3,
+          but: -5,
+        },
+      },
+      {
+        t: "Programı değiştirme",
+        d: "Ne kazandırır ne kaybettirir; kimse hatırlamaz.",
+        fx: {
+          sad: 3,
+          sos: -2,
+          mut: -2,
+          but: 4,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_degisim_kesif",
+    only: [
+      "degisim",
+    ],
+    cat: "TEŞKİLAT",
+    chainStart: true,
+    maxDay: 64,
+    title: "İlçeden Gelen Ses",
+    body: "Ege'de bir ilçenin belediye başkanı Derya Ataç, dün akşam bir kentsel dönüşüm toplantısında vatandaşa kâğıtsız hesap verdi. Kayıt gece boyunca dolaştı: sade, sinirli, çok net. Belediye başkanları gündemin ortasındayken bu isim 'yerel yönetimin yüzü' diye anılmaya başladı. Kurmaylarınız ikiye bölünmüş durumda: kimi 'kampanyayı o taşır' diyor, kimi 'seni gölgede bırakır' diyor.",
+    opts: [
+      {
+        t: "Kürsüye çıkar, yanına al",
+        d: "Taze bir yüz ve gerçek bir belediyecilik karnesi; ama sahne paylaşılınca geri alınmaz.",
+        fx: {
+          sos: 8,
+          mut: 4,
+          oy: 0.5,
+          sad: -4,
+        },
+        sets: {
+          flag: "k_yukseldi",
+        },
+        out: "Ataç ilk mitingde {L'in} hemen yanında durdu. 'Belediyeden meydana' kareleri bütün gün paylaşıldı.",
+      },
+      {
+        t: "Ekibe al ama sahne verme",
+        d: "Yerel yönetim dosyalarını ona ver, kürsüyü kendine sakla.",
+        fx: {
+          sad: 6,
+          mut: 2,
+          sos: -3,
+        },
+        sets: {
+          flag: "k_yaninda",
+        },
+        out: "Ataç genel merkezde yerel yönetimler masasının başına geçti. Kürsü sırası sorusuna 'Önce iş' dedi.",
+      },
+      {
+        t: "Frene bas: 'Belediyesine baksın'",
+        d: "Hiyerarşi korunur; yerel kadrolar küser.",
+        fx: {
+          sad: 7,
+          sos: -5,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Karar teşkilatta rahatlamayla karşılandı. Ataç'ın o akşamki tek cümlesi şuydu: 'Anladım.'",
+      },
+    ],
+  },
+  {
+    id: "ch_degisim_golge",
+    only: [
+      "degisim",
+    ],
+    cat: "RAKİP",
+    requires: {
+      flag: "k_yukseldi",
+    },
+    title: "Gölgede Kalma Riski",
+    body: "Derya Ataç'ın belediye videoları artık sizin konuşmalarınızdan fazla izleniyor. Bir gazete bugün 'Asıl aday yanlış kişi mi?' başlığını attı. Sokaktaki ilgi giderek ona kayıyor. Kurmaylar cevap bekliyor: sahneyi büyütmek mi, küçültmek mi?",
+    opts: [
+      {
+        t: "Daha da öne çıkar: 'Kampanya benim değil, bizim'",
+        d: "Cömertlik güçlü görünür, ya da zayıf.",
+        fx: {
+          sos: 9,
+          mut: 5,
+          oy: 0.6,
+          sad: -5,
+          med: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "{L} sahneyi paylaştı; ikili o hafta kampanyanın en çok konuşulan görüntüsü oldu.",
+      },
+      {
+        t: "Programını seyrelt, merkeze çek",
+        d: "Kontrol geri gelir; bedeli Ataç'ın sadakati.",
+        fx: {
+          sad: 6,
+          med: 3,
+          sos: -6,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Ataç'ın miting takvimi bir gecede yarıya indi. Kimseye bir şey sormadı.",
+      },
+      {
+        t: "Zor bir bölgeye gönder: orada sınansın",
+        d: "Başarırsa kazanç sizin, başaramazsa yük onun.",
+        fx: {
+          oy: 0.4,
+          sad: 3,
+          reg: {
+            ica: 3,
+            kar: 2,
+          },
+          but: -6,
+          sos: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Ataç İç Anadolu'da bir ilçede üç gün kaldı ve salonu doldurdu. Genel merkezde kimse itiraz edemedi.",
+      },
+    ],
+  },
+  {
+    id: "ch_degisim_teklif",
+    only: [
+      "degisim",
+    ],
+    cat: "SKANDAL",
+    requires: {
+      flag: "k_kirildi",
+    },
+    title: "Kapısını Başkası Çaldı",
+    body: "Derya Ataç'ın iktidar bloğunun kurmaylarıyla görüştüğü konuşuluyor. Henüz bir şey imzalanmış değil ama kulis net: 'belediyeye kaynak' karşılığında rozet değişimi masada, cevap bekleniyor. Elinizde bir gün var.",
+    opts: [
+      {
+        t: "Kendin ara, yüz yüze konuş",
+        d: "Gururu bir kenara koy. Tutarsa kazanılan sadece bir kadro değil.",
+        fx: {
+          sos: 6,
+          mut: 4,
+          oy: 0.4,
+          sad: -5,
+          but: -5,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Görüşme iki saat sürdü. Ataç ertesi sabah kendi hesabından tek kelime yazdı: 'Buradayım.'",
+      },
+      {
+        t: "Bırak gitsin, arkasından konuşma",
+        d: "Onurlu ama boş bir sandalye.",
+        fx: {
+          sad: 4,
+          med: 2,
+          sos: -5,
+          oy: -0.3,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Ataç ertesi gün iktidar bloğunun rozetiyle görüntülendi. Kimse şaşırmadı, herkes konuştu.",
+      },
+      {
+        t: "Önden vur: 'Zaten ihraç sürecindeydi'",
+        d: "Kontrolü elinde tutuyormuş gibi görünürsün.",
+        fx: {
+          sad: 6,
+          med: -4,
+          sos: -7,
+          mut: -4,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Açıklama inandırıcı bulunmadı; 'kaçırdıkları belediye başkanını kovmuş gibi yaptılar' cümlesi trend oldu.",
+      },
+    ],
+  },
+  {
+    id: "ch_degisim_final_yaninda",
+    only: [
+      "degisim",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_ortak",
+    },
+    title: "Son Mitingde Kürsü Sırası",
+    body: "Kampanyanın son büyük mitingi. Derya Ataç kürsü sırasını size bırakmak için sahne arkasında bekliyor, ama meydan onun adını sayıklıyor. Bu gece kimin konuşacağına siz karar vereceksiniz.",
+    opts: [
+      {
+        t: "Kürsüyü ona ver, sen arkasında dur",
+        d: "Meydanı o coşturur; manşet ikinizin olur.",
+        fx: {
+          oy: 1.1,
+          sos: 10,
+          mut: 7,
+          med: 5,
+          sad: -4,
+        },
+      },
+      {
+        t: "Birlikte çıkın, konuşmayı paylaşın",
+        d: "Ne fedakârlık ne kıskançlık; dengeli ve güvenli.",
+        fx: {
+          oy: 0.8,
+          sos: 6,
+          mut: 5,
+          sad: 2,
+          med: -2,
+        },
+      },
+      {
+        t: "Kürsü senin: seçimdeki isim sensin",
+        d: "Liderlik netleşir; yükselen isim not düşer.",
+        fx: {
+          oy: 0.6,
+          sad: 6,
+          med: 4,
+          sos: -5,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_degisim_final_karsida",
+    only: [
+      "degisim",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_karsida",
+    },
+    title: "Karşı Kürsüde Tanıdık Bir Yüz",
+    body: "İktidar bloğunun son mitinginde kürsüye Derya Ataç çıktı. Sizi anlatıyor: içeriden, isim vererek, tarih vererek. Salon dinliyor. Bu akşam verdiğiniz cevap kampanyanın son sözü olacak.",
+    opts: [
+      {
+        t: "Hiç cevap verme, kendi meydanına bak",
+        d: "Kavgayı büyütmezsin; anlattıkları cevapsız kalır.",
+        fx: {
+          sad: 5,
+          mut: 2,
+          med: -3,
+          sos: -2,
+        },
+      },
+      {
+        t: "'Yanılıyor ama hakkı var' de, kapıyı açık bırak",
+        d: "Olgun durur; tabanın bir kısmı yumuşaklık okur.",
+        fx: {
+          mut: 6,
+          sos: 5,
+          med: 4,
+          sad: -6,
+          oy: 0.3,
+        },
+      },
+      {
+        t: "Sert cevap ver, ihaneti anlat",
+        d: "Taban coşar, kararsız seçmen yorulur.",
+        fx: {
+          sad: 9,
+          med: -5,
+          mut: -4,
+          sos: -3,
+          oy: -0.2,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_degisim_final_sessiz",
+    only: [
+      "degisim",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_yaninda",
+    },
+    title: "Belediyedeki Kadın",
+    body: "Derya Ataç kampanya boyunca masada kaldı: yerel yönetimler, imar, hizmet. Kürsüyü hiç görmedi ve hiç istemedi, ya da istedi de söylemedi. Son hafta programında bir boşluk var ve o boşluğu kimin dolduracağı size kalmış.",
+    opts: [
+      {
+        t: "Son mitingde ilk kez kürsüye çıkar",
+        d: "Geç ama gerçek bir jest.",
+        fx: {
+          sos: 7,
+          mut: 5,
+          oy: 0.5,
+          sad: -3,
+        },
+      },
+      {
+        t: "Sahayı ona teslim et, sen ekranlarda kal",
+        d: "İş bölümü; ikiniz de kendi güçlü alanınızda.",
+        fx: {
+          med: 6,
+          oy: 0.5,
+          reg: {
+            ica: 2,
+            kar: 2,
+          },
+          sad: 2,
+          sos: -3,
+          but: -5,
+        },
+      },
+      {
+        t: "Programı değiştirme",
+        d: "Ne kazandırır ne kaybettirir; kimse hatırlamaz.",
+        fx: {
+          sad: 3,
+          sos: -2,
+          mut: -2,
+          but: 4,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_cephe_kesif",
+    only: [
+      "cephe",
+    ],
+    cat: "TEŞKİLAT",
+    chainStart: true,
+    maxDay: 64,
+    title: "Ekrandan Bir Ses",
+    body: "Genç akademisyen ve yayıncı Dr. Tuncay Yalçın'ın dün geceki canlı yayını bir milyon izlenmeyi geçti. Süreç masasını, sınırı, 'milli duruşu' sizden daha sert ve daha düzenli anlatıyor. Gençlik kolları onun adıyla toplanıyor. Kurmaylarınız ikiye bölünmüş durumda: kimi 'bu isim kampanyayı taşır' diyor, kimi 'bu isim seni gölgede bırakır' diyor.",
+    opts: [
+      {
+        t: "Kürsüye çıkar, yanına al",
+        d: "Gençlik kolları coşar; ama sahne paylaşılınca geri alınmaz.",
+        fx: {
+          sos: 8,
+          mut: 4,
+          oy: 0.5,
+          sad: -4,
+        },
+        sets: {
+          flag: "k_yukseldi",
+        },
+        out: "Yalçın ilk mitingde {L'in} hemen yanında durdu. Gençlik kollarının sloganı o akşam meydanı kapladı.",
+      },
+      {
+        t: "Danışman yap ama sahne verme",
+        d: "Yayın gücünü kullan, görünürlüğü kendine sakla.",
+        fx: {
+          sad: 6,
+          mut: 2,
+          sos: -3,
+        },
+        sets: {
+          flag: "k_yaninda",
+        },
+        out: "Yalçın genel merkeze danışman olarak çağrıldı; kürsü değil, masa verildi. Şimdilik itiraz etmedi.",
+      },
+      {
+        t: "Frene bas: 'Önce partide yer alsın'",
+        d: "Hiyerarşi korunur; genç kadro küser.",
+        fx: {
+          sad: 7,
+          sos: -5,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Karar teşkilatta memnuniyetle karşılandı. Yalçın'ın o geceki yayını kısa oldu: 'Sabrediyoruz.'",
+      },
+    ],
+  },
+  {
+    id: "ch_cephe_golge",
+    only: [
+      "cephe",
+    ],
+    cat: "RAKİP",
+    requires: {
+      flag: "k_yukseldi",
+    },
+    title: "Cephenin Sesi Kim?",
+    body: "Dr. Tuncay Yalçın'ın yayınları artık sizin konuşmalarınızdan çok izleniyor. Bir gazete bugün 'Cephenin sesi kim?' başlığını attı. Gençlik kolları miting afişlerinde onun adını öne çıkarıyor. Kurmaylar cevap bekliyor: sahneyi büyütmek mi, küçültmek mi?",
+    opts: [
+      {
+        t: "Daha da öne çıkar: 'Kampanya benim değil, bizim'",
+        d: "Cömertlik güçlü görünür, ya da zayıf.",
+        fx: {
+          sos: 9,
+          mut: 5,
+          oy: 0.6,
+          sad: -5,
+          med: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "{L} sahneyi paylaştı; ikili o hafta kampanyanın en çok konuşulan görüntüsü oldu.",
+      },
+      {
+        t: "Yayınlarını seyrelt, merkeze çek",
+        d: "Kontrol geri gelir; bedeli Yalçın'ın sadakati.",
+        fx: {
+          sad: 6,
+          med: 3,
+          sos: -6,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Yalçın'ın yayın takvimi bir gecede yarıya indi. Kimseye bir şey sormadı.",
+      },
+      {
+        t: "Sınır illerine gönder: orada sınansın",
+        d: "Başarırsa kazanç sizin, başaramazsa yük onun.",
+        fx: {
+          oy: 0.4,
+          sad: 3,
+          reg: {
+            dog: 3,
+            kar: 2,
+          },
+          but: -6,
+          sos: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Yalçın sınır hattındaki illerde üç gün kaldı ve salonlar doldu. Genel merkezde kimse itiraz edemedi.",
+      },
+    ],
+  },
+  {
+    id: "ch_cephe_teklif",
+    only: [
+      "cephe",
+    ],
+    cat: "SKANDAL",
+    requires: {
+      flag: "k_kirildi",
+    },
+    title: "Kapısını Başkası Çaldı",
+    body: "Dr. Tuncay Yalçın'ın iktidar bloğunun milliyetçi ortağıyla görüştüğü konuşuluyor. Henüz bir şey imzalanmış değil ama kulis net: 'milletvekili listesinde yer' teklifi var, cevap bekleniyor. Elinizde bir gün var.",
+    opts: [
+      {
+        t: "Kendin ara, yüz yüze konuş",
+        d: "Gururu bir kenara koy. Tutarsa kazanılan sadece bir yayıncı değil.",
+        fx: {
+          sos: 6,
+          mut: 4,
+          oy: 0.4,
+          sad: -5,
+          but: -5,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Görüşme iki saat sürdü. Yalçın ertesi gün canlı yayında tek cümle kurdu: 'Cephedeyim.'",
+      },
+      {
+        t: "Bırak gitsin, arkasından konuşma",
+        d: "Onurlu ama boş bir sandalye.",
+        fx: {
+          sad: 4,
+          med: 2,
+          sos: -5,
+          oy: -0.3,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Yalçın ertesi gün yayınına iktidar ortağının rozetiyle çıktı. Kimse şaşırmadı, herkes konuştu.",
+      },
+      {
+        t: "Önden vur: 'Zaten ihraç sürecindeydi'",
+        d: "Kontrolü elinde tutuyormuş gibi görünürsün.",
+        fx: {
+          sad: 6,
+          med: -4,
+          sos: -7,
+          mut: -4,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Açıklama inandırıcı bulunmadı; 'kendi yayıncılarını kovmuş gibi yaptılar' cümlesi trend oldu.",
+      },
+    ],
+  },
+  {
+    id: "ch_cephe_final_yaninda",
+    only: [
+      "cephe",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_ortak",
+    },
+    title: "Son Mitingde Kürsü Sırası",
+    body: "Kampanyanın son büyük mitingi. Dr. Tuncay Yalçın kürsü sırasını size bırakmak için sahne arkasında bekliyor, ama meydan onun adını sayıklıyor. Bu gece kimin konuşacağına siz karar vereceksiniz.",
+    opts: [
+      {
+        t: "Kürsüyü ona ver, sen arkasında dur",
+        d: "Meydanı o coşturur; manşet ikinizin olur.",
+        fx: {
+          oy: 1.1,
+          sos: 10,
+          mut: 7,
+          med: 5,
+          sad: -4,
+        },
+      },
+      {
+        t: "Birlikte çıkın, konuşmayı paylaşın",
+        d: "Ne fedakârlık ne kıskançlık; dengeli ve güvenli.",
+        fx: {
+          oy: 0.8,
+          sos: 6,
+          mut: 5,
+          sad: 2,
+          med: -2,
+        },
+      },
+      {
+        t: "Kürsü senin: seçimdeki isim sensin",
+        d: "Liderlik netleşir; yükselen isim not düşer.",
+        fx: {
+          oy: 0.6,
+          sad: 6,
+          med: 4,
+          sos: -5,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_cephe_final_karsida",
+    only: [
+      "cephe",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_karsida",
+    },
+    title: "Karşı Kürsüde Tanıdık Bir Yüz",
+    body: "İktidar ortağının son mitinginde kürsüye Dr. Tuncay Yalçın çıktı. Cephenin içini anlatıyor: isim vererek, tarih vererek. Salon dinliyor. Bu akşam verdiğiniz cevap kampanyanın son sözü olacak.",
+    opts: [
+      {
+        t: "Hiç cevap verme, kendi meydanına bak",
+        d: "Kavgayı büyütmezsin; anlattıkları cevapsız kalır.",
+        fx: {
+          sad: 5,
+          mut: 2,
+          med: -3,
+          sos: -2,
+        },
+      },
+      {
+        t: "'Yanılıyor ama hakkı var' de, kapıyı açık bırak",
+        d: "Olgun durur; tabanın bir kısmı yumuşaklık okur.",
+        fx: {
+          mut: 6,
+          sos: 5,
+          med: 4,
+          sad: -6,
+          oy: 0.3,
+        },
+      },
+      {
+        t: "Sert cevap ver, ihaneti anlat",
+        d: "Taban coşar, kararsız seçmen yorulur.",
+        fx: {
+          sad: 9,
+          med: -5,
+          mut: -4,
+          sos: -3,
+          oy: -0.2,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_cephe_final_sessiz",
+    only: [
+      "cephe",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_yaninda",
+    },
+    title: "Ekranın Arkasındaki Adam",
+    body: "Dr. Tuncay Yalçın kampanya boyunca yayın odasında kaldı: gündem, veri, gençlik kolları. Kürsüyü hiç görmedi ve hiç istemedi, ya da istedi de söylemedi. Son hafta programında bir boşluk var ve o boşluğu kimin dolduracağı size kalmış.",
+    opts: [
+      {
+        t: "Son mitingde ilk kez kürsüye çıkar",
+        d: "Geç ama gerçek bir jest.",
+        fx: {
+          sos: 7,
+          mut: 5,
+          oy: 0.5,
+          sad: -3,
+        },
+      },
+      {
+        t: "Sahayı ona teslim et, sen ekranlarda kal",
+        d: "İş bölümü; ikiniz de kendi güçlü alanınızda.",
+        fx: {
+          med: 6,
+          oy: 0.5,
+          reg: {
+            ica: 2,
+            kar: 2,
+          },
+          sad: 2,
+          sos: -3,
+          but: -5,
+        },
+      },
+      {
+        t: "Programı değiştirme",
+        d: "Ne kazandırır ne kaybettirir; kimse hatırlamaz.",
+        fx: {
+          sad: 3,
+          sos: -2,
+          mut: -2,
+          but: 4,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_mutabakat_kesif",
+    only: [
+      "mutabakat",
+    ],
+    cat: "TEŞKİLAT",
+    chainStart: true,
+    maxDay: 64,
+    title: "Odadan Bir İsim",
+    body: "Bir Anadolu ticaret odasının başkanı Sedat Yaylalı, dün akşam esnafla yaptığı toplantıda enflasyonu, kirayı ve kredi faizini sakin bir dille anlattı. Kayıt gece boyunca dolaştı: gürültüsüz, rakamlı, çok net. Hem iktidar hem muhalefet seçmeni 'bu adam anlıyor' diyor. Kurmaylarınız ikiye bölünmüş durumda: kimi 'bu isim kampanyayı taşır' diyor, kimi 'bu isim seni gölgede bırakır' diyor.",
+    opts: [
+      {
+        t: "Kürsüye çıkar, yanına al",
+        d: "Güven veren bir yüz; ama sahne paylaşılınca geri alınmaz.",
+        fx: {
+          sos: 8,
+          mut: 4,
+          oy: 0.5,
+          sad: -4,
+        },
+        sets: {
+          flag: "k_yukseldi",
+        },
+        out: "Yaylalı ilk mitingde {L'in} hemen yanında durdu. 'Rakamlı konuşan iki kişi' kareleri bütün gün paylaşıldı.",
+      },
+      {
+        t: "Ekonomi masasına al, sahne verme",
+        d: "Bilgisini kullan, görünürlüğü kendine sakla.",
+        fx: {
+          sad: 6,
+          mut: 2,
+          sos: -3,
+        },
+        sets: {
+          flag: "k_yaninda",
+        },
+        out: "Yaylalı genel merkezde ekonomi masasının başına geçti. Kürsü sırası sorusuna 'Rakamlar konuşsun' dedi.",
+      },
+      {
+        t: "Frene bas: 'Önce odasına baksın'",
+        d: "Hiyerarşi korunur; esnaf kanadı küser.",
+        fx: {
+          sad: 7,
+          sos: -5,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Karar teşkilatta memnuniyetle karşılandı. Yaylalı'nın o akşamki tek cümlesi şuydu: 'Anladım.'",
+      },
+    ],
+  },
+  {
+    id: "ch_mutabakat_golge",
+    only: [
+      "mutabakat",
+    ],
+    cat: "RAKİP",
+    requires: {
+      flag: "k_yukseldi",
+    },
+    title: "Odanın Gölgesinde",
+    body: "Sedat Yaylalı'nın esnaf toplantılarına gelenler artık sizin mitinglerinizdekinden fazla. Bir gazete bugün 'İki büyük bloğun arasında ortak isim o mu?' başlığını attı. Kurmaylar cevap bekliyor: sahneyi büyütmek mi, küçültmek mi?",
+    opts: [
+      {
+        t: "Daha da öne çıkar: 'Kampanya benim değil, bizim'",
+        d: "Cömertlik güçlü görünür, ya da zayıf.",
+        fx: {
+          sos: 9,
+          mut: 5,
+          oy: 0.6,
+          sad: -5,
+          med: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "{L} sahneyi paylaştı; ikili o hafta kampanyanın en çok konuşulan görüntüsü oldu.",
+      },
+      {
+        t: "Programını seyrelt, merkeze çek",
+        d: "Kontrol geri gelir; bedeli Yaylalı'nın sadakati.",
+        fx: {
+          sad: 6,
+          med: 3,
+          sos: -6,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Yaylalı'nın esnaf toplantıları bir gecede yarıya indi. Kimseye bir şey sormadı.",
+      },
+      {
+        t: "Anadolu şehirlerine gönder: orada sınansın",
+        d: "Başarırsa kazanç sizin, başaramazsa yük onun.",
+        fx: {
+          oy: 0.4,
+          sad: 3,
+          reg: {
+            ica: 3,
+            kar: 2,
+          },
+          but: -6,
+          sos: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Yaylalı üç gün boyunca küçük şehirleri dolaştı ve salonları doldurdu. Genel merkezde kimse itiraz edemedi.",
+      },
+    ],
+  },
+  {
+    id: "ch_mutabakat_teklif",
+    only: [
+      "mutabakat",
+    ],
+    cat: "SKANDAL",
+    requires: {
+      flag: "k_kirildi",
+    },
+    title: "Kapısını Başkası Çaldı",
+    body: "Sedat Yaylalı'nın büyük bloklardan birinin kurmaylarıyla görüştüğü konuşuluyor. Henüz bir şey imzalanmış değil ama kulis net: 'ekonomi sorumlusu' makamı teklif ediliyor, cevap bekleniyor. Elinizde bir gün var.",
+    opts: [
+      {
+        t: "Kendin ara, yüz yüze konuş",
+        d: "Gururu bir kenara koy. Tutarsa kazanılan sadece bir kadro değil.",
+        fx: {
+          sos: 6,
+          mut: 4,
+          oy: 0.4,
+          sad: -5,
+          but: -5,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Görüşme iki saat sürdü. Yaylalı ertesi sabah odasından tek cümle yazdı: 'Buradayım.'",
+      },
+      {
+        t: "Bırak gitsin, arkasından konuşma",
+        d: "Onurlu ama boş bir sandalye.",
+        fx: {
+          sad: 4,
+          med: 2,
+          sos: -5,
+          oy: -0.3,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Yaylalı ertesi gün karşı tarafın masasında görüntülendi. Kimse şaşırmadı, herkes konuştu.",
+      },
+      {
+        t: "Önden vur: 'Zaten yolun sonundaydı'",
+        d: "Kontrolü elinde tutuyormuş gibi görünürsün.",
+        fx: {
+          sad: 6,
+          med: -4,
+          sos: -7,
+          mut: -4,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Açıklama inandırıcı bulunmadı; 'kaçırdıkları esnaf liderini kovmuş gibi yaptılar' cümlesi trend oldu.",
+      },
+    ],
+  },
+  {
+    id: "ch_mutabakat_final_yaninda",
+    only: [
+      "mutabakat",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_ortak",
+    },
+    title: "Son Mitingde Kürsü Sırası",
+    body: "Kampanyanın son büyük mitingi. Sedat Yaylalı kürsü sırasını size bırakmak için sahne arkasında bekliyor, ama meydan onun adını sayıklıyor. Bu gece kimin konuşacağına siz karar vereceksiniz.",
+    opts: [
+      {
+        t: "Kürsüyü ona ver, sen arkasında dur",
+        d: "Meydanı o coşturur; manşet ikinizin olur.",
+        fx: {
+          oy: 1.1,
+          sos: 10,
+          mut: 7,
+          med: 5,
+          sad: -4,
+        },
+      },
+      {
+        t: "Birlikte çıkın, konuşmayı paylaşın",
+        d: "Ne fedakârlık ne kıskançlık; dengeli ve güvenli.",
+        fx: {
+          oy: 0.8,
+          sos: 6,
+          mut: 5,
+          sad: 2,
+          med: -2,
+        },
+      },
+      {
+        t: "Kürsü senin: seçimdeki isim sensin",
+        d: "Liderlik netleşir; yükselen isim not düşer.",
+        fx: {
+          oy: 0.6,
+          sad: 6,
+          med: 4,
+          sos: -5,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_mutabakat_final_karsida",
+    only: [
+      "mutabakat",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_karsida",
+    },
+    title: "Karşı Kürsüde Tanıdık Bir Yüz",
+    body: "Büyük bloğun son mitinginde kürsüye Sedat Yaylalı çıktı. Sizi anlatıyor: içeriden, rakam vererek, tarih vererek. Salon dinliyor. Bu akşam verdiğiniz cevap kampanyanın son sözü olacak.",
+    opts: [
+      {
+        t: "Hiç cevap verme, kendi meydanına bak",
+        d: "Kavgayı büyütmezsin; anlattıkları cevapsız kalır.",
+        fx: {
+          sad: 5,
+          mut: 2,
+          med: -3,
+          sos: -2,
+        },
+      },
+      {
+        t: "'Yanılıyor ama hakkı var' de, kapıyı açık bırak",
+        d: "Olgun durur; tabanın bir kısmı yumuşaklık okur.",
+        fx: {
+          mut: 6,
+          sos: 5,
+          med: 4,
+          sad: -6,
+          oy: 0.3,
+        },
+      },
+      {
+        t: "Sert cevap ver, ihaneti anlat",
+        d: "Taban coşar, kararsız seçmen yorulur.",
+        fx: {
+          sad: 9,
+          med: -5,
+          mut: -4,
+          sos: -3,
+          oy: -0.2,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_mutabakat_final_sessiz",
+    only: [
+      "mutabakat",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_yaninda",
+    },
+    title: "Odadaki Adam",
+    body: "Sedat Yaylalı kampanya boyunca masada kaldı: esnaf, kira, kredi. Kürsüyü hiç görmedi ve hiç istemedi, ya da istedi de söylemedi. Son hafta programında bir boşluk var ve o boşluğu kimin dolduracağı size kalmış.",
+    opts: [
+      {
+        t: "Son mitingde ilk kez kürsüye çıkar",
+        d: "Geç ama gerçek bir jest.",
+        fx: {
+          sos: 7,
+          mut: 5,
+          oy: 0.5,
+          sad: -3,
+        },
+      },
+      {
+        t: "Sahayı ona teslim et, sen ekranlarda kal",
+        d: "İş bölümü; ikiniz de kendi güçlü alanınızda.",
+        fx: {
+          med: 6,
+          oy: 0.5,
+          reg: {
+            ica: 2,
+            kar: 2,
+          },
+          sad: 2,
+          sos: -3,
+          but: -5,
+        },
+      },
+      {
+        t: "Programı değiştirme",
+        d: "Ne kazandırır ne kaybettirir; kimse hatırlamaz.",
+        fx: {
+          sad: 3,
+          sos: -2,
+          mut: -2,
+          but: 4,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_dayanisma_kesif",
+    only: [
+      "dayanisma",
+    ],
+    cat: "TEŞKİLAT",
+    chainStart: true,
+    maxDay: 64,
+    title: "Eş Başkan Konuştu",
+    body: "Bir ilin belediye eş başkanı, avukat Zelal Aydın, dün akşam bir kadın meclisi toplantısında konuştu. Kayıt gece boyunca dolaştı: sade, sinirli, çok net. Hem kadınlar hem gençler 'bu ses bizim' diyor. Kurmaylarınız ikiye bölünmüş durumda: kimi 'bu isim kampanyayı taşır' diyor, kimi 'bu isim seni gölgede bırakır' diyor.",
+    opts: [
+      {
+        t: "Kürsüye çıkar, yanına al",
+        d: "Eş başkanlık ruhuna uygun; ama sahne paylaşılınca geri alınmaz.",
+        fx: {
+          sos: 8,
+          mut: 4,
+          oy: 0.5,
+          sad: -4,
+        },
+        sets: {
+          flag: "k_yukseldi",
+        },
+        out: "Aydın ilk mitingde {L'in} hemen yanında durdu. 'Eş sözcü' kareleri bütün gün paylaşıldı.",
+      },
+      {
+        t: "Kadın ve gençlik masasına al, sahne verme",
+        d: "Enerjisini kullan, görünürlüğü kendine sakla.",
+        fx: {
+          sad: 6,
+          mut: 2,
+          sos: -3,
+        },
+        sets: {
+          flag: "k_yaninda",
+        },
+        out: "Aydın genel merkezde kadın ve gençlik masasının başına geçti. Kürsü sırası sorusuna 'Önce iş' dedi.",
+      },
+      {
+        t: "Frene bas: 'Sıra beklemeyi öğrenecek'",
+        d: "Hiyerarşi korunur; kadın ve genç kadro küser.",
+        fx: {
+          sad: 7,
+          sos: -5,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Karar teşkilatta memnuniyetle karşılandı. Aydın'ın o akşamki tek cümlesi şuydu: 'Anladım.'",
+      },
+    ],
+  },
+  {
+    id: "ch_dayanisma_golge",
+    only: [
+      "dayanisma",
+    ],
+    cat: "RAKİP",
+    requires: {
+      flag: "k_yukseldi",
+    },
+    title: "Eş Başkanın Gölgesi",
+    body: "Zelal Aydın'ın konuşma videoları artık sizinkilerden fazla izleniyor. Taban 'eş başkanlık ilkesi' diyerek sahnenin paylaşılmasını istiyor, bir gazete 'Asıl yüz kim?' başlığını attı. Kurmaylar cevap bekliyor: sahneyi büyütmek mi, küçültmek mi?",
+    opts: [
+      {
+        t: "Daha da öne çıkar: 'Kampanya benim değil, bizim'",
+        d: "Cömertlik güçlü görünür, ya da zayıf.",
+        fx: {
+          sos: 9,
+          mut: 5,
+          oy: 0.6,
+          sad: -5,
+          med: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "{L} sahneyi paylaştı; ikili o hafta kampanyanın en çok konuşulan görüntüsü oldu.",
+      },
+      {
+        t: "Programını seyrelt, merkeze çek",
+        d: "Kontrol geri gelir; bedeli Aydın'ın sadakati.",
+        fx: {
+          sad: 6,
+          med: 3,
+          sos: -6,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Aydın'ın miting takvimi bir gecede yarıya indi. Kimseye bir şey sormadı.",
+      },
+      {
+        t: "Zor bir bölgeye gönder: orada sınansın",
+        d: "Başarırsa kazanç sizin, başaramazsa yük onun.",
+        fx: {
+          oy: 0.4,
+          sad: 3,
+          reg: {
+            dog: 3,
+            gdo: 2,
+          },
+          but: -6,
+          sos: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Aydın en zor ilde üç gün kaldı ve salonu doldurdu. Genel merkezde kimse itiraz edemedi.",
+      },
+    ],
+  },
+  {
+    id: "ch_dayanisma_teklif",
+    only: [
+      "dayanisma",
+    ],
+    cat: "SKANDAL",
+    requires: {
+      flag: "k_kirildi",
+    },
+    title: "Kapısını Başkası Çaldı",
+    body: "Zelal Aydın'ın büyük bloklardan birinin kurmaylarıyla görüştüğü konuşuluyor. Henüz bir şey imzalanmış değil ama kulis net: 'kadın kotasından milletvekilliği' teklifi var, cevap bekleniyor. Elinizde bir gün var.",
+    opts: [
+      {
+        t: "Kendin ara, yüz yüze konuş",
+        d: "Gururu bir kenara koy. Tutarsa kazanılan sadece bir kadro değil.",
+        fx: {
+          sos: 6,
+          mut: 4,
+          oy: 0.4,
+          sad: -5,
+          but: -5,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Görüşme iki saat sürdü. Aydın ertesi sabah kendi hesabından tek kelime yazdı: 'Buradayım.'",
+      },
+      {
+        t: "Bırak gitsin, arkasından konuşma",
+        d: "Onurlu ama boş bir sandalye.",
+        fx: {
+          sad: 4,
+          med: 2,
+          sos: -5,
+          oy: -0.3,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Aydın ertesi gün karşı tarafın rozetiyle görüntülendi. Kimse şaşırmadı, herkes konuştu.",
+      },
+      {
+        t: "Önden vur: 'Zaten ihraç sürecindeydi'",
+        d: "Kontrolü elinde tutuyormuş gibi görünürsün.",
+        fx: {
+          sad: 6,
+          med: -4,
+          sos: -7,
+          mut: -4,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Açıklama inandırıcı bulunmadı; 'kaçırdıkları eş başkanı kovmuş gibi yaptılar' cümlesi trend oldu.",
+      },
+    ],
+  },
+  {
+    id: "ch_dayanisma_final_yaninda",
+    only: [
+      "dayanisma",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_ortak",
+    },
+    title: "Son Mitingde Kürsü Sırası",
+    body: "Kampanyanın son büyük mitingi. Zelal Aydın kürsü sırasını size bırakmak için sahne arkasında bekliyor, ama meydan onun adını sayıklıyor. Eş başkanlık ilkesi gereği kürsüyü nasıl paylaşacağınıza siz karar vereceksiniz.",
+    opts: [
+      {
+        t: "Kürsüyü ona ver, sen yanında dur",
+        d: "Meydanı o coşturur; manşet ikinizin olur.",
+        fx: {
+          oy: 1.1,
+          sos: 10,
+          mut: 7,
+          med: 5,
+          sad: -4,
+        },
+      },
+      {
+        t: "Birlikte çıkın, konuşmayı eşit paylaşın",
+        d: "Eş başkanlık ilkesine tam uygun; dengeli ve güvenli.",
+        fx: {
+          oy: 0.8,
+          sos: 6,
+          mut: 5,
+          sad: 2,
+          med: -2,
+        },
+      },
+      {
+        t: "Kürsü senin: seçimdeki isim sensin",
+        d: "Liderlik netleşir; yükselen isim not düşer.",
+        fx: {
+          oy: 0.6,
+          sad: 6,
+          med: 4,
+          sos: -5,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_dayanisma_final_karsida",
+    only: [
+      "dayanisma",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_karsida",
+    },
+    title: "Karşı Kürsüde Tanıdık Bir Yüz",
+    body: "Büyük bloğun son mitinginde kürsüye Zelal Aydın çıktı. Sizi anlatıyor: içeriden, isim vererek, tarih vererek. Salon dinliyor. Bu akşam verdiğiniz cevap kampanyanın son sözü olacak.",
+    opts: [
+      {
+        t: "Hiç cevap verme, kendi meydanına bak",
+        d: "Kavgayı büyütmezsin; anlattıkları cevapsız kalır.",
+        fx: {
+          sad: 5,
+          mut: 2,
+          med: -3,
+          sos: -2,
+        },
+      },
+      {
+        t: "'Yanılıyor ama hakkı var' de, kapıyı açık bırak",
+        d: "Olgun durur; tabanın bir kısmı yumuşaklık okur.",
+        fx: {
+          mut: 6,
+          sos: 5,
+          med: 4,
+          sad: -6,
+          oy: 0.3,
+        },
+      },
+      {
+        t: "Sert cevap ver, ihaneti anlat",
+        d: "Taban coşar, kararsız seçmen yorulur.",
+        fx: {
+          sad: 9,
+          med: -5,
+          mut: -4,
+          sos: -3,
+          oy: -0.2,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_dayanisma_final_sessiz",
+    only: [
+      "dayanisma",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_yaninda",
+    },
+    title: "Meclisteki Kadın",
+    body: "Zelal Aydın kampanya boyunca kadın meclislerinde kaldı: dosya, saha, hukuk desteği. Kürsüyü hiç görmedi ve hiç istemedi, ya da istedi de söylemedi. Son hafta programında bir boşluk var ve o boşluğu kimin dolduracağı size kalmış.",
+    opts: [
+      {
+        t: "Son mitingde ilk kez kürsüye çıkar",
+        d: "Geç ama gerçek bir jest.",
+        fx: {
+          sos: 7,
+          mut: 5,
+          oy: 0.5,
+          sad: -3,
+        },
+      },
+      {
+        t: "Sahayı ona teslim et, sen ekranlarda kal",
+        d: "İş bölümü; ikiniz de kendi güçlü alanınızda.",
+        fx: {
+          med: 6,
+          oy: 0.5,
+          reg: {
+            ica: 2,
+            kar: 2,
+          },
+          sad: 2,
+          sos: -3,
+          but: -5,
+        },
+      },
+      {
+        t: "Programı değiştirme",
+        d: "Ne kazandırır ne kaybettirir; kimse hatırlamaz.",
+        fx: {
+          sad: 3,
+          sos: -2,
+          mut: -2,
+          but: 4,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_emek_kesif",
+    only: [
+      "emek",
+    ],
+    cat: "TEŞKİLAT",
+    chainStart: true,
+    maxDay: 64,
+    title: "Sokaktan Bir Ses",
+    body: "Platform kuryesi ve sendikanın genç kadın temsilcisi Cansu Aral, dün gece bir iş bırakma eyleminde megafonu eline aldı. Kayıt gece boyunca dolaştı: sade, sinirli, çok net. Sosyal medyada 'bizim gündemi o belirliyor' yazılıyor. Kurmaylarınız ikiye bölünmüş durumda: kimi 'bu isim kampanyayı taşır' diyor, kimi 'bu isim sizi gölgede bırakır' diyor.",
+    opts: [
+      {
+        t: "Kürsüye çıkar, yanına al",
+        d: "Gerçek bir işçi sesi; ama sahne paylaşılınca geri alınmaz.",
+        fx: {
+          sos: 8,
+          mut: 4,
+          oy: 0.5,
+          sad: -4,
+        },
+        sets: {
+          flag: "k_yukseldi",
+        },
+        out: "Aral ilk mitingde {L'in} hemen yanında durdu. Kurye montuyla çekilen kare bütün gün paylaşıldı.",
+      },
+      {
+        t: "Sendika masasına al, sahne verme",
+        d: "Enerjisini kullan, görünürlüğü kendine sakla.",
+        fx: {
+          sad: 6,
+          mut: 2,
+          sos: -3,
+        },
+        sets: {
+          flag: "k_yaninda",
+        },
+        out: "Aral genel merkezde sendika ve işyeri masasının başına geçti. Kürsü sırası sorusuna 'Önce örgüt' dedi.",
+      },
+      {
+        t: "Frene bas: 'Önce örgütlensin'",
+        d: "Hiyerarşi korunur; genç kadro küser.",
+        fx: {
+          sad: 7,
+          sos: -5,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Karar teşkilatta memnuniyetle karşılandı. Aral'ın o akşamki tek cümlesi şuydu: 'Anladım.'",
+      },
+    ],
+  },
+  {
+    id: "ch_emek_golge",
+    only: [
+      "emek",
+    ],
+    cat: "RAKİP",
+    requires: {
+      flag: "k_yukseldi",
+    },
+    title: "Gündemi Kim Belirliyor?",
+    body: "Cansu Aral'ın eylem çağrıları artık sizin açıklamalarınızdan fazla yankı buluyor. Bir gazete bugün 'Solun yeni yüzü kim?' başlığını attı. Kurmaylar cevap bekliyor: sahneyi büyütmek mi, küçültmek mi?",
+    opts: [
+      {
+        t: "Daha da öne çıkar: 'Kampanya benim değil, bizim'",
+        d: "Cömertlik güçlü görünür, ya da zayıf.",
+        fx: {
+          sos: 9,
+          mut: 5,
+          oy: 0.6,
+          sad: -5,
+          med: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "{L} sahneyi paylaştı; ikili o hafta kampanyanın en çok konuşulan görüntüsü oldu.",
+      },
+      {
+        t: "Programını seyrelt, merkeze çek",
+        d: "Kontrol geri gelir; bedeli Aral'ın sadakati.",
+        fx: {
+          sad: 6,
+          med: 3,
+          sos: -6,
+          mut: -3,
+        },
+        sets: {
+          flag: "k_kirildi",
+        },
+        out: "Aral'ın eylem takvimi bir gecede yarıya indi. Kimseye bir şey sormadı.",
+      },
+      {
+        t: "Fabrika bölgesine gönder: orada sınansın",
+        d: "Başarırsa kazanç sizin, başaramazsa yük onun.",
+        fx: {
+          oy: 0.4,
+          sad: 3,
+          reg: {
+            mar: 3,
+            ege: 2,
+          },
+          but: -6,
+          sos: -2,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Aral sanayi bölgesinde üç gün kaldı ve vardiya çıkışlarında salonları doldurdu. Genel merkezde kimse itiraz edemedi.",
+      },
+    ],
+  },
+  {
+    id: "ch_emek_teklif",
+    only: [
+      "emek",
+    ],
+    cat: "SKANDAL",
+    requires: {
+      flag: "k_kirildi",
+    },
+    title: "Kapısını Başkası Çaldı",
+    body: "Cansu Aral'ın daha büyük bir muhalefet bloğunun kurmaylarıyla görüştüğü konuşuluyor. Henüz bir şey imzalanmış değil ama kulis net: 'sendika kotası ve listede yer' teklifi var, cevap bekleniyor. Elinizde bir gün var.",
+    opts: [
+      {
+        t: "Kendin ara, yüz yüze konuş",
+        d: "Gururu bir kenara koy. Tutarsa kazanılan sadece bir kadro değil.",
+        fx: {
+          sos: 6,
+          mut: 4,
+          oy: 0.4,
+          sad: -5,
+          but: -5,
+        },
+        sets: {
+          flag: "k_ortak",
+        },
+        out: "Görüşme iki saat sürdü. Aral ertesi sabah kendi hesabından tek kelime yazdı: 'Buradayım.'",
+      },
+      {
+        t: "Bırak gitsin, arkasından konuşma",
+        d: "Onurlu ama boş bir sandalye.",
+        fx: {
+          sad: 4,
+          med: 2,
+          sos: -5,
+          oy: -0.3,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Aral ertesi gün karşı tarafın rozetiyle görüntülendi. Kimse şaşırmadı, herkes konuştu.",
+      },
+      {
+        t: "Önden vur: 'Zaten ihraç sürecindeydi'",
+        d: "Kontrolü elinde tutuyormuş gibi görünürsün.",
+        fx: {
+          sad: 6,
+          med: -4,
+          sos: -7,
+          mut: -4,
+        },
+        sets: {
+          flag: "k_karsida",
+        },
+        out: "Açıklama inandırıcı bulunmadı; 'kaçırdıkları işçi temsilcisini kovmuş gibi yaptılar' cümlesi trend oldu.",
+      },
+    ],
+  },
+  {
+    id: "ch_emek_final_yaninda",
+    only: [
+      "emek",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_ortak",
+    },
+    title: "Son Mitingde Kürsü Sırası",
+    body: "Kampanyanın son büyük mitingi. Cansu Aral kürsü sırasını size bırakmak için sahne arkasında bekliyor, ama meydan onun adını sayıklıyor. Bu gece kimin konuşacağına siz karar vereceksiniz.",
+    opts: [
+      {
+        t: "Kürsüyü ona ver, sen arkasında dur",
+        d: "Meydanı o coşturur; manşet ikinizin olur.",
+        fx: {
+          oy: 1.1,
+          sos: 10,
+          mut: 7,
+          med: 5,
+          sad: -4,
+        },
+      },
+      {
+        t: "Birlikte çıkın, konuşmayı paylaşın",
+        d: "Ne fedakârlık ne kıskançlık; dengeli ve güvenli.",
+        fx: {
+          oy: 0.8,
+          sos: 6,
+          mut: 5,
+          sad: 2,
+          med: -2,
+        },
+      },
+      {
+        t: "Kürsü senin: seçimdeki isim sensin",
+        d: "Liderlik netleşir; yükselen isim not düşer.",
+        fx: {
+          oy: 0.6,
+          sad: 6,
+          med: 4,
+          sos: -5,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_emek_final_karsida",
+    only: [
+      "emek",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_karsida",
+    },
+    title: "Karşı Kürsüde Tanıdık Bir Yüz",
+    body: "Büyük bloğun son mitinginde kürsüye Cansu Aral çıktı. Sizi anlatıyor: içeriden, isim vererek, tarih vererek. Salon dinliyor. Bu akşam verdiğiniz cevap kampanyanın son sözü olacak.",
+    opts: [
+      {
+        t: "Hiç cevap verme, kendi meydanına bak",
+        d: "Kavgayı büyütmezsin; anlattıkları cevapsız kalır.",
+        fx: {
+          sad: 5,
+          mut: 2,
+          med: -3,
+          sos: -2,
+        },
+      },
+      {
+        t: "'Yanılıyor ama hakkı var' de, kapıyı açık bırak",
+        d: "Olgun durur; tabanın bir kısmı yumuşaklık okur.",
+        fx: {
+          mut: 6,
+          sos: 5,
+          med: 4,
+          sad: -6,
+          oy: 0.3,
+        },
+      },
+      {
+        t: "Sert cevap ver, ihaneti anlat",
+        d: "Taban coşar, kararsız seçmen yorulur.",
+        fx: {
+          sad: 9,
+          med: -5,
+          mut: -4,
+          sos: -3,
+          oy: -0.2,
+        },
+      },
+    ],
+  },
+  {
+    id: "ch_emek_final_sessiz",
+    only: [
+      "emek",
+    ],
+    cat: "FİNAL",
+    phase: [
+      "final",
+    ],
+    requires: {
+      flag: "k_yaninda",
+    },
+    title: "Sendika Odasındaki Kadın",
+    body: "Cansu Aral kampanya boyunca masada kaldı: sendika, işyeri, eylem takvimi. Kürsüyü hiç görmedi ve hiç istemedi, ya da istedi de söylemedi. Son hafta programında bir boşluk var ve o boşluğu kimin dolduracağı size kalmış.",
     opts: [
       {
         t: "Son mitingde ilk kez kürsüye çıkar",
@@ -26609,7 +28238,12 @@ function loadSave() {
 let S = null;
 function freshExclusions() {
   const cand = EVENTS.filter((e) => !e.day && !e.requires && !e.only).map((e) => e.id);
-  return shuffle([...cand]).slice(0, Math.floor(cand.length * 0.18));
+  const ex = shuffle([...cand]).slice(0, Math.floor(cand.length * 0.18));
+  // yukselen figur zinciri her kampanyada cikmasin
+  EVENTS.forEach((e) => {
+    if (/^ch_.+_kesif$/.test(e.id) && Math.random() < 0.3) ex.push(e.id);
+  });
+  return ex;
 }
 function freshStart() {
   const ex = freshExclusions();
