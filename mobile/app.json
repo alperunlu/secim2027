@@ -17,9 +17,6 @@
       "buildNumber": "1",
       "supportsTablet": false,
       "requireFullScreen": true,
-      "entitlements": {
-        "com.apple.developer.game-center": true
-      },
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "UIViewControllerBasedStatusBarAppearance": false,
