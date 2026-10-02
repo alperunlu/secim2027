@@ -2584,6 +2584,7 @@ body.phase-final .panel {
   paint-order: stroke;
   stroke: rgba(239, 227, 200, 0.9);
   stroke-width: var(--sw-pay, 3px);
+  transform: translateY(var(--dy-pay, 0px));
 }
 .mp-kontur {
   fill: none;
@@ -5763,6 +5764,15 @@ body,
   line-height: 1.6;
   max-width: 32rem;
   margin: 0 auto 1rem;
+}
+.dokun-ipucu {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  color: var(--atlas-murekkep-3, #8a7a60);
+  user-select: none;
 }
 #btn-audio,
 #btn-menu {
@@ -29917,7 +29927,9 @@ function confirmWeek() {
   body.innerHTML = `<div class="stamp-anim" style="color:#cdb6f0;border-color:#cdb6f0">PLAN ONAYLANDI</div>
   <div class="o-narr">Hafta planı masaya kondu; ekip görev dağılımını yaptı. Şimdi günün gündemine bakalım.</div>
   <div class="fx-list">${fxChips(applied)}</div>
-  <button class="btn" id="wk-next">Günün Gündemi →</button>`;
+  <button class="btn" id="wk-next">Günün Gündemi →</button>
+  <div class="dokun-ipucu">veya kartın boş bir yerine dokunun</div>`;
+  sonucDokunDevam();
   document.getElementById("wk-next").onclick = () => {
     document.getElementById("dossier").className = "dossier";
     renderSidebar();
@@ -30358,6 +30370,21 @@ function fxHint(o) {
   }
   return parts.length ? `<span class="o-hint">${parts.join("")}</span>` : "";
 }
+let sonucZamani = 0,
+  sonucDokunKuruldu = false;
+function sonucDokunDevam() {
+  sonucZamani = Date.now();
+  if (sonucDokunKuruldu) return;
+  const body = document.getElementById("d-body");
+  if (!body) return;
+  sonucDokunKuruldu = true;
+  body.addEventListener("click", (e) => {
+    const btn = body.querySelector("#btn-next, #wk-next");
+    if (!btn || Date.now() - sonucZamani < 700) return;
+    if (e.target.closest("button, a, input, select, textarea")) return;
+    btn.click();
+  });
+}
 function chooseOpt(ev, o) {
   haptic(10);
   sfx("tick");
@@ -30440,7 +30467,9 @@ function chooseOpt(ev, o) {
   body.innerHTML = `<div class="stamp-anim" style="${mult < 0 ? "color:#e0836b;border-color:#e0836b" : ""}">${stampTxt}</div>
   <div class="o-narr">${riskNote ? riskNote + " " : ""}${outcomeNarr(mult, ev, o)}${flip ? ` <b>Ama bir hafta önceki ${LINE_LABEL[flip.from]} çizginizden döndünüz; "çark etti" başlıkları gecikmedi.</b>` : ""}${kAcik ? ` <b>Kasa yetmedi: ${kAcik.acik} M₺'lik açık borçla kapatıldı, faturayı itibarınız ödedi.</b>` : ""}</div>
   <div class="fx-list">${fxChips(applied)}</div>
-  <button class="btn" id="btn-next">Günü Kapat →</button>`;
+  <button class="btn" id="btn-next">Günü Kapat →</button>
+  <div class="dokun-ipucu">veya kartın boş bir yerine dokunun</div>`;
+  sonucDokunDevam();
   document.getElementById("btn-next").onclick = o.opensDebate ? startDebate : endDay;
   if (o.opensDebate) document.getElementById("btn-next").textContent = "Yayına Çık →";
   addTicker(
@@ -31070,6 +31099,7 @@ function heatColor(pct) {
   const c = HEAT[i].map((v, j) => Math.round(v + (HEAT[i + 1][j] - v) * f));
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
+const MAP_ILK_YAKIN = 0.92;
 const MAP_W = 1000,
   MAP_H = 448;
 let kam = {
@@ -31103,6 +31133,7 @@ function kamUygula() {
   c.style.setProperty("--fs-deniz", px(11));
   c.style.setProperty("--ls-deniz", px(4));
   c.style.setProperty("--fs-pay", px(15));
+  c.style.setProperty("--dy-pay", Math.max(0, 17 / z - 26).toFixed(2) + "px");
   c.style.setProperty("--sw-pay", px(3));
   c.style.setProperty("--sw-kontur", px(1.6));
   c.style.setProperty("--sw-sinir", px(0.9));
@@ -31666,7 +31697,8 @@ function haritaJestKur() {
       t.closest("#stage") ||
       t.closest("#region-card") ||
       t.closest("#map-reset") ||
-      t.closest("#map-katman")
+      t.closest("#map-katman") ||
+      t.closest("button")
     );
   };
   g.addEventListener("pointerdown", function (e) {
@@ -31817,10 +31849,10 @@ function haritaTamAyarla(acik) {
   setTimeout(function () {
     const B = gorunurBant();
     kam.minZ = Math.max(
-      (B.gw / MAP_W) * 0.97,
-      Math.min((B.gh / MAP_H) * 0.95, (B.gw / MAP_W) * 1.9),
+      (B.gw / MAP_W) * 0.9,
+      Math.min((B.gh / MAP_H) * 0.95, (B.gw / MAP_W) * MAP_ILK_YAKIN),
     );
-    kam.maxZ = kam.minZ * 3.4;
+    kam.maxZ = Math.max(kam.minZ * 3.4, (B.gw / MAP_W) * 2.5);
     if (kam.z < kam.minZ) kam.z = kam.minZ;
     kamSinirla();
     kamAnim(280);
@@ -31832,8 +31864,8 @@ function haritaZeminKur() {
   if (!g) return;
   if (!mapCam().childElementCount) haritaCiz();
   const B = gorunurBant();
-  kam.minZ = Math.max((B.gw / MAP_W) * 0.97, Math.min((B.gh / MAP_H) * 0.95, (B.gw / MAP_W) * 1.9));
-  kam.maxZ = kam.minZ * 3.4;
+  kam.minZ = Math.max((B.gw / MAP_W) * 0.9, Math.min((B.gh / MAP_H) * 0.95, (B.gw / MAP_W) * MAP_ILK_YAKIN));
+  kam.maxZ = Math.max(kam.minZ * 3.4, (B.gw / MAP_W) * 2.5);
   if (kam.z < kam.minZ) kam.z = kam.minZ;
   haritaJestKur();
   kamOrtala(false);
