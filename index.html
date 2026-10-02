@@ -5972,14 +5972,15 @@ body,
   }
 }
 .tl-adaylar {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 58px);
   justify-content: center;
-  gap: 0.4rem;
-  margin: 0.9rem 0.8rem 0.6rem;
+  gap: 0.6rem 1.1rem;
+  margin: 0.9rem 0.8rem 0.7rem;
 }
 .tl-p {
-  width: 42px;
-  height: 42px;
+  width: 58px;
+  height: 58px;
   border-width: 2px;
 }
 .tl-slogan {
@@ -34358,20 +34359,7 @@ function baskaIttifakla(pid) {
   if (idx >= 0) gotoParty(idx);
 }
 const MAGAZA_BAGLANTISI = "";
-const PORTRE_ONBELLEK = {};
 let sonKartVerisi = null;
-function portreGorseli(ico) {
-  if (PORTRE_ONBELLEK[ico]) return PORTRE_ONBELLEK[ico];
-  const el = document.querySelector("#" + ico + " image");
-  if (!el) return null;
-  const img = new Image();
-  img.onload = () => {
-    if (sonKartVerisi) cizPaylasimKarti(document.getElementById("share-canvas"), "kare");
-  };
-  img.src = el.getAttribute("href") || el.getAttribute("xlink:href");
-  PORTRE_ONBELLEK[ico] = img;
-  return img;
-}
 function partiAdiById(id) {
   if (S.me.id === id) return S.me.name;
   const r = S.rivals.find((x) => x.id === id);
@@ -34486,8 +34474,8 @@ function cizPaylasimKarti(cv, fmt) {
     SERIF = "Georgia,'Times New Roman',serif",
     MONO = "'Courier New',monospace";
   const L = hikaye
-    ? { baslikY: 300, altBaslikY: 342, kural: 362, hy: 470, by: 720, ps: 380, mw: 760, my: 1250, sy: 1760, ayakY: H - 70 }
-    : { baslikY: 212, altBaslikY: 252, kural: 272, hy: 358, by: 565, ps: 210, mw: 470, my: 575, sy: 950, ayakY: H - 62 };
+    ? { baslikY: 300, altBaslikY: 342, kural: 362, hy: 470, by: 700, mw: 760, my: 1080, sy: 1760, ayakY: H - 70 }
+    : { baslikY: 212, altBaslikY: 252, kural: 272, hy: 358, by: 565, mw: 500, my: 580, sy: 950, ayakY: H - 62 };
   const m = paylasimManseti(R);
   const coal = S.coalResult;
   x.fillStyle = PAPER;
@@ -34540,48 +34528,37 @@ function cizPaylasimKarti(cv, fmt) {
   x.fillStyle = "#4a3d2c";
   x.font = `italic ${hikaye ? 36 : 31}px ${SERIF}`;
   wrapText(x, m.alt, W / 2, l2Y + (hikaye ? 66 : 54), W - 220, hikaye ? 46 : 40);
-  const by = L.by,
-    ps = L.ps;
-  const px = hikaye ? W / 2 - ps / 2 : 110;
-  const portre = portreGorseli(S.me.ico);
+  const by = L.by;
+  const lx = hikaye ? W / 2 : 110 + 175;
+  const dy = hikaye ? by + 70 : by + 80;
   x.save();
-  x.beginPath();
-  x.arc(px + ps / 2, by + ps / 2, ps / 2, 0, Math.PI * 2);
-  x.closePath();
-  x.fillStyle = "#e0d2b0";
-  x.fill();
-  x.clip();
-  if (portre && portre.complete && portre.naturalWidth) x.drawImage(portre, px, by, ps, ps);
-  x.restore();
-  x.strokeStyle = "#8f7526";
-  x.lineWidth = 8;
-  x.beginPath();
-  x.arc(px + ps / 2, by + ps / 2, ps / 2, 0, Math.PI * 2);
-  x.stroke();
-  x.save();
-  x.translate(px + ps - (hikaye ? 10 : 0), by + ps - (hikaye ? 36 : 22));
-  x.rotate(-0.12);
-  x.font = `bold ${hikaye ? 40 : 34}px ${MONO}`;
+  x.translate(lx, dy);
+  x.rotate(-0.08);
+  x.font = `bold ${hikaye ? 66 : 54}px ${MONO}`;
   const dw = x.measureText(m.damga).width;
-  x.fillStyle = "rgba(236,223,192,.94)";
-  x.fillRect(-dw / 2 - 16, -32, dw + 32, 50);
   x.strokeStyle = renk;
-  x.lineWidth = 5;
-  x.strokeRect(-dw / 2 - 16, -32, dw + 32, 50);
+  x.lineWidth = 7;
+  x.strokeRect(-dw / 2 - 26, hikaye ? -62 : -52, dw + 52, hikaye ? 92 : 78);
   x.fillStyle = renk;
   x.textAlign = "center";
   x.fillText(m.damga, 0, 6);
   x.restore();
   x.textAlign = "center";
-  x.fillStyle = INK;
-  x.font = `bold ${hikaye ? 38 : 32}px ${SERIF}`;
-  const lx = px + ps / 2;
-  x.fillText(S.me.leader, lx, by + ps + (hikaye ? 56 : 44));
   x.fillStyle = "#4a3d2c";
   x.font = `${hikaye ? 24 : 20}px ${MONO}`;
-  x.fillText(S.me.name.toLocaleUpperCase("tr"), lx, by + ps + (hikaye ? 92 : 74));
+  x.fillText("LİDER", lx, dy + (hikaye ? 100 : 86));
+  x.fillStyle = INK;
+  const ls = kartSigdir(x, S.me.leader, hikaye ? 760 : 330, hikaye ? 56 : 46, SERIF, "bold");
+  x.fillText(S.me.leader, lx, dy + (hikaye ? 100 : 86) + ls + 6);
+  x.fillStyle = S.me.color;
+  x.font = `bold ${hikaye ? 28 : 22}px ${MONO}`;
+  x.fillText(
+    S.me.name.toLocaleUpperCase("tr"),
+    lx,
+    dy + (hikaye ? 100 : 86) + ls + (hikaye ? 50 : 42),
+  );
   const mw = L.mw;
-  const mx = hikaye ? (W - mw) / 2 : W - 100 - mw;
+  const mx = hikaye ? (W - mw) / 2 : W - 90 - mw;
   const my = L.my;
   const sc = mw / 1000;
   RK.forEach((k) => {
