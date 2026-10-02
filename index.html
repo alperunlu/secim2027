@@ -33379,7 +33379,8 @@ function coalWill(c) {
   const need = clamp((50 - pc) / 5 + 0.45, 0.3, 1.7);
   const w =
     (14 + me.s * 1.7) * (0.5 + coalAff(me.id, c.id) * 0.9) * (0.5 + need) * COAL.patience;
-  return c.countered ? w * 1.15 : w;
+  const kat = Math.max(w, 19);
+  return c.countered ? kat * 1.15 : kat;
 }
 function coalStatusLabel(p) {
   if (p.status === "joined") return COAL.mode === "chase" ? "DESTEK VERDİ" : "DESTEĞİNİZİ ALDI";
@@ -33630,6 +33631,27 @@ function coalPaintCards() {
       my >= 50 ? "ÖNDESİNİZ +" + f1(my - 50) : "EKSİK: %" + f1(50 - my);
   }
 }
+/* Bir tur geçti: fiyatlar artar, rakip aday bize yakın olmayan açık bir partiyi kapar. */
+function coalRivalMove() {
+  COAL.pressure *= 1.06;
+  const me = COAL.me,
+    rival = COAL.rival;
+  let pick = null,
+    best = 0.05;
+  COAL.pool.forEach((p) => {
+    if (p.status) return;
+    const d = coalAff(p.id, rival.id) - coalAff(p.id, me.id);
+    if (d > best) {
+      best = d;
+      pick = p;
+    }
+  });
+  if (pick && COAL.round < 3) {
+    pick.status = "rival";
+    COAL.endorse[pick.id] = { to: rival.id, by: "deal" };
+    COAL.news = "RAKİP HAMLE: " + rival.n + ", " + pick.n + " ile anlaştı.";
+  }
+}
 function coalAdvance() {
   COAL.round++;
   COAL.offered = false;
@@ -33637,25 +33659,7 @@ function coalAdvance() {
   COAL.pending = null;
   COAL.news = "";
   if (COAL.mode === "chase") {
-    COAL.pressure *= 1.06;
-    // rakip aday da boş durmaz: rakibe yakın açık bir partiyi kapar
-    const me = COAL.me,
-      rival = COAL.rival;
-    let pick = null,
-      best = 0.05;
-    COAL.pool.forEach((p) => {
-      if (p.status) return;
-      const d = coalAff(p.id, rival.id) - coalAff(p.id, me.id);
-      if (d > best) {
-        best = d;
-        pick = p;
-      }
-    });
-    if (pick && COAL.round < 3) {
-      pick.status = "rival";
-      COAL.endorse[pick.id] = { to: rival.id, by: "deal" };
-      COAL.news = "RAKİP HAMLE: " + rival.n + ", " + pick.n + " ile anlaştı.";
-    }
+    coalRivalMove();
   } else {
     COAL.patience *= 0.88;
     COAL.news = "Adaylar sabırsızlanıyor: masalar her gün biraz daha sıkılaşıyor.";
@@ -33670,6 +33674,12 @@ function runoffScore(pivotal, dealVal, winPct) {
 }
 function coalEnd(kind, target, items) {
   const co = COAL;
+  if (co.mode === "chase") {
+    while (co.round < 3) {
+      co.round++;
+      coalRivalMove();
+    }
+  }
   const A = co.A,
     B = co.B,
     me = co.me;
