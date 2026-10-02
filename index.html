@@ -5866,6 +5866,63 @@ body,
 #kurmay .km-atla {
   pointer-events: auto;
 }
+.miting-satir.bos {
+  min-height: 48px;
+}
+.plan-opt:active,
+.coal-opt:active,
+.car-nav:active,
+.coal-card:active,
+.miting-satir.bos:active,
+.oneri-plan:active {
+  transform: scale(0.985);
+  filter: brightness(0.94);
+}
+.plan-opt,
+.coal-opt,
+.car-nav,
+.coal-card,
+.miting-satir.bos,
+.oneri-plan {
+  transition:
+    transform 0.08s ease-out,
+    filter 0.08s ease-out;
+}
+#screen-title {
+  justify-content: flex-start;
+}
+#screen-title .title-levha {
+  margin: auto;
+}
+.yazi-boyut {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+.yazi-boyut .yb-et {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  opacity: 0.75;
+  margin-right: 0.3rem;
+}
+.yazi-boyut button {
+  min-width: 44px;
+  min-height: 44px;
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  font-family: var(--serif);
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.65;
+}
+.yazi-boyut button.on {
+  opacity: 1;
+  background: rgba(201, 162, 39, 0.2);
+}
 .oneri-plan {
   display: flex;
   flex-direction: column;
@@ -6436,6 +6493,12 @@ body,
       <button class="btn ghost" id="btn-continue" style="display:none" onclick="continueGame()">Kayıtlı Kampanyaya Devam Et</button>
     </div>
         <button class="km-sifirla" onclick="ipucSifirla()">Kurmay notlarını yeniden göster</button>
+    <div class="yazi-boyut" role="group" aria-label="Yazı boyutu">
+      <span class="yb-et">YAZI BOYUTU</span>
+      <button type="button" data-yb="1" aria-label="Normal yazı" style="font-size:.85rem">A</button>
+      <button type="button" data-yb="1.12" aria-label="Büyük yazı" style="font-size:1.05rem">A</button>
+      <button type="button" data-yb="1.25" aria-label="Çok büyük yazı" style="font-size:1.3rem">A</button>
+    </div>
   </div>
 </section>
 
@@ -29962,7 +30025,7 @@ function drawWeekBoard() {
       };
   }
   mitingSeridiGuncelle();
-  document.getElementById("wk-go").onclick = confirmWeek;
+  document.getElementById("wk-go").onclick = birKez(confirmWeek);
   const imza = document.getElementById("wk-imza");
   if (imza) imza.textContent = S.me.leader || "";
   fitDossier();
@@ -29999,7 +30062,7 @@ function toggleWeekPick(id) {
 function confirmWeek() {
   if (weekPick.sel.includes("rally") && !weekPick.region) {
     notice("Miting için önce bir bölge seçin.", "warn");
-    return;
+    return false;
   }
   const applied = [];
   weekPick.sel.forEach((id) => {
@@ -30059,11 +30122,11 @@ function confirmWeek() {
   <button class="btn" id="wk-next">Günün Gündemi →</button>
   <div class="dokun-ipucu">veya kartın boş bir yerine dokunun</div>`;
   sonucDokunDevam();
-  document.getElementById("wk-next").onclick = () => {
+  document.getElementById("wk-next").onclick = birKez(() => {
     document.getElementById("dossier").className = "dossier";
     renderSidebar();
     renderDailyEvent();
-  };
+  });
   renderSidebar();
   saveGame();
   fitDossier();
@@ -30499,6 +30562,16 @@ function fxHint(o) {
   }
   return parts.length ? `<span class="o-hint">${parts.join("")}</span>` : "";
 }
+function birKez(fn) {
+  let kullanildi = false;
+  return function () {
+    if (kullanildi) return;
+    kullanildi = true;
+    const sonuc = fn.apply(this, arguments);
+    if (sonuc === false) kullanildi = false;
+    return sonuc;
+  };
+}
 let sonucZamani = 0,
   sonucDokunKuruldu = false;
 function sonucDokunDevam() {
@@ -30599,7 +30672,7 @@ function chooseOpt(ev, o) {
   <button class="btn" id="btn-next">Günü Kapat →</button>
   <div class="dokun-ipucu">veya kartın boş bir yerine dokunun</div>`;
   sonucDokunDevam();
-  document.getElementById("btn-next").onclick = o.opensDebate ? startDebate : endDay;
+  document.getElementById("btn-next").onclick = birKez(o.opensDebate ? startDebate : endDay);
   if (o.opensDebate) document.getElementById("btn-next").textContent = "Yayına Çık →";
   addTicker(
     CAT_SRC[ev.cat] || "GÜNDEM",
@@ -34305,6 +34378,35 @@ wireSheetSwipe();
         submitName();
       }
     });
+})();
+const YAZI_KEY = "secim27-yazi";
+const YAZI_OLCEKLERI = [1, 1.12, 1.25];
+function yaziBoyutuUygula(deger, kaydet) {
+  const o = YAZI_OLCEKLERI.includes(+deger) ? +deger : 1;
+  document.documentElement.style.fontSize = o * 100 + "%";
+  document
+    .querySelectorAll(".yazi-boyut button")
+    .forEach((b) => b.classList.toggle("on", +b.dataset.yb === o));
+  if (kaydet) {
+    try {
+      localStorage.setItem(YAZI_KEY, String(o));
+    } catch (e) {}
+  }
+  syncTabbarHeight();
+  if (S && document.getElementById("screen-game").classList.contains("active")) fitDossier();
+}
+(function () {
+  let o = 1;
+  try {
+    o = +localStorage.getItem(YAZI_KEY) || 1;
+  } catch (e) {}
+  document.querySelectorAll(".yazi-boyut button").forEach((b) => {
+    b.onclick = () => {
+      yaziBoyutuUygula(b.dataset.yb, true);
+      haptic(6);
+    };
+  });
+  yaziBoyutuUygula(o, false);
 })();
 if ("serviceWorker" in navigator && location.protocol === "https:") {
   navigator.serviceWorker.register("sw.js").catch(function () {});
