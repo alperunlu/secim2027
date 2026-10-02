@@ -5888,6 +5888,9 @@ body,
     transform 0.08s ease-out,
     filter 0.08s ease-out;
 }
+.dossier:not(.week-card) .dossier-title {
+  padding-right: 5.6rem;
+}
 #screen-title {
   justify-content: flex-start;
 }
@@ -31452,7 +31455,7 @@ function heatColor(pct) {
   const c = HEAT[i].map((v, j) => Math.round(v + (HEAT[i + 1][j] - v) * f));
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
-const MAP_ILK_YAKIN = 0.92;
+const MAP_ILK_YAKIN = 0.84;
 const MAP_W = 1000,
   MAP_H = 448;
 let kam = {
@@ -32227,7 +32230,7 @@ function haritaTamAyarla(acik) {
   setTimeout(function () {
     const B = gorunurBant();
     kam.minZ = Math.max(
-      (B.gw / MAP_W) * 0.9,
+      (B.gw / MAP_W) * 0.78,
       Math.min((B.gh / MAP_H) * 0.95, (B.gw / MAP_W) * MAP_ILK_YAKIN),
     );
     kam.maxZ = Math.max(kam.minZ * 3.4, (B.gw / MAP_W) * 2.5);
@@ -32242,7 +32245,7 @@ function haritaZeminKur() {
   if (!g) return;
   if (!mapCam().childElementCount) haritaCiz();
   const B = gorunurBant();
-  kam.minZ = Math.max((B.gw / MAP_W) * 0.9, Math.min((B.gh / MAP_H) * 0.95, (B.gw / MAP_W) * MAP_ILK_YAKIN));
+  kam.minZ = Math.max((B.gw / MAP_W) * 0.78, Math.min((B.gh / MAP_H) * 0.95, (B.gw / MAP_W) * MAP_ILK_YAKIN));
   kam.maxZ = Math.max(kam.minZ * 3.4, (B.gw / MAP_W) * 2.5);
   if (kam.z < kam.minZ) kam.z = kam.minZ;
   haritaJestKur();
