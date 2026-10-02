@@ -1930,6 +1930,12 @@ button.miting-satir .ms-ad {
 }
 .week-card .wk-actions {
   border-top: 1px solid rgba(43, 35, 24, 0.3);
+  position: sticky;
+  bottom: -0.6rem;
+  z-index: 2;
+  background: var(--atlas-kagit, #efe3c4);
+  padding-bottom: 0.6rem;
+  box-shadow: 0 -10px 12px -8px rgba(43, 35, 24, 0.28);
 }
 .week-head-note {
   font-family: var(--mono);
@@ -5757,6 +5763,35 @@ body,
   line-height: 1.6;
   max-width: 32rem;
   margin: 0 auto 1rem;
+}
+#btn-audio,
+#btn-menu {
+  min-width: 44px;
+  min-height: 44px;
+}
+#map-reset,
+#map-katman {
+  width: 44px;
+  height: 44px;
+}
+#map-katman {
+  right: 62px;
+}
+.km-tamam,
+.km-sifirla,
+#miting-atla {
+  min-height: 44px;
+}
+.car-nav {
+  min-width: 44px;
+}
+.car-dot {
+  position: relative;
+}
+.car-dot::after {
+  content: "";
+  position: absolute;
+  inset: -18px -4px;
 }
 </style>
 </head>
@@ -28310,6 +28345,7 @@ function loadSave() {
       const rv = saved.find((x) => x && x.id === p.id) || {};
       return {
         ...p,
+        leader: rakipLiderAdi(p, me.leader),
         share: clamp(num(rv.share, p.base), 1.5, 55),
         trend: num(rv.trend, 0),
         form: clamp(num(rv.form, 1), 0.45, 1.7),
@@ -28383,6 +28419,16 @@ function partyIco(party, sex) {
   if (!party) return "p-devlet";
   return (sex || PLAYER_SEX) === "k" ? "p-kadin" : party.ico;
 }
+const YEDEK_LIDER_ADLARI = ["Selim Aras", "Cem Yalın", "Murat Ersoy", "Tuncay Demir", "Barış Kaya"];
+function rakipLiderAdi(rakip, oyuncuAdi) {
+  const k = (s) => String(s).toLocaleLowerCase("tr");
+  if (k(rakip.leader) !== k(oyuncuAdi)) return rakip.leader;
+  return (
+    YEDEK_LIDER_ADLARI.find(
+      (y) => k(y) !== k(oyuncuAdi) && !PARTIES.some((p) => k(p.leader) === k(y)),
+    ) || rakip.leader
+  );
+}
 function newState(pid) {
   const base = PARTIES.find((p) => p.id === pid);
   const me = {
@@ -28405,6 +28451,7 @@ function newState(pid) {
     regBase: regAvg(me.reg),
     rivals: PARTIES.filter((p) => p.id !== pid).map((p) => ({
       ...p,
+      leader: rakipLiderAdi(p, me.leader),
       share: p.base,
       trend: 0,
       form: rnd(0.45, 1.7),
@@ -29482,7 +29529,14 @@ function drawSelectCard() {
   <div class="pbar"><i style="background:${p.color};width:${p.base * 2.2}%"></i></div>
   <div class="baseline">BAŞLANGIÇ ANKETİ: %${f1(p.base)}</div>
   <div class="goal">${goalTxt}</div>`;
-  const go = () => startGame(p.id);
+  const go = () =>
+    ask(
+      p.name + " ile başlansın mı?",
+      "İttifak seçimi kampanya boyunca değişmez.",
+      "Başla",
+      "Vazgeç",
+      () => startGame(p.id),
+    );
   c.onclick = go;
   c.onkeydown = (e) => {
     if (e.key === "Enter" || e.key === " ") {
