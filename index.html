@@ -5803,6 +5803,112 @@ body,
   position: absolute;
   inset: -18px -4px;
 }
+#screen-night .night-head {
+  padding-top: 1.2rem;
+}
+#screen-night .night-head h2 {
+  font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  margin-top: 0.6rem;
+}
+#screen-night .night-head .opened {
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+}
+#screen-night .results-box {
+  margin: 0.9rem auto 0.5rem;
+}
+#screen-night .res-row {
+  margin-bottom: 0.6rem;
+}
+#screen-night .res-bar {
+  height: 14px;
+}
+#night-results {
+  padding: 0.6rem 0.9rem !important;
+}
+.night-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  text-align: center;
+  padding: 0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(43, 35, 24, 0), rgba(43, 35, 24, 0.96) 38%);
+}
+.night-actions .btn {
+  min-height: 48px;
+}
+.end-cta:not([hidden]) {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  text-align: center;
+  padding: 0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(22, 16, 9, 0), rgba(22, 16, 9, 0.96) 38%);
+}
+.end-cta .btn {
+  width: 100%;
+  max-width: 420px;
+  min-height: 48px;
+}
+.km-atla {
+  display: block;
+  margin: 0.2rem 0 0 auto;
+  background: none;
+  border: 0;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  color: var(--atlas-murekkep-3, #8a7a60);
+  text-decoration: underline;
+  min-height: 44px;
+  cursor: pointer;
+}
+#kurmay .km-atla {
+  pointer-events: auto;
+}
+.oneri-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
+  margin-bottom: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  background: rgba(201, 162, 39, 0.1);
+  border: 1px dashed var(--atlas-kizil, #a8442f);
+  color: var(--atlas-murekkep, #2b2318);
+  cursor: pointer;
+  min-height: 48px;
+}
+.oneri-plan .op-et {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--atlas-kizil, #a8442f);
+}
+.oneri-plan .op-ad {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.oneri-plan .op-alt {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+.mp-bolge-alan.oneri {
+  animation: oneriNabiz 1.4s ease-in-out infinite;
+}
+@keyframes oneriNabiz {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.3);
+  }
+}
 </style>
 </head>
 <body>
@@ -6299,6 +6405,7 @@ body,
   <div class="km-bas">KURMAY NOTU</div>
   <div class="km-metin" id="km-metin"></div>
   <button class="km-tamam" id="km-tamam">ANLADIM</button>
+  <button class="km-atla" id="km-atla">Tüm ipuçlarını kapat</button>
 </div>
 
 <div id="ask" class="ask-back">
@@ -6462,8 +6569,8 @@ body,
   <div class="night-map" id="night-map"></div>
   <div class="map-cap">RENK = BÖLGEDE BİRİNCİ BLOK · RAKAM = SİZİN OYUNUZ</div>
   <div class="results-box" id="night-results"></div>
-  <div style="text-align:center;padding-bottom:4rem">
-    <button class="btn ghost" id="btn-faster">Sandıkları Aç ▸▸</button>
+  <div class="night-actions">
+    <button class="btn ghost" id="btn-faster">Sayımı Hızlandır ▸▸</button>
     <button class="btn" id="btn-final" style="display:none" onclick="showEnd()">Sonucu Gör</button>
   </div>
 </section>
@@ -6533,6 +6640,7 @@ body,
     </div>
     <div class="small-note">SEÇİM 2027 tamamen kurgusal bir simülasyon oyunudur. Tüm ittifaklar, partiler, liderler, kişiler, olaylar ve oranlar hayal ürünüdür;<br>gerçek kişi, kurum veya seçim sonuçlarıyla ilgisi yoktur.</div>
   </div>
+  <div class="end-cta" id="end-cta" hidden></div>
 </section>
 <script>
 "use strict";
@@ -28234,7 +28342,7 @@ const KURMAY_NOT = {
   karne:
     "Dört ölçü: <b>memnuniyet</b> halkın cebi, <b>sosyal</b> gençlik ve dijital, <b>teşkilat</b> sahadaki gücünüz, <b>medya</b> ekrandaki ağırlığınız.",
   miting:
-    "Haftanın ilk kararı: <b>miting bölgesi</b>. Haritada bir bölgeye dokunun; o bölgede güçlü bir sıçrama yaparsınız.",
+    "<b>Kısa rehber.</b> 1) Haritadan bir <b>miting bölgesi</b> seçin (ya da atlayın). 2) Tahtadan en fazla <b>2 hamle</b> seçin. 3) Her kararın bedeli kartın altında <b>önceden</b> yazar: ▲ kazanç, ▼ kayıp.",
   harita:
     "Zemindeki harita gerçek: sürükleyin, iki parmakla yakınlaştırın. Bölgeye dokununca künyesi açılır; sağ üstteki düğme <b>katman</b> değiştirir.",
   hafta:
@@ -28250,6 +28358,10 @@ function ipucGoster(anahtar) {
   if (!el) return;
   if (!el.hidden) return;
   ipucGorulen.add(anahtar);
+  if (anahtar === "miting") {
+    ipucGorulen.add("hafta");
+    ipucGorulen.add("serit");
+  }
   try {
     localStorage.setItem(IPUC_KEY, JSON.stringify([...ipucGorulen]));
   } catch (e) {}
@@ -28260,6 +28372,13 @@ function ipucGoster(anahtar) {
 function ipucKapat() {
   const el = document.getElementById("kurmay");
   if (el) el.hidden = true;
+}
+function ipucTumunuKapat() {
+  Object.keys(KURMAY_NOT).forEach((k) => ipucGorulen.add(k));
+  try {
+    localStorage.setItem(IPUC_KEY, JSON.stringify([...ipucGorulen]));
+  } catch (e) {}
+  ipucKapat();
 }
 function ipucSifirla() {
   ipucGorulen = new Set();
@@ -29770,6 +29889,7 @@ function drawWeekBoard() {
   <div class="week-head-note">Kurmaylar masada. Bu hafta enerjinizi nereye vereceksiniz? <b>En fazla 2 hamle</b> seçin. Bütçeyi yalnızca kampanya lojistiği harcar; vaatler bedavadır.</div>
   <div class="week-budget">KASA: ${fund} M₺ &nbsp;·&nbsp; SEÇİLEN: <span id="wk-sel">0</span>/2</div>
   <div id="region-slot"></div>
+  <div id="oneri-slot"></div>
   <div class="plan-grid" id="plan-grid"></div>
   <div class="wk-actions">
     <div class="kagit-imza"><span id="wk-imza">-</span></div>
@@ -29796,6 +29916,15 @@ function drawWeekBoard() {
     g.appendChild(b);
   });
   document.getElementById("wk-sel").textContent = weekPick.sel.length;
+  const os = document.getElementById("oneri-slot");
+  if (os && ilkHafta() && weekPick.sel.length < 2) {
+    const oner = ["ground", "social"]
+      .filter((id) => !weekPick.sel.includes(id))
+      .slice(0, 2 - weekPick.sel.length);
+    const ad = oner.map((id) => PLAN_ACTIONS.find((a) => a.id === id).t).join(" + ");
+    os.innerHTML = `<button class="oneri-plan" id="oneri-btn"><span class="op-et">ÖNERİLEN PLAN</span><span class="op-ad">${ad}</span><span class="op-alt">Tek dokunuşla seçin; sonra değiştirebilirsiniz</span></button>`;
+    document.getElementById("oneri-btn").onclick = () => oner.forEach((id) => toggleWeekPick(id));
+  } else if (os) os.innerHTML = "";
   const rs = document.getElementById("region-slot");
   const mitVar = weekPick.sel.includes("rally");
   const mitBedel = PLAN_ACTIONS.find((a) => a.id === "rally").cost;
@@ -31550,6 +31679,21 @@ function mitingAlinabilir() {
     }, 0);
   return harcanan + a.cost <= S.stats.but;
 }
+function ilkHafta() {
+  return !!S && S.lastWeek === 0;
+}
+function oneriBolge() {
+  let en = RK[0],
+    puan = -1;
+  RK.forEach((k) => {
+    const p = REGION_WEIGHT[k] * Math.max(1, 60 - bolgePayim(k));
+    if (p > puan) {
+      puan = p;
+      en = k;
+    }
+  });
+  return en;
+}
 function mitingSeridiGuncelle() {
   const g = document.getElementById("map-ground"),
     s = document.getElementById("miting-serit");
@@ -31565,15 +31709,19 @@ function mitingSeridiGuncelle() {
       ? "MİTİNG · " +
         REGION_KEYS[weekPick.region].toLocaleUpperCase("tr") +
         (kez ? " · " + (kez + 1) + ". KEZ" : "")
-      : "MİTİNG İÇİN BİR BÖLGE SEÇİN";
+      : "MİTİNG İÇİN BİR BÖLGE SEÇİN" +
+        (ilkHafta() ? " · ÖNERİ: " + REGION_KEYS[oneriBolge()].toLocaleUpperCase("tr") : "");
     s.classList.toggle("secili", !!secili);
     s.classList.toggle("asama", !!mitingAsama && !secili);
   }
   const c = mapCam();
   if (c) {
     const a = c.querySelectorAll(".mp-bolge-alan");
-    for (let i = 0; i < a.length; i++)
+    const oneri = acik && mitingAsama && ilkHafta() && !weekPick.region ? oneriBolge() : null;
+    for (let i = 0; i < a.length; i++) {
       a[i].classList.toggle("miting", acik && weekPick.region === a[i].dataset.r);
+      a[i].classList.toggle("oneri", a[i].dataset.r === oneri);
+    }
   }
 }
 function bolgeSec(k) {
@@ -31823,6 +31971,12 @@ function haritaJestKur() {
     kt.onclick = function (e) {
       e.stopPropagation();
       ipucKapat();
+    };
+  const ka = document.getElementById("km-atla");
+  if (ka)
+    ka.onclick = function (e) {
+      e.stopPropagation();
+      ipucTumunuKapat();
     };
 }
 document.addEventListener(
@@ -32941,7 +33095,7 @@ function startNight() {
     speed = 1,
     lastLeader = null;
   document.getElementById("btn-faster").onclick = () => {
-    speed = Math.min(6, speed * 2);
+    speed = 6;
     haptic(8);
     sfx("tick");
   };
@@ -33929,18 +34083,58 @@ function showEnd() {
     const totalMiting = Object.values(S.mitingSayi || {}).reduce((a, b) => a + b, 0);
     if (totalMiting >= 5) gcAchievement("s27_rallies5");
   }
-  const staleBtn = document.getElementById("btn-coalition");
-  if (staleBtn) staleBtn.remove();
+  oynananIttifakiKaydet();
+  const cta = document.getElementById("end-cta");
+  cta.innerHTML = "";
   const coalAv = RA;
+  const b = document.createElement("button");
+  b.className = "btn";
   if (coalAv) {
-    const b = document.createElement("button");
-    b.className = "btn";
     b.id = "btn-coalition";
     b.textContent = coalAv.mode === "chase" ? "2. Tur: Kapıları Çal ▸" : "2. Tur: Kilit Masasına Otur ▸";
     b.onclick = startCoalition;
-    document.querySelector("#screen-end .end-actions").prepend(b);
+  } else {
+    const oneri = baskaIttifakOnerisi();
+    b.id = "btn-baska";
+    b.textContent = "Başka İttifakla Dene: " + (oneri.short || oneri.name) + " ▸";
+    b.onclick = () => baskaIttifakla(oneri.id);
   }
+  cta.appendChild(b);
+  cta.hidden = false;
   drawShareCard(R, stmp, regWon);
+}
+const OYNANAN_KEY = "secim27-oynanan";
+function oynananlar() {
+  try {
+    const a = JSON.parse(localStorage.getItem(OYNANAN_KEY) || "[]");
+    return Array.isArray(a) ? a : [];
+  } catch (e) {
+    return [];
+  }
+}
+function oynananIttifakiKaydet() {
+  if (!S || !S.me || S.oynananKaydedildi) return;
+  S.oynananKaydedildi = true;
+  const a = oynananlar();
+  if (!a.includes(S.me.id)) a.push(S.me.id);
+  try {
+    localStorage.setItem(OYNANAN_KEY, JSON.stringify(a));
+  } catch (e) {}
+}
+function baskaIttifakOnerisi() {
+  const played = oynananlar();
+  const cur = S && S.me ? S.me.id : null;
+  const yeni = PARTIES.filter((p) => p.id !== cur && !played.includes(p.id));
+  if (yeni.length) return yeni[0];
+  const i = PARTIES.findIndex((p) => p.id === cur);
+  return PARTIES[(i + 1) % PARTIES.length];
+}
+function baskaIttifakla(pid) {
+  clearSave();
+  showScreen("screen-select");
+  buildSelect();
+  const idx = PARTIES.findIndex((p) => p.id === pid);
+  if (idx >= 0) gotoParty(idx);
 }
 function drawShareCard(R, stmp, regWon) {
   const coal = S.coalResult;
