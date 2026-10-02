@@ -5894,6 +5894,110 @@ body,
 #screen-title .title-levha {
   margin: auto;
 }
+#screen-title .tl-v2 {
+  padding: 0 0 1rem;
+  width: min(23rem, 92%);
+}
+.tl-ust {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.55rem 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.18em;
+  color: var(--atlas-kagit, #efe3c8);
+  background: var(--atlas-murekkep, #2b2318);
+}
+.tl-harita {
+  padding: 0.7rem 0.9rem 0;
+}
+.tl-harita svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.tl-bolge {
+  opacity: 0.45;
+  animation: tlBolge 9s ease-in-out infinite;
+}
+@keyframes tlBolge {
+  0%,
+  8% {
+    opacity: 0.4;
+  }
+  22%,
+  70% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+#screen-title .tl-v2 .title-main {
+  font-size: clamp(2rem, 10vw, 2.7rem);
+  margin: 0.5rem 0 0.2rem;
+  letter-spacing: 0.06em;
+}
+.tl-kural {
+  height: 6px;
+  margin: 0.2rem 1rem 0.55rem;
+  border-top: 3px double var(--atlas-murekkep, #2b2318);
+}
+.tl-gun {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  color: var(--atlas-murekkep-2, #4a3d2c);
+}
+.tl-gun b {
+  color: var(--atlas-kizil, #a8442f);
+  font-size: 0.95rem;
+}
+.tl-nokta {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--atlas-kizil, #a8442f);
+  animation: tlNabiz 1.6s ease-in-out infinite;
+}
+@keyframes tlNabiz {
+  50% {
+    opacity: 0.25;
+  }
+}
+.tl-adaylar {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0.9rem 0.8rem 0.6rem;
+}
+.tl-p {
+  width: 42px;
+  height: 42px;
+  border-width: 2px;
+}
+.tl-slogan {
+  margin: 0.2rem 1.2rem 0.9rem;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--atlas-murekkep-2, #4a3d2c);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl-bolge,
+  .tl-nokta {
+    animation: none;
+  }
+  .tl-bolge {
+    opacity: 0.9;
+  }
+}
 .yazi-boyut {
   display: flex;
   align-items: center;
@@ -6484,15 +6588,14 @@ body,
 <section id="screen-title" class="screen active">
     <div id="title-atlas" aria-hidden="true"></div>
   <div class="title-vignette"></div>
-  <div class="title-levha">
-    <div class="countdown-seal">
-      <div class="cs-num" id="title-countdown">100</div>
-      <div class="cs-label">Gün Kaldı</div>
-    </div>
+  <div class="title-levha tl-v2">
+    <div class="tl-ust"><span>ERKEN SEÇİM ÖZEL SAYISI</span><span>KURGUSAL</span></div>
+    <div class="tl-harita" id="tl-harita" aria-hidden="true"></div>
     <h1 class="title-main">SEÇİM <span>2027</span></h1>
-    <p class="title-sub">Meclis erken seçim kararı aldı. Her gün yeni bir gündem, her hafta yeni bir plan.
-    Ekonomi yorgun, meydanlar gergin, kulisler fısıltı dolu. Verdiğiniz her söz sandığa kadar peşinizden gelecek.</p>
-    <div class="title-date">SANDIK GÜNÜ: 13 HAZİRAN 2027</div>
+    <div class="tl-kural" aria-hidden="true"></div>
+    <div class="tl-gun"><i class="tl-nokta" aria-hidden="true"></i>SON <b id="title-countdown">100</b> GÜN · SANDIK 13 HAZİRAN 2027</div>
+    <div class="tl-adaylar" id="tl-adaylar" aria-hidden="true"></div>
+    <p class="tl-slogan">Meclis erken seçim kararı aldı. Sandığa 100 gün var; sözün sende.</p>
     <div class="title-btns">
       <button class="btn" id="btn-newgame" onclick="confirmNew()">Yeni Kampanya</button>
       <button class="btn ghost" id="btn-continue" style="display:none" onclick="continueGame()">Kayıtlı Kampanyaya Devam Et</button>
@@ -6703,6 +6806,7 @@ body,
     <div class="share-card-wrap"><canvas id="share-canvas" width="1080" height="1080"></canvas></div>
     <div class="end-actions">
       <button class="btn" id="btn-share" onclick="shareResult()">Sonucu Paylaş</button>
+      <button class="btn ghost" onclick="shareResult('hikaye')">Hikâye Boyutu</button>
       <button class="btn ghost" onclick="downloadCard()">Kartı İndir</button>
       <button class="btn ghost" onclick="confirmNew()">Yeni Kampanya</button>
     </div>
@@ -29495,6 +29599,45 @@ function showScreen(id) {
 function refreshTitle() {
   document.getElementById("btn-continue").style.display = hasSave() ? "" : "none";
   titleAtlasCiz();
+  titleKartCiz();
+}
+function titleKartCiz() {
+  const h = document.getElementById("tl-harita");
+  if (h && !h.childElementCount) {
+    h.innerHTML =
+      '<svg viewBox="0 0 ' +
+      MAP_W +
+      " " +
+      MAP_H +
+      '">' +
+      RK.map(
+        (k, i) =>
+          '<path class="tl-bolge" style="animation-delay:' +
+          (i * 0.7).toFixed(1) +
+          's" d="' +
+          MAP_SHAPES[k] +
+          '" fill="' +
+          BOLGE_RENK[k] +
+          '"/>',
+      ).join("") +
+      RK.map(
+        (k) =>
+          '<path d="' +
+          MAP_SHAPES[k] +
+          '" fill="none" stroke="#2b2318" stroke-width="3" stroke-linejoin="round"/>',
+      ).join("") +
+      "</svg>";
+  }
+  const a = document.getElementById("tl-adaylar");
+  if (a && !a.childElementCount)
+    a.innerHTML = PARTIES.map(
+      (p) =>
+        '<span class="portrait tl-p" style="color:' +
+        p.color +
+        '"><svg viewBox="0 0 100 100"><use href="#' +
+        p.ico +
+        '"/></svg></span>',
+    ).join("");
 }
 function atlasSVG() {
   return (
@@ -34214,72 +34357,283 @@ function baskaIttifakla(pid) {
   const idx = PARTIES.findIndex((p) => p.id === pid);
   if (idx >= 0) gotoParty(idx);
 }
-function drawShareCard(R, stmp, regWon) {
+const MAGAZA_BAGLANTISI = "";
+const PORTRE_ONBELLEK = {};
+let sonKartVerisi = null;
+function portreGorseli(ico) {
+  if (PORTRE_ONBELLEK[ico]) return PORTRE_ONBELLEK[ico];
+  const el = document.querySelector("#" + ico + " image");
+  if (!el) return null;
+  const img = new Image();
+  img.onload = () => {
+    if (sonKartVerisi) cizPaylasimKarti(document.getElementById("share-canvas"), "kare");
+  };
+  img.src = el.getAttribute("href") || el.getAttribute("xlink:href");
+  PORTRE_ONBELLEK[ico] = img;
+  return img;
+}
+function partiAdiById(id) {
+  if (S.me.id === id) return S.me.name;
+  const r = S.rivals.find((x) => x.id === id);
+  return r ? r.name : (PARTIES.find((p) => p.id === id) || {}).name || "";
+}
+const MANSET_RENK = { zafer: "#7a5a0e", yenilgi: "#a8442f", karma: "#4f3a80" };
+function paylasimManseti(R) {
   const coal = S.coalResult;
-  const stampTxt = coal ? coal.stamp : stmp;
-  const cv = document.getElementById("share-canvas"),
-    x = cv.getContext("2d"),
-    W = 1080,
-    H = 1080;
-  x.fillStyle = "#0d0a08";
+  const up = (t) => String(t).toLocaleUpperCase("tr");
+  const ad = up(S.me.name);
+  const oy = "%" + f1(R.mine);
+  if (coal) {
+    const kazanan = partiAdiById(coal.winnerId);
+    const yuzde = "%" + f1(coal.winPct);
+    if (coal.outcome === "pres") {
+      const l2 =
+        coal.winPct >= 57
+          ? "KÖŞKÜ AÇIK FARKLA KAZANDI"
+          : coal.winPct < 52.5
+            ? "KÖŞKÜ KIL PAYI FARKLA KAZANDI"
+            : "KÖŞKÜ KAZANDI";
+      return { l1: ad, l2, alt: `İkinci turda ${yuzde} ile Cumhurbaşkanlığı kazanıldı.`, ton: "zafer", damga: "ZAFER" };
+    }
+    if (coal.outcome === "presloss")
+      return {
+        l1: up(kazanan),
+        l2: coal.winPct < 51.5 ? "KÖŞKÜ KIL PAYI FARKLA KAZANDI" : "KÖŞKÜ KAZANDI",
+        alt: `${S.me.name} ikinci turda %${f1(100 - coal.winPct)} ile geride kaldı.`,
+        ton: "yenilgi",
+        damga: "YENİLGİ",
+      };
+    if (coal.outcome === "key")
+      return {
+        l1: ad,
+        l2: "CUMHURBAŞKANINI BELİRLEDİ",
+        alt: `${kazanan} adayı, ${S.me.name} desteğiyle köşke çıktı.`,
+        ton: "zafer",
+        damga: "KİLİT PARTİ",
+      };
+    if (coal.outcome === "keyfail")
+      return {
+        l1: up(kazanan),
+        l2: "KÖŞKÜ KAZANDI",
+        alt: `${coal.partner || kazanan} adayına verilen destek ikinci turu kazandırmaya yetmedi.`,
+        ton: "yenilgi",
+        damga: "YENİLGİ",
+      };
+    return {
+      l1: up(kazanan),
+      l2: "KÖŞKÜ KAZANDI",
+      alt: `${S.me.name} masada uzlaşamadı; ikinci tur onsuz sonuçlandı.`,
+      ton: "yenilgi",
+      damga: "YENİLGİ",
+    };
+  }
+  const RA = runoffAvailability();
+  if (RA)
+    return RA.mode === "chase"
+      ? {
+          l1: ad,
+          l2: "İKİNCİ TURA KALDI",
+          alt: `İlk turda ${oy}: Cumhurbaşkanlığı yarışı ikinci turda belli olacak.`,
+          ton: "karma",
+          damga: "2. TUR",
+        }
+      : {
+          l1: ad,
+          l2: "İKİNCİ TURDA KİLİT ROLDE",
+          alt: `${oy} ile iki adayın arasındaki farkı kapatabilecek güçte.`,
+          ton: "karma",
+          damga: "KİLİT PARTİ",
+        };
+  const koltuk = allocateSeats(FINAL.rows)[S.me.id] || 0;
+  const t = {
+    landslide: ["SEÇİMİ KAZANDI", `${oy} ile sandıktan ezici bir birincilik çıkardı.`, "zafer", "ZAFER"],
+    first: ["SEÇİMİ KAZANDI", `${oy} ile sandıktan birinci çıktı.`, "zafer", "ZAFER"],
+    upset: ["SEÇİMİ KAZANDI", `${oy} ile sürpriz bir zafere imza attı.`, "zafer", "ZAFER"],
+    barajgenis: ["BARAJI AŞTI, MECLİS'E GİRDİ", `${oy} ile ${koltuk} sandalye kazandı.`, "zafer", "ZAFER"],
+    baraj: ["MECLİS'E GİRDİ", `${oy} ile baraj aşıldı: ${koltuk} sandalye.`, "zafer", "ZAFER"],
+    barajkil: ["BARAJIN ALTINDA KALDI", `${oy} ile Meclis'in kapısı kapalı kaldı.`, "yenilgi", "YENİLGİ"],
+    key: ["KİLİT PARTİ OLDU", `${oy} ile ikinci turun anahtarı onda.`, "zafer", "KİLİT PARTİ"],
+    second: ["SEÇİMİ İKİNCİ BİTİRDİ", `${oy} ile zirvenin gerisinde kaldı.`, "yenilgi", "YENİLGİ"],
+    nearkey: ["KİLİT ROLÜNÜ KAÇIRDI", `${oy} aldı ama denklemi kuran taraf olamadı.`, "yenilgi", "YENİLGİ"],
+    lose: ["SEÇİMİ KAYBETTİ", `${oy} ile ${R.myRank}. sırada kaldı.`, "yenilgi", "YENİLGİ"],
+  }[R.kind] || ["SEÇİMİ TAMAMLADI", `${oy} aldı.`, "karma", "SONUÇ"];
+  return { l1: ad, l2: t[0], alt: t[1], ton: t[2], damga: t[3] };
+}
+function drawShareCard(R, stmp, regWon) {
+  sonKartVerisi = { R, regWon };
+  cizPaylasimKarti(document.getElementById("share-canvas"), "kare");
+}
+function kartSigdir(x, metin, maxW, boy, aile, agirlik) {
+  let b = boy;
+  do {
+    x.font = `${agirlik} ${b}px ${aile}`;
+    if (x.measureText(metin).width <= maxW) break;
+    b -= 2;
+  } while (b > 30);
+  return b;
+}
+function cizPaylasimKarti(cv, fmt) {
+  if (!sonKartVerisi || !cv) return;
+  const { R, regWon } = sonKartVerisi;
+  const hikaye = fmt === "hikaye";
+  const W = 1080,
+    H = hikaye ? 1920 : 1080;
+  cv.width = W;
+  cv.height = H;
+  const x = cv.getContext("2d");
+  const INK = "#2b2318",
+    PAPER = "#ecdfc0",
+    SERIF = "Georgia,'Times New Roman',serif",
+    MONO = "'Courier New',monospace";
+  const L = hikaye
+    ? { baslikY: 300, altBaslikY: 342, kural: 362, hy: 470, by: 720, ps: 380, mw: 760, my: 1250, sy: 1760, ayakY: H - 70 }
+    : { baslikY: 212, altBaslikY: 252, kural: 272, hy: 358, by: 565, ps: 210, mw: 470, my: 575, sy: 950, ayakY: H - 62 };
+  const m = paylasimManseti(R);
+  const coal = S.coalResult;
+  x.fillStyle = PAPER;
   x.fillRect(0, 0, W, H);
-  x.strokeStyle = "#5c4632";
+  const g = x.createRadialGradient(W / 2, H * 0.4, H * 0.2, W / 2, H / 2, H * 0.8);
+  g.addColorStop(0, "rgba(255,248,225,.35)");
+  g.addColorStop(1, "rgba(120,90,40,.28)");
+  x.fillStyle = g;
+  x.fillRect(0, 0, W, H);
+  for (let i = 0; i < (hikaye ? 4600 : 2600); i++) {
+    x.fillStyle = `rgba(60,40,10,${(Math.random() * 0.06).toFixed(3)})`;
+    x.fillRect(Math.random() * W, Math.random() * H, 2, 2);
+  }
+  x.strokeStyle = INK;
   x.lineWidth = 6;
-  x.strokeRect(30, 30, W - 60, H - 60);
-  x.strokeStyle = "rgba(201,162,39,.35)";
+  x.strokeRect(28, 28, W - 56, H - 56);
   x.lineWidth = 2;
-  x.strokeRect(50, 50, W - 100, H - 100);
+  x.strokeRect(46, 46, W - 92, H - 92);
+  x.fillStyle = INK;
+  x.fillRect(46, 46, W - 92, 62);
+  x.fillStyle = "#ecdfc0";
+  x.font = `24px ${MONO}`;
+  x.textAlign = "left";
+  x.fillText("ERKEN SEÇİM ÖZEL SAYISI", 76, 86);
+  x.textAlign = "right";
+  x.fillText("13 HAZİRAN 2027", W - 76, 86);
   x.textAlign = "center";
-  x.fillStyle = "#8a7020";
-  x.font = "28px 'Courier New',monospace";
-  x.fillText("K U R G U S A L   B İ R   S E Ç İ M", W / 2, 120);
-  x.fillStyle = "#c9a227";
-  x.font = "bold 96px Georgia,serif";
-  x.fillText("SEÇİM 2027", W / 2, 220);
-  x.fillStyle = "#a89878";
-  x.font = "26px 'Courier New',monospace";
-  x.fillText("SON 100 GÜN · 13 HAZİRAN 2027", W / 2, 270);
+  x.fillStyle = INK;
+  x.font = `bold ${hikaye ? 130 : 112}px ${SERIF}`;
+  x.fillText("SEÇİM 2027", W / 2, L.baslikY);
+  x.fillStyle = "#a8442f";
+  x.font = `22px ${MONO}`;
+  x.fillText("KURGUSAL BİR SEÇİM · SİYASET SİMÜLASYONU", W / 2, L.altBaslikY);
+  x.strokeStyle = INK;
+  x.lineWidth = 3;
+  x.beginPath();
+  x.moveTo(90, L.kural);
+  x.lineTo(W - 90, L.kural);
+  x.moveTo(90, L.kural + 8);
+  x.lineTo(W - 90, L.kural + 8);
+  x.stroke();
+  const renk = MANSET_RENK[m.ton];
   x.fillStyle = S.me.color;
-  x.font = "bold 44px Georgia,serif";
-  wrapText(x, S.me.name, W / 2, 370, W - 160, 52);
-  x.fillStyle = "#a89878";
-  x.font = "italic 28px Georgia,serif";
-  x.fillText("Lider: " + S.me.leader, W / 2, 440);
+  kartSigdir(x, m.l1, W - 180, hikaye ? 72 : 62, SERIF, "bold");
+  x.fillText(m.l1, W / 2, L.hy);
+  x.fillStyle = renk;
+  const b2 = kartSigdir(x, m.l2, W - 160, hikaye ? 92 : 84, SERIF, "bold");
+  const l2Y = L.hy + 8 + b2 * 0.95;
+  x.fillText(m.l2, W / 2, l2Y);
+  x.fillStyle = "#4a3d2c";
+  x.font = `italic ${hikaye ? 36 : 31}px ${SERIF}`;
+  wrapText(x, m.alt, W / 2, l2Y + (hikaye ? 66 : 54), W - 220, hikaye ? 46 : 40);
+  const by = L.by,
+    ps = L.ps;
+  const px = hikaye ? W / 2 - ps / 2 : 110;
+  const portre = portreGorseli(S.me.ico);
   x.save();
-  x.translate(W / 2, 590);
-  x.rotate(-0.08);
-  const col = coal
-    ? coal.outcome === "key"
-      ? "#b79be0"
-      : coal.won
-        ? "#c9a227"
-        : "#b3273b"
-    : R.won
-      ? R.kind === "key"
-        ? "#b79be0"
-        : "#c9a227"
-      : "#b3273b";
-  x.strokeStyle = col;
-  x.lineWidth = 8;
-  x.font = "bold 82px 'Courier New',monospace";
-  x.fillStyle = col;
-  const tw = x.measureText(stampTxt).width;
-  x.strokeRect(-tw / 2 - 40, -70, tw + 80, 120);
-  x.fillText(stampTxt, 0, 20);
+  x.beginPath();
+  x.arc(px + ps / 2, by + ps / 2, ps / 2, 0, Math.PI * 2);
+  x.closePath();
+  x.fillStyle = "#e0d2b0";
+  x.fill();
+  x.clip();
+  if (portre && portre.complete && portre.naturalWidth) x.drawImage(portre, px, by, ps, ps);
   x.restore();
-  x.fillStyle = "#e8dcc0";
-  x.font = "bold 190px Georgia,serif";
-  x.fillText("%" + f1(R.mine), W / 2, 830);
-  x.fillStyle = "#a89878";
-  x.font = "30px 'Courier New',monospace";
-  x.fillText(
-    `${R.myRank}. SIRA   ·   ${regWon}/7 BÖLGE   ·   ${Object.keys(S.promises).length} VAAT`,
-    W / 2,
-    900,
-  );
+  x.strokeStyle = "#8f7526";
+  x.lineWidth = 8;
+  x.beginPath();
+  x.arc(px + ps / 2, by + ps / 2, ps / 2, 0, Math.PI * 2);
+  x.stroke();
+  x.save();
+  x.translate(px + ps - (hikaye ? 10 : 0), by + ps - (hikaye ? 36 : 22));
+  x.rotate(-0.12);
+  x.font = `bold ${hikaye ? 40 : 34}px ${MONO}`;
+  const dw = x.measureText(m.damga).width;
+  x.fillStyle = "rgba(236,223,192,.94)";
+  x.fillRect(-dw / 2 - 16, -32, dw + 32, 50);
+  x.strokeStyle = renk;
+  x.lineWidth = 5;
+  x.strokeRect(-dw / 2 - 16, -32, dw + 32, 50);
+  x.fillStyle = renk;
+  x.textAlign = "center";
+  x.fillText(m.damga, 0, 6);
+  x.restore();
+  x.textAlign = "center";
+  x.fillStyle = INK;
+  x.font = `bold ${hikaye ? 38 : 32}px ${SERIF}`;
+  const lx = px + ps / 2;
+  x.fillText(S.me.leader, lx, by + ps + (hikaye ? 56 : 44));
+  x.fillStyle = "#4a3d2c";
+  x.font = `${hikaye ? 24 : 20}px ${MONO}`;
+  x.fillText(S.me.name.toLocaleUpperCase("tr"), lx, by + ps + (hikaye ? 92 : 74));
+  const mw = L.mw;
+  const mx = hikaye ? (W - mw) / 2 : W - 100 - mw;
+  const my = L.my;
+  const sc = mw / 1000;
+  RK.forEach((k) => {
+    const p = new Path2D(MAP_SHAPES[k]);
+    x.save();
+    x.translate(mx, my);
+    x.scale(sc, sc);
+    x.fillStyle = FINAL.regWin[k].me ? S.me.color : "#d6c8a6";
+    x.fill(p);
+    x.strokeStyle = INK;
+    x.lineWidth = 2.6 / sc;
+    x.lineJoin = "round";
+    x.stroke(p);
+    x.restore();
+  });
+  x.fillStyle = "#4a3d2c";
+  x.font = `${hikaye ? 24 : 20}px ${MONO}`;
+  x.fillText(`KAZANILAN BÖLGE: ${regWon}/7`, mx + mw / 2, my + 448 * sc + (hikaye ? 50 : 40));
+  const sy = L.sy;
+  const stats = [["1. TUR", "%" + f1(R.mine)]];
+  if (coal)
+    stats.push([
+      coal.mode === "chase" ? "2. TUR" : "2. TUR · KAZANAN",
+      "%" + f1(coal.mode === "chase" && coal.winnerId !== S.me.id ? 100 - coal.winPct : coal.winPct),
+    ]);
+  stats.push(["SIRA", R.myRank + "."]);
+  stats.push(["VEKİL", String(allocateSeats(FINAL.rows)[S.me.id] || 0)]);
+  const cw = (W - 180) / stats.length;
+  x.strokeStyle = INK;
+  x.lineWidth = 3;
+  x.beginPath();
+  x.moveTo(90, sy - 62);
+  x.lineTo(W - 90, sy - 62);
+  x.stroke();
+  stats.forEach((st, i) => {
+    const cx = 90 + cw * (i + 0.5);
+    x.fillStyle = INK;
+    x.font = `bold ${hikaye ? 66 : 54}px ${SERIF}`;
+    x.fillText(st[1], cx, sy);
+    x.fillStyle = "#4a3d2c";
+    x.font = `${hikaye ? 22 : 19}px ${MONO}`;
+    x.fillText(st[0], cx, sy + 34);
+  });
   x.fillStyle = "#6b5f4a";
-  x.font = "22px 'Courier New',monospace";
-  x.fillText("Sen de yönet, sandığa git. #Seçim2027", W / 2, 1000);
+  x.font = `21px ${MONO}`;
+  x.fillText(
+    MAGAZA_BAGLANTISI
+      ? "SEÇİM 2027 · " + MAGAZA_BAGLANTISI + " · #Seçim2027"
+      : "SEÇİM 2027 · SİYASET SİMÜLASYONU · #Seçim2027",
+    W / 2,
+    L.ayakY,
+  );
 }
 function wrapText(ctx, t, cx, cy, maxW, lh) {
   const words = t.split(" ");
@@ -34295,19 +34649,24 @@ function wrapText(ctx, t, cx, cy, maxW, lh) {
   }
   ctx.fillText(line.trim(), cx, y);
 }
-function cardBlob(cb) {
-  document.getElementById("share-canvas").toBlob(cb, "image/png");
+function kartCanvas(fmt) {
+  if (fmt !== "hikaye") return document.getElementById("share-canvas");
+  const cv = document.createElement("canvas");
+  cizPaylasimKarti(cv, "hikaye");
+  return cv;
 }
-function downloadCard() {
-  const cv = document.getElementById("share-canvas");
+function cardBlob(cb, fmt) {
+  kartCanvas(fmt).toBlob(cb, "image/png");
+}
+function downloadCard(fmt) {
   const a = document.createElement("a");
-  a.href = cv.toDataURL("image/png");
-  a.download = "secim2027-sonuc.png";
+  a.href = kartCanvas(fmt).toDataURL("image/png");
+  a.download = fmt === "hikaye" ? "secim2027-hikaye.png" : "secim2027-sonuc.png";
   a.click();
 }
-function shareResult() {
-  const R = evaluateResult();
-  const txt = `SEÇİM 2027'de ${S.me.name} olarak %${f1(R.mine)} aldım (${R.myRank}. sıra)! Sen de dene. #Seçim2027`;
+function shareResult(fmt) {
+  const m = paylasimManseti(evaluateResult());
+  const txt = `SEÇİM 2027 · ${m.l1} ${m.l2}. ${m.alt} #Seçim2027`;
   cardBlob((blob) => {
     const file = new File([blob], "secim2027.png", {
       type: "image/png",
@@ -34333,9 +34692,9 @@ function shareResult() {
         })
         .catch(() => {});
     } else {
-      downloadCard();
+      downloadCard(fmt);
     }
-  });
+  }, fmt);
 }
 function animateTitleCountdown() {
   const el = document.getElementById("title-countdown");
