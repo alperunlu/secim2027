@@ -4592,11 +4592,44 @@ body.phase-final .panel {
   margin: 1.5rem auto;
 }
 .end-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  max-width: 340px;
+  margin: 1rem auto 0;
+}
+.end-actions .btn {
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+}
+.end-actions .end-share,
+.end-actions #btn-newgame-end {
+  grid-column: 1 / -1;
+}
+.end-stat:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+.seat-key {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  justify-content: center;
+  gap: 0.35rem 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--cream-dim);
+  margin: 0.4rem 0 0.2rem;
+}
+.seat-key i {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  margin-right: 0.3rem;
+}
+.seat-key .me {
+  color: var(--gold);
 }
 .share-card-wrap {
   max-width: 420px;
@@ -6839,10 +6872,9 @@ body,
     <p id="end-text">-</p>
     <div class="end-stats" id="end-stats"></div>
     <div id="end-seats"></div>
-    <div id="end-map"></div>
     <div class="share-card-wrap"><canvas id="share-canvas" width="1080" height="1080"></canvas></div>
     <div class="end-actions">
-      <button class="btn" id="btn-share" onclick="shareResult()">Sonucu Paylaş</button>
+      <button class="btn end-share" id="btn-share" onclick="shareResult()">Sonucu Paylaş</button>
       <button class="btn ghost" onclick="shareResult('hikaye')">Hikâye Boyutu</button>
       <button class="btn ghost" onclick="downloadCard()">Kartı İndir</button>
       <button class="btn ghost" id="btn-newgame-end" onclick="confirmNew()">Yeni Kampanya</button>
@@ -33048,37 +33080,17 @@ function renderSeats(id, rows) {
   const seats = allocateSeats(rows);
   const mine = rows.find((r) => r.me);
   const my = seats[mine.id] || 0;
-  const top = rows.reduce((a, b) => ((seats[b.id] || 0) > (seats[a.id] || 0) ? b : a));
-  const topSeats = seats[top.id] || 0;
-  const gap = SEAT_MAJORITY - topSeats;
-  let verdict;
-  if (!my)
-    verdict = `<b>Baraj altında kaldınız.</b> %${SEAT_THRESHOLD} eşiğini aşamayan blok Meclis'e giremiyor; ${topSeats} vekille en büyük blok ${top.n}.`;
-  else if (top.me && topSeats >= SEAT_MAJORITY)
-    verdict = `<b>${my} vekille tek başına çoğunluk sizde.</b> Yasama çoğunluğu için kimseye ihtiyacınız yok.`;
-  else if (topSeats >= SEAT_MAJORITY)
-    verdict = `${top.n} ${topSeats} vekille tek başına çoğunluğu aldı. Sizin ${my} vekiliniz muhalefet sıralarında.`;
-  else if (top.me)
-    verdict = `<b>Meclis'in en büyük bloğu sizsiniz: ${my} vekil.</b> Ama çoğunluk için ${gap} vekil eksik, yasama çoğunluğu artık pazarlık meselesi.`;
-  else if (my >= gap)
-    verdict = `Hiçbir blok tek başına çoğunlukta değil. En büyük blok ${top.n} (${topSeats}), çoğunluğa ${gap} vekil eksiği var, <b>sizin ${my} vekiliniz o açığı tek başına kapatıyor.</b> Meclis'te anahtar sizde.`;
-  else
-    verdict = `Hiçbir blok tek başına çoğunlukta değil. En büyük blok ${top.n} (${topSeats}); çoğunluk için ${gap} vekil eksik, sizin ${my} vekiliniz tek başına yetmiyor.`;
-  const rowsHtml = rows
-    .map((r) => {
-      const s = seats[r.id] || 0;
-      return `<div class="seat-row${r.me ? " me" : ""}">
-   <span class="seat-dot" style="background:${r.me ? S.me.color : r.c}"></span>
-   <span class="seat-name">${r.n}${r.me ? " <em>(siz)</em>" : ""}</span>
-   <span class="seat-n">${s ? s + " vekil" : "baraj altı"}</span></div>`;
-    })
+  const keyHtml = rows
+    .filter((r) => seats[r.id] > 0)
+    .map(
+      (r) =>
+        `<span class="seat-k${r.me ? " me" : ""}"><i style="background:${r.me ? S.me.color : r.c}"></i>${RUNOFF_SHORT[r.id] || r.n} ${seats[r.id]}</span>`,
+    )
     .join("");
   document.getElementById(id).innerHTML = `<div class="panel"><h4>Meclis · Sandalye Dağılımı</h4>
    ${hemicycle(rows, seats)}
+   <div class="seat-key">${keyHtml}</div>
    <div class="seat-cap">${SEAT_TOTAL} SANDALYE · ÇOĞUNLUK ${SEAT_MAJORITY} · BARAJ %${SEAT_THRESHOLD}</div>
-   ${rowsHtml}
-   <div class="seat-verdict">${verdict}</div>
-   <div class="map-cap">ULUSAL TEK ÇEVRE VARSAYIMIYLA D'HONDT · YAKLAŞIK DAĞILIM</div>
   </div>`;
   return {
     seats,
@@ -34314,17 +34326,7 @@ function showEnd() {
   document.getElementById("end-stats").innerHTML = `
   <div class="end-stat"><b>%${f1(R.mine)}</b>ULUSAL OY</div>
   <div class="end-stat"><b>${R.myRank}.</b>SIRA</div>
-  <div class="end-stat"><b>${regWon}/7</b>BÖLGE BİRİNCİLİĞİ</div>
-  <div class="end-stat"><b>${Object.keys(S.promises).length}</b>VERİLEN VAAT</div>`;
-  const winners = {};
-  RK.forEach(
-    (k) => (winners[k] = shade(FINAL.regWin[k].me ? S.me.color : FINAL.regWin[k].c, 0.85)),
-  );
-  const regShow = {};
-  RK.forEach((k) => (regShow[k] = FINAL.regPct[k]));
-  document.getElementById("end-map").innerHTML =
-    '<div class="panel"><h4>Bölge Birincileri</h4><div id="end-map-h"></div><div class="map-cap">RENK = BÖLGEDE BİRİNCİ BLOK · RAKAM = SİZİN OYUNUZ</div></div>';
-  renderMap("end-map-h", regShow, S.me.color, winners);
+  <div class="end-stat"><b>${regWon}/7</b>BÖLGE BİRİNCİLİĞİ</div>`;
   const SEAT = renderSeats("end-seats", FINAL.rows);
   document
     .getElementById("end-stats")
