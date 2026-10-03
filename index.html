@@ -33904,7 +33904,7 @@ function coalOptions(p) {
       RUNOFF_PKG.map((g) => {
         const dis = g.val > COAL.credit ? " disabled" : "";
         return `<button class="coal-opt" data-gid="${g.id}"${dis}>
-    <span class="co-head"><span>${g.t.toUpperCase()}</span><span>KREDİ ${g.val}</span></span>
+    <span class="co-head"><span>${g.t.toLocaleUpperCase("tr")}</span><span>KREDİ ${g.val}</span></span>
     <span>${g.d}</span>
     <span class="co-det">${g.det}</span>
   </button>`;
@@ -33926,7 +33926,7 @@ function coalDemandsUI() {
     RUNOFF_DEMANDS.map((d) => {
       const desc = d.id === "kanun" ? "Kırmızı çizginiz: " + line : d.d;
       return `<button class="coal-opt dem${COAL.sel.has(d.id) ? " on" : ""}" data-did="${d.id}">
-    <span class="co-head"><span>${d.t.toUpperCase()}</span><span>DEĞER ${d.val}</span></span>
+    <span class="co-head"><span>${d.t.toLocaleUpperCase("tr")}</span><span>DEĞER ${d.val}</span></span>
     <span>${desc}</span>
   </button>`;
     }).join("") +
