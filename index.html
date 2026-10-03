@@ -5539,6 +5539,7 @@ body,
     margin-top: 0.5rem;
   }
 }
+
 </style>
 <style>
 /* ---- 2. Tur Cumhurbaşkanlığı Pazarlığı (screen-coalition) ---- */
@@ -6143,6 +6144,100 @@ body,
   50% {
     filter: brightness(1.3);
   }
+}
+/* ---- Sonuç ekranı: paylaşım kartı diliyle (kâğıt, mürekkep, çift çizgi) ---- */
+#screen-end .endwrap {
+  border: 3px solid var(--atlas-murekkep) !important;
+  padding-top: 1.2rem;
+}
+#screen-end .endwrap::before {
+  inset: 6px;
+  border: 1px solid var(--atlas-murekkep);
+}
+.end-mast {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  background: var(--atlas-murekkep);
+  color: var(--atlas-kagit);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  padding: 0.6rem 0.9rem;
+  margin: 0 0 1.4rem;
+  text-align: left;
+}
+#screen-end .end-portrait {
+  background: none !important;
+  border: 0 !important;
+  border-bottom: 3px double var(--atlas-murekkep) !important;
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.6rem;
+}
+#screen-end .end-stamp {
+  border: 3px solid currentColor !important;
+  letter-spacing: 0.3em;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+#screen-end #end-stamp.win {
+  color: #7a5a0e !important;
+}
+#screen-end #end-stamp.key {
+  color: #4f3a80 !important;
+}
+#screen-end #end-stamp.lose,
+#screen-end #end-stamp:not(.win):not(.key) {
+  color: #a8442f !important;
+}
+#end-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: bold;
+}
+#end-seats {
+  background: none !important;
+  border: 0 !important;
+  border-top: 3px double var(--atlas-murekkep) !important;
+  border-bottom: 3px double var(--atlas-murekkep) !important;
+  margin: 1.4rem 0;
+  padding: 0.8rem 0 0.6rem;
+}
+#end-seats .panel h4 {
+  color: var(--atlas-murekkep) !important;
+  border-bottom: 0 !important;
+  font-family: var(--mono);
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+.seat-key {
+  color: var(--atlas-murekkep-2);
+}
+.seat-key .me {
+  color: var(--atlas-kizil);
+  font-weight: bold;
+}
+.share-card-wrap canvas {
+  border: 0;
+  box-shadow: 0 2px 0 rgba(43, 35, 24, 0.35);
+}
+#screen-end .end-actions .btn.ghost {
+  border: 2px solid var(--atlas-murekkep) !important;
+  color: var(--atlas-murekkep) !important;
+  font-family: var(--mono);
+  letter-spacing: 0.1em;
+}
+#screen-end .end-actions .btn:not(.ghost) {
+  background: var(--atlas-kizil) !important;
+}
+.end-cta:not([hidden]) {
+  background: var(--atlas-kagit);
+  border-top: 3px double var(--atlas-murekkep);
+}
+#end-seats .panel {
+  background: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0 !important;
 }
 </style>
 </head>
@@ -6866,12 +6961,12 @@ body,
 
 <section id="screen-end" class="screen">
   <div class="endwrap">
+    <div class="end-mast"><span>ERKEN SEÇİM ÖZEL SAYISI</span><span>13 HAZİRAN 2027</span></div>
     <div class="end-portrait" id="end-portrait"></div>
     <div class="end-stamp" id="end-stamp">-</div>
     <h2 id="end-title">-</h2>
     <p id="end-text">-</p>
-    <div class="end-stats" id="end-stats"></div>
-    <div id="end-seats"></div>
+        <div id="end-seats"></div>
     <div class="share-card-wrap"><canvas id="share-canvas" width="1080" height="1080"></canvas></div>
     <div class="end-actions">
       <button class="btn end-share" id="btn-share" onclick="shareResult()">Sonucu Paylaş</button>
@@ -33073,7 +33168,7 @@ function hemicycle(rows, seats) {
       out += `<circle cx="${pts[k].x.toFixed(1)}" cy="${pts[k].y.toFixed(1)}" r="2.1" fill="${c}"/>`;
   }
   for (; k < pts.length; k++)
-    out += `<circle cx="${pts[k].x.toFixed(1)}" cy="${pts[k].y.toFixed(1)}" r="2.1" fill="#3a3026"/>`;
+    out += `<circle cx="${pts[k].x.toFixed(1)}" cy="${pts[k].y.toFixed(1)}" r="2.1" fill="#d6c8a6"/>`;
   return `<svg viewBox="0 0 ${W} ${H}" class="hemi" role="img" aria-label="Meclis sandalye dağılımı">${out}</svg>`;
 }
 function renderSeats(id, rows) {
@@ -33090,7 +33185,6 @@ function renderSeats(id, rows) {
   document.getElementById(id).innerHTML = `<div class="panel"><h4>Meclis · Sandalye Dağılımı</h4>
    ${hemicycle(rows, seats)}
    <div class="seat-key">${keyHtml}</div>
-   <div class="seat-cap">${SEAT_TOTAL} SANDALYE · ÇOĞUNLUK ${SEAT_MAJORITY} · BARAJ %${SEAT_THRESHOLD}</div>
   </div>`;
   return {
     seats,
@@ -34323,14 +34417,7 @@ function showEnd() {
   stamp.textContent = stmp;
   sfx("thud");
   if (!RA) sfx(RO ? (RO.won ? "win" : "fail") : R.won ? "win" : "fail");
-  document.getElementById("end-stats").innerHTML = `
-  <div class="end-stat"><b>%${f1(R.mine)}</b>ULUSAL OY</div>
-  <div class="end-stat"><b>${R.myRank}.</b>SIRA</div>
-  <div class="end-stat"><b>${regWon}/7</b>BÖLGE BİRİNCİLİĞİ</div>`;
   const SEAT = renderSeats("end-seats", FINAL.rows);
-  document
-    .getElementById("end-stats")
-    .insertAdjacentHTML("beforeend", `<div class="end-stat"><b>${SEAT.my}</b>MİLLETVEKİLİ</div>`);
   if (S.coalResult) {
     const cr = S.coalResult;
     stamp.textContent = cr.stamp;
@@ -34338,13 +34425,6 @@ function showEnd() {
     title.textContent = cr.title;
     title.style.color = cr.outcome === "key" ? "#cdb6f0" : cr.won ? "var(--gold)" : "var(--red-bright)";
     text.textContent = cr.text;
-    document
-      .getElementById("end-stats")
-      .insertAdjacentHTML(
-        "beforeend",
-        `<div class="end-stat"><b>%${f1(cr.winPct)}</b>2. TUR${cr.winnerId === S.me.id ? "" : " · KAZANAN"}</div>` +
-          (cr.score ? `<div class="end-stat"><b>${cr.score}</b>KİLİT PUANI</div>` : ""),
-      );
   }
   if (!S.gcSent) {
     S.gcSent = true;
