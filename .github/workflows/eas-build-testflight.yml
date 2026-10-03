@@ -1,0 +1,25 @@
+name: EAS Build + TestFlight
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci
+      - name: game-html.js'i index.html'den üret
+        run: npm run sync-game
+      - name: iOS build al ve TestFlight'a gönder
+        run: npx --yes eas-cli@latest build --platform ios --profile testflight --auto-submit --non-interactive --no-wait
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
