@@ -19,6 +19,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci
       - name: TestFlight'a gönder
         run: |
           if [ -n "${{ inputs.build_id }}" ]; then
