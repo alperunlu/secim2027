@@ -5750,6 +5750,9 @@ body,
   flex: 0 0 auto;
   min-height: 1.9rem;
 }
+.coal-cards.locked .coal-card:not(.sel) {
+  opacity: 0.5;
+}
 .coal-help {
   font-family: var(--serif);
   font-style: italic;
@@ -33770,8 +33773,8 @@ function startCoalition() {
   document.getElementById("coal-role").textContent = av.mode === "chase" ? "ADAY" : "KİLİT PARTİ";
   document.getElementById("coal-help").textContent =
     av.mode === "chase"
-      ? "Kredi, ilk tur oyunuzdan gelen pazarlık gücünüzdür. Her anlaşma kredi harcar, yenilenmez. Bir gün kapatınca fiyatlar %6 artar ve rakip aday bir masayı kapar."
-      : "Bir adaya talepler sunun: ne kadar çok isterseniz kabul ihtimali o kadar düşer. Her gün adaylar biraz daha sabırsızlanır, masalar sıkılaşır.";
+      ? "Kredi, ilk tur oyunuzdan gelen pazarlık gücünüzdür. Her anlaşma kredi harcar, yenilenmez. Günde yalnızca bir masayla görüşebilirsiniz. Gün bitince fiyatlar %6 artar ve rakip aday bir masayı kapar."
+      : "Bir adaya talepler sunun: ne kadar çok isterseniz kabul ihtimali o kadar düşer. Günde yalnızca bir teklif sunabilirsiniz; her gün adaylar biraz daha sabırsızlanır, masalar sıkılaşır.";
   document.getElementById("coal-verdict").innerHTML = "";
   coalRender();
 }
@@ -33835,6 +33838,7 @@ function coalRender() {
     gapL.textContent = runoffPivotalLabel(t);
   }
   const cards = document.getElementById("coal-cards");
+  cards.classList.toggle("locked", !!co.offered);
   cards.innerHTML = co.pool
     .map((p) => {
       const cls = p.status ? "off" : "";
@@ -33852,6 +33856,10 @@ function coalRender() {
     el.onclick = () => {
       const p = COAL.pool.find((x) => x.id === el.dataset.pid);
       if (!p || p.status) return;
+      if (COAL.offered) {
+        notice("Bugünkü görüşmeniz bitti: başka masa yarın.", "warn");
+        return;
+      }
       coalPick(p);
     };
   });
@@ -33967,7 +33975,8 @@ function coalOffer(gid) {
       if (COAL.round >= 2 && !COAL.pool.some((x) => !x.status)) return coalEnd();
     }
     COAL.offered = true;
-    document.getElementById("coal-opts").innerHTML = `<button class="btn" onclick="coalAdvance()">Devam →</button>
+    document.getElementById("coal-cards").classList.add("locked");
+    document.getElementById("coal-opts").innerHTML = `<button class="btn" onclick="coalAdvance()">Günü Bitir →</button>
       <button class="btn ghost" onclick="coalEnd()">Sandığa Git ▸</button>`;
   } else {
     const items = RUNOFF_DEMANDS.filter((d) => COAL.sel.has(d.id));
@@ -33994,6 +34003,8 @@ function coalOffer(gid) {
         });
       if (keep.length) {
         p.countered = true;
+        COAL.offered = true;
+        document.getElementById("coal-cards").classList.add("locked");
         COAL.pending = { p, items: keep };
         coalVerdict(p, "counter", "KARŞI TEKLİF", "tick");
         const names = keep.map((d) => d.t).join(" + ");
@@ -34010,8 +34021,9 @@ function coalOffer(gid) {
     p.status = "walked";
     coalVerdict(p, "walk", "MASADAN KALKTI", "crisis");
     COAL.offered = true;
+    document.getElementById("coal-cards").classList.add("locked");
     document.getElementById("coal-opts").innerHTML = COAL.pool.some((x) => !x.status)
-      ? `<button class="btn" onclick="coalAdvance()">Devam →</button>
+      ? `<button class="btn" onclick="coalAdvance()">Günü Bitir →</button>
          <button class="btn ghost" onclick="coalEnd()">Tarafsız Kal · Sandığa Git</button>`
       : `<button class="btn" onclick="coalEnd()">Sandığa Git ▸</button>`;
   }
