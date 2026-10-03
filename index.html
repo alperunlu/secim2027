@@ -5724,14 +5724,41 @@ body,
   border-color: var(--gold);
   background: linear-gradient(180deg, #34281a, #271d11);
 }
+.coal-opt.dem {
+  position: relative;
+  padding-left: 2.5rem;
+}
 .coal-opt.dem::before {
-  content: "☐ ";
+  content: "☐";
+  position: absolute;
+  left: 0.9rem;
+  top: 0.78rem;
+  font-size: 1.05rem;
+  line-height: 1;
   color: var(--gold-dim);
   font-family: var(--mono);
 }
 .coal-opt.dem.on::before {
-  content: "☑ ";
+  content: "☑";
   color: var(--gold);
+}
+.coal-opts .btn {
+  margin: 0;
+}
+#screen-coalition .breaking {
+  position: static;
+  flex: 0 0 auto;
+  min-height: 1.9rem;
+}
+.coal-help {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--cream-dim);
+  text-align: center;
+  margin: 0.55rem 0 0;
+  opacity: 0.85;
 }
 .coal-sum {
   font-family: var(--mono);
@@ -6790,6 +6817,7 @@ body,
     <div class="coal-meter-lbl"><span id="coal-meter-tag">2. TUR PROJEKSİYONU</span><span id="coal-seats-val">-</span></div>
     <div class="coal-bar"><i id="coal-seats-bar"></i><u></u></div>
     <div class="coal-meter-foot"><span id="coal-credit">-</span><span id="coal-gap-lbl">-</span></div>
+    <p class="coal-help" id="coal-help"></p>
   </div>
   <div class="coal-cards" id="coal-cards"></div>
   <div class="coal-desk">
@@ -33740,6 +33768,10 @@ function startCoalition() {
   document.body.className = "";
   stopMusic();
   document.getElementById("coal-role").textContent = av.mode === "chase" ? "ADAY" : "KİLİT PARTİ";
+  document.getElementById("coal-help").textContent =
+    av.mode === "chase"
+      ? "Kredi, ilk tur oyunuzdan gelen pazarlık gücünüzdür. Her anlaşma kredi harcar, yenilenmez. Bir gün kapatınca fiyatlar %6 artar ve rakip aday bir masayı kapar."
+      : "Bir adaya talepler sunun: ne kadar çok isterseniz kabul ihtimali o kadar düşer. Her gün adaylar biraz daha sabırsızlanır, masalar sıkılaşır.";
   document.getElementById("coal-verdict").innerHTML = "";
   coalRender();
 }
@@ -33869,7 +33901,7 @@ function coalOptions(p) {
     <span class="co-det">${g.det}</span>
   </button>`;
       }).join("") +
-      `<button class="btn ghost" onclick="coalAdvance()">Günü Kapat →</button>
+      `<button class="btn ghost" onclick="coalAdvance()">Günü Kapat · Fiyatlar Artar →</button>
        <button class="btn ghost" onclick="coalEnd()">Pazarlığı Bitir · Sandığa Git ▸</button>`;
     box.querySelectorAll(".coal-opt").forEach((el) => {
       el.onclick = () => coalOffer(el.dataset.gid);
