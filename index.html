@@ -33547,6 +33547,8 @@ function runoffAvailability() {
   if (!me) return null;
   if (me.id === A.id || me.id === B.id)
     return { mode: "chase", A, B, me, rival: me.id === A.id ? B : A };
+  /* Baraj hedefli parti (Emek) barajı aştıysa zaferi kesinleşir: pazarlığa çağrılmaz */
+  if (S.me.goal.type === "threshold" && me.s >= S.me.goal.target) return null;
   if (me.s >= RUNOFF_MIN) return { mode: "broker", A, B, me };
   return null;
 }
