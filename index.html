@@ -33583,7 +33583,7 @@ const RUNOFF_PKG = [
   },
 ];
 const RUNOFF_DEMANDS = [
-  { id: "bakanlik", t: "İki Bakanlık", d: "Seçeceğiniz iki portföy sizin olacak.", val: 24 },
+  { id: "bakanlik", t: "İki Bakanlık", d: "Seçeceğiniz iki koltuk sizin olacak.", val: 24 },
   { id: "yardimci", t: "Cumhurbaşkanı Yardımcılığı", d: "Kabinede ikinci koltuk sizin.", val: 22 },
   { id: "kanun", t: "Kırmızı Çizgi Kanunu", d: "", val: 26 },
   { id: "kadro", t: "Devlet Kadro Kontenjanı", d: "Kurumlarda partinize kadro payı ayrılacak.", val: 18 },
@@ -34121,7 +34121,7 @@ function coalEnd(kind, target, items) {
     outcome = "neutral";
     stamp = "MASA DAĞILDI";
     title = "Kimseyle Anlaşamadınız";
-    text = `İkinci tur sizin desteğiniz olmadan ${winner.n} lehine %${f1(winPct)} ile sonuçlandı. ${S.me.leader} için kilit güç masada bozdurulamadı.`;
+    text = `İkinci tur sizin desteğiniz olmadan ${winner.n} lehine %${f1(winPct)} ile sonuçlandı. ${S.me.leader} kilit gücünü gösteremedi.`;
   }
   S.coalResult = {
     mode: co.mode,
@@ -34641,6 +34641,16 @@ function cardBlob(cb, fmt) {
   kartCanvas(fmt).toBlob(cb, "image/png");
 }
 function downloadCard(fmt) {
+  if (window.ReactNativeWebView) {
+    cardBlob((blob) => {
+      navigator.share({
+        files: [new File([blob], "secim2027.png", { type: "image/png" })],
+        title: "SEÇİM 2027",
+        text: "",
+      });
+    }, fmt);
+    return;
+  }
   const a = document.createElement("a");
   a.href = kartCanvas(fmt).toDataURL("image/png");
   a.download = fmt === "hikaye" ? "secim2027-hikaye.png" : "secim2027-sonuc.png";
