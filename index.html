@@ -6814,7 +6814,7 @@ body,
       <button class="btn" id="btn-share" onclick="shareResult()">Sonucu Paylaş</button>
       <button class="btn ghost" onclick="shareResult('hikaye')">Hikâye Boyutu</button>
       <button class="btn ghost" onclick="downloadCard()">Kartı İndir</button>
-      <button class="btn ghost" onclick="confirmNew()">Yeni Kampanya</button>
+      <button class="btn ghost" id="btn-newgame-end" onclick="confirmNew()">Yeni Kampanya</button>
     </div>
     <div class="small-note">SEÇİM 2027 tamamen kurgusal bir simülasyon oyunudur. Tüm ittifaklar, partiler, liderler, kişiler, olaylar ve oranlar hayal ürünüdür;<br>gerçek kişi, kurum veya seçim sonuçlarıyla ilgisi yoktur.</div>
   </div>
@@ -34325,9 +34325,12 @@ function showEnd() {
   } else {
     const oneri = baskaIttifakOnerisi();
     b.id = "btn-baska";
-    b.textContent = "Başka İttifakla Dene: " + (oneri.short || oneri.name) + " ▸";
+    b.textContent = "Başka İttifakla Dene ▸";
     b.onclick = () => baskaIttifakla(oneri.id);
   }
+  /* Başka ittifakla dene zaten yeni kampanya başlatır: iki buton aynı anda görünmesin */
+  const yk = document.getElementById("btn-newgame-end");
+  if (yk) yk.style.display = coalAv ? "" : "none";
   cta.appendChild(b);
   cta.hidden = false;
   drawShareCard(R, stmp, regWon);
