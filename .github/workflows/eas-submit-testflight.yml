@@ -1,0 +1,30 @@
+name: EAS Submit (TestFlight)
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_id:
+        description: "Gönderilecek EAS build ID (boş = son iOS build)"
+        required: false
+        default: ""
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: TestFlight'a gönder
+        run: |
+          if [ -n "${{ inputs.build_id }}" ]; then
+            npx --yes eas-cli@latest submit --platform ios --profile testflight --id "${{ inputs.build_id }}" --non-interactive --no-wait
+          else
+            npx --yes eas-cli@latest submit --platform ios --profile testflight --latest --non-interactive --no-wait
+          fi
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
