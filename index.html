@@ -33773,8 +33773,8 @@ function startCoalition() {
   document.getElementById("coal-role").textContent = av.mode === "chase" ? "ADAY" : "KİLİT PARTİ";
   document.getElementById("coal-help").textContent =
     av.mode === "chase"
-      ? "Kredi, ilk tur oyunuzdan gelen pazarlık gücünüzdür. Her anlaşma kredi harcar, yenilenmez. Günde yalnızca bir masayla görüşebilirsiniz. Gün bitince fiyatlar %6 artar ve rakip aday bir masayı kapar."
-      : "Bir adaya talepler sunun: ne kadar çok isterseniz kabul ihtimali o kadar düşer. Günde yalnızca bir teklif sunabilirsiniz; her gün adaylar biraz daha sabırsızlanır, masalar sıkılaşır.";
+      ? "Kredi, ilk tur oyunuzdan gelen pazarlık gücünüzdür. Her anlaşma kredi harcar, yenilenmez. Günde yalnızca bir masayla görüşebilirsiniz."
+      : "Bir adaya talepler sunun: ne kadar çok isterseniz kabul ihtimali o kadar düşer. Günde yalnızca bir teklif sunabilirsiniz.";
   document.getElementById("coal-verdict").innerHTML = "";
   coalRender();
 }
@@ -33909,7 +33909,7 @@ function coalOptions(p) {
     <span class="co-det">${g.det}</span>
   </button>`;
       }).join("") +
-      `<button class="btn ghost" onclick="coalAdvance()">Günü Kapat · Fiyatlar Artar →</button>
+      `<button class="btn ghost" onclick="coalAdvance()">Günü Kapat →</button>
        <button class="btn ghost" onclick="coalEnd()">Pazarlığı Bitir · Sandığa Git ▸</button>`;
     box.querySelectorAll(".coal-opt").forEach((el) => {
       el.onclick = () => coalOffer(el.dataset.gid);
