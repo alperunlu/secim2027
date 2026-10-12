@@ -1,16 +1,20 @@
 name: EAS Update (OTA)
 
+# OTA yalnızca `ota` dalına gelen push/merge ile yayınlanır.
+# Akış: main'de geliştir -> yayınlamaya karar verince main'i ota'ya merge et.
 on:
+  push:
+    branches: [ota]
   workflow_dispatch:
     inputs:
       message:
         description: "Güncelleme notu"
-        required: true
+        required: false
         default: "Güncelleme"
-      channel:
-        description: "EAS kanalı"
-        required: true
-        default: "production"
+
+concurrency:
+  group: eas-update
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -29,6 +33,9 @@ jobs:
       - name: game-html.js'i index.html'den üret
         run: npm run sync-game
       - name: OTA yayınla
-        run: npx --yes eas-cli@latest update --channel "${{ inputs.channel }}" --message "${{ inputs.message }}" --platform ios --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          MSG: ${{ github.event.head_commit.message || inputs.message }}
+        run: |
+          MSG_LINE="$(printf '%s' "$MSG" | head -n1)"
+          npx --yes eas-cli@latest update --channel production --message "${MSG_LINE:-Güncelleme}" --platform ios --non-interactive
