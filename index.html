@@ -6789,6 +6789,56 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
 .yp-et.iskele {
   border-style: dashed;
 }
+
+/* Dış ilişkiler */
+.ds-satir {
+  display: grid;
+  grid-template-columns: 6.2rem 1fr 4.2rem;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.22rem 0;
+}
+.ds-bar {
+  position: relative;
+  height: 7px;
+  background: rgba(43, 35, 24, 0.1);
+  border: 1px solid rgba(43, 35, 24, 0.35);
+}
+.ds-bar u {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  bottom: -3px;
+  width: 1px;
+  background: var(--atlas-murekkep);
+}
+.ds-bar i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--atlas-murekkep-2);
+}
+.ds-satir.yakin .ds-bar i {
+  background: #4f6b3a;
+}
+.ds-satir.gergin .ds-bar i {
+  background: var(--atlas-kizil);
+}
+.ds-satir.yakin .gd-et {
+  color: #4f6b3a;
+}
+.ds-satir.gergin .gd-et {
+  color: var(--atlas-kizil);
+}
+
+.o-promise.o-dis {
+  color: #4f6b3a !important;
+  border-color: rgba(79, 107, 58, 0.5) !important;
+}
+.o-promise.o-dis.neg {
+  color: var(--atlas-kizil) !important;
+  border-color: rgba(168, 68, 47, 0.45) !important;
+}
 </style>
 </head>
 <body>
@@ -30837,7 +30887,10 @@ function dunyaKur(eskiKayit) {
   if (!S) return;
   if (!S.ek) S.ek = {};
   const ek = S.ek;
-  if (ek.donem) return;
+  if (ek.donem) {
+    disKur();
+    return;
+  }
   const kartlar = shuffle([...DONEM_KARTLARI]).slice(0, 2);
   ek.donem = kartlar.map((k) => k.id);
   ek.taban = { ...GUNDEM_TABAN };
@@ -30847,6 +30900,7 @@ function dunyaKur(eskiKayit) {
   ek.gundem = { ...ek.taban };
   ek.tohum = Math.floor(Math.random() * 1e9);
   ek.donemGoruldu = !!eskiKayit;
+  disKur();
   if (!eskiKayit) {
     kartlar.forEach((k) => k.uyg && k.uyg());
     donemDisla();
@@ -30968,7 +31022,9 @@ function karsilikOlayi() {
   delete S.ek.karsilik;
   const r = S.rivals.find((x) => x.id === k.rid);
   if (!r) return null;
-  const govde = pick(KARSILIK_GOVDE)
+  const govde = (k.tip === "dis"
+    ? "{R} meydanda hedef gösterdi: \u201C{L} dış güçlerin adayıdır; Brüksel'in, Washington'ın sözcüsüdür.\u201D Kesit sosyal medyada en çok paylaşılan video oldu."
+    : pick(KARSILIK_GOVDE))
     .replace(/\{R\}/g, r.leader)
     .replace(/\{P\}/g, r.short || r.name)
     .replace(/\{L\}/g, S.me.leader);
@@ -31099,6 +31155,161 @@ function bolgeKarti() {
       { t: "Yerel teşkilata bırak", d: "Ucuz ve sessiz; teşkilat güçlenir.", fx: { reg: { [k]: 0.6 }, sad: 2 } },
     ],
   };
+}
+/* =====================================================================
+   DIŞ İLİŞKİLER
+   Beş aktörle ilişki skoru (-100…100). Diplomasi kartları ve dış politika
+   kararları skoru değiştirir. Etkiler iki yönlüdür: Batı'ya yakınlık piyasa
+   güveni getirir ama "dış destekli" saldırısını davet eder; mesafe tabanı
+   coşturur ama kur riskini büyütür. İkinci tur pazarlığına da yansır.
+   ===================================================================== */
+const DIS_AKTOR = {
+  ab: { ad: "AB", bas: "AB", uzun: "Avrupa Birliği", bati: true, re: /\bAB\b|Avrupa Birliği|Brüksel|Avrupa/ },
+  abd: { ad: "ABD", bas: "ABD", uzun: "ABD", bati: true, re: /\bABD\b|Amerika|Washington|NATO/ },
+  rus: { ad: "RUSYA", bas: "Rusya", uzun: "Rusya", re: /Rusya|Moskova|Kremlin/ },
+  kor: { ad: "KÖRFEZ", bas: "Körfez", uzun: "Körfez ülkeleri", re: /Körfez|Katar|Emirlik|Suudi/ },
+  kom: { ad: "KOMŞULAR", bas: "Komşular", uzun: "Komşu ülkeler", re: /Suriye|Irak|İran|Yunanistan|Ermenistan|Gürcistan|komşu|sınır kapı/ },
+};
+/* Partilerin Batı'ya bakışı: -1 mesafeli … +1 yakın (ikinci tur uyumu ve tabanın tepkisi) */
+const DIS_EGILIM = { devlet: -0.2, degisim: 0.8, cephe: -0.9, mutabakat: 0.1, dayanisma: 0.5, emek: -0.6 };
+const DIS_BASLANGIC = {
+  devlet: { ab: -10, abd: 0, rus: 20, kor: 35, kom: 0 },
+  degisim: { ab: 30, abd: 15, rus: -5, kor: -5, kom: 5 },
+  cephe: { ab: -30, abd: -20, rus: 0, kor: 10, kom: -20 },
+  mutabakat: { ab: 5, abd: 0, rus: 0, kor: 25, kom: 10 },
+  dayanisma: { ab: 25, abd: -15, rus: -10, kor: -15, kom: 25 },
+  emek: { ab: 0, abd: -40, rus: 5, kor: -30, kom: 15 },
+};
+const DIS_DURUM = {
+  ab: [
+    "Brüksel'in ilerleme raporu hukuk ve basın özgürlüğünü sert dille eleştirdi.",
+    "AB büyükelçileri seçimi izlemek için gözlem heyeti istedi.",
+    "Vize serbestisi müzakerelerinde yeni bir takvim konuşuluyor.",
+  ],
+  abd: [
+    "Washington'dan yaptırım sinyali geldi; piyasalar tedirgin.",
+    "ABD'li bir senatör kampanyanız hakkında demeç verdi.",
+    "Savunma alımı dosyası yeniden masada.",
+  ],
+  rus: [
+    "Doğalgaz anlaşmasının yenilenmesi seçim sonrasına bırakıldı.",
+    "Moskova'dan turizm ve tarım ihracatı için olumlu mesaj geldi.",
+    "Nükleer santralin takvimi yeniden tartışmada.",
+  ],
+  kor: [
+    "Körfez fonu büyük bir yatırım paketi açıkladı.",
+    "Körfez'den gelen sıcak para kampanya tartışmasına dönüştü.",
+  ],
+  kom: [
+    "Sınır kapısında göç yoğunluğu arttı; yerel halk tedirgin.",
+    "Komşu ülkeyle su ve enerji anlaşması gündemde.",
+    "Mülteci dönüş protokolü yeniden tartışmaya açıldı.",
+  ],
+};
+function disKur() {
+  if (!S || !S.ek || S.ek.dis) return;
+  S.ek.dis = { ...(DIS_BASLANGIC[S.me.id] || { ab: 0, abd: 0, rus: 0, kor: 0, kom: 0 }) };
+}
+function disDeger(k) {
+  return S && S.ek && S.ek.dis ? S.ek.dis[k] || 0 : 0;
+}
+function disBati() {
+  return (disDeger("ab") + disDeger("abd")) / 2;
+}
+function disDegistir(k, v, neden) {
+  if (!S || !S.ek || !S.ek.dis || !DIS_AKTOR[k]) return;
+  const eski = S.ek.dis[k];
+  S.ek.dis[k] = clamp(Math.round(eski + v), -100, 100);
+  if (neden && Math.abs(v) >= 10)
+    addTicker("DIŞ", `${DIS_AKTOR[k].uzun} ile ilişkiler ${v > 0 ? "ısındı" : "soğudu"}: ${neden}`);
+}
+/* Mevcut dış politika olaylarındaki seçenekleri aktör ve tona göre oku */
+function disSecenektenOku(ev, o, mult) {
+  if (!S || !S.ek || !S.ek.dis || mult <= 0) return;
+  const metin = optText(o) + " " + (o.d || "") + " " + (ev.title || "");
+  const olumlu = /destek|işbirliği|müzakere|ziyaret|anlaşma|ortak|diyalog|yakınlaş|üyelik/i.test(optText(o) + " " + (o.d || ""));
+  const olumsuz = /karşı|sert|tepki|kınama|yaptırım|reddet|egemenlik|meydan oku|boykot|restleş/i.test(optText(o) + " " + (o.d || ""));
+  if (olumlu === olumsuz) return;
+  for (const k in DIS_AKTOR)
+    if (DIS_AKTOR[k].re.test(metin)) disDegistir(k, olumlu ? 9 : -9, null);
+}
+function diploKarti() {
+  const k = pick(Object.keys(DIS_AKTOR));
+  const A = DIS_AKTOR[k];
+  const e = DIS_EGILIM[S.me.id] || 0;
+  const bati = !!A.bati;
+  /* Tabanın tepkisi: Batı'ya yakınlaşmak mesafeli partilerin tabanını, sertlik Batı yanlılarınınkini yorar */
+  const yakinTaban = bati ? (e < 0 ? -2 : 1) : e > 0.4 ? -1 : 1;
+  const sertTaban = bati ? (e < 0 ? 3 : -1) : e > 0.4 ? 1 : 2;
+  return {
+    id: "_diplo",
+    cat: "DIŞ POLİTİKA",
+    title: `Dış Politika: ${A.bas}`,
+    body: `${pick(DIS_DURUM[k])} Gazeteciler ${S.me.leader}'in tavrını soruyor; bu cevap yurt dışında da okunacak.`,
+    diplo: k,
+    opts: [
+      {
+        t: "Yakınlaş: işbirliği mesajı ver",
+        d: `${A.uzun} ile ilişki ısınır; ${bati ? "piyasa rahatlar" : "yeni kapılar açılır"}.`,
+        fx: { med: 1, sad: yakinTaban, oy: 0.2, ...(k === "kor" ? { but: 3 } : {}) },
+        dis: { [k]: 16 },
+      },
+      {
+        t: "Mesafeli dur: ulusal çıkarı öne koy",
+        d: "Kimseyi kızdırmaz, kimseyi heyecanlandırmaz.",
+        fx: { mut: 1, oy: 0.2 },
+        dis: { [k]: -4 },
+      },
+      {
+        t: "Sert çık: egemenlik vurgusu yap",
+        d: `Taban coşar; ${A.uzun.toLocaleLowerCase("tr").replace(/^ab$/, "AB").replace(/^abd$/, "ABD")} ile ilişki gerilir${bati ? ", kur tedirgin olur" : ""}.`,
+        fx: { sad: sertTaban, med: 1, oy: e < 0 ? 0.35 : 0.1 },
+        dis: { [k]: -18 },
+      },
+    ],
+  };
+}
+/* Haftalık sonuçlar: Batı'ya yakınlık/uzaklığın iç siyasete yansıması */
+function disHaftasi() {
+  if (!S || !S.ek || !S.ek.dis) return;
+  const d = S.ek.dis,
+    bati = disBati();
+  const t = DIS_BASLANGIC[S.me.id] || {};
+  for (const k in d) d[k] = Math.round(d[k] + ((t[k] || 0) - d[k]) * 0.08);
+  if (bati >= 40) {
+    S.stats.but = clamp(S.stats.but + 1, 0, 150);
+    if (Math.random() < 0.3 && !S.ek.karsilik) {
+      const r = [...S.rivals].sort((a, b) => b.share - a.share)[0];
+      S.ek.karsilik = { rid: r.id, g: S.daysLeft, tip: "dis" };
+      addTicker("RAKİP", `${r.leader}: "${S.me.name} dış güçlerin adayıdır." Gece boyunca tartışıldı.`);
+    }
+  } else if (bati <= -35) {
+    S.stats.sad = clamp(S.stats.sad + 1, 0, 100);
+    if (S.ek.gundem) S.ek.gundem.eko = clamp(S.ek.gundem.eko + 5, 5, 95);
+    addTicker("PİYASA", "Batı başkentleriyle gerginlik kura yansıdı; yatırımcılar temkinli.");
+  }
+  if (d.kor >= 45) {
+    S.stats.but = clamp(S.stats.but + 2, 0, 150);
+    if (S.ek.gundem) S.ek.gundem.skn = clamp(S.ek.gundem.skn + 4, 5, 95);
+  }
+}
+/* İkinci tur: Batı'ya bakışları uyuşan partilerle pazarlık kolaylaşır */
+function disUyum(id) {
+  if (!S || !S.ek || !S.ek.dis) return 1;
+  const e = DIS_EGILIM[id] || 0;
+  return clamp(1 - 0.12 * e * clamp(disBati() / 50, -1.5, 1.5), 0.8, 1.2);
+}
+function disCubuklari() {
+  if (!S || !S.ek || !S.ek.dis) return "";
+  return Object.keys(DIS_AKTOR)
+    .map((k) => {
+      const v = disDeger(k);
+      const et = v >= 35 ? "YAKIN" : v <= -35 ? "GERGİN" : "MESAFELİ";
+      const sol = v < 0 ? 50 + v / 2 : 50,
+        gen = Math.abs(v) / 2;
+      return `<div class="ds-satir${v <= -35 ? " gergin" : v >= 35 ? " yakin" : ""}"><span class="gd-ad">${DIS_AKTOR[k].ad}</span><span class="ds-bar"><u></u><i style="left:${sol}%;width:${gen}%"></i></span><span class="gd-et">${et}</span></div>`;
+    })
+    .join("");
 }
 /* Kampanyanın ilk sayfası: dönem raporu */
 function donemGoster() {
@@ -31310,7 +31521,10 @@ function renderWeeklyBoard() {
     sel: [],
     region: null,
   };
-  if (S.lastWeek > 0) rakipHaftasi();
+  if (S.lastWeek > 0) {
+    rakipHaftasi();
+    disHaftasi();
+  }
   const wk = S.lastWeek + 1;
   const d = document.getElementById("dossier");
   d.className = "dossier week-card";
@@ -31684,7 +31898,11 @@ function chooseDailyEvent() {
     const gk = gundemKarti(sk.k);
     if (gk && ph !== "silence") return gk;
   }
-  if (ph !== "final" && ph !== "silence" && Math.random() < 0.17) return bolgeKarti();
+  if (ph !== "final" && ph !== "silence") {
+    const r = Math.random();
+    if (r < 0.08) return diploKarti();
+    if (r < 0.25) return bolgeKarti();
+  }
   let pool = EVENTS.filter((e) => !e.day && !S.usedIds.includes(e.id) && eligible(e, d, ph));
   if (ph === "final") {
     const fin = pool.filter((e) => e.phase && e.phase.includes("final"));
@@ -31795,6 +32013,13 @@ function renderDailyEvent() {
       tag += `<span class="o-promise"><svg class="inl-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quill"/></svg> VAAT: ${PROMISE_LABEL[o.sets.promise] || o.sets.promise}</span>`;
     if (ev.requires && ev.requires.promise)
       tag += `<span class="o-promise o-callback">⟳ VAADİN HESABI</span>`;
+    if (o.dis)
+      tag += Object.keys(o.dis)
+        .map(
+          (k) =>
+            `<span class="o-promise o-dis${o.dis[k] < 0 ? " neg" : ""}">İLİŞKİ · ${DIS_AKTOR[k].ad} ${o.dis[k] > 0 ? "▲" : "▼"}</span>`,
+        )
+        .join("");
     if (o.only)
       tag += `<span class="o-promise o-signature"><svg class="inl-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-star"/></svg> ${S.me.signatureTag}</span>`;
     if (mergedFx(o).risk)
@@ -32061,6 +32286,8 @@ function chooseOpt(ev, o) {
   const kAcik = kasaAcigi(fx, mult);
   const applied = applyFx(fx, mult);
   yapiSecenektenOku(ev, o, fx, mult);
+  if (o.dis) for (const k in o.dis) disDegistir(k, o.dis[k], `${S.me.leader}: "${optText(o)}"`);
+  else if (ev.cat === "DIŞ POLİTİKA") disSecenektenOku(ev, o, mult);
   if (fx.reg)
     for (const rk in fx.reg) {
       const v = fx.reg[rk] * mult;
@@ -32596,6 +32823,8 @@ function renderPanels() {
     sb.innerHTML += `<div class="karne-gundem"><div class="mt-bas"><span>GÜNDEM</span><span>${donemKartlari()
       .map((k) => k.ad.toLocaleUpperCase("tr"))
       .join(" · ")}</span></div>${gundemCubuklari()}</div>`;
+  if (S.ek && S.ek.dis)
+    sb.innerHTML += `<div class="karne-gundem"><div class="mt-bas"><span>DIŞ İLİŞKİLER</span><span>BATI ${disBati() >= 0 ? "+" : ""}${Math.round(disBati())}</span></div>${disCubuklari()}</div>`;
   const pb = document.getElementById("poll-box");
   const all = [
     {
@@ -35382,7 +35611,7 @@ function coalNeed(p) {
   const lean = en && en.to === rival.id ? 1.35 : en && en.to === me.id ? 0.8 : 1;
   const goalMul = ["cephe", "mutabakat", "dayanisma"].includes(p.id) ? 1.1 : 1;
   const base =
-    (12 + p.s * 1.6) * (1.55 - coalAff(me.id, p.id) * 0.95) * lean * goalMul * COAL.pressure;
+    (12 + p.s * 1.6) * (1.55 - coalAff(me.id, p.id) * 0.95) * lean * goalMul * COAL.pressure * disUyum(p.id) * 0.93;
   return p.countered ? base * 0.88 : base;
 }
 /* Aday, kilit partinin talebine ne kadar karşılık verir (kilit parti modu)? */
@@ -35392,7 +35621,7 @@ function coalWill(c) {
   const pc = c.id === COAL.A.id ? t.pa : 100 - t.pa;
   const need = clamp((50 - pc) / 5 + 0.45, 0.3, 1.7);
   const w =
-    (14 + me.s * 1.7) * (0.5 + coalAff(me.id, c.id) * 0.9) * (0.5 + need) * COAL.patience;
+    (14 + me.s * 1.7) * (0.5 + coalAff(me.id, c.id) * 0.9) * (0.5 + need) * COAL.patience * (2 - disUyum(c.id));
   const kat = Math.max(w, 19);
   return c.countered ? kat * 1.15 : kat;
 }
