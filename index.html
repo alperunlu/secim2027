@@ -6279,9 +6279,14 @@ body,
   --ad-golge: 0 1px 0 rgba(43, 35, 24, 0.25), 0 14px 28px -16px rgba(20, 14, 6, 0.55);
   --ad-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-h1, h2, h3, .dossier-title, #d-title, #end-title, .tl-baslik {
+h1, h2, h3, .dossier-title, #d-title, #end-title {
   font-variant-numeric: lining-nums;
   font-feature-settings: "lnum" 1, "kern" 1, "liga" 1;
+}
+/* Logo: "SEÇİM 2027" gazete başlığı gibi eski üslup rakamla */
+.title-main {
+  font-variant-numeric: oldstyle-nums;
+  font-feature-settings: "onum" 1, "kern" 1;
 }
 .hud-val, .countdown, .mp-pay, .pv, .val, #coal-seats-val, .end-stat b, .week-budget {
   font-variant-numeric: tabular-nums lining-nums;
@@ -6319,6 +6324,21 @@ h1, h2, h3, .dossier-title, #d-title, #end-title, .tl-baslik {
   margin: 0;
   flex: 1 1 auto;
   justify-content: flex-start;
+}
+.end-mast {
+  white-space: nowrap;
+  font-size: 0.54rem;
+  letter-spacing: 0.1em;
+}
+.end-mast span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#screen-end .end-stamp {
+  white-space: nowrap;
+  letter-spacing: 0.2em;
+  padding: 0.6rem 1.3rem;
+  font-size: clamp(1.1rem, 5.4vw, 2rem);
 }
 .week-card .wk-actions .muhur {
   margin: 0;
@@ -34821,7 +34841,7 @@ function cizPaylasimKarti(cv, fmt) {
   stats.forEach((st, i) => {
     const cx = 90 + cw * (i + 0.5);
     x.fillStyle = INK;
-    x.font = `bold ${hikaye ? 66 : 54}px ${SERIF}`;
+    x.font = `600 ${hikaye ? 66 : 54}px ${TEXT}`;
     x.fillText(st[1], cx, sy);
     x.fillStyle = "#4a3d2c";
     x.font = `${hikaye ? 22 : 19}px ${MONO}`;
