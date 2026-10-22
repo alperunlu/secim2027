@@ -6529,6 +6529,85 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   letter-spacing: 0.06em;
   opacity: 0.85;
 }
+
+/* Kampanya izi */
+.iz-cizgi {
+  stroke: var(--atlas-murekkep);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  opacity: 0.82;
+}
+.iz-cizgi.neg {
+  stroke: var(--atlas-kizil);
+  opacity: 0.95;
+}
+.iz-bayrak {
+  fill: var(--atlas-kizil);
+  stroke: var(--atlas-murekkep);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.iz-fazla {
+  font-family: var(--mono);
+  font-size: 9px;
+  fill: var(--atlas-murekkep-2);
+}
+#map-cam[data-yakin="0"] #mp-iz {
+  opacity: 0.75;
+}
+#rc-iz:empty {
+  display: none;
+}
+#rc-iz {
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 3px double rgba(43, 35, 24, 0.55);
+}
+.iz-bas {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.54rem;
+  letter-spacing: 0.16em;
+  color: var(--atlas-murekkep-2);
+  margin-bottom: 0.3rem;
+}
+.iz-bas .neg,
+.iz-satir.neg em {
+  color: var(--atlas-kizil);
+}
+.iz-satir {
+  display: grid;
+  grid-template-columns: 3.1rem 1fr auto;
+  gap: 0.45rem;
+  align-items: baseline;
+  padding: 0.25rem 0;
+  border-bottom: 1px dotted rgba(43, 35, 24, 0.25);
+}
+.iz-satir b {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.6rem;
+  color: var(--atlas-murekkep-3);
+}
+.iz-satir span {
+  font-family: var(--serif);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--atlas-murekkep);
+}
+.iz-satir small {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--atlas-murekkep-2);
+  font-style: italic;
+}
+.iz-satir em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.66rem;
+  color: #4f6b3a;
+}
 </style>
 </head>
 <body>
@@ -6775,6 +6854,8 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   <path d="M13.8 3.4A8.6 8.6 0 1 0 13.8 20.6 9.2 9.2 0 0 1 13.8 3.4Z"/>
 </symbol>
 
+<symbol id="amb-cephe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M4.5 4.5l3.6 4.2h7.8l3.6-4.2v7.6l-2.8 4.8L12 20l-4.7-3.1-2.8-4.8z"/><path d="M9 12.2l1.6.8M15 12.2l-1.6.8M10.6 16.2h2.8"/></symbol>
+<symbol id="amb-dayanisma" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 4v15M7.5 19.5h9M5 7.5h14"/><path d="M7 7.5l-3 6h6zM17 7.5l-3 6h6z"/></symbol>
 <symbol id="amb-degisim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter">
   <path d="M3 19.4h18"/>
   <path d="M7 19.4a5 5 0 0 1 10 0"/>
@@ -7146,6 +7227,7 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
       <div id="rc-city">&mdash;</div>
       <div id="rc-bar"><i id="rc-bar-i"></i></div>
       <div id="rc-stats"></div>
+      <div id="rc-iz"></div>
     </div>
         <div id="konum-serit" aria-live="polite">
       <span id="ks-bolge">-</span><span id="ks-ayrac">·</span><span id="ks-oran">-</span><span id="ks-katman"></span>
@@ -29062,6 +29144,7 @@ function saveGame() {
       newsSeq: S.newsSeq,
       newsUnread: S.newsUnread,
       newsOutlet: S.newsOutlet,
+      ek: S.ek || {},
     };
     localStorage.setItem(SAVE_KEY, JSON.stringify(d));
   } catch (e) {}
@@ -29139,6 +29222,7 @@ function loadSave() {
       newsSeq: num(d.newsSeq, 0),
       newsUnread: num(d.newsUnread, 0),
       newsOutlet: d.newsOutlet || "havadis",
+      ek: d.ek && typeof d.ek === "object" ? d.ek : {},
     };
   } catch (e) {
     return null;
@@ -29227,6 +29311,7 @@ function newState(pid) {
     newsSeq: 0,
     newsUnread: 0,
     newsOutlet: "havadis",
+    ek: {},
   };
 }
 function phaseOf(d) {
@@ -30722,6 +30807,7 @@ function confirmWeek() {
       applied.push(...applyFx(fx, 1));
       S.mitingSayi = S.mitingSayi || {};
       S.mitingSayi[k] = n + 1;
+      izEkle({ r: k, v: fx.reg[k], t: REGION_CITY[k] + " mitingi", o: (n + 1) + ". miting", cat: "SAHA", tur: "miting" });
       addTicker(
         "SAHA",
         n === 0
@@ -31252,6 +31338,12 @@ function chooseOpt(ev, o) {
   setLineLock(line);
   const kAcik = kasaAcigi(fx, mult);
   const applied = applyFx(fx, mult);
+  if (fx.reg)
+    for (const rk in fx.reg) {
+      const v = fx.reg[rk] * mult;
+      if (Math.abs(v) >= 0.05)
+        izEkle({ r: rk, v, t: tok(ev.title), o: optText(o), cat: ev.cat || "", tur: "karar" });
+    }
   if (kAcik) {
     applied.push(
       ...applyFx(
@@ -31878,11 +31970,11 @@ const MAP_SHAPES = {
 const MAP_ANCHOR = {
   mar: [150, 150],
   ege: [122, 253],
-  akd: [300, 325],
+  akd: [420, 338],
   ica: [403, 220],
   kar: [600, 112],
   dog: [856, 195],
-  gdo: [741, 302],
+  gdo: [700, 338],
 };
 const MAP_LABELS = {
   mar: "MARMARA",
@@ -32186,6 +32278,7 @@ function haritaCiz() {
     '<g aria-hidden="true">' +
     RK.map(sehir).join("") +
     "</g>" +
+    '<g id="mp-iz" aria-hidden="true"></g>' +
     "<g>" +
     RK.map(function (k) {
       const A = MAP_ANCHOR[k];
@@ -32283,6 +32376,77 @@ function katmanDegistir() {
   konumSeridiGuncelle();
   haptic(6);
 }
+/* ---- KAMPANYA İZİ: bölgeye dokunan her karar haritaya mürekkep çentiği bırakır ---- */
+const IZ_MAX = 160;
+function izListesi() {
+  if (!S) return [];
+  if (!S.ek) S.ek = {};
+  if (!Array.isArray(S.ek.iz)) S.ek.iz = [];
+  return S.ek.iz;
+}
+function izEkle(e) {
+  if (!S || !e || !MAP_ANCHOR[e.r]) return;
+  const l = izListesi();
+  l.push({
+    g: S.daysLeft,
+    r: e.r,
+    v: Math.round(e.v * 10) / 10,
+    t: String(e.t || "").slice(0, 80),
+    o: String(e.o || "").replace(/<[^>]+>/g, "").slice(0, 90),
+    c: e.cat || "",
+    u: e.tur || "karar",
+  });
+  if (l.length > IZ_MAX) l.splice(0, l.length - IZ_MAX);
+}
+function izCiz() {
+  const g = document.getElementById("mp-iz");
+  if (!g || !S) return;
+  const l = izListesi();
+  let out = "";
+  RK.forEach((k) => {
+    const A = MAP_ANCHOR[k];
+    const hep = l.filter((e) => e.r === k);
+    if (!hep.length) return;
+    const son = hep.slice(-16);
+    const sat = 8,
+      ara = 8;
+    const gen = Math.min(son.length, sat) * ara;
+    const x0 = A[0] - gen / 2 + ara / 2,
+      y0 = A[1] + 42;
+    son.forEach((e, i) => {
+      const x = x0 + (i % sat) * ara,
+        y = y0 + Math.floor(i / sat) * 18;
+      const neg = e.v < 0;
+      if (e.u === "miting")
+        out += `<path class="iz-bayrak" d="M${x.toFixed(1)} ${(y + 14).toFixed(1)}V${y.toFixed(1)}l6.5 3.2-6.5 3.2"/>`;
+      else
+        out += `<line class="iz-cizgi${neg ? " neg" : ""}" x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${(x + (i % 3 === 1 ? 0.8 : -0.4)).toFixed(1)}" y2="${(y + 14).toFixed(1)}"/>`;
+    });
+    if (hep.length > son.length)
+      out += `<text class="iz-fazla" x="${(x0 + gen + 2).toFixed(1)}" y="${(y0 + 9).toFixed(1)}">+${hep.length - son.length}</text>`;
+  });
+  g.innerHTML = out;
+}
+function izKartDoldur(k) {
+  const el = document.getElementById("rc-iz");
+  if (!el) return;
+  const hep = izListesi().filter((e) => e.r === k);
+  if (!hep.length) {
+    el.innerHTML = "";
+    return;
+  }
+  const net = hep.reduce((a, e) => a + e.v, 0);
+  el.innerHTML =
+    `<div class="iz-bas"><span>KAMPANYA İZİ · ${hep.length} KAYIT</span><span class="${net < 0 ? "neg" : ""}">${net >= 0 ? "+" : ""}${f1(net)}</span></div>` +
+    hep
+      .slice(-4)
+      .reverse()
+      .map(
+        (e) =>
+          `<div class="iz-satir${e.v < 0 ? " neg" : ""}"><b>${e.g}. gün</b><span>${esc(e.t)}<small>${esc(e.o)}</small></span><em>${e.v >= 0 ? "+" : ""}${f1(e.v)}</em></div>`,
+      )
+      .join("");
+}
 function haritaGuncelle() {
   if (!S || !S.reg) return;
   const c = mapCam();
@@ -32341,6 +32505,7 @@ function haritaGuncelle() {
       p.setAttribute("fill", yaziRenk || (vurgu ? "var(--atlas-kizil)" : "var(--atlas-murekkep)"));
     }
   });
+  izCiz();
 }
 function ikinciBolge(k) {
   const d = bolgePaylar(k);
@@ -32532,6 +32697,7 @@ function bolgeSec(k) {
         );
       })
       .join("");
+  izKartDoldur(k);
   kart.hidden = false;
   kamOdakla(k);
   haptic(6);
