@@ -6850,6 +6850,115 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   color: var(--atlas-murekkep-2) !important;
   border-color: rgba(43, 35, 24, 0.3) !important;
 }
+
+/* Cila 2: seçim ve ad ekranları */
+.party-card .members,
+#party-carousel .members {
+  font-family: var(--font-display) !important;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 0.98rem !important;
+  letter-spacing: 0 !important;
+  color: var(--atlas-murekkep-2) !important;
+  line-height: 1.35;
+}
+.party-card .goal,
+#party-carousel .goal {
+  font-family: var(--serif) !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0 !important;
+  line-height: 1.55 !important;
+  color: var(--atlas-murekkep) !important;
+}
+.party-card .goal b,
+#party-carousel .goal b,
+.party-card .leader b,
+#party-carousel .leader b {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+.party-card .leader,
+#party-carousel .leader {
+  font-family: var(--font-display) !important;
+  font-size: 1rem !important;
+  letter-spacing: 0 !important;
+}
+.party-card .baseline,
+#party-carousel .baseline {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.14em !important;
+}
+.sel-back {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--atlas-murekkep) !important;
+  font-family: var(--mono) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.18em !important;
+  padding: 0.6rem 0.2rem !important;
+  min-height: 44px;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+.name-note {
+  font-family: var(--serif) !important;
+  font-style: italic;
+  font-size: 0.9rem !important;
+  letter-spacing: 0 !important;
+  color: var(--atlas-murekkep) !important;
+  opacity: 0.85;
+}
+
+#screen-select .sel-back,
+#screen-name .sel-back {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--atlas-murekkep) !important;
+}
+.dbt-head .live,
+.coal-head .live,
+.night-head .live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--mono) !important;
+  font-size: 0.62rem !important;
+  font-weight: 600;
+  letter-spacing: 0.24em !important;
+  padding: 0.35rem 0.7rem !important;
+  line-height: 1 !important;
+}
+.dbt-head h2 {
+  font-family: var(--font-display) !important;
+  letter-spacing: 0.06em !important;
+}
+@keyframes ad-yanip {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .dbt-head .live,
+  .night-head .live {
+    animation: ad-yanip 1.6s ease-in-out infinite;
+  }
+}
+
+@keyframes hud-art {
+  0% { color: #f0d27a; text-shadow: 0 0 10px rgba(240, 210, 122, 0.7); }
+  100% { text-shadow: none; }
+}
+@keyframes hud-dus {
+  0% { color: #e0836b; text-shadow: 0 0 10px rgba(224, 131, 107, 0.6); }
+  100% { text-shadow: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hud-val.hud-art { animation: hud-art 0.9s var(--ad-ease); }
+  .hud-val.hud-dus { animation: hud-dus 0.9s var(--ad-ease); }
+}
 </style>
 </head>
 <body>
@@ -32986,11 +33095,24 @@ function renderPanels() {
     " MADDE</div>" +
     "</div>";
 }
+/* HUD değeri değişince kısa bir mürekkep parlaması (artış altın, düşüş kızıl) */
+function hudYaz(id, metin, sayi) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const eski = parseFloat(el.dataset.v);
+  el.textContent = metin;
+  el.dataset.v = sayi;
+  if (isFinite(eski) && Math.abs(sayi - eski) > 0.05) {
+    el.classList.remove("hud-art", "hud-dus");
+    void el.offsetWidth;
+    el.classList.add(sayi > eski ? "hud-art" : "hud-dus");
+  }
+}
 function renderHud() {
   const oyTrend = S.share - S.prevShare;
-  document.getElementById("hud-oy").textContent = "%" + f1(S.share);
-  document.getElementById("hud-but").textContent = Math.round(S.stats.but) + " M₺";
-  document.getElementById("hud-mut").textContent = "%" + Math.round(S.stats.mut);
+  hudYaz("hud-oy", "%" + f1(S.share), S.share);
+  hudYaz("hud-but", Math.round(S.stats.but) + " M₺", Math.round(S.stats.but));
+  hudYaz("hud-mut", "%" + Math.round(S.stats.mut), Math.round(S.stats.mut));
   const oyTrendEl = document.getElementById("hud-oy-trend");
   oyTrendEl.textContent = oyTrend > 0.12 ? "▲" : oyTrend < -0.12 ? "▼" : "";
   oyTrendEl.className = "hud-trend" + (oyTrend > 0.12 ? " up" : oyTrend < -0.12 ? " down" : "");
