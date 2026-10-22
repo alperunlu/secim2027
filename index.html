@@ -6839,6 +6839,17 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   color: var(--atlas-kizil) !important;
   border-color: rgba(168, 68, 47, 0.45) !important;
 }
+
+.gd-satir.artis .gd-bar i {
+  background: #4f6b3a;
+}
+.gd-satir.artis .gd-et {
+  color: #4f6b3a;
+}
+.o-promise.o-seg {
+  color: var(--atlas-murekkep-2) !important;
+  border-color: rgba(43, 35, 24, 0.3) !important;
+}
 </style>
 </head>
 <body>
@@ -30889,6 +30900,7 @@ function dunyaKur(eskiKayit) {
   const ek = S.ek;
   if (ek.donem) {
     disKur();
+    segKur();
     return;
   }
   const kartlar = shuffle([...DONEM_KARTLARI]).slice(0, 2);
@@ -30901,6 +30913,7 @@ function dunyaKur(eskiKayit) {
   ek.tohum = Math.floor(Math.random() * 1e9);
   ek.donemGoruldu = !!eskiKayit;
   disKur();
+  segKur();
   if (!eskiKayit) {
     kartlar.forEach((k) => k.uyg && k.uyg());
     donemDisla();
@@ -31310,6 +31323,80 @@ function disCubuklari() {
       return `<div class="ds-satir${v <= -35 ? " gergin" : v >= 35 ? " yakin" : ""}"><span class="gd-ad">${DIS_AKTOR[k].ad}</span><span class="ds-bar"><u></u><i style="left:${sol}%;width:${gen}%"></i></span><span class="gd-et">${et}</span></div>`;
     })
     .join("");
+}
+/* =====================================================================
+   SEÇMEN GRUPLARI
+   Altı grup, her ittifak için ayrı başlangıç desteği. Kararlar metin ve
+   kategoriye göre gruplara dokunur; grupların başlangıca göre farkı her gün
+   ulusal oya küçük bir akış olarak yansır. Ekonomi gündemi sıcakken emekli
+   ve işçi daha hassastır.
+   ===================================================================== */
+const SEGMENTLER = [
+  { id: "emekli", ad: "EMEKLİ", w: 0.17, re: /emekli|ikramiye|bayram|yaşlı|sağlık/i, cat: ["EKONOMİ"] },
+  { id: "genc", ad: "GENÇ", w: 0.16, re: /genç|öğrenci|üniversite|kampüs|ilk oy|burs|dijital|sosyal medya/i, cat: ["GENÇLİK"] },
+  { id: "isci", ad: "İŞÇİ", w: 0.2, re: /işçi|asgari|sendika|grev|fabrika|kurye|vardiya|ücret/i, cat: ["EMEK"] },
+  { id: "esnaf", ad: "ESNAF", w: 0.13, re: /esnaf|KOBİ|vergi|dükkân|dükkan|kredi|pazar|tüccar/i, cat: ["EKONOMİ"] },
+  { id: "ciftci", ad: "ÇİFTÇİ", w: 0.12, re: /çiftçi|tarım|fındık|buğday|mazot|hasat|sulama|üretici|köy/i, cat: ["TARIM"] },
+  { id: "kent", ad: "KENTLİ", w: 0.22, re: /kira|konut|trafik|hukuk|özgürlük|şeffaf|kent|belediye|yolsuzluk|kadın/i, cat: ["TOPLUM"] },
+];
+const SEGMENT_TABAN = {
+  devlet: { emekli: 60, genc: 36, isci: 46, esnaf: 56, ciftci: 60, kent: 36 },
+  degisim: { emekli: 44, genc: 52, isci: 46, esnaf: 42, ciftci: 36, kent: 60 },
+  cephe: { emekli: 46, genc: 44, isci: 40, esnaf: 50, ciftci: 48, kent: 40 },
+  mutabakat: { emekli: 50, genc: 38, isci: 40, esnaf: 54, ciftci: 50, kent: 42 },
+  dayanisma: { emekli: 40, genc: 50, isci: 52, esnaf: 38, ciftci: 42, kent: 50 },
+  emek: { emekli: 38, genc: 50, isci: 60, esnaf: 30, ciftci: 40, kent: 46 },
+};
+function segKur() {
+  if (!S || !S.ek || S.ek.seg) return;
+  S.ek.seg = { ...(SEGMENT_TABAN[S.me.id] || {}) };
+}
+function segTaban(id) {
+  return (SEGMENT_TABAN[S.me.id] || {})[id] || 45;
+}
+function segHassasiyet(id) {
+  if ((id === "emekli" || id === "isci") && gundemDeger("eko") >= 65) return 1.4;
+  return 1;
+}
+/* Bir seçeneğin dokunduğu gruplar ve yön (gösterim ve uygulama aynı hesabı kullanır) */
+function segEtkisi(ev, o, fx) {
+  const metin = optText(o) + " " + (o.d || "") + " " + (ev && ev.title ? tok(ev.title) : "");
+  const d = (fx.oy || 0) * 6 + (fx.mut || 0) * 0.6;
+  const out = {};
+  SEGMENTLER.forEach((g) => {
+    let v = 0;
+    if (g.re.test(metin)) v += d * 1.2;
+    else if (ev && g.cat.includes(ev.cat)) v += d * 0.6;
+    if (g.id === "genc" && fx.sos) v += fx.sos * 0.4;
+    if (Math.abs(v) >= 0.5) out[g.id] = v;
+  });
+  return out;
+}
+function segUygula(ev, o, fx, mult) {
+  if (!S || !S.ek || !S.ek.seg) return;
+  const e = segEtkisi(ev, o, fx);
+  for (const id in e) S.ek.seg[id] = clamp(S.ek.seg[id] + e[id] * mult * segHassasiyet(id), 5, 95);
+}
+function segGun() {
+  if (!S || !S.ek || !S.ek.seg) return 0;
+  let akis = 0;
+  SEGMENTLER.forEach((g) => {
+    const t = segTaban(g.id);
+    S.ek.seg[g.id] = S.ek.seg[g.id] + (t - S.ek.seg[g.id]) * 0.03;
+    akis += g.w * (S.ek.seg[g.id] - t);
+  });
+  const v = clamp(akis * 0.006, -0.12, 0.12);
+  S.share = clamp(S.share + v, 1, 60);
+  return v;
+}
+function segCubuklari() {
+  if (!S || !S.ek || !S.ek.seg) return "";
+  return SEGMENTLER.map((g) => {
+    const v = Math.round(S.ek.seg[g.id]),
+      fark = v - segTaban(g.id);
+    const et = fark >= 4 ? "▲ " + fark : fark <= -4 ? "▼ " + -fark : "·";
+    return `<div class="gd-satir${fark <= -4 ? " sicak" : ""}${fark >= 4 ? " artis" : ""}"><span class="gd-ad">${g.ad}</span><span class="gd-bar"><i style="width:${v}%"></i></span><span class="gd-et">${et}</span></div>`;
+  }).join("");
 }
 /* Kampanyanın ilk sayfası: dönem raporu */
 function donemGoster() {
@@ -32013,6 +32100,12 @@ function renderDailyEvent() {
       tag += `<span class="o-promise"><svg class="inl-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-quill"/></svg> VAAT: ${PROMISE_LABEL[o.sets.promise] || o.sets.promise}</span>`;
     if (ev.requires && ev.requires.promise)
       tag += `<span class="o-promise o-callback">⟳ VAADİN HESABI</span>`;
+    const sgE = S.ek && S.ek.seg ? segEtkisi(ev, o, mergedFx(o)) : {};
+    const sgK = Object.keys(sgE).filter((k) => Math.abs(sgE[k]) >= 1.2);
+    if (sgK.length)
+      tag += `<span class="o-promise o-seg">${sgK
+        .map((k) => SEGMENTLER.find((g) => g.id === k).ad + (sgE[k] > 0 ? " ▲" : " ▼"))
+        .join(" · ")}</span>`;
     if (o.dis)
       tag += Object.keys(o.dis)
         .map(
@@ -32286,6 +32379,7 @@ function chooseOpt(ev, o) {
   const kAcik = kasaAcigi(fx, mult);
   const applied = applyFx(fx, mult);
   yapiSecenektenOku(ev, o, fx, mult);
+  segUygula(ev, o, fx, mult);
   if (o.dis) for (const k in o.dis) disDegistir(k, o.dis[k], `${S.me.leader}: "${optText(o)}"`);
   else if (ev.cat === "DIŞ POLİTİKA") disSecenektenOku(ev, o, mult);
   if (fx.reg)
@@ -32740,6 +32834,7 @@ function endDay() {
   S.share = clamp(S.share + grav + statFlow + rnd(-0.2, 0.2), 1, 60);
   gundemGun();
   yapiGun();
+  segGun();
   if (phaseOf(S.daysLeft) === "calm") {
     const topRival = Math.max(...S.rivals.map((r) => r.share));
     if (S.share > topRival + 1.5) S.share = clamp(S.share - rnd(0.05, 0.18), 1, 60);
@@ -32823,6 +32918,8 @@ function renderPanels() {
     sb.innerHTML += `<div class="karne-gundem"><div class="mt-bas"><span>GÜNDEM</span><span>${donemKartlari()
       .map((k) => k.ad.toLocaleUpperCase("tr"))
       .join(" · ")}</span></div>${gundemCubuklari()}</div>`;
+  if (S.ek && S.ek.seg)
+    sb.innerHTML += `<div class="karne-gundem"><div class="mt-bas"><span>SEÇMEN GRUPLARI</span><span>DESTEK · BAŞLANGICA GÖRE</span></div>${segCubuklari()}</div>`;
   if (S.ek && S.ek.dis)
     sb.innerHTML += `<div class="karne-gundem"><div class="mt-bas"><span>DIŞ İLİŞKİLER</span><span>BATI ${disBati() >= 0 ? "+" : ""}${Math.round(disBati())}</span></div>${disCubuklari()}</div>`;
   const pb = document.getElementById("poll-box");
