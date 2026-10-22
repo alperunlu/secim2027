@@ -6347,6 +6347,188 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   height: 4.6rem;
   font-size: 0.56rem;
 }
+
+/* Paket A: takvim damgası, hafta takvimi, Meclis tahmini */
+.stamp-gizli.takvim {
+  color: #4f6b3a !important;
+  border-color: #4f6b3a !important;
+}
+.wk-takvim {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-left: 3px solid #4f6b3a;
+  padding: 0.45rem 0.7rem;
+  margin: 0 0 1rem;
+  background: rgba(79, 107, 58, 0.08);
+}
+.wk-takvim-et {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: #4f6b3a;
+}
+.wk-takvim-ol {
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  color: var(--atlas-murekkep);
+}
+.wk-takvim-ol b {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.7rem;
+  color: var(--atlas-murekkep-2);
+  margin-right: 0.35rem;
+}
+.meclis-tahmin {
+  margin-top: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 3px double var(--atlas-murekkep);
+}
+.mt-bas {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--atlas-murekkep);
+}
+.mt-bas span + span {
+  color: var(--atlas-murekkep-3);
+}
+.meclis-tahmin .hemi {
+  max-width: 300px;
+  margin: 0.5rem auto 0.1rem;
+}
+.meclis-tahmin .seat-key {
+  color: var(--atlas-murekkep-2);
+}
+.mt-not {
+  font-family: var(--serif);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--atlas-murekkep-2);
+  text-align: center;
+  margin: 0.5rem 0 0;
+}
+.mt-not b {
+  color: var(--atlas-murekkep);
+}
+
+/* Rozet defteri */
+#rozet-kutu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(20, 14, 6, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(1rem + env(safe-area-inset-top)) 1rem calc(1rem + env(safe-area-inset-bottom));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s var(--ad-ease);
+}
+#rozet-kutu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.rz-sayfa {
+  background: var(--ad-kagit);
+  color: var(--ad-murekkep);
+  border: 3px solid var(--ad-murekkep);
+  outline: 1px solid var(--ad-murekkep);
+  outline-offset: -7px;
+  box-shadow: var(--ad-golge);
+  width: min(30rem, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 1.1rem 1.1rem 1rem;
+  transform: translateY(10px);
+  transition: transform 0.28s var(--ad-ease);
+}
+#rozet-kutu.open .rz-sayfa {
+  transform: none;
+}
+.rz-bas {
+  display: flex;
+  justify-content: space-between;
+  background: var(--ad-murekkep);
+  color: var(--ad-kagit);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  padding: 0.55rem 0.8rem;
+  margin-bottom: 0.9rem;
+}
+.rz-liste {
+  display: flex;
+  flex-direction: column;
+}
+.rz {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  padding: 0.6rem 0.2rem;
+  border-bottom: 1px solid rgba(43, 35, 24, 0.18);
+}
+.rz-muhur {
+  flex: 0 0 auto;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(43, 35, 24, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(43, 35, 24, 0.35);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.rz.var .rz-muhur {
+  border: 2px solid var(--ad-kizil);
+  box-shadow: inset 0 0 0 3px var(--ad-kagit), inset 0 0 0 4px var(--ad-kizil);
+  color: var(--ad-kizil);
+  transform: rotate(-6deg);
+}
+.rz-metin {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.rz-metin b {
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+.rz:not(.var) .rz-metin b {
+  color: var(--ad-murekkep-2);
+}
+.rz-metin small {
+  font-family: var(--serif);
+  font-size: 0.84rem;
+  color: var(--ad-murekkep-2);
+  line-height: 1.4;
+}
+.rz-metin em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--ad-kizil);
+}
+.rz-kapat {
+  margin: 1rem auto 0;
+  display: block;
+}
+
+.muhur small {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
 </style>
 </head>
 <body>
@@ -6873,6 +7055,7 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
       <button class="btn ghost" id="btn-continue" style="display:none" onclick="continueGame()">Kayıtlı Kampanyaya Devam Et</button>
     </div>
         <button class="km-sifirla" onclick="ipucSifirla()">Kurmay notlarını yeniden göster</button>
+        <button class="km-sifirla" id="btn-rozet" onclick="rozetAc()">Rozetler</button>
     <div class="yazi-boyut" role="group" aria-label="Yazı boyutu">
       <span class="yb-et">YAZI BOYUTU</span>
       <button type="button" data-yb="1" aria-label="Normal yazı" style="font-size:.85rem">A</button>
@@ -29870,6 +30053,7 @@ function showScreen(id) {
 }
 function refreshTitle() {
   document.getElementById("btn-continue").style.display = hasSave() ? "" : "none";
+  rozetSayaci();
   titleAtlasCiz();
   titleKartCiz();
 }
@@ -30365,18 +30549,33 @@ function renderWeeklyBoard() {
   haptic(6);
   sfx("paper");
 }
+/* Önümüzdeki 7 günde takvime bağlı olaylar (bayram, TV daveti, listeler…) */
+function yaklasanTakvim(gun) {
+  const d = S.daysLeft;
+  return EVENTS.filter(
+    (e) => e.day && e.day < d && e.day >= d - (gun || 7) && !S.usedIds.includes(e.id),
+  ).sort((a, b) => b.day - a.day);
+}
+function takvimSatiri() {
+  const l = yaklasanTakvim(7);
+  if (!l.length) return "";
+  return `<div class="wk-takvim"><span class="wk-takvim-et">TAKVİMDE BU HAFTA</span>${l
+    .map((e) => `<span class="wk-takvim-ol"><b>${e.day}. gün</b> ${esc(tok(e.title))}</span>`)
+    .join("")}</div>`;
+}
 function drawWeekBoard() {
   const body = document.getElementById("d-body");
   const fund = Math.round(S.stats.but);
   body.innerHTML = `
   <div class="week-head-note">Kurmaylar masada. Bu hafta enerjinizi nereye vereceksiniz? <b>En fazla 2 hamle</b> seçin. Bütçeyi yalnızca kampanya lojistiği harcar; vaatler bedavadır.</div>
   <div class="week-budget">KASA: ${fund} M₺ &nbsp;·&nbsp; SEÇİLEN: <span id="wk-sel">0</span>/2</div>
+  ${takvimSatiri()}
   <div id="region-slot"></div>
   <div id="oneri-slot"></div>
   <div class="plan-grid" id="plan-grid"></div>
   <div class="wk-actions">
     <div class="kagit-imza"><span id="wk-imza">-</span></div>
-    <button class="muhur" id="wk-go">HAFTAYI<br>ONAYLA</button>
+    <button class="muhur" id="wk-go">HAFTAYI<br>ONAYLA<small id="wk-muhur-n">0/2</small></button>
   </div>`;
   const g = document.getElementById("plan-grid");
   PLAN_ACTIONS.filter((a) => a.id !== "rally").forEach((a) => {
@@ -30399,6 +30598,14 @@ function drawWeekBoard() {
     g.appendChild(b);
   });
   document.getElementById("wk-sel").textContent = weekPick.sel.length;
+  const mn = document.getElementById("wk-muhur-n");
+  if (mn) {
+    const harc = weekPick.sel.reduce((t, id) => {
+      const x = PLAN_ACTIONS.find((q) => q.id === id);
+      return t + (x && x.cost > 0 ? x.cost : 0);
+    }, 0);
+    mn.textContent = weekPick.sel.length + "/2" + (harc ? " · −" + harc + " M₺" : "");
+  }
   const os = document.getElementById("oneri-slot");
   if (os && ilkHafta() && weekPick.sel.length < 2) {
     const oner = ["ground", "social"]
@@ -30743,9 +30950,19 @@ function renderDailyEvent() {
   const isCallback = !!(ev.requires && ev.requires.promise);
   const stamp = document.getElementById("d-stamp");
   stamp.style.display = "";
-  stamp.textContent = ev.twist ? "Kritik" : isCallback ? "Vaat" : isCrisis ? "Acil" : "Gizli";
+  const isTakvim = !!ev.day;
+  stamp.textContent = ev.twist
+    ? "Kritik"
+    : isCallback
+      ? "Vaat"
+      : isCrisis
+        ? "Acil"
+        : isTakvim
+          ? "Takvim"
+          : "Gizli";
   stamp.className =
-    "stamp-gizli" + (ev.twist ? " twist" : isCallback ? " promise" : isCrisis ? " crisis" : "");
+    "stamp-gizli" +
+    (ev.twist ? " twist" : isCallback ? " promise" : isCrisis ? " crisis" : isTakvim ? " takvim" : "");
   document.getElementById("dossier").className = "dossier" + (ev.twist ? " twist" : "");
   const catEl = document.getElementById("d-cat");
   catEl.textContent = (ev.cat || "GÜNDEM") + " · " + S.daysLeft + ". GÜN";
@@ -31506,6 +31723,35 @@ function renderSidebar() {
   if (seciliBolge) bolgeSec(seciliBolge);
   if (openSheetId) renderPanels();
 }
+/* Anketlere göre bugün seçim olsaydı: sandalye tahmini (D'Hondt, %7 baraj) */
+function meclisTahmini() {
+  const rows = [
+    { id: S.me.id, n: S.me.short || S.me.name, c: S.me.color, s: S.share, me: true },
+    ...S.rivals.map((r) => ({ id: r.id, n: r.short || r.name, c: r.color, s: r.share })),
+  ].sort((a, b) => b.s - a.s);
+  const seats = allocateSeats(rows);
+  const my = seats[S.me.id] || 0;
+  const top = rows.reduce((a, b) => ((seats[b.id] || 0) > (seats[a.id] || 0) ? b : a));
+  const topSeats = seats[top.id] || 0;
+  let not;
+  if (!my)
+    not = `<b>Baraj altı.</b> %${SEAT_THRESHOLD} için ${f1(SEAT_THRESHOLD - S.share)} puan eksik; bugün seçim olsa Meclis'e giremezdiniz.`;
+  else if (top.me && topSeats >= SEAT_MAJORITY) not = `<b>${my} vekil:</b> tek başına çoğunluk sizde.`;
+  else if (topSeats >= SEAT_MAJORITY)
+    not = `${top.n} tek başına çoğunlukta (${topSeats}). Sizin <b>${my} vekiliniz</b> muhalefette kalır.`;
+  else if (my >= SEAT_MAJORITY - topSeats && !top.me)
+    not = `Çoğunluk yok. <b>${my} vekiliniz</b> ${top.n}'nın açığını tek başına kapatabilir.`;
+  else not = `Çoğunluk yok. <b>${my} vekil</b>; Meclis aritmetiği pazarlığa açık.`;
+  const key = rows
+    .filter((r) => seats[r.id] > 0)
+    .map(
+      (r) =>
+        `<span class="seat-k${r.me ? " me" : ""}"><i style="background:${r.c}"></i>${RUNOFF_SHORT[r.id] || r.n} ${seats[r.id]}</span>`,
+    )
+    .join("");
+  return `<div class="meclis-tahmin"><div class="mt-bas"><span>MECLİS TAHMİNİ</span><span>BUGÜN SEÇİM OLSA</span></div>
+   ${hemicycle(rows, seats)}<div class="seat-key">${key}</div><p class="mt-not">${not}</p></div>`;
+}
 function renderPanels() {
   const sb = document.getElementById("stats-box");
   sb.innerHTML = STAT_DEFS.map((s) => {
@@ -31558,6 +31804,7 @@ function renderPanels() {
   <span class="pv">%${f1(p.s)}<span class="trend">${p.tr > 0.12 ? "▲" : p.tr < -0.12 ? "▼" : ""}</span></span></div>`,
     )
     .join("");
+  pb.insertAdjacentHTML("beforeend", meclisTahmini());
   const keys = Object.keys(S.promises).filter((k) => S.promises[k]);
   document.getElementById("promise-count").textContent = keys.length;
   const pbx = document.getElementById("promise-box");
@@ -32195,14 +32442,14 @@ function mitingSeridiGuncelle() {
         REGION_KEYS[weekPick.region].toLocaleUpperCase("tr") +
         (kez ? " · " + (kez + 1) + ". KEZ" : "")
       : "MİTİNG İÇİN BİR BÖLGE SEÇİN" +
-        (ilkHafta() ? " · ÖNERİ: " + REGION_KEYS[oneriBolge()].toLocaleUpperCase("tr") : "");
+        " · FIRSAT: " + REGION_KEYS[oneriBolge()].toLocaleUpperCase("tr");
     s.classList.toggle("secili", !!secili);
     s.classList.toggle("asama", !!mitingAsama && !secili);
   }
   const c = mapCam();
   if (c) {
     const a = c.querySelectorAll(".mp-bolge-alan");
-    const oneri = acik && mitingAsama && ilkHafta() && !weekPick.region ? oneriBolge() : null;
+    const oneri = acik && mitingAsama && !weekPick.region ? oneriBolge() : null;
     for (let i = 0; i < a.length; i++) {
       a[i].classList.toggle("miting", acik && weekPick.region === a[i].dataset.r);
       a[i].classList.toggle("oneri", a[i].dataset.r === oneri);
@@ -33686,7 +33933,73 @@ function gcPost(msg) {
       window.ReactNativeWebView.postMessage(JSON.stringify(msg));
   } catch (e) {}
 }
+/* ---- Rozetler: Game Center olmadan da yerelde saklanır ve gösterilir ---- */
+const ROZETLER = [
+  { id: "s27_win_first", ad: "Sandıktan Birinci", d: "İlk turda birinci çıkın.", s: "I" },
+  { id: "s27_historic", ad: "Tarihî Eşik", d: "Tek başına %50'yi aşın.", s: "L" },
+  { id: "s27_all_regions", ad: "Yedi Bölge", d: "Yedi bölgenin hepsinde birinci olun.", s: "VII" },
+  { id: "s27_president", ad: "Köşk", d: "Cumhurbaşkanı seçilin.", s: "★" },
+  { id: "s27_kingmaker", ad: "Kral Yapıcı", d: "Kilit parti olarak desteklediğiniz adayı kazandırın.", s: "♛" },
+  { id: "s27_kilit_tas", ad: "Kilit Taşı", d: "%15'in altında oyla ikinci turun sonucunu belirleyin.", s: "◆" },
+  { id: "s27_tough_bargainer", ad: "Çetin Pazarlıkçı", d: "İkinci tur masasından 60 değerinde talep koparın.", s: "₺" },
+  { id: "s27_baraj", ad: "Meclis Kapısı", d: "Baraj hedefini aşıp Meclis'e girin.", s: "%7" },
+  { id: "s27_emek_win", ad: "Sınıf Zaferi", d: "Sosyalist Birlik ile hedefinize ulaşın.", s: "SB" },
+  { id: "s27_debate75", ad: "Stüdyonun Hâkimi", d: "Canlı yayında salonu %75'e taşıyın.", s: "◉" },
+  { id: "s27_rallies5", ad: "Meydanların Sesi", d: "Bir kampanyada 5 miting yapın.", s: "V" },
+  { id: "s27_promises10", ad: "Söz Adamı", d: "Bir kampanyada 10 vaat verin.", s: "X" },
+  { id: "s27_alti_ittifak", ad: "Altı Masa", d: "Altı ittifakın hepsiyle bir kampanya bitirin.", s: "VI" },
+];
+const ROZET_KEY = "secim27-rozet";
+function rozetler() {
+  try {
+    const o = JSON.parse(localStorage.getItem(ROZET_KEY) || "{}");
+    return o && typeof o === "object" ? o : {};
+  } catch (e) {
+    return {};
+  }
+}
+function rozetKazan(id) {
+  const r = ROZETLER.find((x) => x.id === id);
+  if (!r) return;
+  const o = rozetler();
+  if (o[id]) return;
+  o[id] = Date.now();
+  try {
+    localStorage.setItem(ROZET_KEY, JSON.stringify(o));
+  } catch (e) {}
+  setTimeout(() => notice("ROZET KAZANILDI · " + r.ad.toLocaleUpperCase("tr")), 900);
+}
+function rozetSayaci() {
+  const n = Object.keys(rozetler()).filter((k) => ROZETLER.some((r) => r.id === k)).length;
+  const el = document.getElementById("btn-rozet");
+  if (el) el.textContent = `Rozetler · ${n}/${ROZETLER.length}`;
+}
+function rozetAc() {
+  const o = rozetler();
+  let el = document.getElementById("rozet-kutu");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "rozet-kutu";
+    el.setAttribute("role", "dialog");
+    el.setAttribute("aria-label", "Rozetler");
+    document.body.appendChild(el);
+    el.addEventListener("click", (e) => {
+      if (e.target === el || e.target.closest(".rz-kapat")) el.classList.remove("open");
+    });
+  }
+  const n = ROZETLER.filter((r) => o[r.id]).length;
+  el.innerHTML = `<div class="rz-sayfa"><div class="rz-bas"><span>ROZET DEFTERİ</span><span>${n}/${ROZETLER.length}</span></div>
+   <div class="rz-liste">${ROZETLER.map((r) => {
+     const t = o[r.id];
+     const tar = t ? new Date(t).toLocaleDateString("tr-TR", { day: "numeric", month: "long", year: "numeric" }) : "";
+     return `<div class="rz${t ? " var" : ""}"><span class="rz-muhur" aria-hidden="true"><span>${r.s}</span></span>
+       <span class="rz-metin"><b>${r.ad}</b><small>${r.d}</small>${t ? `<em>${tar}</em>` : ""}</span></div>`;
+   }).join("")}</div>
+   <button class="btn ghost rz-kapat">Kapat</button></div>`;
+  requestAnimationFrame(() => el.classList.add("open"));
+}
 function gcAchievement(id) {
+  rozetKazan(id);
   gcPost({ type: "gc", action: "ach", id: id });
 }
 function gcScore(value) {
@@ -34578,6 +34891,7 @@ function oynananIttifakiKaydet() {
   try {
     localStorage.setItem(OYNANAN_KEY, JSON.stringify(a));
   } catch (e) {}
+  if (PARTIES.every((p) => a.includes(p.id))) gcAchievement("s27_alti_ittifak");
 }
 function baskaIttifakOnerisi() {
   const played = oynananlar();
