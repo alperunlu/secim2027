@@ -6608,6 +6608,114 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   font-size: 0.66rem;
   color: #4f6b3a;
 }
+
+/* Yaşayan dünya */
+.iz-rakip {
+  fill: none;
+  stroke: var(--atlas-murekkep-2);
+  stroke-width: 1.6;
+  opacity: 0.8;
+}
+.donem-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0.9rem 0;
+}
+.donem-kart {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  border: 1px solid rgba(43, 35, 24, 0.4);
+  background: rgba(255, 250, 235, 0.45);
+  padding: 0.75rem 0.85rem;
+}
+.dk-no {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--atlas-kizil);
+  text-align: center;
+  border-right: 1px solid rgba(43, 35, 24, 0.25);
+}
+.donem-kart b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  color: var(--atlas-murekkep);
+}
+.donem-kart small {
+  display: block;
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--atlas-murekkep-2);
+}
+.gundem-ozet,
+.karne-gundem {
+  margin: 0.4rem 0 1rem;
+}
+.karne-gundem {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 3px double var(--atlas-murekkep);
+}
+.karne-gundem .mt-bas {
+  margin-bottom: 0.5rem;
+}
+.gd-satir {
+  display: grid;
+  grid-template-columns: 6.2rem 1fr 3.4rem;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.22rem 0;
+}
+.gd-ad,
+.gd-et {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  color: var(--atlas-murekkep-2);
+}
+.gd-et {
+  text-align: right;
+}
+.gd-bar {
+  height: 7px;
+  background: rgba(43, 35, 24, 0.12);
+  border: 1px solid rgba(43, 35, 24, 0.35);
+  position: relative;
+}
+.gd-bar i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--atlas-murekkep-2);
+}
+.gd-satir.sicak .gd-bar i {
+  background: var(--atlas-kizil);
+}
+.gd-satir.sicak .gd-et,
+.gd-satir.sicak .gd-ad {
+  color: var(--atlas-kizil);
+}
+
+.p-kilit {
+  display: block;
+  margin-top: 0.45rem;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  color: var(--atlas-murekkep-3);
+}
+.p-kilit.acik {
+  color: #4f6b3a;
+}
+.plan-opt.kilitli {
+  border-style: dashed !important;
+}
 </style>
 </head>
 <body>
@@ -30337,6 +30445,7 @@ function continueGame() {
     return;
   }
   S = s;
+  dunyaKur(true);
   PLAYER_NAME = S.me.leader || "";
   PLAYER_SEX = S.me.sex || "e";
   enterGame();
@@ -30513,8 +30622,452 @@ function enterGame() {
   updateNewsBadge();
   applyAudio();
 }
+/* =====================================================================
+   YAŞAYAN DÜNYA
+   - Dönem koşulları: her kampanyanın başında 2 kart; olay havuzunu ve
+     başlangıcı değiştirir.
+   - Gündem: ekonomi / güvenlik / skandal sıcaklığı her gün kayar, ara sıra
+     şokla sıçrar; sıcak konunun olayları daha sık gelir ve daha çok etki eder.
+   - Rakip hamleleri: her hafta bir rakip sahaya çıkar, bazen size yüklenir.
+   - Oyuna özgü etki sapması: aynı karar her kampanyada biraz farklı tutar.
+   ===================================================================== */
+const GUNDEM_KONU = {
+  eko: { ad: "EKONOMİ", cat: ["EKONOMİ", "EMEK", "TARIM"] },
+  guv: { ad: "GÜVENLİK", cat: ["KRİZ", "DIŞ POLİTİKA"] },
+  skn: { ad: "SKANDAL", cat: ["SKANDAL", "MEDYA", "RAKİP"] },
+};
+const GUNDEM_TABAN = { eko: 50, guv: 40, skn: 40 };
+const GUNDEM_SOK = {
+  eko: [
+    "Kur bir gecede sıçradı; market rafları yeniden etiketlendi.",
+    "Aylık enflasyon beklentiyi aştı; akşam bültenlerinin ilk haberi mutfak.",
+    "Akaryakıta gece yarısı zammı geldi; servis ve nakliye ücretleri tartışmada.",
+    "Büyük bir tekstil fabrikası kapanma kararı aldı; işçiler fabrika önünde.",
+  ],
+  guv: [
+    "Sınır hattında çatışma haberi; güvenlik zirvesi toplandı.",
+    "Bölgede gerilim tırmandı; dışişleri olağanüstü açıklama yaptı.",
+    "Büyükşehirde patlama ihbarı; ana arterler saatlerce kapalı kaldı.",
+  ],
+  skn: [
+    "Bir bakanlıktaki ihale yazışmaları sızdırıldı; muhalefet soru önergesi verdi.",
+    "Ses kaydı iddiası gece boyu gündemde; yalanlama sabaha karşı geldi.",
+    "Belediye bütçesinde açıklanamayan harcama ortaya çıktı; savcılık inceleme başlattı.",
+  ],
+};
+const DONEM_KARTLARI = [
+  {
+    id: "kur",
+    ad: "Kur Şoku",
+    d: "Seçim kararından bir hafta önce kur rekor kırdı. Mutfak gündemin ilk sırasında; ekonomi olayları sıklaşır.",
+    g: { eko: 78 },
+    w: { EKONOMİ: 2.2, EMEK: 1.4, TARIM: 1.3 },
+    uyg() {
+      S.stats.mut = clamp(S.stats.mut + (S.me.incumbent ? -6 : 2), 0, 100);
+    },
+  },
+  {
+    id: "deprem",
+    ad: "Deprem Sonrası",
+    d: "Güneyde yıkıcı bir depremin üzerinden aylar geçti; konut, yardım ve güvenlik hâlâ tartışılıyor.",
+    g: { guv: 58 },
+    w: { KRİZ: 1.8, TOPLUM: 1.4, BÖLGE: 1.3 },
+    uyg() {
+      S.stats.but = clamp(S.stats.but - 4, 0, 150);
+    },
+  },
+  {
+    id: "catlak",
+    ad: "İttifak Çatlağı",
+    d: "Seçim kararıyla birlikte ittifak içi pazarlıklar sertleşti; teşkilat ve ortaklar olayları sıklaşır.",
+    w: { TEŞKİLAT: 2, RAKİP: 1.3 },
+    uyg() {
+      S.stats.sad = clamp(S.stats.sad - 6, 0, 100);
+    },
+  },
+  {
+    id: "sizinti",
+    ad: "Sızıntı Mevsimi",
+    d: "Yazışmalar, ses kayıtları, isimsiz hesaplar… Kampanya bir skandal mevsiminde başlıyor.",
+    g: { skn: 72 },
+    w: { SKANDAL: 2.2, MEDYA: 1.5 },
+  },
+  {
+    id: "sinir",
+    ad: "Sınır Gerginliği",
+    d: "Sınırda tansiyon yüksek. Dış politika ve güvenlik konuşuluyor; milliyetçi söylem güçleniyor.",
+    g: { guv: 72 },
+    w: { "DIŞ POLİTİKA": 2.3, KRİZ: 1.3 },
+    uyg() {
+      if (S.me.id === "cephe") S.share = clamp(S.share + 0.8, 1, 60);
+      S.rivals.forEach((r) => {
+        if (r.id === "cephe") r.share = clamp(r.share + 0.8, 1.5, 55);
+      });
+    },
+  },
+  {
+    id: "genc",
+    ad: "Genç Seçmen Dalgası",
+    d: "Altı milyon ilk kez oy kullanacak. Kampüsler ve sosyal medya kampanyanın sahnesi.",
+    w: { GENÇLİK: 2.5, MEDYA: 1.2 },
+    uyg() {
+      S.stats.sos = clamp(S.stats.sos + 5, 0, 100);
+    },
+  },
+  {
+    id: "kurak",
+    ad: "Kuraklık Yılı",
+    d: "Barajlar yarı boş, rekolte düşük. Çiftçi ve gıda fiyatları gündemde.",
+    g: { eko: 62 },
+    w: { TARIM: 2.5, EKONOMİ: 1.2 },
+  },
+  {
+    id: "grev",
+    ad: "Grev Dalgası",
+    d: "Metal, liman ve kuryelerde ardı ardına grevler. Emek ve ücret tartışması kampanyanın merkezinde.",
+    g: { eko: 64 },
+    w: { EMEK: 2.4 },
+    uyg() {
+      ["emek", "dayanisma"].forEach((id) => {
+        if (S.me.id === id) S.share = clamp(S.share + 0.6, 1, 60);
+        S.rivals.forEach((r) => {
+          if (r.id === id) r.share = clamp(r.share + 0.6, 1.5, 55);
+        });
+      });
+    },
+  },
+  {
+    id: "sakin",
+    ad: "Sakin Bahar",
+    d: "Ekonomi durgun ama istikrarlı, sokaklar sakin. Seçim, büyük krizlerden çok vaatlerle kazanılacak.",
+    g: { eko: 38, guv: 28, skn: 30 },
+    w: { TOPLUM: 1.6, KRİZ: 0.6, SKANDAL: 0.7 },
+  },
+];
+const RAKIP_VAAT = [
+  "emekliye bayram ikramiyesini iki katına çıkarma",
+  "gençlere faizsiz ilk konut kredisi",
+  "asgari ücrete yılda iki zam",
+  "her ile bir teknoloji üniversitesi",
+  "çiftçiye mazot desteğinin yarıya kadar artırılması",
+];
+const KARSILIK_GOVDE = [
+  "{R} dün akşamki programda doğrudan sizi hedef aldı: “{L} yüz gündür vaat dağıtıyor, hesabını soran yok.” Kesit sabahtan beri dolaşımda.",
+  "{P} cephesinden ağır bir suçlama: kampanya bağışlarınızın kaynağı soruluyor. {R} “belgeleri yakında açıklayacağız” dedi.",
+  "{R} meydanda sizi taklit etti; salon güldü, video milyonlara ulaştı. Kurmaylar “cevap verelim mi?” diye soruyor.",
+];
+function konuOf(cat) {
+  for (const k in GUNDEM_KONU) if (GUNDEM_KONU[k].cat.includes(cat)) return k;
+  return null;
+}
+function dunyaKur(eskiKayit) {
+  if (!S) return;
+  if (!S.ek) S.ek = {};
+  const ek = S.ek;
+  if (ek.donem) return;
+  const kartlar = shuffle([...DONEM_KARTLARI]).slice(0, 2);
+  ek.donem = kartlar.map((k) => k.id);
+  ek.taban = { ...GUNDEM_TABAN };
+  kartlar.forEach((k) => {
+    if (k.g) for (const g in k.g) ek.taban[g] = k.g[g];
+  });
+  ek.gundem = { ...ek.taban };
+  ek.tohum = Math.floor(Math.random() * 1e9);
+  ek.donemGoruldu = !!eskiKayit;
+  if (!eskiKayit) {
+    kartlar.forEach((k) => k.uyg && k.uyg());
+    donemDisla();
+  }
+}
+/* Her kampanya olay havuzunun farklı bir dilimini görür: dönemin öne çıkardığı
+   kategoriler daha az, geri plana ittikleri daha çok dışlanır. */
+function donemDisla() {
+  if (!S || (S.usedIds && S.usedIds.length > (S.seen0 | 0))) return;
+  const id = S.me.id;
+  const ex = [];
+  EVENTS.forEach((e) => {
+    if (e.day || e.chainStart) return;
+    /* Zincir halkaları (bayrak/vaat bağlı) dışlanmaz; yalnızca istatistiğe bağlı olanlar */
+    if (e.requires && (e.requires.flag || e.requires.promise)) return;
+    if (e.only && !e.only.includes(id)) return;
+    if (/^ch_.+_kesif$/.test(e.id)) {
+      if (Math.random() < 0.3) ex.push(e.id);
+      return;
+    }
+    const w = donemCarpan(e.cat);
+    const pr = clamp(0.38 / Math.pow(w, 0.7), 0.06, 0.7);
+    if (Math.random() < pr) ex.push(e.id);
+  });
+  S.usedIds = ex;
+  S.seen0 = ex.length;
+}
+function donemKartlari() {
+  return ((S && S.ek && S.ek.donem) || [])
+    .map((id) => DONEM_KARTLARI.find((k) => k.id === id))
+    .filter(Boolean);
+}
+function donemCarpan(cat) {
+  let m = 1;
+  donemKartlari().forEach((k) => {
+    if (k.w && k.w[cat]) m *= k.w[cat];
+  });
+  return m;
+}
+function gundemDeger(k) {
+  return S && S.ek && S.ek.gundem ? S.ek.gundem[k] : 45;
+}
+function gundemCarpan(cat) {
+  const k = konuOf(cat);
+  return k ? 0.5 + gundemDeger(k) / 60 : 1;
+}
+function gundemSicak(cat) {
+  const k = konuOf(cat);
+  return !!k && gundemDeger(k) >= 65;
+}
+function agirlikliSec(list) {
+  if (!list.length) return null;
+  const w = list.map((e) => donemCarpan(e.cat) * gundemCarpan(e.cat));
+  let r = Math.random() * w.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < list.length; i++) {
+    r -= w[i];
+    if (r <= 0) return list[i];
+  }
+  return list[list.length - 1];
+}
+/* Aynı kararın etkisi her kampanyada biraz farklı tutar (oyuna özgü, sabit) */
+function etkiSapmasi(id) {
+  if (!S || !S.ek || !id) return 1;
+  let h = S.ek.tohum | 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
+  return 0.85 + ((h >>> 0) % 1000) / 1000 * 0.3;
+}
+function gundemGun() {
+  if (!S || !S.ek || !S.ek.gundem) return;
+  const g = S.ek.gundem,
+    t = S.ek.taban || GUNDEM_TABAN;
+  for (const k in g) g[k] = clamp(g[k] + (t[k] - g[k]) * 0.05 + rnd(-2.5, 2.5), 5, 95);
+  if (S.daysLeft > 4 && Math.random() < 0.07) {
+    const k = pick(Object.keys(GUNDEM_KONU));
+    g[k] = clamp(g[k] + rnd(14, 22), 5, 95);
+    const m = pick(GUNDEM_SOK[k]);
+    addTicker(GUNDEM_KONU[k].ad, m);
+    S.ek.sokKart = { k, m, g: S.daysLeft };
+  }
+  /* Ekonomi kızışınca iktidar kaybeder; güvenlik kızışınca iktidar ve milliyetçi blok biraz kazanır */
+  const e = (g.eko - 50) / 50,
+    s = (g.guv - 50) / 50;
+  const etki = (p) => (p.incumbent ? -e * 0.06 + s * 0.02 : 0) + (p.id === "cephe" ? s * 0.03 : 0);
+  S.share = clamp(S.share + etki(S.me), 1, 60);
+  S.rivals.forEach((r) => (r.share = clamp(r.share + etki(r), 1.5, 55)));
+}
+function rakipBolgesi(r) {
+  const l = RK.map((k) => ({ k, w: REGION_WEIGHT[k] * (0.6 + Math.random()) }));
+  l.sort((a, b) => b.w - a.w);
+  return l[0].k;
+}
+/* Haftanın rakip hamlesi: sahaya çıkar, vaat açıklar ya da size yüklenir */
+function rakipHaftasi() {
+  if (!S || !S.rivals || !S.rivals.length) return;
+  const aday = [...S.rivals].sort((a, b) => b.share - a.share).slice(0, 4);
+  const r = pick(aday);
+  const ad = r.short || r.name;
+  const yakin = Math.abs(r.share - S.share) < 7;
+  const tur = yakin && Math.random() < 0.5 ? "saldiri" : Math.random() < 0.62 ? "miting" : "vaat";
+  if (tur === "miting") {
+    const k = rakipBolgesi(r);
+    const v = rnd(0.4, 0.9);
+    S.reg[k] = clamp(S.reg[k] - v, 1, 75);
+    r.share = clamp(r.share + 0.25, 1.5, 55);
+    addTicker("RAKİP", `${r.leader}, ${REGION_CITY[k]}'de büyük bir miting yaptı; ${ad} sahada iddialı.`);
+    izEkle({ r: k, v: -v, t: `${ad} mitingi`, o: r.leader, cat: "RAKİP", tur: "rakip" });
+  } else if (tur === "vaat") {
+    r.share = clamp(r.share + 0.3, 1.5, 55);
+    addTicker("RAKİP", `${r.leader} yeni bir vaat açıkladı: ${pick(RAKIP_VAAT)}.`);
+  } else {
+    S.ek.karsilik = { rid: r.id, g: S.daysLeft };
+    r.share = clamp(r.share + 0.15, 1.5, 55);
+    addTicker("RAKİP", `${r.leader} doğrudan ${S.me.leader} adını verdi; kurmaylarınız toplandı.`);
+  }
+}
+function karsilikOlayi() {
+  const k = S.ek && S.ek.karsilik;
+  if (!k || S.daysLeft >= k.g) return null;
+  delete S.ek.karsilik;
+  const r = S.rivals.find((x) => x.id === k.rid);
+  if (!r) return null;
+  const govde = pick(KARSILIK_GOVDE)
+    .replace(/\{R\}/g, r.leader)
+    .replace(/\{P\}/g, r.short || r.name)
+    .replace(/\{L\}/g, S.me.leader);
+  return {
+    id: "_karsilik",
+    cat: "RAKİP",
+    title: `${r.leader} Size Yüklendi`,
+    body: govde,
+    opts: [
+      {
+        t: "Sert cevap: aynı akşam ekrana çık",
+        d: "Tabanı coşturur; kararsız seçmeni ürkütebilir.",
+        fx: { med: 3, sad: 2, mut: -2, oy: 0.4 },
+      },
+      {
+        t: "Belgeyle yanıtla",
+        d: "Hazırlık ister ama tartışmayı kapatır.",
+        fx: { but: -3, oy: 0.7, med: 1 },
+      },
+      {
+        t: "Görmezden gel",
+        d: "Gündemi büyütmez; ama sessizlik de bir cevaptır.",
+        fx: { mut: 1, oy: -0.3 },
+      },
+    ],
+  };
+}
+/* ---- Değişken kartlar: gündem şokundan doğan ve bölgeye özgü olaylar ---- */
+const GUNDEM_KART = {
+  eko: {
+    t: ["Mutfak Yangını", "Kur Gecesi", "Zam Haftası"],
+    o: [
+      { t: "Acil destek paketi açıkla", d: "Rakamlı, takvimli; kasadan çıkar ama mutfağa dokunur.", fx: { mut: 3, but: -4, oy: 0.5 } },
+      { t: "Sorumluyu adıyla göster", d: "Tabanı toplar, kararsızı yorabilir.", fx: { med: 2, sad: 2, mut: -1, oy: 0.3 } },
+      { t: "Ekonomi kadrosunu sahneye çıkar", d: "Sakin, teknik ve güven veren bir anlatı.", fx: { med: 1, sos: 1, oy: 0.4 } },
+    ],
+  },
+  guv: {
+    t: ["Güvenlik Zirvesinin Ertesi", "Sınırdan Gelen Haber", "Gergin Bir Gece"],
+    o: [
+      { t: "Milli birlik çağrısı yap", d: "Siyaseti askıya alan, ortak bir dil.", fx: { mut: 2, sad: 1, oy: 0.3 } },
+      { t: "Sert bir açıklama yap", d: "Ekranlar sizi konuşur; gençler mesafeli.", fx: { med: 2, sos: -2, oy: 0.4 } },
+      { t: "Sağduyu ve şeffaflık iste", d: "Bilgi kirliliğine karşı ölçülü bir duruş.", fx: { sos: 2, med: 1, oy: 0.2 } },
+    ],
+  },
+  skn: {
+    t: ["Sızıntı Dosyası", "Gece Yarısı Kaydı", "İhale Yazışmaları"],
+    o: [
+      { t: "Tam şeffaflık iste", d: "Soruşturma komisyonu teklifi; ekranlar sizde.", fx: { med: 2, oy: 0.3, sad: -1 } },
+      { t: "Önce kendi kadronu denetle", d: "İçeride sızlanma; dışarıda güven.", fx: { sad: -2, mut: 3, oy: 0.4 } },
+      { t: "Komplo olduğunu söyle", d: "Taban kenetlenir; merkez seçmen kaşlarını çatar.", fx: { sad: 2, med: -2, oy: 0.1 } },
+    ],
+  },
+};
+const BOLGE_SORUN = {
+  mar: [
+    ["Kira Düğümü", "kiraların bir yılda ikiye katlandığı semtlerde kiracılar sokakta"],
+    ["Deprem Konutu", "riskli binalarda oturan aileler kentsel dönüşümde sıranın ne zaman geleceğini soruyor"],
+    ["Köprü ve Trafik", "işe gidiş saatleri iki saati buldu; servis şoförleri kontak kapattı"],
+  ],
+  ege: [
+    ["Zeytinlik Tartışması", "maden sahası için zeytinliklerin açılması köylüleri ayağa kaldırdı"],
+    ["Turizm Sezonu", "otelciler personel bulamıyor, çalışanlar ücretlerden şikâyetçi"],
+    ["Orman Yangını Sonrası", "yanan alanlarda imar söylentisi köylerde öfke yarattı"],
+  ],
+  akd: [
+    ["Sera Üreticisi", "domates tarlada çürüyor, hal fiyatıyla market fiyatı arasında uçurum var"],
+    ["Kıyı İmarı", "kamu plajlarının otel projelerine açılması tepki çekti"],
+    ["Narenciye Hasadı", "ihracat kısıtlaması narenciyecileri zor durumda bıraktı"],
+  ],
+  ica: [
+    ["Buğday Fiyatı", "açıklanan alım fiyatı çiftçinin maliyetini karşılamıyor"],
+    ["Organize Sanayi", "sanayi bölgesinde iki fabrika vardiya kapattı; işçiler kaygılı"],
+    ["Kuraklık ve Su", "yeraltı suları çekildi, kuyu açma izinleri tartışmada"],
+  ],
+  kar: [
+    ["Fındık Fiyatı", "üretici fiyatı açıklandı; bahçede maliyet bile çıkmıyor"],
+    ["Dere ve Santral", "derede kurulacak santrale karşı köylüler nöbette"],
+    ["Sel Sonrası", "taşan dereler yolları kopardı; yardımlar gecikiyor"],
+  ],
+  dog: [
+    ["Hayvancılık", "yem fiyatları besiciyi zorladı, köylerde ahırlar boşalıyor"],
+    ["Kış Yolları", "kar nedeniyle kapanan köy yolları sağlık hizmetini aksatıyor"],
+    ["Sınır Ticareti", "kapılardaki kısıtlama esnafın işini durdurdu"],
+  ],
+  gdo: [
+    ["Su ve Elektrik", "sulama döneminde kesintiler çiftçiyi isyan ettirdi"],
+    ["Göç ve Kira", "nüfus artışıyla kiralar ve okul sınıfları taştı"],
+    ["Pamuk Tarlası", "pamuk fiyatı düşerken mevsimlik işçilerin ücreti tartışmada"],
+  ],
+};
+function gundemKarti(k) {
+  const G = GUNDEM_KART[k];
+  if (!G) return null;
+  const sok = (S.ek.sokKart && S.ek.sokKart.m) || "";
+  return {
+    id: "_gundem",
+    cat: GUNDEM_KONU[k].ad === "EKONOMİ" ? "EKONOMİ" : GUNDEM_KONU[k].ad === "GÜVENLİK" ? "KRİZ" : "SKANDAL",
+    title: pick(G.t),
+    body: `${sok} Bütün kanallar aynı başlıkla açtı; kurmaylar bu akşamki tavrınızı bekliyor.`,
+    opts: G.o,
+  };
+}
+const SEHIR_YONELME = {
+  mar: "İstanbul'a",
+  ege: "İzmir'e",
+  akd: "Antalya'ya",
+  ica: "Ankara'ya",
+  kar: "Trabzon'a",
+  dog: "Erzurum'a",
+  gdo: "Diyarbakır'a",
+};
+function bolgeKarti() {
+  /* Ağırlığı yüksek ama payınızın düşük olduğu bölgeler daha sık */
+  const l = RK.map((k) => ({ k, w: REGION_WEIGHT[k] * (1 + Math.max(0, 40 - bolgePayim(k)) / 40) * (0.5 + Math.random()) }));
+  l.sort((a, b) => b.w - a.w);
+  const k = l[0].k;
+  const [bas, durum] = pick(BOLGE_SORUN[k]);
+  const sehir = REGION_CITY[k];
+  return {
+    id: "_bolge",
+    cat: "BÖLGE",
+    title: `${sehir}: ${bas}`,
+    body: `${REGION_KEYS[k]} bölgesinden haber: ${durum}. Yerel basın "${S.me.leader} ne diyecek?" diye soruyor.`,
+    opts: [
+      { t: `${SEHIR_YONELME[k]} git, yerinde dinle`, d: "Zaman ve kaynak ister; bölgede iz bırakır.", fx: { reg: { [k]: 2.6 }, but: -2, mut: 1 } },
+      { t: "Ulusal programa madde olarak ekle", d: "Daha geniş kitleye seslenir, bölgede etkisi sınırlı.", fx: { reg: { [k]: 1 }, oy: 0.3, med: 1 } },
+      { t: "Yerel teşkilata bırak", d: "Ucuz ve sessiz; teşkilat güçlenir.", fx: { reg: { [k]: 0.6 }, sad: 2 } },
+    ],
+  };
+}
+/* Kampanyanın ilk sayfası: dönem raporu */
+function donemGoster() {
+  const d = document.getElementById("dossier");
+  d.className = "dossier";
+  const st = document.getElementById("d-stamp");
+  st.style.display = "";
+  st.textContent = "Rapor";
+  st.className = "stamp-gizli takvim";
+  const cat = document.getElementById("d-cat");
+  cat.textContent = "DÖNEM RAPORU · 100. GÜN";
+  cat.className = "dossier-cat";
+  document.getElementById("d-title").textContent = "Seçime Giderken Türkiye";
+  const g = S.ek.gundem;
+  document.getElementById("d-body").innerHTML =
+    `<div class="brief">Kurmay masasına sabah gelen rapor. Bu kampanyanın koşulları bunlar; her kampanya başka bir Türkiye'de başlar.</div>
+     <div class="donem-liste">${donemKartlari()
+       .map((k, i) => `<div class="donem-kart"><span class="dk-no">${["I", "II"][i]}</span><span><b>${k.ad}</b><small>${k.d}</small></span></div>`)
+       .join("")}</div>
+     <div class="gundem-ozet">${gundemCubuklari()}</div>
+     <div class="next-row"><button class="btn" id="donem-go">Kampanyayı Başlat →</button></div>`;
+  document.getElementById("donem-go").onclick = birKez(() => {
+    S.ek.donemGoruldu = true;
+    saveGame();
+    renderDay();
+  });
+  pulseCard();
+  sfx("paper");
+}
+function gundemCubuklari() {
+  if (!S || !S.ek || !S.ek.gundem) return "";
+  return Object.keys(GUNDEM_KONU)
+    .map((k) => {
+      const v = Math.round(gundemDeger(k));
+      const et = v >= 65 ? "SICAK" : v <= 32 ? "SAKİN" : "ILIK";
+      return `<div class="gd-satir${v >= 65 ? " sicak" : ""}"><span class="gd-ad">${GUNDEM_KONU[k].ad}</span><span class="gd-bar"><i style="width:${v}%"></i></span><span class="gd-et">${et}</span></div>`;
+    })
+    .join("");
+}
 function startGame(pid) {
   S = newState(pid);
+  dunyaKur();
   enterGame();
   addTicker("AA", "Meclis erken seçim kararını onayladı. Tarih: 13 Haziran 2027.");
   addTicker("PİYASA", "Seçim takvimi netleşti; piyasalar temkinli.");
@@ -30529,6 +31082,10 @@ function renderTopbar() {
 function renderDay() {
   renderTopbar();
   renderSidebar();
+  if (S.ek && S.ek.donem && !S.ek.donemGoruldu) {
+    donemGoster();
+    return;
+  }
   if (S.daysLeft > 10 && weekIndex(S.daysLeft) !== S.lastWeek) {
     S.lastWeek = weekIndex(S.daysLeft);
     renderWeeklyBoard();
@@ -30606,7 +31163,49 @@ const PLAN_ACTIONS = [
       sos: -2,
     },
   },
+  {
+    id: "anahaber",
+    ico: "i-live",
+    t: "Ana Haber Turu",
+    d: "Akşam bültenlerinde konuk koltuğu: güçlü medya ve oy.",
+    cost: 6,
+    kilit: { k: "med", min: 58, et: "MEDYA" },
+    fx: {
+      med: 3,
+      oy: 0.3,
+      sos: -1,
+    },
+  },
+  {
+    id: "gonullu",
+    ico: "i-pact",
+    t: "Gönüllü Ağı",
+    d: "Teşkilatın kurduğu ağ kapı kapı çalışır: ucuz, derin etki.",
+    cost: 3,
+    kilit: { k: "sad", min: 62, et: "TEŞKİLAT" },
+    fx: {
+      sad: 2,
+      mut: 3,
+      oy: 0.3,
+    },
+  },
+  {
+    id: "forum",
+    ico: "i-report",
+    t: "Kent Forumları",
+    d: "Mahalle mahalle dinleme toplantıları: memnuniyet ve dijital yankı.",
+    cost: 5,
+    kilit: { k: "mut", min: 62, et: "MEMNUNİYET" },
+    fx: {
+      mut: 2,
+      sos: 2,
+      oy: 0.3,
+    },
+  },
 ];
+function hamleKilitli(a) {
+  return !!(a.kilit && !(S.stats[a.kilit.k] >= a.kilit.min));
+}
 let weekPick = {
   sel: [],
   region: null,
@@ -30616,6 +31215,7 @@ function renderWeeklyBoard() {
     sel: [],
     region: null,
   };
+  if (S.lastWeek > 0) rakipHaftasi();
   const wk = S.lastWeek + 1;
   const d = document.getElementById("dossier");
   d.className = "dossier week-card";
@@ -30669,16 +31269,20 @@ function drawWeekBoard() {
       const x = PLAN_ACTIONS.find((y) => y.id === id);
       return t + Math.max(0, x.cost || 0);
     }, 0);
-    const cannot = a.cost > 0 && !picked && spent + a.cost > S.stats.but;
+    const kilitli = !picked && hamleKilitli(a);
+    const cannot = kilitli || (a.cost > 0 && !picked && spent + a.cost > S.stats.but);
     const b = document.createElement("button");
-    b.className = "plan-opt" + (picked ? " picked" : "") + (cannot ? " disabled" : "");
+    b.className =
+      "plan-opt" + (picked ? " picked" : "") + (cannot ? " disabled" : "") + (kilitli ? " kilitli" : "");
     const costTxt =
       a.cost > 0
         ? `<span class="p-cost pos">−${a.cost} M₺</span>`
         : a.cost < 0
           ? `<span class="p-cost neg">+${-a.cost} M₺</span>`
           : "";
-    b.innerHTML = `${costTxt}<svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#${a.ico}"/></svg><span class="p-t">${a.t}</span><span class="p-d">${a.d}</span>`;
+    b.innerHTML = `${costTxt}<svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#${a.ico}"/></svg><span class="p-t">${a.t}</span><span class="p-d">${a.d}</span>${
+      kilitli ? `<span class="p-kilit">KİLİTLİ · ${a.kilit.et} ≥ ${a.kilit.min}</span>` : a.kilit ? `<span class="p-kilit acik">AÇILDI · ${a.kilit.et} ≥ ${a.kilit.min}</span>` : ""
+    }`;
     if (!cannot) b.onclick = () => toggleWeekPick(a.id);
     g.appendChild(b);
   });
@@ -30750,6 +31354,7 @@ function toggleWeekPick(id) {
   } else {
     if (weekPick.sel.length >= 2) return;
     const a = PLAN_ACTIONS.find((x) => x.id === id);
+    if (hamleKilitli(a)) return;
     const spent = weekPick.sel.reduce((t, s) => {
       const x = PLAN_ACTIONS.find((y) => y.id === s);
       return t + Math.max(0, x.cost || 0);
@@ -30972,6 +31577,15 @@ function chooseDailyEvent() {
   if (d === 1) return DAY1_EVENT;
   const anchor = EVENTS.find((e) => e.day === d && !S.usedIds.includes(e.id));
   if (anchor) return anchor;
+  const kar = karsilikOlayi();
+  if (kar) return kar;
+  if (S.ek && S.ek.sokKart && d < S.ek.sokKart.g) {
+    const sk = S.ek.sokKart;
+    delete S.ek.sokKart;
+    const gk = gundemKarti(sk.k);
+    if (gk && ph !== "silence") return gk;
+  }
+  if (ph !== "final" && ph !== "silence" && Math.random() < 0.17) return bolgeKarti();
   let pool = EVENTS.filter((e) => !e.day && !S.usedIds.includes(e.id) && eligible(e, d, ph));
   if (ph === "final") {
     const fin = pool.filter((e) => e.phase && e.phase.includes("final"));
@@ -30986,15 +31600,16 @@ function chooseDailyEvent() {
   if (chain.length && Math.random() < 0.4) return pick(chain);
   const opener = pool.filter((e) => e.chainStart);
   if (opener.length && Math.random() < 0.55) return pick(opener);
-  const cbs = pool.filter((e) => e.requires);
+  /* Vaadin hesabı soran olaylar öncelikli; yalnızca istatistiğe bağlı olanlar genel havuzda yarışır */
+  const cbs = pool.filter((e) => e.requires && (e.requires.promise || e.requires.notPromise));
   if (cbs.length && ph !== "final" && Math.random() < 0.5) {
     const c = cbs.filter((e) => e.cat !== S.lastCat);
     return pick(c.length ? c : cbs);
   }
   const own = pool.filter((e) => e.only);
-  if (own.length && Math.random() < 0.38) {
+  if (own.length && Math.random() < 0.3) {
     const o = own.filter((e) => e.cat !== S.lastCat);
-    return pick(o.length ? o : own);
+    return agirlikliSec(o.length ? o : own);
   }
   let cand = pool.filter((e) => e.cat !== S.lastCat);
   if (!cand.length) cand = pool;
@@ -31002,7 +31617,7 @@ function chooseDailyEvent() {
     const nr = cand.filter((e) => e.cat !== "RUTİN");
     if (nr.length) cand = nr;
   }
-  return pick(cand);
+  return agirlikliSec(cand);
 }
 /* Seçenek sırası: ilk seçeneğin hep en iyisi olduğu bir kalıbı kırmak için
    her olayda sabit ama oyuna özgü bir karıştırma. İmza seçeneği sona kalır. */
@@ -31051,7 +31666,8 @@ function renderDailyEvent() {
     (ev.twist ? " twist" : isCallback ? " promise" : isCrisis ? " crisis" : isTakvim ? " takvim" : "");
   document.getElementById("dossier").className = "dossier" + (ev.twist ? " twist" : "");
   const catEl = document.getElementById("d-cat");
-  catEl.textContent = (ev.cat || "GÜNDEM") + " · " + S.daysLeft + ". GÜN";
+  catEl.textContent =
+    (ev.cat || "GÜNDEM") + " · " + S.daysLeft + ". GÜN" + (gundemSicak(ev.cat) ? " · GÜNDEMDE" : "");
   catEl.className = "dossier-cat" + (ev.twist ? " twist" : isCrisis ? " crisis" : "");
   document.getElementById("d-title").textContent = tok(ev.title);
   const body = document.getElementById("d-body");
@@ -31333,6 +31949,13 @@ function chooseOpt(ev, o) {
     }
   }
   if (ev.twist) S.twists = (S.twists | 0) + 1;
+  mult *= etkiSapmasi(ev.id);
+  const gk = konuOf(ev.cat);
+  if (gk) {
+    const h = gundemDeger(gk);
+    if (h >= 65) mult *= 1.2;
+    else if (h <= 30) mult *= 0.85;
+  }
   const line = lineOf(fx);
   const flip = flipDue(line) ? flipCost(line) : null;
   setLineLock(line);
@@ -31788,6 +32411,7 @@ function endDay() {
   const statFlow =
     (S.stats.mut - 50) * 0.005 + (S.stats.med - 50) * 0.0035 + (S.stats.sad - 50) * 0.0025;
   S.share = clamp(S.share + grav + statFlow + rnd(-0.2, 0.2), 1, 60);
+  gundemGun();
   if (phaseOf(S.daysLeft) === "calm") {
     const topRival = Math.max(...S.rivals.map((r) => r.share));
     if (S.share > topRival + 1.5) S.share = clamp(S.share - rnd(0.05, 0.18), 1, 60);
@@ -31867,6 +32491,10 @@ function renderPanels() {
     );
   }).join("");
   sb.innerHTML += `<div class="stat-scale">ÇİZGİ = BAŞLANGIÇ / NÖTR SEVİYE</div>`;
+  if (S.ek && S.ek.gundem)
+    sb.innerHTML += `<div class="karne-gundem"><div class="mt-bas"><span>GÜNDEM</span><span>${donemKartlari()
+      .map((k) => k.ad.toLocaleUpperCase("tr"))
+      .join(" · ")}</span></div>${gundemCubuklari()}</div>`;
   const pb = document.getElementById("poll-box");
   const all = [
     {
@@ -32417,7 +33045,9 @@ function izCiz() {
       const x = x0 + (i % sat) * ara,
         y = y0 + Math.floor(i / sat) * 18;
       const neg = e.v < 0;
-      if (e.u === "miting")
+      if (e.u === "rakip")
+        out += `<circle class="iz-rakip" cx="${(x + 0.2).toFixed(1)}" cy="${(y + 7).toFixed(1)}" r="3.2"/>`;
+      else if (e.u === "miting")
         out += `<path class="iz-bayrak" d="M${x.toFixed(1)} ${(y + 14).toFixed(1)}V${y.toFixed(1)}l6.5 3.2-6.5 3.2"/>`;
       else
         out += `<line class="iz-cizgi${neg ? " neg" : ""}" x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${(x + (i % 3 === 1 ? 0.8 : -0.4)).toFixed(1)}" y2="${(y + 14).toFixed(1)}"/>`;
