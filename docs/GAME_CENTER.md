@@ -18,7 +18,7 @@ Expo Go) her çağrı sessizce atlanır; OTA ile gelen kod eski build'i bozmaz.
 | `s27_historic` | Tarihî Eşik | Tek başına %50'yi aşın. |
 | `s27_all_regions` | Yedi Bölge | Yedi bölgenin hepsinde birinci olun. |
 | `s27_president` | Köşk | Cumhurbaşkanı seçilin. |
-| `s27_kingmaker` | Kral Yapıcı | Kilit parti olarak desteklediğiniz adayı kazandırın. |
+| `s27_kingmaker` | Kilit Parti | Kilit parti olarak desteklediğiniz adayı kazandırın. |
 | `s27_kilit_tas` | Kilit Taşı | %15'in altında oyla ikinci turun sonucunu belirleyin. |
 | `s27_tough_bargainer` | Çetin Pazarlıkçı | İkinci tur masasından 60 değerinde talep koparın. |
 | `s27_baraj` | Meclis Kapısı | Baraj hedefini aşıp Meclis'e girin. |
