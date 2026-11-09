@@ -7156,6 +7156,902 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
     display: none !important;
   }
 }
+
+/* =====================================================================
+   GRAFİK TASARIM KATMANI 3
+   Okuma sırası: önce başlık, sonra karar, en son ayrıntı.
+   Kutular azaldı; hiyerarşiyi çizgi, boşluk ve yazı ağırlığı taşıyor.
+   ===================================================================== */
+:root {
+  --g3-kagit-acik: #f6eedb;
+  --g3-cizgi: rgba(43, 35, 24, 0.2);
+  --g3-cizgi-koyu: rgba(43, 35, 24, 0.55);
+}
+
+/* ---- Olay kartı: giriş metni kutusuz, düz okunur ---- */
+#dossier .dossier-body .brief {
+  background: none !important;
+  border-left: 0 !important;
+  box-shadow: none !important;
+  padding: 0 0 0.75rem !important;
+  margin: 0 0 0.2rem !important;
+  font-style: normal !important;
+  font-size: 0.97rem;
+  line-height: 1.52;
+  color: var(--ad-murekkep) !important;
+  border-bottom: 1px solid var(--g3-cizgi) !important;
+}
+#dossier .dossier-body .brief.scrollable {
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 1.6rem), transparent);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 1.6rem), transparent);
+}
+#dossier .brief-daha {
+  margin-top: 0.1rem;
+}
+
+/* ---- Seçenekler: numara ayrı sütunda, başlık koyu, açıklama ikinci planda ---- */
+#dossier .options {
+  gap: 0.55rem !important;
+  margin-top: 0.7rem !important;
+}
+#dossier .opt {
+  display: grid !important;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  column-gap: 0.6rem;
+  align-items: start;
+  text-align: left;
+  padding: 0.62rem 0.75rem 0.62rem 0.5rem !important;
+  background: var(--g3-kagit-acik) !important;
+  border: 1px solid var(--g3-cizgi-koyu) !important;
+  border-radius: 1px;
+  box-shadow: 0 2px 0 rgba(43, 35, 24, 0.16);
+  transition:
+    transform 0.16s var(--ad-ease),
+    box-shadow 0.16s var(--ad-ease),
+    background 0.16s var(--ad-ease);
+}
+#dossier .opt > * {
+  grid-column: 2;
+  min-width: 0;
+}
+#dossier .opt .o-no {
+  grid-column: 1;
+  grid-row: 1 / span 8;
+  align-self: stretch;
+  display: block;
+  padding-top: 0.02rem;
+  border-right: 1px solid var(--g3-cizgi);
+  font-family: var(--font-display, var(--serif));
+  font-weight: 700;
+  font-size: 1.02rem;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--ad-kizil);
+  font-variant-numeric: lining-nums;
+}
+#dossier .opt .o-title {
+  font-family: var(--font-text, var(--serif));
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  color: var(--ad-murekkep) !important;
+  margin: 0 0 0.2rem !important;
+}
+#dossier .opt .o-desc {
+  font-size: 0.86rem !important;
+  line-height: 1.42 !important;
+  color: var(--ad-murekkep-2) !important;
+}
+#dossier .opt .o-hint {
+  margin-top: 0.42rem !important;
+  padding-top: 0.36rem;
+  border-top: 1px dotted var(--g3-cizgi-koyu);
+  gap: 0.15rem 0.55rem !important;
+  letter-spacing: 0.03em !important;
+}
+#dossier .opt:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 rgba(43, 35, 24, 0);
+  background: #efe3c8 !important;
+}
+#dossier .opt.flip .o-no {
+  color: var(--ad-murekkep-2);
+}
+#dossier.compact .opt {
+  padding: 0.55rem 0.75rem 0.55rem 0.5rem !important;
+}
+#dossier.compact .opt .o-desc {
+  font-size: 0.82rem !important;
+}
+
+/* ---- Sonuç: rozet yığını yerine hesap defteri ---- */
+#dossier .fx-list {
+  display: block !important;
+}
+.fx-defter {
+  display: grid;
+  width: 100%;
+  gap: 0;
+  margin: 0.2rem 0 0;
+  border-top: 1px solid var(--ad-murekkep);
+  border-bottom: 1px solid var(--ad-murekkep);
+}
+.fxr {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.34rem 0;
+  border-bottom: 1px solid var(--g3-cizgi);
+  line-height: 1.25;
+}
+.fxr:last-child {
+  border-bottom: 0;
+}
+.fxr .fxk {
+  font-family: var(--font-text, var(--serif));
+  font-size: 0.93rem;
+  color: var(--ad-murekkep);
+}
+.fxr i {
+  flex: 1 1 auto;
+  min-width: 1rem;
+  border-bottom: 1px dotted var(--g3-cizgi-koyu);
+  transform: translateY(-0.2em);
+}
+.fxr .fxv {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+.fxr.up .fxv {
+  color: var(--ad-yesil);
+}
+.fxr.dn .fxv {
+  color: var(--ad-kizil);
+}
+.fx-bos {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--ad-murekkep-2);
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--g3-cizgi);
+}
+#dossier .dossier-body .o-narr {
+  margin-bottom: 0.8rem !important;
+  color: var(--ad-murekkep) !important;
+}
+#dossier .dossier-body #btn-next,
+#dossier .dossier-body #wk-next {
+  display: block;
+  width: 100%;
+  margin-top: 1.1rem !important;
+}
+#dossier .dokun-ipucu {
+  text-align: center;
+}
+
+/* ---- Haftalık plan: kart yığını yerine satır listesi ---- */
+.wk-ozet {
+  display: flex !important;
+  border: 1px solid var(--ad-murekkep);
+  margin: 0 0 0.75rem;
+  background: var(--g3-kagit-acik);
+}
+.wk-oz {
+  flex: 1 1 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.42rem 0.7rem;
+  line-height: 1.2;
+}
+.wk-oz + .wk-oz {
+  border-left: 1px solid var(--ad-murekkep);
+}
+.wk-oz small {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--ad-murekkep-2);
+}
+.wk-oz b {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ad-murekkep);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+#dossier .week-head-note {
+  margin: 0 0 0.7rem !important;
+  font-size: 0.86rem !important;
+  line-height: 1.45 !important;
+}
+#dossier .wk-takvim {
+  background: none !important;
+  border-left: 0 !important;
+  border-top: 1px solid var(--g3-cizgi);
+  border-bottom: 1px solid var(--g3-cizgi);
+  padding: 0.5rem 0 !important;
+  margin: 0 0 0.7rem !important;
+  gap: 0.1rem !important;
+}
+#dossier .wk-takvim .wk-takvim-ol {
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+#dossier .oneri-plan {
+  font-family: var(--font-text, var(--serif));
+  width: 100%;
+  text-align: left;
+  background: var(--g3-kagit-acik) !important;
+  border: 1px solid var(--ad-kizil) !important;
+  padding: 0.6rem 0.8rem !important;
+  margin-bottom: 0.7rem !important;
+}
+#dossier .oneri-plan .op-et,
+#dossier .oneri-plan .op-alt {
+  font-family: var(--mono);
+}
+#dossier .oneri-plan .op-ad {
+  font-family: var(--font-display, var(--serif));
+  font-weight: 700;
+  font-size: 1rem;
+}
+#dossier .miting-satir {
+  margin: 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--ad-murekkep) !important;
+  padding: 0.55rem 0.1rem !important;
+  min-height: 48px;
+  width: 100%;
+  background: none;
+  font-size: 0.66rem !important;
+  letter-spacing: 0.14em !important;
+  color: var(--ad-murekkep) !important;
+}
+#dossier .miting-satir.bos .ms-ad::after {
+  content: " +";
+  color: var(--ad-kizil);
+}
+#dossier .miting-satir.secili {
+  background: rgba(168, 68, 47, 0.1);
+  padding-left: 0.5rem !important;
+  padding-right: 0.3rem !important;
+}
+#dossier .plan-grid {
+  gap: 0 !important;
+  border-top: 1px solid var(--g3-cizgi-koyu);
+}
+#dossier .plan-opt {
+  display: grid !important;
+  grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+  column-gap: 0.7rem;
+  align-items: start;
+  text-align: left;
+  width: 100%;
+  padding: 0.68rem 0.1rem !important;
+  background: none !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--g3-cizgi) !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  min-height: 0;
+  transition: background 0.16s var(--ad-ease);
+}
+#dossier .plan-opt .p-ico {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  margin: 0.1rem 0 0 !important;
+  color: var(--ad-murekkep) !important;
+}
+#dossier .plan-opt .p-t {
+  grid-column: 2;
+  grid-row: 1;
+  display: block;
+  font-size: 1rem !important;
+  line-height: 1.25 !important;
+  font-weight: 700 !important;
+}
+#dossier .wk-takvim .wk-takvim-et {
+  color: var(--ad-murekkep-2) !important;
+}
+#dossier .plan-opt .p-d {
+  grid-column: 2 / span 2;
+  grid-row: 2;
+  margin-top: 0.12rem !important;
+  font-size: 0.82rem !important;
+  line-height: 1.4 !important;
+}
+#dossier .plan-opt .p-cost {
+  position: static !important;
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  font-size: 0.74rem !important;
+  line-height: 1.7 !important;
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+#dossier .plan-opt .p-cost.neg {
+  color: var(--ad-yesil) !important;
+}
+#dossier .plan-opt .p-kilit {
+  grid-column: 2 / span 2;
+  grid-row: 3;
+  margin-top: 0.3rem !important;
+}
+#dossier .plan-opt.picked {
+  background: rgba(168, 68, 47, 0.1) !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+  margin: 0 -0.4rem;
+  width: calc(100% + 0.8rem);
+  border-bottom-color: var(--ad-kizil) !important;
+  box-shadow: inset 0 1px 0 var(--ad-kizil) !important;
+}
+#dossier .plan-opt.picked .p-t,
+#dossier .plan-opt.picked .p-ico {
+  color: var(--ad-kizil) !important;
+}
+#dossier .plan-opt.picked .p-d::after {
+  content: "SEÇİLDİ · vazgeçmek için dokunun";
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  color: var(--ad-kizil);
+}
+#dossier .plan-opt.disabled {
+  opacity: 0.5;
+}
+#dossier .plan-opt.kilitli {
+  border-style: none none solid !important;
+}
+/* Onay şeridi: kartın altına tam oturur, arkasından satır sızmaz */
+#dossier .wk-actions {
+  margin: 0.9rem -1.7rem 0 !important;
+  padding: 0.6rem 1.7rem 0.5rem !important;
+  bottom: -1.3rem !important;
+  border-top: 1px solid var(--ad-murekkep);
+  box-shadow: 0 -12px 14px -12px rgba(43, 35, 24, 0.35) !important;
+  align-items: center;
+  z-index: 3;
+}
+#dossier .wk-actions::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 2.2rem;
+  background: var(--ad-kagit);
+}
+
+/* ---- Miting aşaması: bölge şeridi ---- */
+#miting-liste {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4.3rem;
+  z-index: 7;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.2rem 0.9rem 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+#miting-liste[hidden] {
+  display: none !important;
+}
+#miting-liste::-webkit-scrollbar {
+  display: none;
+}
+.ml-b {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 0.9rem;
+  row-gap: 0.1rem;
+  align-items: baseline;
+  min-width: 9.2rem;
+  min-height: 52px;
+  padding: 0.5rem 0.7rem 0.45rem;
+  text-align: left;
+  background: var(--ad-kagit);
+  color: var(--ad-murekkep);
+  border: 1px solid var(--ad-murekkep);
+  box-shadow: 0 2px 0 rgba(43, 35, 24, 0.35);
+  cursor: pointer;
+}
+.ml-b .ml-ad {
+  font-family: var(--font-display, var(--serif));
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.ml-b .ml-oy {
+  justify-self: end;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.86rem;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.ml-b .ml-alt {
+  grid-column: 1 / span 2;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  color: var(--ad-murekkep-2);
+  white-space: nowrap;
+}
+.ml-b.oneri {
+  border-color: var(--ad-kizil);
+  box-shadow: 0 2px 0 var(--ad-kizil);
+}
+.ml-b.oneri .ml-alt {
+  color: var(--ad-kizil);
+}
+.ml-b.secili {
+  background: var(--ad-kizil);
+  color: var(--ad-kagit);
+  border-color: var(--ad-murekkep);
+}
+.ml-b.secili .ml-alt {
+  color: var(--ad-kagit);
+}
+.ml-b:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* ---- Alt sayfalar: tutamak şeridi ---- */
+.sheet .sheet-handle {
+  background: none !important;
+}
+.sheet .sheet-handle::before {
+  background: var(--g3-cizgi-koyu);
+  width: 40px;
+  height: 4px;
+}
+
+/* ---- Bildirim: seçeneklerin üstünü kapatmasın, üstten insin ---- */
+.notice {
+  bottom: auto !important;
+  top: calc(env(safe-area-inset-top) + 6.6rem);
+  transform: translate(-50%, -12px);
+}
+.notice.open {
+  transform: translate(-50%, 0);
+}
+.screen#screen-title.active ~ .notice,
+body:has(#screen-title.active) .notice,
+body:has(#screen-end.active) .notice {
+  top: calc(env(safe-area-inset-top) + 1.2rem);
+}
+
+/* ---- Kurmay notu ---- */
+#kurmay .km-tamam {
+  display: block;
+  width: 100%;
+  margin-top: 0.7rem;
+  background: var(--ad-murekkep);
+  color: var(--ad-kagit);
+  border-color: var(--ad-murekkep);
+}
+
+/* ---- Açılış ekranı: tek ana eylem, altta sakin bir ayar satırı ---- */
+#screen-title .title-btns {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.6rem;
+  width: min(calc(100% - 1.6rem), 19rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+#screen-title .title-btns .btn {
+  width: 100%;
+  margin: 0;
+}
+#screen-title #btn-continue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.7rem;
+}
+#screen-title #btn-continue small {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  font-weight: 400;
+}
+#screen-title #btn-continue small:empty {
+  display: none;
+}
+#screen-title #btn-newgame.ghost {
+  font-size: 0.82rem;
+  min-height: 44px;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+.tl-alt {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.4rem;
+  margin-top: 0.5rem;
+}
+.tl-alt .km-sifirla {
+  margin: 0;
+}
+
+/* ---- Kampanya molası (menü) ---- */
+#duraklat {
+  position: fixed;
+  inset: 0;
+  z-index: 58;
+  background: rgba(20, 14, 6, 0.66);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(1rem + env(safe-area-inset-top)) 1rem calc(1rem + env(safe-area-inset-bottom));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s var(--ad-ease);
+}
+#duraklat.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.dk-sayfa {
+  width: min(22rem, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--ad-kagit);
+  color: var(--ad-murekkep);
+  border: 3px solid var(--ad-murekkep);
+  outline: 1px solid var(--ad-murekkep);
+  outline-offset: -7px;
+  box-shadow: var(--ad-golge);
+  padding: 1.1rem 1.2rem 1rem;
+  transform: translateY(14px) scale(0.985);
+  transition: transform 0.3s var(--ad-ease);
+  text-align: center;
+}
+#duraklat.open .dk-sayfa {
+  transform: none;
+}
+.dk-bas {
+  display: flex;
+  justify-content: space-between;
+  background: var(--ad-murekkep);
+  color: var(--ad-kagit);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  padding: 0.55rem 0.8rem;
+}
+.dk-baslik {
+  font-family: var(--font-display, var(--serif));
+  font-weight: 700;
+  font-size: 1.45rem;
+  line-height: 1.15;
+  margin-top: 1rem;
+  text-wrap: balance;
+}
+.dk-alt {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ad-murekkep-2);
+  margin: 0.3rem 0 1rem;
+}
+.dk-sayfa .btn {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+.dk-satir {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  min-height: 52px;
+  border-bottom: 1px solid var(--g3-cizgi);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  color: var(--ad-murekkep-2);
+}
+.dk-satir:first-of-type {
+  margin-top: 0.7rem;
+  border-top: 1px solid var(--g3-cizgi);
+}
+.dk-anahtar {
+  min-width: 5.2rem;
+  min-height: 36px;
+  background: none;
+  border: 1px solid var(--ad-murekkep);
+  color: var(--ad-murekkep);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+}
+.dk-anahtar.on {
+  background: var(--ad-murekkep);
+  color: var(--ad-kagit);
+}
+.dk-yb {
+  display: flex;
+  gap: 0.35rem;
+}
+.dk-yb button {
+  width: 40px;
+  height: 36px;
+  background: none;
+  border: 1px solid var(--g3-cizgi-koyu);
+  color: var(--ad-murekkep);
+  font-family: var(--font-display, var(--serif));
+  cursor: pointer;
+  line-height: 1;
+}
+.dk-yb button.on {
+  background: var(--ad-murekkep);
+  border-color: var(--ad-murekkep);
+  color: var(--ad-kagit);
+}
+.dk-linkler {
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
+  margin: 0.4rem 0 0.7rem;
+}
+.dk-linkler button {
+  min-height: 44px;
+  background: none;
+  border: 0;
+  color: var(--ad-murekkep-2);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+.dk-not {
+  margin-top: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  color: var(--ad-murekkep-2);
+}
+
+/* ---- İttifak seçimi ---- */
+.party-card .pc-id .leader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  margin-top: 0.35rem;
+}
+.party-card .pc-id .leader b {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.56rem;
+  letter-spacing: 0.2em;
+  color: var(--ad-murekkep-2);
+}
+.party-card .pc-id .leader span {
+  font-family: var(--font-text, var(--serif));
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ad-murekkep);
+}
+.party-card .pc-sec {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  background: var(--ad-kizil);
+  color: var(--ad-kagit);
+  border: 1px solid rgba(43, 35, 24, 0.5);
+  box-shadow: 0 2px 0 rgba(43, 35, 24, 0.4);
+  font-family: var(--font-display, var(--serif));
+  font-weight: 700;
+  font-size: 0.86rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.party-card:active .pc-sec {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.party-card .stamp-hover {
+  display: none !important;
+}
+
+/* ---- Seçim gecesi başlığı ---- */
+.night-head h2 small {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.42em;
+  letter-spacing: 0.24em;
+  opacity: 0.8;
+}
+
+/* ---- Sonuç ekranı: alttaki geçiş düğmesi tek satır, ince bir şerit ---- */
+.end-cta:not([hidden]) {
+  padding: 0.6rem 1rem calc(0.6rem + env(safe-area-inset-bottom)) !important;
+}
+.end-cta .btn {
+  white-space: nowrap;
+  font-size: clamp(0.78rem, 3.9vw, 1rem);
+  letter-spacing: 0.08em;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
+  margin: 0;
+}
+
+/* ---- G3 düzeltmeler: düğme tutarlılığı ---- */
+#screen-title #btn-continue small {
+  white-space: nowrap;
+  letter-spacing: 0.1em;
+}
+.dk-sayfa .btn:not(.ghost) {
+  background: var(--ad-kizil) !important;
+  background-image: none !important;
+  color: var(--ad-kagit) !important;
+  border: 1px solid rgba(43, 35, 24, 0.5) !important;
+  box-shadow: 0 2px 0 rgba(43, 35, 24, 0.4) !important;
+  text-shadow: none !important;
+}
+.dk-sayfa .btn.ghost {
+  color: var(--ad-murekkep) !important;
+  text-shadow: none !important;
+  border: 1px solid var(--g3-cizgi-koyu) !important;
+  background: none !important;
+  font-size: 0.8rem;
+  min-height: 44px;
+}
+.party-card .pc-sec {
+  white-space: nowrap;
+  font-size: clamp(0.7rem, 3.4vw, 0.86rem);
+  letter-spacing: 0.08em;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+#screen-select .btn.ghost.sel-back,
+#screen-name .btn.ghost.sel-back {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--ad-murekkep) !important;
+  padding: 0.4rem 0.2rem !important;
+  min-height: 44px;
+  font-family: var(--mono) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.16em !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+}
+
+/* ---- Canlı yayın: sahne bir ekran gibi koyu, isim altyazı bandında ---- */
+#screen-debate .dbt-meter {
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+#screen-debate .dbt-meter-lbl {
+  align-items: baseline;
+  color: var(--ad-murekkep) !important;
+  margin-bottom: 0.35rem;
+}
+#screen-debate #dbt-hall-val {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+#screen-debate .dbt-bar {
+  height: 12px;
+  background: rgba(43, 35, 24, 0.16);
+  border: 1px solid var(--ad-murekkep);
+}
+#screen-debate .dbt-bar i {
+  background: var(--ad-murekkep);
+  background-image: none;
+}
+#screen-debate .dbt-bar u {
+  width: 2px;
+  background: var(--ad-kizil);
+}
+#screen-debate .dbt-meter-foot {
+  color: var(--ad-murekkep-2) !important;
+  opacity: 1;
+}
+#screen-debate .dbt-stage {
+  background: #241c14 !important;
+  border: 1px solid #120d07 !important;
+  box-shadow:
+    inset 0 0 0 5px #241c14,
+    inset 0 0 0 6px rgba(232, 184, 75, 0.32),
+    0 3px 0 rgba(43, 35, 24, 0.35);
+  padding: 1.3rem 1.1rem 1.4rem;
+  gap: 0.85rem;
+}
+#screen-debate .dbt-q {
+  color: #efe3c8 !important;
+}
+#screen-debate .dbt-rname {
+  background: var(--ad-kizil);
+  color: #efe3c8 !important;
+  padding: 0.28rem 0.75rem;
+  letter-spacing: 0.14em;
+}
+#screen-debate .dbt-kind {
+  color: #e8b84b !important;
+  border-color: rgba(232, 184, 75, 0.55) !important;
+}
+#screen-debate .dbt-timer {
+  height: 6px;
+  margin-top: 0.5rem;
+}
+
+/* ---- Son dakika bandı: pembe yerine oyunun kendi kızılı ---- */
+.breaking {
+  background: #7d2a1e !important;
+  background-image: none !important;
+  border-color: #a8442f !important;
+}
+.breaking .brk-tag {
+  background: #2b2318 !important;
+  background-image: none !important;
+  color: #efe3c8 !important;
+}
+
+/* ---- Açılış ekranı kısa ve dar telefonlarda tek ekrana sığsın ---- */
+@media (max-width: 380px) {
+  #screen-title .tl-gun {
+    white-space: nowrap;
+    letter-spacing: 0.08em;
+    font-size: 0.62rem;
+  }
+}
+@media (max-height: 720px) {
+  #screen-title .tl-adaylar {
+    display: none;
+  }
+  #screen-title .tl-harita svg {
+    max-height: 21vh;
+  }
+  #screen-title .tl-slogan {
+    margin-top: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -7680,11 +8576,13 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
     <div class="tl-adaylar" id="tl-adaylar" aria-hidden="true"></div>
     <p class="tl-slogan">Meclis erken seçim kararı aldı. Sandığa 100 gün var; söz sende.</p>
     <div class="title-btns">
+      <button class="btn" id="btn-continue" style="display:none" onclick="continueGame()"><span class="dv-ad">Devam Et</span><small id="devam-ozet"></small></button>
       <button class="btn" id="btn-newgame" onclick="confirmNew()">Yeni Kampanya</button>
-      <button class="btn ghost" id="btn-continue" style="display:none" onclick="continueGame()">Kayıtlı Kampanyaya Devam Et</button>
     </div>
-        <button class="km-sifirla" onclick="ipucSifirla()">Kurmay notlarını yeniden göster</button>
-        <button class="km-sifirla" id="btn-rozet" onclick="rozetAc()">Rozetler</button>
+    <div class="tl-alt">
+      <button class="km-sifirla" id="btn-rozet" onclick="rozetAc()">Rozetler</button>
+      <button class="km-sifirla" onclick="ipucSifirla()">İpuçlarını sıfırla</button>
+    </div>
     <div class="yazi-boyut" role="group" aria-label="Yazı boyutu">
       <span class="yb-et">YAZI BOYUTU</span>
       <button type="button" data-yb="1" aria-label="Normal yazı" style="font-size:.85rem">A</button>
@@ -7746,7 +8644,7 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
     <div class="tb-btns">
       <span class="countdown" id="tb-count">100</span>
       <button id="btn-audio" onclick="toggleAudio()" aria-label="Ses"><svg class="ui-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-audio-off"/></svg></button>
-      <button id="btn-menu" onclick="quitToTitle()" aria-label="Menü"><svg class="ui-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-menu"/></svg></button>
+      <button id="btn-menu" onclick="duraklatAc()" aria-label="Menü"><svg class="ui-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-menu"/></svg></button>
     </div>
   </div>
 
@@ -7785,6 +8683,7 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
       <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-map"/></svg>
     </button>
     <div id="miting-serit" hidden>MİTİNG İÇİN BİR BÖLGE SEÇİN</div>
+    <div id="miting-liste" hidden aria-label="Miting bölgeleri"></div>
     <button id="miting-atla" hidden onclick="mitingAsamaGec()">BU HAFTA MİTİNG YOK</button>
     <div id="stage">
     <div id="stage-inner">
@@ -7818,7 +8717,7 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   <div class="breaking" id="breaking"><span class="brk-tag">SON DAKİKA</span><span class="brk-txt" id="brk-txt"></span></div>
   <div class="night-head">
     <span class="live">● CANLI YAYIN</span>
-    <h2>SEÇİM GECESİ · 13 HAZİRAN 2027</h2>
+    <h2>SEÇİM GECESİ<small>13 HAZİRAN 2027</small></h2>
     <div class="opened">AÇILAN SANDIK: <span id="opened-pct">%0</span> · SAAT <span id="night-clock">18:00</span></div>
     <div class="night-bar"><i id="night-bar-i"></i></div>
   </div>
@@ -30685,7 +31584,23 @@ function showScreen(id) {
   if (id === "screen-name" || id === "screen-select") titleAtlasCiz();
 }
 function refreshTitle() {
-  document.getElementById("btn-continue").style.display = hasSave() ? "" : "none";
+  const kayit = hasSave();
+  document.getElementById("btn-continue").style.display = kayit ? "" : "none";
+  document.getElementById("btn-newgame").classList.toggle("ghost", kayit);
+  const oz = document.getElementById("devam-ozet");
+  if (oz) {
+    let t = "";
+    if (kayit) {
+      try {
+        const d = JSON.parse(localStorage.getItem(SAVE_KEY));
+        const p = PARTIES.find((x) => x.id === d.pid);
+        t = [p && p.short, d.daysLeft + ". gün", typeof d.share === "number" ? "%" + f1(d.share) : ""]
+          .filter(Boolean)
+          .join(" · ");
+      } catch (e) {}
+    }
+    oz.textContent = t;
+  }
   rozetSayaci();
   titleAtlasCiz();
   titleKartCiz();
@@ -30898,6 +31813,65 @@ function quitToTitle() {
   showScreen("screen-title");
   refreshTitle();
 }
+/* Menü düğmesi oyundan atmaz: kampanya molası açılır */
+function duraklatAc() {
+  let el = document.getElementById("duraklat");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "duraklat";
+    el.setAttribute("role", "dialog");
+    el.setAttribute("aria-label", "Kampanya molası");
+    document.body.appendChild(el);
+    el.addEventListener("click", (e) => {
+      if (e.target === el) duraklatKapat();
+    });
+  }
+  const ciz = () => {
+    const yb = +document.documentElement.style.fontSize.replace("%", "") / 100 || 1;
+    el.innerHTML = `<div class="dk-sayfa">
+      <div class="dk-bas"><span>KAMPANYA MOLASI</span><span>${S ? S.daysLeft + ". GÜN" : ""}</span></div>
+      <div class="dk-baslik">${S && S.me ? esc(S.me.name) : "Seçim 2027"}</div>
+      <div class="dk-alt">${S && S.me ? esc(S.me.leader) + " · %" + f1(S.share) : ""}</div>
+      <button class="btn" id="dk-devam">Kampanyaya Dön</button>
+      <div class="dk-satir"><span>SES</span><button class="dk-anahtar${audioOn ? " on" : ""}" id="dk-ses" role="switch" aria-checked="${audioOn}">${audioOn ? "AÇIK" : "KAPALI"}</button></div>
+      <div class="dk-satir"><span>YAZI BOYUTU</span><span class="dk-yb">${YAZI_OLCEKLERI.map(
+        (o, i) =>
+          `<button data-o="${o}" class="${Math.abs(o - yb) < 0.01 ? "on" : ""}" style="font-size:${[0.85, 1.05, 1.3][i]}rem" aria-label="Yazı boyutu ${i + 1}">A</button>`,
+      ).join("")}</span></div>
+      <div class="dk-linkler">
+        <button id="dk-rozet">Rozetler</button>
+        <button id="dk-ipuc">İpuçlarını sıfırla</button>
+      </div>
+      <button class="btn ghost" id="dk-cik">Ana Menüye Dön</button>
+      <div class="dk-not">Kampanyanız kaydedilir, kaldığınız günden devam edersiniz.</div>
+    </div>`;
+    el.querySelector("#dk-devam").onclick = duraklatKapat;
+    el.querySelector("#dk-ses").onclick = () => {
+      toggleAudio();
+      ciz();
+    };
+    el.querySelectorAll(".dk-yb button").forEach((b) => {
+      b.onclick = () => {
+        yaziBoyutuUygula(b.dataset.o, true);
+        ciz();
+      };
+    });
+    el.querySelector("#dk-rozet").onclick = rozetAc;
+    el.querySelector("#dk-ipuc").onclick = ipucSifirla;
+    el.querySelector("#dk-cik").onclick = () => {
+      duraklatKapat();
+      quitToTitle();
+    };
+  };
+  ciz();
+  haptic(8);
+  sfx("paper");
+  requestAnimationFrame(() => el.classList.add("open"));
+}
+function duraklatKapat() {
+  const el = document.getElementById("duraklat");
+  if (el) el.classList.remove("open");
+}
 function backToTitle() {
   showScreen("screen-title");
   refreshTitle();
@@ -30950,7 +31924,7 @@ function drawSelectCard() {
     <span class="portrait pt-lg" style="color:${p.color}"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#${partyIco(p)}"/></svg></span>
     <span class="pc-id">
       <h3 style="color:${p.color}">${p.name}</h3>
-      <div class="leader"><b>LİDER:</b> ${esc(playerLeaderName(PLAYER_NAME, p))}</div>
+      <div class="leader"><b>LİDER</b><span>${esc(playerLeaderName(PLAYER_NAME, p))}</span></div>
     </span>
   </div>
   <div class="members">${p.members}</div>
@@ -30958,7 +31932,8 @@ function drawSelectCard() {
   <div>${p.tags.map((t) => `<span class="chip">${t}</span>`).join("")}</div>
   <div class="pbar"><i style="background:${p.color};width:${p.base * 2.2}%"></i></div>
   <div class="baseline">BAŞLANGIÇ ANKETİ: %${f1(p.base)}</div>
-  <div class="goal">${goalTxt}</div>`;
+  <div class="goal">${goalTxt}</div>
+  <div class="pc-sec" aria-hidden="true">Bu İttifakla Başla →</div>`;
   const go = () =>
     ask(
       p.name + " ile başlansın mı?",
@@ -31971,8 +32946,8 @@ function drawWeekBoard() {
   const body = document.getElementById("d-body");
   const fund = Math.round(S.stats.but);
   body.innerHTML = `
-  <div class="week-head-note">Kurmaylar masada. Bu hafta enerjinizi nereye vereceksiniz? <b>En fazla 2 hamle</b> seçin. Bütçeyi yalnızca kampanya lojistiği harcar; vaatler bedavadır.</div>
-  <div class="week-budget">KASA: ${fund} M₺ &nbsp;·&nbsp; SEÇİLEN: <span id="wk-sel">0</span>/2</div>
+  <div class="wk-ozet"><span class="wk-oz"><small>KASA</small><b>${fund} M₺</b></span><span class="wk-oz"><small>HAMLE</small><b><span id="wk-sel">0</span>/2</b></span></div>
+  ${ilkHafta() ? `<div class="week-head-note">Bu hafta en fazla <b>2 hamle</b> seçin. Kasadan yalnızca hamleler harcar.</div>` : ""}
   ${takvimSatiri()}
   <div id="region-slot"></div>
   <div id="oneri-slot"></div>
@@ -32166,7 +33141,7 @@ function confirmWeek() {
   mitingSeridiGuncelle();
   const body = document.getElementById("d-body");
   body.innerHTML = `<div class="stamp-anim plan-damga">PLAN ONAYLANDI</div>
-  <div class="o-narr">Hafta planı masaya kondu; ekip görev dağılımını yaptı. Şimdi günün gündemine bakalım.</div>
+  <div class="o-narr">Plan masada, ekip görev dağılımını yaptı. Haftanın toplam etkisi:</div>
   <div class="fx-list">${fxChips(applied)}</div>
   <button class="btn" id="wk-next">Günün Gündemi →</button>
   <div class="dokun-ipucu">veya kartın boş bir yerine dokunun</div>`;
@@ -32436,7 +33411,8 @@ function renderDailyEvent() {
     if (mergedFx(o).risk)
       tag += `<span class="o-promise o-risk${ev.twist ? " o-twist" : ""}"><svg class="inl-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dice"/></svg> ${ev.twist ? "BÜYÜK KUMAR · ETKİ 2,5 KAT" : "KUMAR"} · BAŞARI İHTİMALİ %${Math.round(riskChance() * 100)}</span>`;
     b.innerHTML =
-      `<span class="o-title">${["I.", "II.", "III.", "IV.", "V.", "VI."][i] || i + 1 + "."} ${optText(o)}</span>` +
+      `<span class="o-no" aria-hidden="true">${["I", "II", "III", "IV", "V", "VI"][i] || i + 1}</span>` +
+      `<span class="o-title">${optText(o)}</span>` +
       `<span class="o-desc">${optDesc(o)}</span>${fxHint(o)}` +
       (tag ? `<span class="o-tags">${tag}</span>` : "");
     b.onclick = () => chooseOpt(ev, o);
@@ -32840,13 +33816,29 @@ function applyFx(fx, mult) {
   return applied;
 }
 function fxChips(a) {
-  if (!a.length) return `<span class="fx">Kayda değer değişim yok</span>`;
-  return a
-    .map(
-      (x) =>
-        `<span class="fx ${x.v >= 0 ? "up" : "dn"}">${x.k} ${x.v > 0 ? "+" : ""}${("" + x.v).replace(".", ",")}${x.unit || ""}</span>`,
-    )
-    .join("");
+  /* Aynı kalem birden çok kez geldiyse (iki hamle, çark cezası…) tek satırda toplanır */
+  const m = new Map();
+  a.forEach((x) => {
+    if (x.k === "-" || !x.v) return;
+    const anahtar = x.k + "|" + (x.unit || "");
+    const e = m.get(anahtar);
+    if (e) e.v += x.v;
+    else m.set(anahtar, { k: x.k, v: x.v, unit: x.unit || "" });
+  });
+  const l = [...m.values()]
+    .map((x) => ({ ...x, v: Math.round(x.v * 10) / 10 }))
+    .filter((x) => x.v);
+  if (!l.length) return `<div class="fx-bos">Kayda değer bir değişim olmadı.</div>`;
+  return (
+    `<div class="fx-defter">` +
+    l
+      .map(
+        (x) =>
+          `<div class="fxr ${x.v >= 0 ? "up" : "dn"}"><span class="fxk">${x.k}</span><i aria-hidden="true"></i><span class="fxv">${x.v > 0 ? "+" : "−"}${("" + Math.abs(x.v)).replace(".", ",")}${x.unit || ""}</span></div>`,
+      )
+      .join("") +
+    `</div>`
+  );
 }
 const NARR_CAT = {
   EKONOMİ: {
@@ -34340,16 +35332,44 @@ function oneriBolge() {
   });
   return en;
 }
+/* Miting aşamasında haritanın altında bölge şeridi: küçük bölgelere
+   parmakla isabet etmek zor, liste aynı seçimi tek dokunuşla yaptırır. */
+function mitingListeCiz() {
+  const el = document.getElementById("miting-liste");
+  if (!el) return;
+  const acik = !!mitingAsama && mitingKipi();
+  el.hidden = !acik;
+  if (!acik) {
+    el.innerHTML = "";
+    return;
+  }
+  const oneri = oneriBolge();
+  const sira = RK.slice().sort((a, b) => (b === oneri) - (a === oneri) || REGION_WEIGHT[b] - REGION_WEIGHT[a]);
+  el.innerHTML = sira
+    .map((k) => {
+      const n = mitingSayisi(k);
+      return `<button class="ml-b${k === oneri ? " oneri" : ""}${weekPick.region === k ? " secili" : ""}" data-r="${k}">
+        <span class="ml-ad">${REGION_KEYS[k]}</span>
+        <span class="ml-oy">%${Math.round(bolgePayim(k))}</span>
+        <span class="ml-alt">${k === oneri ? "FIRSAT · " : ""}AĞIRLIK %${Math.round(REGION_WEIGHT[k] * 100)}${n ? " · " + n + ". MİTİNG SONRASI" : ""}</span>
+      </button>`;
+    })
+    .join("");
+  el.querySelectorAll(".ml-b").forEach((b) => {
+    b.onclick = () => bolgeSec(b.dataset.r);
+  });
+}
 function mitingSeridiGuncelle() {
   const g = document.getElementById("map-ground"),
     s = document.getElementById("miting-serit");
   const acik = mitingKipi();
   const atla = document.getElementById("miting-atla");
   if (atla) atla.hidden = !mitingAsama;
+  mitingListeCiz();
   if (g) g.classList.toggle("miting-kipi", acik);
   if (s) {
-    s.hidden = !acik;
     const secili = acik && weekPick.sel.indexOf("rally") >= 0 && weekPick.region;
+    s.hidden = !(acik && (mitingAsama || secili));
     const kez = secili ? mitingSayisi(weekPick.region) : 0;
     s.textContent = secili
       ? "MİTİNG · " +
@@ -34491,6 +35511,7 @@ function haritaJestKur() {
     return (
       t.closest("#stage") ||
       t.closest("#region-card") ||
+      t.closest("#miting-liste") ||
       t.closest("#map-reset") ||
       t.closest("#map-katman") ||
       t.closest("button")
@@ -36774,7 +37795,7 @@ function showEnd() {
   b.className = "btn";
   if (coalAv) {
     b.id = "btn-coalition";
-    b.textContent = coalAv.mode === "chase" ? "2. Tur: Kapıları Çal ▸" : "2. Tur: Kilit Masasına Otur ▸";
+    b.textContent = coalAv.mode === "chase" ? "2. Tur: Kapıları Çal ▸" : "2. Tur: Masaya Otur ▸";
     b.onclick = startCoalition;
   } else {
     const oneri = baskaIttifakOnerisi();

@@ -56,3 +56,21 @@ Kural: Ekranda en fazla bir kızıl ana eylem. Altın yalnızca "siz".
 ## Uygulama
 Tüm yeni stil `index.html` sonundaki "SANAT YÖNETİMİ KATMANI" bölümüne yazılır.
 Eski katmanlardaki çakışan kurallar o bölümden ezilir; yeni ekranlar önce bu rehbere bakar.
+
+## Bileşen kuralları (Grafik Tasarım Katmanı 3)
+`index.html` sonundaki "GRAFİK TASARIM KATMANI 3" bölümü bu kuralları uygular.
+
+- **Hiyerarşi kutuyla değil çizgiyle kurulur.** Kutu (çerçeve + dolgu + gölge) yalnız dokunulabilir
+  karar öğelerine verilir: olay seçenekleri, ana eylem düğmesi. Bilgi satırları ince çizgiyle ayrılır.
+- **Olay kartı:** giriş metni kutusuz, düz (italik değil) ve mürekkep renginde okunur. Seçenekte Roma
+  rakamı ayrı sütunda ve kızıl; başlık koyu mürekkep 600; açıklama ikinci renk ve bir kademe küçük;
+  etki okları noktalı çizginin altında.
+- **Sonuç:** etkiler rozet yığını değil hesap defteri satırıdır (kalem … noktalı kılavuz … değer).
+  Aynı kalem tek satırda toplanır. Artı yeşil, eksi kızıl; değer Plex Mono 600.
+- **Haftalık plan:** hamleler kart değil liste satırıdır (simge · ad + açıklama · bedel). Seçili satır
+  kızıl zemin tonu ve "SEÇİLDİ" notu alır. Onay şeridi kartın altına tam oturur.
+- **Canlı yayın:** sahne koyu bir ekran çerçevesidir; konuşan liderin adı kızıl altyazı bandında durur.
+- **Bildirim** üstten iner; hiçbir zaman seçeneklerin üstünü kapatmaz.
+- **Menü düğmesi** oyundan çıkarmaz, "Kampanya Molası" sayfasını açar.
+- Bir ekranda en fazla bir kızıl dolu düğme kuralı açılış ekranı için de geçerlidir: kayıt varsa
+  "Devam Et" kızıl, "Yeni Kampanya" çerçevelidir.
