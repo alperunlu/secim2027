@@ -37362,7 +37362,7 @@ function projeKartiAc(k) {
         <span><b>${esc(YAPI_TUR[t].ad)}</b>${rozet.join("")}</span></button>`;
     })
     .join("");
-  kart.innerHTML = `<div class="pk-baslik"><span>${temel ? "TEMEL ATMA" : "PROJE SÖZÜ"} · ${esc(REGION_CITY[k].toLocaleUpperCase("tr"))}</span><button class="pk-kapat" id="pk-geri">BÖLGE DEĞİŞTİR</button></div>${satirlar}`;
+  kart.innerHTML = `<div class="pk-baslik"><span>${temel ? "TEMEL ATMA" : "PROJE SÖZÜ"} · ${esc(REGION_KEYS[k].toLocaleUpperCase("tr"))}</span><button class="pk-kapat" id="pk-geri">BÖLGE DEĞİŞTİR</button></div>${satirlar}`;
   kart.hidden = false;
   kart.querySelectorAll(".pk-satir").forEach((b) => {
     b.onclick = () => {
