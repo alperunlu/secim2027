@@ -92,3 +92,15 @@ Eski katmanlardaki çakışan kurallar o bölümden ezilir; yeni ekranlar önce 
   kartının üstünde bant olarak görünür. Kart sığmıyorsa gravür kaldırılır.
 - **Yayın paketi** (seçim gecesi) oyunun paletini kullanır: koyu kahve zemin, kâğıt rengi yazı,
   kızıl logo, altın vurgu. Lacivert ve parlak kırmızı yok.
+
+## Mobil okunabilirlik kuralları (tur 4)
+- **Yazı tabanı 11 px (0,69 rem).** Etiketler, künye, düğme altyazıları bunun altına inmez. Harita içi (SVG)
+  yazılar yakınlaştırmaya göre ölçeklenir ve yakında 10,5 px'e denk gelir.
+- **Mono yazı yalnız etiket, sayı ve künyede.** Uzun metin (olay gövdesi, sonuç) Source Serif.
+- **Gravür üç yerde:** sonuç kartında tam genişlik baskı (damga köşesine basılır); özel günlerde (takvim
+  olayı, kriz, skandal, final, büyük kumar) kartın kapağı olarak büyük baskı, "Karar Ver" ile şeride iner;
+  gazetede manşetin fotoğrafı. Sığmıyorsa gravür kaldırılır, karar korunur.
+- **Seçenek fişinde** damga halkası yalnız basılınca görünür; böylece başlık tam genişlik kullanır.
+- **Harita:** uzakta yapılar nokta, yakında çizim, çok yakında okunur levha. Yeni yapı yeri seçilirken
+  bölge adı ve şehir etiketleriyle çakışmayan saha tercih edilir (`sahaCakisma`).
+- **Test:** `regress` (1.205 kart × 4 ölçü), `tasma` (ekran ekran taşma taraması 320–430 genişlik).
