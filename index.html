@@ -37349,23 +37349,17 @@ function projeKartiAc(k) {
   kamAnim(450);
   const mevcut = yapilar().filter((y) => y.r === k && (y.sahip || "ben") === "ben");
   const satirlar = BOLGE_IHTIYAC[k]
-    .slice()
-    .sort((x, y) => yapiDertMi(k, y) - yapiDertMi(k, x))
     .map((t) => {
       const var_ = mevcut.find((y) => y.tur === t);
       const dolu = var_ && !(temel && var_.durum === "vaat");
-      const dert = yapiDertMi(k, t);
-      const E = YAPI_ETKI[t] || { et: "" };
       const ortak = yapiOrtagi(t).find((o) => mevcut.some((y) => y.tur === o && y.durum !== "vaat"));
       const rozet = [];
-      if (dert) rozet.push(`<span class="pk-rozet dert">BÖLGE DERDİ</span>`);
-      else rozet.push(`<span class="pk-rozet">ZAYIF ETKİ</span>`);
       if (var_ && var_.durum === "vaat") rozet.push(`<span class="pk-rozet">SÖZ VERİLDİ</span>`);
       else if (var_) rozet.push(`<span class="pk-rozet">${var_.durum === "tamam" ? "AÇILDI" : "İNŞAATTA"}</span>`);
       if (ortak) rozet.push(`<span class="pk-rozet">+ ${esc(YAPI_TUR[ortak].ad.toLocaleUpperCase("tr"))} BAĞI</span>`);
-      return `<button class="pk-satir${dert ? " dert" : ""}" data-t="${t}"${dolu ? " disabled" : ""}>
+      return `<button class="pk-satir" data-t="${t}"${dolu ? " disabled" : ""}>
         ${projeSimge(t)}
-        <span><b>${esc(YAPI_TUR[t].ad)}</b><small>${esc(dert ? BOLGE_DERT[k][t] : E.et)}</small>${rozet.join("")}</span></button>`;
+        <span><b>${esc(YAPI_TUR[t].ad)}</b>${rozet.join("")}</span></button>`;
     })
     .join("");
   kart.innerHTML = `<div class="pk-baslik"><span>${temel ? "TEMEL ATMA" : "PROJE SÖZÜ"} · ${esc(REGION_CITY[k].toLocaleUpperCase("tr"))}</span><button class="pk-kapat" id="pk-geri">BÖLGE DEĞİŞTİR</button></div>${satirlar}`;
