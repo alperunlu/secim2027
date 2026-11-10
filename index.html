@@ -36293,15 +36293,15 @@ const YAPI_TUR = {
   konut: { ad: "Sosyal Konut", gun: 0.035, seg: "kent" },
   okul: { ad: "Okul ve Yurt", gun: 0.03, seg: "genc" },
   enerji: { ad: "Rüzgâr Santrali", gun: 0.03, seg: "kent" },
-  tarim: { ad: "Lisanslı Depo", gun: 0.03, seg: "ciftci" },
-  koruma: { ad: "Koruma Alanı", gun: 0.025, seg: "kent" },
+  tarim: { ad: "Lojistik Merkezi", gun: 0.03, seg: "ciftci" },
+  koruma: { ad: "Zeytinlik", gun: 0.025, seg: "kent" },
   afet: { ad: "Afet Merkezi", gun: 0.03, seg: "kent" },
   hal: { ad: "Toptancı Hali", gun: 0.03, seg: "esnaf" },
   ofis: { ad: "Saha Ofisi", gun: 0.025, seg: null },
 };
 /* Bölgenin "ihtiyacı": proje türü seçerken önce bunlara bakılır */
 const BOLGE_IHTIYAC = {
-  mar: ["konut", "kopru", "tren", "afet"],
+  mar: ["konut", "kopru", "tren", "hastane"],
   ege: ["koruma", "enerji", "fabrika", "okul"],
   akd: ["hal", "afet", "hastane", "otoyol"],
   ica: ["baraj", "okul", "tren", "fabrika"],
@@ -36525,7 +36525,7 @@ const YAPI_SAHA = {
   ],
   ege: [
     [90, 226, "Manisa", "sehir sanayi"], [98, 292, "Aydın", "sehir ova"], [163, 296, "Denizli", "sehir sanayi"],
-    [128, 334, "Muğla", "kir kiyi"], [64, 204, "Bergama", "tepe kir"], [180, 250, "Uşak", "sehir"],
+    [128, 334, "Muğla", "kir kiyi"], [68, 178, "Edremit", "kir kiyi"], [64, 204, "Bergama", "tepe kir"], [180, 250, "Uşak", "sehir"],
     [210, 190, "Kütahya", "sehir nehir"], [236, 232, "Afyon", "sehir ova"], [124, 258, "Gediz", "nehir ova"],
   ],
   akd: [
@@ -36586,9 +36586,17 @@ function sahaCakisma(n) {
   });
   return c;
 }
+/* Belirli yapı için sabit yer tercihi ("tür@bölge" → saha adı) */
+const YAPI_TERCIH = { "koruma@ege": "Edremit", "hastane@mar": "Tekirdağ", "konut@mar": "Sakarya" };
 function sahaSec(y) {
   const N = YAPI_SAHA[y.r];
   if (!N) return 0;
+  const tercih = YAPI_TERCIH[y.tur + "@" + y.r];
+  if (tercih) {
+    const ti = N.findIndex((n) => n[2] === tercih);
+    const kullanan = yapilar().some((x) => x !== y && x.r === y.r && x.s === ti && x.tur !== "otoyol" && x.tur !== "tren");
+    if (ti >= 0 && !kullanan) return ti;
+  }
   const dolu = new Set(
     yapilar()
       .filter((x) => x !== y && x.r === y.r && typeof x.s === "number" && x.tur !== "otoyol" && x.tur !== "tren")
