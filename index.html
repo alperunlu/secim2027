@@ -8052,6 +8052,719 @@ body:has(#screen-end.active) .notice {
     margin-bottom: 0.8rem;
   }
 }
+
+/* =====================================================================
+   YAŞAYAN HARİTA: yapı simgeleri, mühürler, miting, konvoy, deniz
+   ===================================================================== */
+.yp .yp-cam {
+  fill: #f4ead2 !important;
+  stroke: var(--atlas-murekkep) !important;
+  stroke-width: 0.45 !important;
+}
+.yp .yp-cam.k,
+.yp .yp-dolu {
+  fill: var(--atlas-murekkep) !important;
+  stroke: none !important;
+}
+.yp .yp-kzd {
+  fill: var(--atlas-kizil) !important;
+  stroke: var(--atlas-murekkep) !important;
+  stroke-width: 0.7 !important;
+}
+.yp .yp-tente {
+  fill: none !important;
+  stroke: #f4ead2 !important;
+  stroke-width: 0.8 !important;
+}
+.yp .yp-govde > g {
+  fill: none !important;
+}
+.yp .yp-duman > * {
+  fill: none;
+  stroke: rgba(43, 35, 24, 0.55);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+.yp .yp-pervane path {
+  fill: none;
+  stroke: var(--atlas-murekkep);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+.yp .yp-bayrak {
+  stroke: var(--atlas-murekkep) !important;
+  stroke-width: 0.6 !important;
+}
+.yp-golge {
+  fill: rgba(34, 24, 13, 0.26);
+}
+.yp-levha rect {
+  fill: #f4ead2;
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.6;
+}
+.yp-levha {
+  opacity: 0;
+  transition: opacity 0.28s var(--ad-ease);
+}
+#map-cam[data-yakin="2"] .yp-levha,
+#map-cam[data-yakin="1"] .yp.yeni .yp-levha {
+  opacity: 1;
+}
+.yp-levha .yp-ad {
+  font-size: 5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  stroke: none;
+  opacity: 1;
+}
+.yp-levha .yp-alt {
+  font-family: var(--mono);
+  font-size: 4.2px;
+  letter-spacing: 0.08em;
+  text-anchor: middle;
+  fill: var(--atlas-kizil);
+}
+.yp.rakip .yp-levha rect {
+  stroke: #6c6253;
+}
+.yp.rakip .yp-kzd,
+.yp.rakip .yp-bayrak {
+  fill: #8d8474 !important;
+}
+.yp.vaat .yp-cam,
+.yp.vaat .yp-dolu,
+.yp.vaat .yp-duman,
+.yp.vaat .yp-tente {
+  display: none;
+}
+.yp.vaat .yp-kzd {
+  fill: none !important;
+}
+.yp-iskele {
+  stroke: #b8892b;
+  stroke-width: 0.8;
+}
+.yp-vinc {
+  stroke: var(--atlas-murekkep);
+  stroke-width: 1;
+}
+.yp-vinc-kanca {
+  fill: var(--atlas-kizil);
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.4;
+}
+/* izler: mum mühür */
+.iz-muhur > path:first-child {
+  fill: var(--ad-yesil);
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.45;
+}
+.iz-muhur.neg > path:first-child {
+  fill: var(--atlas-kizil);
+}
+.iz-muhur .iz-im {
+  fill: none;
+  stroke: #f4ead2;
+  stroke-width: 0.95;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.iz-rakip {
+  fill: none;
+  stroke: #6c6253;
+  stroke-width: 1.2;
+  stroke-dasharray: 1.6 1.2;
+}
+/* miting işareti */
+.mp-miting .mt-halka {
+  fill: rgba(168, 68, 47, 0.14);
+  stroke: var(--atlas-kizil);
+  stroke-width: 0.6;
+  stroke-dasharray: 1.6 1.6;
+}
+.mp-miting .mt-nabiz {
+  fill: none;
+  stroke: var(--atlas-kizil);
+  stroke-width: 0.9;
+}
+.mp-miting .mt-k {
+  fill: var(--atlas-murekkep);
+}
+.mp-miting .mt-k.kz {
+  fill: var(--atlas-kizil);
+}
+.mp-miting .mt-kursu,
+.mp-miting .mt-bas {
+  fill: #f4ead2;
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.6;
+}
+.mp-miting .mt-hatip {
+  fill: var(--atlas-murekkep);
+}
+.mp-miting .mt-sap {
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.9;
+}
+.mp-miting .mt-bayrak {
+  fill: var(--atlas-kizil);
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.6;
+}
+.mp-miting .mt-rozet {
+  fill: var(--atlas-kizil);
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.6;
+}
+.mp-miting .mt-sayi {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 5.4px;
+  text-anchor: middle;
+  fill: #f4ead2;
+}
+#map-cam[data-yakin="0"] .mp-miting .mt-k {
+  opacity: 0.6;
+}
+/* konvoy */
+.kv-yol {
+  fill: none;
+  stroke: var(--atlas-kizil);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  stroke-linecap: round;
+  opacity: 0.85;
+}
+.kv-arac rect:first-child {
+  fill: #f4ead2;
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.8;
+}
+.kv-arac .kv-cam {
+  fill: #5f8a80;
+}
+.kv-arac .kv-serit {
+  stroke: var(--atlas-kizil);
+  stroke-width: 1.1;
+}
+.kv-arac circle {
+  fill: var(--atlas-murekkep);
+}
+/* deniz */
+.mp-vapur .vp-govde {
+  fill: var(--atlas-murekkep);
+}
+.mp-vapur .vp-ust {
+  fill: #f4ead2;
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.5;
+}
+.mp-vapur .vp-baca {
+  fill: var(--atlas-kizil);
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.4;
+}
+.mp-vapur .vp-iz {
+  fill: none;
+  stroke: #efe3c8;
+  stroke-width: 0.7;
+  opacity: 0.6;
+}
+.mp-marti {
+  fill: none;
+  stroke: var(--atlas-murekkep);
+  stroke-width: 0.6;
+  opacity: 0.7;
+}
+#mp-canli,
+#mp-dalga {
+  pointer-events: none;
+}
+#map-cam[data-yakin="0"] .mp-marti {
+  opacity: 0;
+}
+@keyframes yp-duman {
+  0% { transform: translateY(2px); opacity: 0; }
+  30% { opacity: 0.9; }
+  100% { transform: translateY(-5px) translateX(3px); opacity: 0; }
+}
+@keyframes yp-dalgalan {
+  0%, 100% { transform: skewY(0deg) scaleX(1); }
+  50% { transform: skewY(-7deg) scaleX(0.92); }
+}
+@keyframes yp-don {
+  to { transform: rotate(360deg); }
+}
+@keyframes yp-yuk {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+@keyframes mt-nabiz {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+@keyframes mp-bulut {
+  from { transform: translateX(-160px); }
+  to { transform: translateX(1160px); }
+}
+@keyframes mp-marti {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(7px, -3px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .yp .yp-duman {
+    animation: yp-duman 3.2s ease-out infinite;
+  }
+  .yp .yp-bayrak,
+  .mp-miting .mt-bayrak {
+    animation: yp-dalgalan 1.7s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: 0 50%;
+  }
+  .yp .yp-pervane {
+    animation: yp-don 5s linear infinite;
+  }
+  .yp .yp-pervane.p2 {
+    animation-duration: 6.4s;
+  }
+  .yp-vinc-yuk {
+    animation: yp-yuk 4.4s ease-in-out infinite;
+  }
+  .mp-miting .mt-nabiz {
+    animation: mt-nabiz 2.4s ease-out infinite;
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+  .mp-bulut {
+    animation: mp-bulut 95s linear infinite;
+  }
+  .mp-bulut.b2 {
+    animation-duration: 130s;
+    animation-delay: -60s;
+  }
+  .mp-marti {
+    animation: mp-marti 5s ease-in-out infinite;
+  }
+  .mp-marti.m1 {
+    animation-delay: -1.7s;
+  }
+  .mp-marti.m2 {
+    animation-delay: -3.1s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mp-bulut {
+    display: none;
+  }
+}
+
+/* =====================================================================
+   BELGE DİLİ: olay, haritaya raptiyelenmiş bir karargâh notudur;
+   seçenekler karar fişidir, karar damgayla verilir.
+   ===================================================================== */
+.dossier-kunye:empty {
+  display: none;
+}
+.dossier-kunye {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0.34rem;
+  padding-top: 0.3rem;
+  border-top: 1.5px solid var(--ad-murekkep);
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.14em;
+  color: var(--ad-murekkep-2);
+  white-space: nowrap;
+}
+#dossier:not(.week-card) .dossier-head {
+  position: relative;
+}
+/* raptiye */
+#dossier:not(.week-card) .dossier-head::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -0.36rem;
+  width: 0.78rem;
+  height: 0.78rem;
+  margin-left: -0.39rem;
+  z-index: 3;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e08a70, #8a2c1c 70%);
+  box-shadow: 1px 3px 3px rgba(20, 14, 6, 0.45);
+  pointer-events: none;
+}
+#dossier:not(.week-card) .dossier-body .brief {
+  font-family: var(--mono) !important;
+  font-size: 0.76rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0 !important;
+}
+/* karar fişi */
+#dossier .opt {
+  grid-template-columns: 1.5rem minmax(0, 1fr) 2.5rem !important;
+  padding-left: 0.85rem !important;
+  background-image: radial-gradient(circle at 0 50%, var(--ad-kagit-2) 0.17rem, transparent 0.2rem) !important;
+  background-size: 0.5rem 0.62rem !important;
+  background-repeat: repeat-y !important;
+  background-position: 0 0.2rem !important;
+  border-left-style: dashed !important;
+}
+#dossier .opt {
+  overflow: hidden;
+}
+#dossier .opt .o-hint,
+#dossier .opt .o-tags,
+#dossier .opt .o-desc {
+  grid-column: 2 / span 2;
+}
+#dossier .opt .o-damga {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+  position: relative;
+  width: 2.3rem;
+  height: 2.3rem;
+  margin-top: 0.05rem;
+}
+#dossier .opt .o-damga i,
+#dossier .opt .o-damga b {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: var(--mono);
+  font-style: normal;
+}
+#dossier .opt .o-damga i {
+  border: 1.5px dashed rgba(43, 35, 24, 0.32);
+  font-size: 0.4rem;
+  letter-spacing: 0.12em;
+  color: rgba(43, 35, 24, 0.42);
+}
+#dossier .opt .o-damga b {
+  border: 3px double #4f3a80;
+  color: #4f3a80;
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  transform: rotate(-14deg) scale(1.22);
+  opacity: 0;
+}
+#dossier .opt.damgali .o-damga i {
+  opacity: 0;
+}
+#dossier .opt.damgali .o-damga b {
+  opacity: 0.92;
+  transform: rotate(-14deg) scale(1);
+  transition:
+    transform 0.2s cubic-bezier(0.3, 1.5, 0.5, 1),
+    opacity 0.1s linear;
+}
+#dossier .options.damgalandi .opt:not(.damgali) {
+  opacity: 0.4;
+  transition: opacity 0.25s var(--ad-ease);
+}
+#dossier .options.damgalandi .opt.damgali {
+  background-color: #efe3c8 !important;
+}
+#dossier.compact .opt .o-damga {
+  width: 2rem;
+  height: 2rem;
+}
+@media (max-width: 350px) {
+  #dossier .opt {
+    grid-template-columns: 1.3rem minmax(0, 1fr) 2rem !important;
+  }
+  #dossier .opt .o-damga {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+}
+
+/* ---- Sahne gravürü ---- */
+.sahne {
+  position: relative;
+  margin: 0 0 0.75rem;
+  border: 1px solid var(--ad-murekkep);
+  background: #eadcb9;
+  aspect-ratio: 390 / 168;
+  overflow: hidden;
+}
+.sahne img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 42%;
+}
+.sahne figcaption {
+  position: absolute;
+  right: 0.3rem;
+  bottom: 0.25rem;
+  padding: 0.05rem 0.4rem;
+  background: rgba(239, 227, 200, 0.86);
+  font-family: var(--font-text, var(--serif));
+  font-style: italic;
+  font-size: 0.62rem;
+  line-height: 1.4;
+  color: var(--ad-murekkep-2);
+}
+/* Sonuç kartında gravür küçük bir baskı olarak solda durur, damga ve not yanında akar */
+#dossier .sahne.yan {
+  float: left;
+  width: 47%;
+  aspect-ratio: 390 / 205;
+  margin: 0.15rem 0.8rem 0.5rem 0;
+  box-shadow: 0 2px 0 rgba(43, 35, 24, 0.2);
+}
+#dossier .sahne.yan img {
+  object-position: 50% 50%;
+}
+#dossier .sahne.yan figcaption {
+  display: none;
+}
+#dossier .sahne.yan ~ .stamp-anim {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.14em !important;
+  padding: 0.2rem 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  white-space: nowrap;
+}
+#dossier .sahne.yan ~ .o-narr {
+  font-size: 0.86rem !important;
+  line-height: 1.45 !important;
+  overflow: hidden;
+  min-height: 3.6rem;
+}
+#dossier .sahne.yan ~ .fx-list {
+  clear: both;
+}
+
+/* =====================================================================
+   YAYIN PAKETİ: seçim gecesi bir haber kanalı ekranı gibi, oyunun paletiyle
+   ===================================================================== */
+#screen-night {
+  padding-bottom: 0 !important;
+}
+.yy-ust {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.5rem 0.9rem 0.3rem;
+}
+.yy-bug {
+  background: #a8442f;
+  color: #efe3c8;
+  padding: 0.28rem 0.5rem 0.3rem;
+  font-family: var(--font-display, var(--serif));
+  font-weight: 900;
+  font-size: 0.95rem;
+  line-height: 1;
+  letter-spacing: 0.03em;
+}
+.yy-bug small {
+  display: block;
+  margin-top: 0.12rem;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.46rem;
+  letter-spacing: 0.22em;
+}
+.yy-canli {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: #efe3c8;
+}
+.yy-canli i {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #d0583f;
+  box-shadow: 0 0 10px #d0583f;
+}
+.yy-saat {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #efe3c8;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+#screen-night .night-head {
+  text-align: left !important;
+  padding: 0.3rem 0.9rem 0 !important;
+}
+#screen-night .night-head h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 10vw, 2.6rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: 0.01em !important;
+  color: #efe3c8 !important;
+  text-align: left;
+}
+#screen-night .night-head h2 span {
+  color: #e8b84b;
+}
+#screen-night .night-head .opened {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0.55rem 0 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.58rem !important;
+  letter-spacing: 0.18em !important;
+  color: #c9b88f !important;
+  text-align: left;
+}
+#screen-night .night-head .opened b {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: #efe3c8;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.yy-duel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.4rem minmax(0, 1fr);
+  margin: 0.5rem 0 0;
+}
+.yy-ad {
+  position: relative;
+  min-height: 5.4rem;
+  padding: 0.5rem 0.5rem 0.5rem 4.3rem;
+  background: linear-gradient(90deg, var(--c), rgba(19, 14, 8, 0.35));
+  border-top: 3px solid #efe3c8;
+  color: #efe3c8;
+}
+.yy-ad.sag {
+  padding: 0.5rem 4.3rem 0.5rem 0.5rem;
+  text-align: right;
+  background: linear-gradient(270deg, var(--c), rgba(19, 14, 8, 0.35));
+}
+.yy-ad.ben {
+  border-top-color: #e8b84b;
+}
+.yy-yuz {
+  position: absolute;
+  left: 0.45rem;
+  top: 0.55rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #efe3c8;
+  background: #efe3c8;
+}
+.yy-ad.sag .yy-yuz {
+  left: auto;
+  right: 0.45rem;
+}
+.yy-yuz svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.yy-ad small {
+  display: block;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.44rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.yy-ad b {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-display, var(--serif));
+  font-weight: 700;
+  font-size: 0.78rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.yy-ad em {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.yy-fark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #130e08;
+  border-top: 3px solid #e8b84b;
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.46rem;
+  letter-spacing: 0.16em;
+  color: #e8b84b;
+}
+.yy-fark b {
+  margin: 0.2rem 0;
+  font-size: 1.15rem;
+  letter-spacing: 0;
+  color: #efe3c8;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.yy-akan {
+  overflow: hidden;
+  background: #130e08;
+  border-top: 1px solid rgba(232, 184, 75, 0.4);
+  border-bottom: 1px solid rgba(232, 184, 75, 0.4);
+  padding: 0.5rem 0;
+  margin: 0 0 0.6rem;
+}
+.yy-akan-ic {
+  display: flex;
+  width: max-content;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: #d9c79e;
+  white-space: nowrap;
+}
+.yy-akan-ic b {
+  color: #e8b84b;
+  font-weight: 600;
+}
+.yy-akan-ic i {
+  font-style: normal;
+  margin: 0 0.9rem;
+  opacity: 0.5;
+}
+@keyframes yy-akan {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .yy-akan-ic {
+    animation: yy-akan 28s linear infinite;
+  }
+}
+#screen-night .night-actions {
+  padding-bottom: 0.9rem;
+}
 </style>
 </head>
 <body>
@@ -8691,6 +9404,7 @@ body:has(#screen-end.active) .notice {
         <div class="stamp-gizli" id="d-stamp">Gizli</div>
         <div class="dossier-head">
           <div class="dossier-cat" id="d-cat">-</div>
+          <div class="dossier-kunye" id="d-kunye"></div>
           <div class="dossier-title" id="d-title">-</div>
         </div>
         <div class="dossier-body" id="d-body"></div>
@@ -8715,19 +9429,22 @@ body:has(#screen-end.active) .notice {
 
 <section id="screen-night" class="screen">
   <div class="breaking" id="breaking"><span class="brk-tag">SON DAKİKA</span><span class="brk-txt" id="brk-txt"></span></div>
+  <div class="yy-ust"><span class="yy-bug">S27<small>HABER</small></span><span class="yy-canli"><i></i>CANLI · ANKARA</span><span class="yy-saat" id="night-clock">18:00</span></div>
   <div class="night-head">
-    <span class="live">● CANLI YAYIN</span>
-    <h2>SEÇİM GECESİ<small>13 HAZİRAN 2027</small></h2>
-    <div class="opened">AÇILAN SANDIK: <span id="opened-pct">%0</span> · SAAT <span id="night-clock">18:00</span></div>
+    <h2>SEÇİM <span>GECESİ</span></h2>
+    <div class="opened"><b id="opened-pct">%0</b><span>SANDIK AÇILDI · 13 HAZİRAN 2027</span></div>
     <div class="night-bar"><i id="night-bar-i"></i></div>
   </div>
   <div class="night-map" id="night-map"></div>
   <div class="map-cap">RENK = BÖLGEDE BİRİNCİ BLOK · RAKAM = SİZİN OYUNUZ</div>
+  <div class="yy-duel" id="yy-duel"></div>
+  <div class="yy-akan" aria-hidden="true"><div class="yy-akan-ic" id="yy-akan"></div></div>
   <div class="results-box" id="night-results"></div>
   <div class="night-actions">
     <button class="btn ghost" id="btn-faster">Sayımı Hızlandır ▸▸</button>
     <button class="btn" id="btn-final" style="display:none" onclick="showEnd()">Sonucu Gör</button>
   </div>
+
 </section>
 
 <section id="screen-debate" class="screen">
@@ -10244,6 +10961,64 @@ const EVENTS = [
           sad: 1,
           sos: -1,
           but: 1,
+        },
+      },
+    ],
+  },
+  {
+    id: "eco_fon",
+    cat: "EKONOMİ",
+    day: 64,
+    once: true,
+    habersiz: true,
+    title: "Fon Krizi",
+    body: "Piyasa kurulu yedi portföy şirketinin fonlarını alım satıma kapattı, yüzden fazla fon tasfiye edilecek. Yarım milyondan fazla küçük yatırımcının parası içeride kaldı. Savcılık soruşturma başlattı, ilk gözaltılar yapıldı. Herkes aynı soruyu soruyor: zararı kim ödeyecek?",
+    partyBody: {
+      devlet:
+        "Piyasa kurulu yedi portföy şirketinin fonlarını alım satıma kapattı, yüzden fazla fon tasfiye edilecek. Yarım milyondan fazla küçük yatırımcının parası içeride kaldı. Savcılık soruşturma başlattı, ilk gözaltılar yapıldı. Muhalefet 'denetleyenler bunca zaman neredeydi?' diye soruyor ve gözler sizde.",
+    },
+    opts: [
+      {
+        t: "Küçük yatırımcının zararı karşılansın",
+        d: "Parası içeride kalanlar rahatlar ama 'batanı vergiyle kurtarıyorlar' denir.",
+        fx: {
+          oy: 0.5,
+          mut: 3,
+          med: -1,
+          reg: {
+            mar: 1.2,
+            ege: 0.8,
+          },
+        },
+        incFx: {
+          but: -6,
+          mut: 1,
+        },
+      },
+      {
+        t: "Meclis araştırması iste, denetleyenler hesap versin",
+        d: "Sorumluların peşine düşersiniz ama piyasa bir süre daha gergin kalır.",
+        partyD: {
+          devlet: "Kendi atadığınız isimler de masaya yatar, teşkilat rahatsız olur.",
+        },
+        fx: {
+          oy: 0.45,
+          med: 3,
+          sad: 2,
+        },
+        incFx: {
+          sad: -4,
+          med: -1,
+        },
+      },
+      {
+        t: "Soruşturmanın sonucunu bekle, piyasayı sakinleştir",
+        d: "Piyasa sakinleşir ama parası içeride kalanlar sizi yanında görmez.",
+        fx: {
+          oy: -0.1,
+          mut: -2,
+          med: 2,
+          sos: -2,
         },
       },
     ],
@@ -12151,7 +12926,7 @@ const DAY1_EVENT = {
   id: "day1",
   cat: "YASAK GÜNÜ",
   title: "Seçim Sessizliği",
-  body: "Propaganda yasağı başladı. Mikrofonlar sustu, meydanlar boşaldı. Artık iş ikna etmekte değil, hesapta: seçmeni sandığa getirmek ve her tutanağı korumak.",
+  body: "Propaganda yasağı başladı. Mikrofonlar sustu, meydanlar boşaldı. İkna zamanı bitti, iş hesaba kaldı: seçmeni sandığa getirmek ve her tutanağı korumak.",
   opts: [
     {
       t: "Sandık organizasyonu son kontrolü",
@@ -32103,7 +32878,7 @@ const DONEM_KARTLARI = [
   {
     id: "sizinti",
     ad: "Sızıntı Mevsimi",
-    d: "Yazışmalar, ses kayıtları, isimsiz hesaplar… Kampanya bir skandal mevsiminde başlıyor.",
+    d: "Yazışmalar, ses kayıtları ve isimsiz hesaplar gündemde. Kampanya skandalların gölgesinde başlıyor.",
     g: { skn: 72 },
     w: { SKANDAL: 2.2, MEDYA: 1.5 },
   },
@@ -32692,9 +33467,10 @@ function donemGoster() {
   cat.textContent = "DÖNEM RAPORU · 100. GÜN";
   cat.className = "dossier-cat";
   document.getElementById("d-title").textContent = "Seçime Giderken Türkiye";
+  belgeKunye(null);
   const g = S.ek.gundem;
   document.getElementById("d-body").innerHTML =
-    `<div class="brief">Kurmay masasına sabah gelen rapor. Bu kampanyanın koşulları bunlar; her kampanya başka bir Türkiye'de başlar.</div>
+    `<div class="brief">Kurmay masasına sabah gelen rapor. Bu kampanya bu koşullarda geçecek.</div>
      <div class="donem-liste">${donemKartlari()
        .map((k, i) => `<div class="donem-kart"><span class="dk-no">${["I", "II"][i]}</span><span><b>${k.ad}</b><small>${k.d}</small></span></div>`)
        .join("")}</div>
@@ -32918,6 +33694,7 @@ function renderWeeklyBoard() {
   wkCat.textContent = `HAFTALIK PLAN · ${wk}. HAFTA`;
   wkCat.className = "dossier-cat";
   document.getElementById("d-title").textContent = "Bu Haftanın Kampanya Planı";
+  belgeKunye(null);
   drawWeekBoard();
   if (mitingAlinabilir()) {
     mitingAsamaBaslat();
@@ -32932,7 +33709,7 @@ function renderWeeklyBoard() {
 function yaklasanTakvim(gun) {
   const d = S.daysLeft;
   return EVENTS.filter(
-    (e) => e.day && e.day < d && e.day >= d - (gun || 7) && !S.usedIds.includes(e.id),
+    (e) => e.day && !e.habersiz && e.day < d && e.day >= d - (gun || 7) && !S.usedIds.includes(e.id),
   ).sort((a, b) => b.day - a.day);
 }
 function takvimSatiri() {
@@ -32995,7 +33772,7 @@ function drawWeekBoard() {
       .filter((id) => !weekPick.sel.includes(id))
       .slice(0, 2 - weekPick.sel.length);
     const ad = oner.map((id) => PLAN_ACTIONS.find((a) => a.id === id).t).join(" + ");
-    os.innerHTML = `<button class="oneri-plan" id="oneri-btn"><span class="op-et">ÖNERİLEN PLAN</span><span class="op-ad">${ad}</span><span class="op-alt">Tek dokunuşla seçin; sonra değiştirebilirsiniz</span></button>`;
+    os.innerHTML = `<button class="oneri-plan" id="oneri-btn"><span class="op-et">ÖNERİLEN PLAN</span><span class="op-ad">${ad}</span><span class="op-alt">Tek dokunuşla seçin, sonra değiştirebilirsiniz</span></button>`;
     document.getElementById("oneri-btn").onclick = () => oner.forEach((id) => toggleWeekPick(id));
   } else if (os) os.innerHTML = "";
   const rs = document.getElementById("region-slot");
@@ -33093,6 +33870,7 @@ function confirmWeek() {
       });
     if (id === "rally") {
       const k = weekPick.region;
+      if (S.ek) S.ek.konvoy = { r: k, g: S.daysLeft };
       const n = mitingSayisi(k);
       const c = mitingCarpan(n);
       const fx = {
@@ -33361,7 +34139,7 @@ function renderDailyEvent() {
   const isCallback = !!(ev.requires && ev.requires.promise);
   const stamp = document.getElementById("d-stamp");
   stamp.style.display = "";
-  const isTakvim = !!ev.day;
+  const isTakvim = !!ev.day && !ev.habersiz;
   stamp.textContent = ev.twist
     ? "Kritik"
     : isCallback
@@ -33380,11 +34158,12 @@ function renderDailyEvent() {
     (ev.cat || "GÜNDEM") + " · " + S.daysLeft + ". GÜN" + (gundemSicak(ev.cat) ? " · GÜNDEMDE" : "");
   catEl.className = "dossier-cat" + (ev.twist ? " twist" : isCrisis ? " crisis" : "");
   document.getElementById("d-title").textContent = tok(ev.title);
+  belgeKunye(ev);
   const body = document.getElementById("d-body");
   let noteHtml = "";
   if (ev.incNote && S.me.incumbent)
     noteHtml = `<div class="brief" style="border-color:var(--red)">${ev.incNote}</div>`;
-  body.innerHTML = `<div class="brief">${eventBody(ev)}</div>${noteHtml}<div class="options"></div>`;
+  body.innerHTML = `${sahneHtml(ev)}<div class="brief">${eventBody(ev)}</div>${noteHtml}<div class="options"></div>`;
   const box = body.querySelector(".options");
   const shown = orderOpts(
     ev,
@@ -33414,8 +34193,17 @@ function renderDailyEvent() {
       `<span class="o-no" aria-hidden="true">${["I", "II", "III", "IV", "V", "VI"][i] || i + 1}</span>` +
       `<span class="o-title">${optText(o)}</span>` +
       `<span class="o-desc">${optDesc(o)}</span>${fxHint(o)}` +
-      (tag ? `<span class="o-tags">${tag}</span>` : "");
-    b.onclick = () => chooseOpt(ev, o);
+      (tag ? `<span class="o-tags">${tag}</span>` : "") +
+      `<span class="o-damga" aria-hidden="true"><i>DAMGA</i><b>ONAY</b></span>`;
+    /* Karar damgayla verilir: fişe dokununca damga iner, sonra sonuç açılır */
+    b.onclick = () => {
+      if (box.classList.contains("damgalandi")) return;
+      box.classList.add("damgalandi");
+      b.classList.add("damgali");
+      haptic([6, 40, 16]);
+      sfx("paper");
+      setTimeout(() => chooseOpt(ev, o), HAREKET_VAR ? 460 : 0);
+    };
     box.appendChild(b);
   });
   const stage = document.getElementById("stage");
@@ -33433,8 +34221,379 @@ function renderDailyEvent() {
      değiştirildi: önce gerçek (dönüşümsüz) boyuta göre karar ver, kartı
      ancak ondan SONRA canlandır. */
   fitDossier();
+  /* Gravür yalnız kart sıkıştırılmadan sığıyorsa kalır */
+  const sah = body.querySelector(".sahne");
+  if (sah && /compact|split/.test(document.getElementById("dossier").className)) {
+    sah.remove();
+    fitDossier();
+  }
   pulseCard();
   if (document.querySelector("#dossier .o-hint")) ipucGoster("serit");
+}
+/* =====================================================================
+   SAHNE GRAVÜRLERİ: olay türüne göre kodla çizilen tek renk baskılar.
+   Her sahne bir kez üretilir, resim olarak önbelleğe alınır.
+   ===================================================================== */
+const SAHNE_ONBELLEK = {};
+const SAHNE_KAT = {
+  AÇILIŞ: "miting", "SON MİTİNG": "miting", BÖLGE: "miting", MEDYA: "studyo", EMEK: "grev", EKONOMİ: "pazar",
+  TARIM: "tarla", GENÇLİK: "kampus", SKANDAL: "basin", RAKİP: "basin", "DIŞ POLİTİKA": "zirve", KRİZ: "karargah",
+  TEŞKİLAT: "karargah", ARAŞTIRMA: "karargah", TOPLUM: "mahalle", FİNAL: "sandik", "YASAK GÜNÜ": "sandik",
+};
+const SAHNE_KELIME = [
+  [/deprem|sel |sel$|yangın|afet|enkaz/i, "afet"],
+  [/meclis|kurultay|yasa|önerge|komisyon|genel kurul/i, "meclis"],
+  [/canlı yayın|ekran|televizyon|röportaj|stüdyo|ortak program/i, "studyo"],
+  [/miting|meydan/i, "miting"],
+  [/grev|işçi|sendika|maden/i, "grev"],
+  [/sandık|oy kullan/i, "sandik"],
+  [/çiftçi|hasat|tarla|fındık|zeytin|kuraklık/i, "tarla"],
+];
+const SAHNE_ALT = {
+  miting: "Meydan, akşamüstü", studyo: "Stüdyo, yayından az önce", grev: "Fabrika kapısı", meclis: "Genel kurul",
+  pazar: "Semt pazarı", tarla: "Ova, hasat zamanı", kampus: "Kampüs girişi", basin: "Basın toplantısı",
+  zirve: "Görüşme salonu", karargah: "Karargâh, gece yarısı", afet: "Çadır kent", mahalle: "Mahalle arası", sandik: "Sandık başı",
+};
+function sahneAdi(ev) {
+  if (!ev) return null;
+  const metin = (ev.title || "") + " " + (ev.id || "");
+  const k = SAHNE_KELIME.find(([re]) => re.test(metin));
+  return k ? k[1] : SAHNE_KAT[ev.cat] || null;
+}
+function sahneCiz(ad) {
+  let tohum = 7 + ad.length * 131 + ad.charCodeAt(0) * 17;
+  const rnd = () => ((tohum = (tohum * 16807) % 2147483647), (tohum - 1) / 2147483646);
+  const R = (a, b) => a + rnd() * (b - a);
+  const I = "#2b2318", K = "#eadcb9", KZ = "#a8442f";
+  const TA = 'fill="url(#sa)"', TB = 'fill="url(#sb)"', TC = 'fill="url(#sc)"', TY = 'fill="url(#sy)"';
+  const bas = `<defs>
+   <pattern id="sa" width="3" height="3" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="3" stroke="${I}" stroke-width=".8"/></pattern>
+   <pattern id="sb" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="3.2" stroke="${I}" stroke-width="1"/><line x1="0" y1="0" x2="3.2" y2="0" stroke="${I}" stroke-width=".5"/></pattern>
+   <pattern id="sc" width="2.6" height="2.6" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)"><rect width="2.6" height="2.6" fill="${K}"/><line x1="0" y1="0" x2="0" y2="2.6" stroke="${I}" stroke-width=".7"/></pattern>
+   <pattern id="sy" width="4" height="4" patternUnits="userSpaceOnUse"><line x1="0" y1="2" x2="4" y2="2" stroke="${I}" stroke-width=".6"/></pattern>
+   <filter id="se"><feTurbulence baseFrequency=".9" numOctaves="2" seed="5"/><feDisplacementMap in="SourceGraphic" scale="1.1"/></filter>
+   <radialGradient id="sg" cx="50%" cy="45%" r="65%"><stop offset="0" stop-color="#f7ecc9"/><stop offset="1" stop-color="#d6c398"/></radialGradient></defs><rect width="390" height="205" fill="url(#sg)"/>`;
+  const gok = (ymax, bos) => {
+    let s = "";
+    for (let y = 5; y < ymax; y += 4) {
+      let x = 0;
+      while (x < 390) {
+        const w = R(18, 70);
+        if (!bos.some(([cx, cy, rx, ry]) => Math.hypot((x + w / 2 - cx) / rx, (y - cy) / ry) < 1))
+          s += `<line x1="${x.toFixed(0)}" y1="${y}" x2="${(x + w).toFixed(0)}" y2="${y}"/>`;
+        x += w + R(2, 7);
+      }
+    }
+    return `<g stroke="${I}" stroke-width=".6" opacity=".45">${s}</g>`;
+  };
+  const kisi = (x, y, s, koyu) =>
+    `<path d="M${(x - s * 1.15).toFixed(1)} ${(y + s * 3).toFixed(1)} q${(s * 1.15).toFixed(1)} ${(-s * 2.6).toFixed(1)} ${(s * 2.3).toFixed(1)} 0z" fill="${koyu ? I : "url(#sc)"}" stroke="${I}" stroke-width=".9"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${s.toFixed(1)}" fill="${koyu ? I : K}" stroke="${I}" stroke-width=".9"/>${koyu ? "" : `<path d="M${(x - s).toFixed(1)} ${(y - s * 0.2).toFixed(1)} a${s.toFixed(1)} ${s.toFixed(1)} 0 0 1 ${(s * 2).toFixed(1)} 0" fill="${I}"/>`}`;
+  /* ayakta duran figür: taban y, boy h */
+  const ayakta = (x, y, h, koyu) => {
+    const b = h * 0.13;
+    return `<path d="M${x - h * 0.16} ${y} L${x - h * 0.13} ${y - h * 0.62} Q${x} ${y - h * 0.78} ${x + h * 0.13} ${y - h * 0.62} L${x + h * 0.16} ${y}z" fill="${koyu ? I : "url(#sc)"}" stroke="${I}" stroke-width="1"/><circle cx="${x}" cy="${y - h * 0.86}" r="${b}" fill="${koyu ? I : K}" stroke="${I}" stroke-width="1"/>${koyu ? "" : `<path d="M${x - b} ${y - h * 0.88} a${b} ${b} 0 0 1 ${b * 2} 0" fill="${I}"/>`}`;
+  };
+  const kalabalik = (y0, sira, bosluk, pankart) => {
+    let s = "";
+    for (let r = 0; r < sira; r++) {
+      const y = y0 + r * r * 0.9 + r * 4, sz = 3.2 + r * 0.95, ad2 = sz * 2.25;
+      for (let x = -8 + (r % 2) * ad2 / 2; x < 400; x += ad2) {
+        const jx = x + R(-1.5, 1.5), jy = y + R(-2, 2);
+        if (bosluk && bosluk(jx, jy, r)) continue;
+        s += kisi(jx, jy, sz, rnd() < 0.32);
+        if (pankart && rnd() < pankart && r > 0) {
+          const h = sz * 5, w = sz * 5.2;
+          s += `<line x1="${jx + sz}" y1="${jy}" x2="${jx + sz}" y2="${jy - h}" stroke="${I}" stroke-width="1.2"/><rect x="${jx + sz - w / 2}" y="${jy - h - sz * 2.4}" width="${w}" height="${sz * 2.4}" fill="${rnd() < 0.4 ? KZ : K}" stroke="${I}" stroke-width=".9" transform="rotate(${R(-7, 7).toFixed(1)} ${jx + sz} ${jy - h})"/>`;
+        } else if (!pankart && rnd() < 0.05 && r > 1) {
+          const h = sz * 4.6;
+          s += `<line x1="${jx + sz}" y1="${jy}" x2="${jx + sz + 2}" y2="${jy - h}" stroke="${I}" stroke-width="1.2"/><path d="M${jx + sz + 2} ${jy - h} l${sz * 2.6} ${sz * 0.6} l${-sz * 2.6} ${sz * 1.3}z" fill="${rnd() < 0.6 ? KZ : K}" stroke="${I}" stroke-width=".9"/>`;
+        }
+      }
+    }
+    return s;
+  };
+  const binalar = (taban, ymin, ymax, x0, x1) => {
+    let s = "", x = x0 === undefined ? -6 : x0, i = 0;
+    while (x < (x1 || 400)) {
+      const w = R(22, 46), h = R(ymin, ymax), y = taban - h;
+      s += `<rect x="${x.toFixed(0)}" y="${y.toFixed(0)}" width="${w.toFixed(0)}" height="${(h + 4).toFixed(0)}" ${i % 3 ? TA : TB} stroke="${I}" stroke-width="1.2"/>`;
+      for (let wy = y + 7; wy < taban - 4; wy += 9)
+        for (let wx = x + 4; wx < x + w - 5; wx += 7)
+          if (rnd() < 0.75) s += `<rect x="${wx.toFixed(0)}" y="${wy.toFixed(0)}" width="3" height="5" fill="${rnd() < 0.25 ? I : K}" stroke="${I}" stroke-width=".5"/>`;
+      x += w - 1;
+      i++;
+    }
+    return s;
+  };
+  const zemin = (y, renk) => `<rect y="${y}" width="390" height="${206 - y}" fill="${renk || "#d8c69c"}"/><rect y="${y}" width="390" height="${206 - y}" ${TA} opacity=".18"/>`;
+  const yazi = (x, y, t, boy, renk, ara) => `<text x="${x}" y="${y}" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="${boy}" letter-spacing="${ara || 1}" fill="${renk || I}">${t}</text>`;
+  const S1 = {
+    miting() {
+      let isin = "", fl = "";
+      for (let a = -170; a < -10; a += 6) {
+        const c = Math.cos((a * Math.PI) / 180), s = Math.sin((a * Math.PI) / 180), r2 = R(55, 105);
+        isin += `<line x1="${195 + c * 28}" y1="${104 + s * 28}" x2="${195 + c * r2}" y2="${104 + s * r2}"/>`;
+      }
+      [[0, 78, 220, 62], [390, 74, 236, 60]].forEach(([x1, y1, x2, y2]) => {
+        fl += `<path d="M${x1} ${y1} Q ${(x1 + x2) / 2} ${y1 + 22} ${x2} ${y2}" fill="none" stroke="${I}" stroke-width="1"/>`;
+        for (let t = 0.08; t < 0.95; t += 0.085) {
+          const mx = (x1 + x2) / 2, my = y1 + 22, px = (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * mx + t * t * x2, py = (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * my + t * t * y2;
+          fl += `<path d="M${px - 4} ${py} l8 0 l-4 9z" fill="${Math.round(t * 12) % 2 ? KZ : K}" stroke="${I}" stroke-width=".8"/>`;
+        }
+      });
+      return gok(104, [[110, 34, 70, 18], [300, 24, 60, 13]]) + `<g stroke="${I}" stroke-width=".8" opacity=".5">${isin}</g><circle cx="195" cy="104" r="24" fill="#f7ecc9" stroke="${I}"/>
+      <g filter="url(#se)">${binalar(106, 30, 78)}
+      <g stroke="${I}" stroke-width="1.3"><rect x="58" y="22" width="20" height="86" ${TB}/><path d="M54 22h28l-14-22z" fill="${I}"/><circle cx="68" cy="40" r="7" fill="${K}"/><path d="M68 40v-5M68 40l4 2" fill="none"/></g>
+      ${zemin(106, "#e2d2a8")}${fl}
+      <g stroke="${I}" stroke-width="1.4"><rect x="226" y="64" width="118" height="60" fill="${K}"/><rect x="226" y="64" width="118" height="60" ${TA} opacity=".5"/><rect x="236" y="68" width="98" height="19" fill="${KZ}"/>
+       <path d="M214 124h142l8 14h-158z" ${TB}/><rect x="206" y="138" width="158" height="9" fill="${I}"/><rect x="276" y="106" width="20" height="20" fill="${K}"/><rect x="276" y="106" width="20" height="20" ${TB}/>
+       <circle cx="286" cy="96" r="5.5" fill="${K}"/><path d="M276 107q10-14 20 0z" fill="${I}"/><path d="M293 103l13-12" stroke-width="3" stroke-linecap="round"/><rect x="230" y="104" width="14" height="20" fill="${I}"/><rect x="326" y="104" width="14" height="20" fill="${I}"/></g>
+      ${yazi(285, 82, "SÖZ SENDE", 11, K)}${kalabalik(140, 8, (x, y, r) => r < 3 && x > 198 && x < 372)}</g>`;
+    },
+    studyo() {
+      let isik = "", kam = "";
+      [60, 130, 195, 260, 330].forEach((x) => {
+        isik += `<path d="M${x - 7} 20 L${x - 34} 150 L${x + 34} 150 L${x + 7} 20z" ${TY} opacity=".32"/><g stroke="${I}" stroke-width="1.1"><line x1="${x}" y1="8" x2="${x}" y2="14"/><path d="M${x - 8} 14h16l3 8h-22z" fill="${I}"/><ellipse cx="${x}" cy="22" rx="10" ry="2.4" fill="${K}"/></g>`;
+      });
+      [[52, 150, 1.25], [330, 146, 1.15]].forEach(([x, y, s]) => {
+        kam += `<g transform="translate(${x},${y}) scale(${s})" stroke="${I}" stroke-width="1.2"><path d="M0 0l-13 44M0 0l13 44M0 0v46" fill="none"/><rect x="-16" y="-18" width="30" height="18" fill="${I}"/><rect x="14" y="-14" width="12" height="10" ${TB}/><rect x="-10" y="-25" width="14" height="7" fill="${K}"/><circle cx="-24" cy="-10" r="7" fill="${K}"/><path d="M-36 18q12-26 24 0v28h-24z" fill="${I}"/><path d="M-30 -10a6 6 0 0 1 12 0" fill="${I}"/></g>`;
+      });
+      const kursu = (x, ayna) => `<g transform="translate(${x},0) scale(${ayna ? -1 : 1},1)" stroke="${I}" stroke-width="1.3"><path d="M-17 150v-34l6-6h22l6 6v34z" fill="${K}"/><path d="M-17 150v-34l6-6h22l6 6v34z" ${TA} opacity=".6"/><rect x="-9" y="122" width="18" height="10" fill="${KZ}"/>
+        <circle cx="0" cy="84" r="8" fill="${K}"/><path d="M-8 82a8 8 0 0 1 16 -1 l-3 -1 q-5 -5 -11 0z" fill="${I}"/><path d="M-14 112q14-28 28 0z" fill="${I}"/><path d="M-2 98l2 9 2-9z" fill="${KZ}" stroke-width=".6"/><path d="M12 104l14-8" stroke-width="3.2" stroke-linecap="round"/><line x1="5" y1="110" x2="9" y2="98"/><circle cx="9.5" cy="97" r="2" fill="${I}"/></g>`;
+      return `<rect width="390" height="150" ${TA} opacity=".22"/><g filter="url(#se)"><rect y="0" width="390" height="10" fill="${I}"/><path d="M0 12h390" stroke="${I}" stroke-width="2"/>${isik}
+      <g stroke="${I}" stroke-width="1.4"><rect x="118" y="34" width="154" height="74" fill="${I}"/><rect x="124" y="40" width="142" height="62" fill="${K}"/><rect x="124" y="40" width="142" height="62" ${TY} opacity=".35"/>
+       <rect x="20" y="52" width="76" height="46" ${TB}/><rect x="294" y="52" width="76" height="46" ${TB}/><rect x="26" y="58" width="64" height="34" fill="${K}"/><rect x="300" y="58" width="64" height="34" fill="${K}"/>
+       <path d="M32 86l10-14 9 8 12-16 14 22z" fill="none"/><path d="M306 86v-20M316 86v-12M326 86v-24M336 86v-8M346 86v-16M356 86v-22" stroke-width="4"/></g>
+      ${yazi(195, 68, "SEÇİM", 19)}${yazi(195, 90, "2027", 19, KZ)}
+      <path d="M0 150h390v56h-390z" fill="#d8c69c"/><path d="M0 150h390" stroke="${I}" stroke-width="1.6"/>${Array.from({ length: 16 }, (_, i) => `<path d="M${195 + (i - 7.5) * 10} 150 L${195 + (i - 7.5) * 46} 206" stroke="${I}" stroke-width=".6" opacity=".5"/>`).join("")}<path d="M0 168h390M0 190h390" stroke="${I}" stroke-width=".6" opacity=".5"/>
+      ${kursu(128, false)}${kursu(262, true)}
+      <g stroke="${I}" stroke-width="1.2"><path d="M178 150v-22h34v22z" fill="${K}"/><path d="M178 128h34" stroke-width="2"/><circle cx="195" cy="110" r="6.5" fill="${K}"/><path d="M185 128q10-16 20 0z" ${TB}/></g>
+      ${kam}${kalabalik(186, 3, (x) => x < 96 || x > 292)}</g>`;
+    },
+    grev() {
+      let duman = "", cit = "";
+      [[96, 30], [150, 18], [300, 36]].forEach(([x, y]) => {
+        for (let i = 0; i < 7; i++) duman += `<circle cx="${x + i * 9 + R(-3, 3)}" cy="${y - i * 3.5 + R(-2, 2)}" r="${6 + i * 1.9}" fill="${K}" stroke="${I}" stroke-width=".9"/>`;
+      });
+      for (let x = 0; x < 390; x += 9) {
+        if (x > 150 && x < 240) continue;
+        cit += `<path d="M${x} 128v-22l3-4 3 4v22" fill="${K}" stroke="${I}" stroke-width=".9"/>`;
+      }
+      return gok(92, [[130, 20, 80, 16], [330, 26, 60, 14]]) + `<g filter="url(#se)">${duman}
+      <g stroke="${I}" stroke-width="1.3">
+       <rect x="84" y="30" width="13" height="74" fill="${K}"/><rect x="90" y="30" width="7" height="74" ${TB}/><rect x="138" y="18" width="15" height="86" fill="${K}"/><rect x="146" y="18" width="7" height="86" ${TB}/><rect x="290" y="36" width="12" height="68" fill="${K}"/><rect x="296" y="36" width="6" height="68" ${TB}/>
+       <path d="M-4 128v-42l34-20v20l34-20v20l34-20v20l34-20v20l34-20v62z" fill="${K}"/><path d="M-4 128v-42l34-20v20l34-20v20l34-20v20l34-20v20l34-20v62z" ${TA} opacity=".55"/>
+       <rect x="232" y="62" width="162" height="66" fill="${K}"/><rect x="232" y="62" width="162" height="66" ${TB} opacity=".6"/>
+       ${Array.from({ length: 9 }, (_, i) => `<rect x="${240 + i * 17}" y="72" width="10" height="14" fill="${i % 3 == 1 ? I : K}"/><rect x="${240 + i * 17}" y="94" width="10" height="14" fill="${i % 4 == 2 ? I : K}"/>`).join("")}
+       ${Array.from({ length: 7 }, (_, i) => `<rect x="${6 + i * 24}" y="98" width="14" height="12" fill="${i % 2 ? K : I}"/>`).join("")}
+       <rect x="150" y="96" width="90" height="34" fill="${I}"/><path d="M150 96l-6-10h102l-6 10" fill="${K}"/>
+       ${Array.from({ length: 9 }, (_, i) => `<line x1="${156 + i * 10}" y1="100" x2="${156 + i * 10}" y2="130" stroke="${K}" stroke-width="1.6"/>`).join("")}<path d="M152 112h86" stroke="${K}" stroke-width="1.6"/></g>
+      ${zemin(128)}${cit}
+      <g stroke="${I}" stroke-width="1.2"><rect x="24" y="140" width="16" height="22" ${TB}/><path d="M26 140q2-12 6-6q3-10 6 0q4-6 0 6z" fill="${KZ}"/></g>
+      ${kalabalik(160, 6, null, 0.05)}
+      <g stroke="${I}" stroke-width="1.2"><rect x="132" y="132" width="126" height="20" fill="${KZ}"/><line x1="132" y1="132" x2="132" y2="176"/><line x1="258" y1="132" x2="258" y2="176"/></g>${yazi(195, 147, "GREVDEYİZ", 13, K, 2)}</g>`;
+    },
+    meclis() {
+      let sira = "";
+      for (let r = 0; r < 7; r++) {
+        const ry = 20 + r * 13, rx = 70 + r * 46, cy = 98 + r * 2, adet = 9 + r * 4, sz = 2.6 + r * 0.75;
+        sira += `<path d="M${195 - rx} ${cy} A${rx} ${ry} 0 0 0 ${195 + rx} ${cy}" fill="none" stroke="${I}" stroke-width="${1 + r * 0.25}"/>`;
+        for (let i = 0; i < adet; i++) {
+          const t = Math.PI * (0.06 + (0.88 * i) / (adet - 1)), x = 195 - Math.cos(t) * rx, y = cy + Math.sin(t) * ry;
+          if (x < -6 || x > 396 || y > 214) continue;
+          sira += kisi(x, y - sz * 1.6, sz, rnd() < 0.35);
+        }
+      }
+      const sutun = (x) => `<g stroke="${I}" stroke-width="1"><rect x="${x - 5}" y="18" width="10" height="62" fill="${K}"/><rect x="${x + 1}" y="18" width="4" height="62" ${TA}/><rect x="${x - 7}" y="14" width="14" height="5" fill="${I}"/><rect x="${x - 7}" y="78" width="14" height="4" fill="${I}"/></g>`;
+      return `<rect width="390" height="100" ${TA} opacity=".2"/><g filter="url(#se)"><rect width="390" height="13" fill="${I}"/>${[26, 70, 114, 276, 320, 364].map(sutun).join("")}
+      <g stroke="${I}" stroke-width="1.2">${[36, 58, 80, 298, 320, 342].map((x) => kisi(x + 6, 40, 3.2, rnd() < 0.4)).join("")}<path d="M16 50h108M266 50h108" stroke-width="2.4"/>${Array.from({ length: 12 }, (_, i) => `<line x1="${20 + i * 9}" y1="50" x2="${20 + i * 9}" y2="60"/><line x1="${270 + i * 9}" y1="50" x2="${270 + i * 9}" y2="60"/>`).join("")}<path d="M16 60h108M266 60h108"/></g>
+      <g stroke="${I}" stroke-width="1.3"><rect x="140" y="16" width="110" height="64" fill="${K}"/><rect x="140" y="16" width="110" height="64" ${TY} opacity=".35"/><circle cx="195" cy="42" r="17" fill="${K}"/><circle cx="195" cy="42" r="13" fill="none" stroke-width=".7"/><path d="M195 31l3 8h8l-6.5 5 2.5 8-7-5-7 5 2.5-8-6.5-5h8z" fill="${I}" stroke-width=".8"/>
+       <rect x="150" y="80" width="90" height="12" ${TB}/><rect x="168" y="68" width="54" height="14" fill="${I}"/>${[178, 195, 212].map((x) => `<circle cx="${x}" cy="62" r="4" fill="${K}"/><path d="M${x - 6} 70q6-9 12 0z" fill="${I}"/>`).join("")}
+       <path d="M178 112v-18h34v18z" fill="${K}"/><rect x="186" y="98" width="18" height="9" fill="${KZ}"/><circle cx="195" cy="84" r="5.2" fill="${K}"/><path d="M186 95q9-13 18 0z" fill="${I}"/><path d="M202 91l11-10" stroke-width="2.8" stroke-linecap="round"/></g>
+      <rect y="92" width="390" height="120" fill="#d8c69c" opacity=".55"/>${sira}</g>`;
+    },
+    pazar() {
+      const tezgah = (x, w, kz) => {
+        let s = `<g stroke="${I}" stroke-width="1.2"><line x1="${x + 4}" y1="92" x2="${x + 4}" y2="150"/><line x1="${x + w - 4}" y1="92" x2="${x + w - 4}" y2="150"/><path d="M${x - 6} 96 L${x + 6} 70 H${x + w - 6} L${x + w + 6} 96z" fill="${K}"/>`;
+        for (let i = 0; i < 6; i++) if (i % 2 === 0) s += `<path d="M${x - 6 + ((w + 12) / 6) * i} 96 L${x + 6 + ((w - 12) / 6) * i} 70 H${x + 6 + ((w - 12) / 6) * (i + 1)} L${x - 6 + ((w + 12) / 6) * (i + 1)} 96z" fill="${kz ? KZ : I}" stroke="none"/>`;
+        s += `<path d="M${x - 6} 96 q${(w + 12) / 12} 7 ${(w + 12) / 6} 0 q${(w + 12) / 12} 7 ${(w + 12) / 6} 0 q${(w + 12) / 12} 7 ${(w + 12) / 6} 0 q${(w + 12) / 12} 7 ${(w + 12) / 6} 0 q${(w + 12) / 12} 7 ${(w + 12) / 6} 0 q${(w + 12) / 12} 7 ${(w + 12) / 6} 0" fill="none"/>`;
+        s += `<rect x="${x - 2}" y="132" width="${w + 4}" height="22" fill="${K}"/><rect x="${x - 2}" y="132" width="${w + 4}" height="22" ${TA} opacity=".5"/>`;
+        for (let i = 0; i < 3; i++) {
+          const cx = x + 4 + i * ((w - 8) / 3);
+          s += `<rect x="${cx}" y="122" width="${(w - 8) / 3 - 3}" height="11" fill="${K}"/>`;
+          for (let j = 0; j < 4; j++) s += `<circle cx="${cx + 4 + j * (((w - 8) / 3 - 9) / 3)}" cy="${121 - (j % 2) * 3}" r="3.4" fill="${(i + j) % 3 ? K : kz ? KZ : I}"/>`;
+        }
+        s += `<rect x="${x + w / 2 - 8}" y="104" width="16" height="10" fill="${K}"/><path d="M${x + w / 2 - 5} 109h10" stroke-width=".8"/><line x1="${x + w / 2}" y1="96" x2="${x + w / 2}" y2="104" stroke-width=".7"/></g>`;
+        return s + ayakta(x + w / 2 + R(-8, 8), 132, 34, rnd() < 0.5);
+      };
+      let alici = "";
+      for (let i = 0; i < 9; i++) {
+        const x = 20 + i * 44 + R(-8, 8), h = R(52, 64);
+        alici += ayakta(x, 204, h, i % 3 === 0) + `<path d="M${x + h * 0.16} ${204 - h * 0.42} v${h * 0.16}" stroke="${I}" stroke-width="1"/><path d="M${x + h * 0.08} ${204 - h * 0.26} h${h * 0.18} l-2 ${h * 0.14} h-${h * 0.18 - 4}z" fill="${i % 2 ? K : KZ}" stroke="${I}" stroke-width="1"/>`;
+      }
+      return gok(58, [[90, 22, 60, 12], [290, 30, 70, 14]]) + `<g filter="url(#se)">${binalar(72, 26, 58)}${zemin(72, "#e2d2a8")}
+      <path d="M0 62 Q195 50 390 62" fill="none" stroke="${I}" stroke-width=".8"/>${Array.from({ length: 13 }, (_, i) => `<circle cx="${12 + i * 30.5}" cy="${62 - Math.sin((i / 12) * Math.PI) * 6 + 3}" r="2.4" fill="${i % 2 ? K : KZ}" stroke="${I}" stroke-width=".7"/>`).join("")}
+      ${tezgah(14, 104, true)}${tezgah(142, 104, false)}${tezgah(270, 106, true)}${zemin(154)}${alici}</g>`;
+    },
+    tarla() {
+      let iz = "", balya = "", dag = "M0 92";
+      for (let x = 0; x <= 390; x += 26) dag += ` L${x} ${92 - R(8, 44) * (0.5 + Math.sin((x / 390) * Math.PI) * 0.5)}`;
+      dag += " L390 92z";
+      for (let i = -14; i <= 14; i++) iz += `<path d="M${195 + i * 6} 100 L${195 + i * 46} 206" stroke="${I}" stroke-width="${i % 2 ? 0.7 : 1.3}" opacity="${i % 2 ? 0.45 : 0.8}"/>`;
+      [[60, 150, 11], [112, 176, 15], [320, 142, 10], [280, 188, 17]].forEach(([x, y, r]) => {
+        balya += `<ellipse cx="${x + 3}" cy="${y + r}" rx="${r * 1.2}" ry="${r * 0.3}" fill="${I}" opacity=".25"/><circle cx="${x}" cy="${y}" r="${r}" fill="${K}" stroke="${I}" stroke-width="1.2"/><circle cx="${x}" cy="${y}" r="${r * 0.62}" fill="none" stroke="${I}" stroke-width=".8"/><circle cx="${x}" cy="${y}" r="${r * 0.26}" fill="none" stroke="${I}" stroke-width=".8"/>`;
+      });
+      const ev = (x, w) => `<g stroke="${I}" stroke-width="1.1"><rect x="${x}" y="${92 - w * 0.5}" width="${w}" height="${w * 0.5}" fill="${K}"/><path d="M${x - 2} ${92 - w * 0.5} l${w / 2 + 2} ${-w * 0.36} l${w / 2 + 2} ${w * 0.36}z" fill="${KZ}"/><rect x="${x + w * 0.4}" y="${92 - w * 0.26}" width="${w * 0.2}" height="${w * 0.26}" fill="${I}"/></g>`;
+      return gok(70, [[195, 40, 40, 30], [70, 20, 50, 10]]) + `<circle cx="195" cy="46" r="20" fill="#f7ecc9" stroke="${I}"/><g filter="url(#se)"><path d="${dag}" ${TB} stroke="${I}" stroke-width="1.2"/>
+      ${ev(40, 26)}${ev(72, 20)}${ev(98, 30)}${ev(300, 22)}<g stroke="${I}" stroke-width="1.1"><rect x="134" y="62" width="12" height="30" fill="${K}"/><rect x="140" y="62" width="6" height="30" ${TA}/><path d="M133 62a7 5 0 0 1 14 0z" fill="${I}"/></g>
+      ${Array.from({ length: 5 }, (_, i) => `<g stroke="${I}" stroke-width="1"><line x1="${330 + i * 12}" y1="92" x2="${330 + i * 12}" y2="78"/><circle cx="${330 + i * 12}" cy="72" r="${7 + (i % 2) * 2}" ${TC}/></g>`).join("")}
+      <rect y="92" width="390" height="114" fill="#dcc88f"/><rect y="92" width="390" height="10" ${TA} opacity=".3"/>${iz}${balya}
+      <g transform="translate(206,150)" stroke="${I}" stroke-width="1.4"><rect x="-2" y="-34" width="34" height="22" fill="${KZ}"/><rect x="2" y="-52" width="22" height="20" fill="${K}"/><path d="M6 -48h14v12h-14z" fill="#f7ecc9"/><rect x="32" y="-26" width="22" height="14" fill="${KZ}"/><line x1="46" y1="-26" x2="46" y2="-42"/><circle cx="8" cy="-6" r="15" fill="${I}"/><circle cx="8" cy="-6" r="6" fill="${K}"/><circle cx="46" cy="-2" r="9" fill="${I}"/><circle cx="46" cy="-2" r="3.4" fill="${K}"/><circle cx="13" cy="-42" r="4" fill="${K}"/></g>
+      ${ayakta(150, 172, 42, false)}${ayakta(168, 176, 38, true)}</g>`;
+    },
+    kampus() {
+      let agac = "";
+      [[30, 104, 22], [70, 110, 16], [330, 104, 22], [366, 112, 15]].forEach(([x, y, r]) => {
+        agac += `<g stroke="${I}" stroke-width="1.2"><line x1="${x}" y1="${y + r}" x2="${x}" y2="130"/><circle cx="${x}" cy="${y}" r="${r}" ${TC}/><circle cx="${x - r * 0.4}" cy="${y + r * 0.3}" r="${r * 0.6}" ${TC}/></g>`;
+      });
+      return gok(50, [[195, 20, 80, 14]]) + `<g filter="url(#se)"><g stroke="${I}" stroke-width="1.3">
+       <rect x="64" y="60" width="262" height="70" fill="${K}"/><rect x="64" y="60" width="262" height="70" ${TA} opacity=".35"/>
+       <path d="M110 60 L195 22 L280 60z" fill="${K}"/><path d="M132 56 L195 30 L258 56z" ${TB}/><rect x="104" y="58" width="182" height="8" fill="${I}"/>
+       ${Array.from({ length: 8 }, (_, i) => `<rect x="${116 + i * 21.5}" y="66" width="9" height="58" fill="${K}"/><rect x="${121 + i * 21.5}" y="66" width="4" height="58" ${TA}/>`).join("")}
+       ${Array.from({ length: 3 }, (_, i) => `<rect x="${72 + i * 13}" y="72" width="8" height="14" fill="${i % 2 ? I : K}"/><rect x="${72 + i * 13}" y="98" width="8" height="14" fill="${K}"/><rect x="${290 + i * 13 - 4}" y="72" width="8" height="14" fill="${K}"/><rect x="${290 + i * 13 - 4}" y="98" width="8" height="14" fill="${i % 2 ? K : I}"/>`).join("")}
+       <rect x="180" y="92" width="30" height="38" fill="${I}"/><path d="M96 130h198l10 8h-218zM86 138h218l10 8h-238z" fill="${K}"/><line x1="195" y1="22" x2="195" y2="4"/><path d="M195 4l14 4-14 5z" fill="${KZ}"/></g>
+      ${yazi(195, 51, "ÜNİVERSİTE", 6.5, I, 2)}${agac}${zemin(146)}${kalabalik(158, 6, null, 0.035)}</g>`;
+    },
+    basin() {
+      let logo = "", mik = "", flas = "";
+      for (let y = 20; y < 110; y += 22) for (let x = 14 + ((y / 22) % 2) * 22; x < 390; x += 44) logo += `<rect x="${x}" y="${y}" width="26" height="12" fill="none" stroke="${I}" stroke-width=".7" opacity=".5"/><circle cx="${x + 6}" cy="${y + 6}" r="2.6" fill="${KZ}" opacity=".7"/><path d="M${x + 11} ${y + 6}h11" stroke="${I}" stroke-width="1" opacity=".5"/>`;
+      for (let i = 0; i < 11; i++) {
+        const x = 150 + i * 9, h = R(16, 30);
+        mik += `<line x1="${x}" y1="128" x2="${x + R(-3, 3)}" y2="${128 - h}" stroke="${I}" stroke-width="1.2"/><rect x="${x - 3}" y="${128 - h - 8}" width="6" height="9" rx="2.4" fill="${i % 3 ? I : KZ}" stroke="${I}" stroke-width=".8"/>`;
+      }
+      [[40, 150], [352, 142], [96, 168], [300, 172]].forEach(([x, y]) => {
+        for (let a = 0; a < 12; a++) flas += `<line x1="${x}" y1="${y}" x2="${x + Math.cos((a * Math.PI) / 6) * (a % 2 ? 18 : 10)}" y2="${y + Math.sin((a * Math.PI) / 6) * (a % 2 ? 18 : 10)}" stroke="${I}" stroke-width=".8"/>`;
+        flas += `<circle cx="${x}" cy="${y}" r="4" fill="#f7ecc9" stroke="${I}" stroke-width=".8"/>`;
+      });
+      return `<rect width="390" height="128" ${TA} opacity=".16"/><g filter="url(#se)">${logo}
+      <g stroke="${I}" stroke-width="1.4"><circle cx="195" cy="62" r="13" fill="${K}"/><path d="M182 60a13 13 0 0 1 26 -1l-4 -2q-9 -8 -18 0z" fill="${I}"/><path d="M168 128q4-48 27-48t27 48z" fill="${I}"/><path d="M191 82l4 16 4-16z" fill="${KZ}" stroke-width=".7"/>
+       <path d="M140 128h110l8 14h-126z" fill="${K}"/><rect x="132" y="142" width="126" height="62" fill="${K}"/><rect x="132" y="142" width="126" height="62" ${TB} opacity=".7"/><rect x="170" y="156" width="50" height="22" fill="${KZ}"/></g>${mik}
+      ${flas}${kalabalik(170, 4, (x, y, r) => x > 126 && x < 264 && r < 2)}
+      ${[[60, 150], [330, 146]].map(([x, y]) => `<g stroke="${I}" stroke-width="1.2"><rect x="${x - 12}" y="${y - 8}" width="24" height="15" fill="${I}"/><circle cx="${x}" cy="${y}" r="5" fill="${K}"/><rect x="${x - 6}" y="${y - 13}" width="10" height="5" fill="${K}"/></g>`).join("")}</g>`;
+    },
+    zirve() {
+      const bayrak = (x, r) => `<g stroke="${I}" stroke-width="1.2"><line x1="${x}" y1="118" x2="${x}" y2="34"/><circle cx="${x}" cy="32" r="2.4" fill="${I}"/><path d="M${x} 38 q10 4 20 0 t18 2 v34 q-9 -4 -18 -1 t-20 1z" fill="${r ? KZ : K}"/><path d="M${x} 49 q10 4 20 0 t18 2 M${x} 61 q10 4 20 0 t18 2" fill="none" stroke-width="${r ? 0.8 : 3}" stroke="${r ? K : I}"/><ellipse cx="${x}" cy="120" rx="8" ry="2.4" fill="${I}"/></g>`;
+      const pencere = (x) => `<g stroke="${I}" stroke-width="1.2"><path d="M${x} 104 V44 a22 22 0 0 1 44 0 V104z" fill="#f7ecc9"/><path d="M${x + 22} 22V104M${x} 62h44M${x} 84h44" stroke-width=".8"/><path d="M${x} 104 V44 a22 22 0 0 1 44 0 V104z" ${TY} opacity=".25"/></g>`;
+      let oturan = "";
+      for (let i = 0; i < 4; i++) {
+        const t = i / 3, yl = 128 + t * 46, sz = 6 + t * 5;
+        oturan += kisi(120 - t * 70, yl - sz * 2.4, sz, i % 2 === 0) + kisi(270 + t * 70, yl - sz * 2.4, sz, i % 2 === 1);
+      }
+      return `<rect width="390" height="118" ${TA} opacity=".2"/><g filter="url(#se)">${pencere(20)}${pencere(326)}${pencere(173)}
+      ${bayrak(96, true)}${bayrak(132, false)}${bayrak(232, false)}${bayrak(268, true)}
+      <path d="M0 118h390" stroke="${I}" stroke-width="1.6"/>${zemin(118)}
+      ${kisi(176, 100, 8, true)}${kisi(214, 100, 8, false)}
+      <g stroke="${I}" stroke-width="1.4"><path d="M130 122h130l96 84h-322z" fill="${K}"/><path d="M130 122h130l96 84h-322z" ${TA} opacity=".3"/><path d="M130 122h130" stroke-width="2.4"/>
+       ${Array.from({ length: 4 }, (_, i) => `<rect x="${150 - i * 22}" y="${132 + i * 18}" width="${16 + i * 5}" height="${4 + i * 1.6}" fill="#f7ecc9"/><rect x="${224 + i * 17}" y="${132 + i * 18}" width="${16 + i * 5}" height="${4 + i * 1.6}" fill="#f7ecc9"/>`).join("")}
+       <rect x="187" y="126" width="16" height="6" fill="${KZ}"/></g>${oturan}</g>`;
+    },
+    karargah() {
+      let kagit = "", igne = "";
+      for (let i = 0; i < 7; i++) kagit += `<rect x="${246 + (i % 4) * 30}" y="${30 + Math.floor(i / 4) * 34}" width="24" height="28" fill="${K}" stroke="${I}" stroke-width="1" transform="rotate(${R(-5, 5).toFixed(1)} ${258 + (i % 4) * 30} ${44 + Math.floor(i / 4) * 34})"/><path d="M${250 + (i % 4) * 30} ${38 + Math.floor(i / 4) * 34}h16m-16 5h16m-16 5h10" stroke="${I}" stroke-width=".7"/>`;
+      [[60, 52], [94, 66], [120, 50], [150, 70], [176, 58], [108, 84]].forEach(([x, y], i) => (igne += `<circle cx="${x}" cy="${y}" r="3" fill="${i % 2 ? KZ : I}" stroke="${I}" stroke-width=".7"/>`));
+      return `<rect width="390" height="124" ${TB} opacity=".28"/><g filter="url(#se)">
+      <g stroke="${I}" stroke-width="1.4"><rect x="24" y="22" width="190" height="88" fill="${K}"/><path d="M40 62 q14 -22 40 -18 q20 -10 44 -4 q26 -6 52 4 q20 8 14 22 q-10 14 -40 12 q-18 12 -44 6 q-30 6 -50 -6 q-16 -6 -16 -16z" fill="#d8c69c"/><path d="M40 62 q14 -22 40 -18 q20 -10 44 -4 q26 -6 52 4 q20 8 14 22 q-10 14 -40 12 q-18 12 -44 6 q-30 6 -50 -6 q-16 -6 -16 -16z" ${TA} opacity=".35"/><path d="M84 46q8 24 -4 44M130 40q-6 26 6 50M168 48q-10 20 -2 38" fill="none" stroke-width=".8"/></g>${igne}${kagit}
+      <g stroke="${I}" stroke-width="1.2"><line x1="195" y1="0" x2="195" y2="14"/><path d="M175 14h40l10 12h-60z" fill="${I}"/><path d="M165 26 L96 130 H294 L225 26z" fill="#f7ecc9" opacity=".4"/></g>
+      <path d="M0 124h390" stroke="${I}" stroke-width="1.6"/>${zemin(124, "#cdb98a")}
+      ${ayakta(74, 170, 78, true)}${ayakta(118, 166, 70, false)}${ayakta(282, 166, 72, false)}${ayakta(326, 172, 80, true)}
+      <g stroke="${I}" stroke-width="1.4"><path d="M70 150h250l40 56h-330z" fill="${K}"/><path d="M70 150h250l40 56h-330z" ${TA} opacity=".3"/><path d="M70 150h250" stroke-width="2.4"/>
+       <rect x="110" y="158" width="44" height="26" fill="#f7ecc9" transform="rotate(-6 132 171)"/><rect x="170" y="160" width="50" height="30" fill="#f7ecc9"/><path d="M176 168h38m-38 6h38m-38 6h24" stroke-width=".8"/><rect x="238" y="156" width="40" height="24" fill="#f7ecc9" transform="rotate(8 258 168)"/>
+       <rect x="294" y="164" width="26" height="14" rx="3" fill="${I}"/><path d="M296 164q11-10 22 0" fill="none" stroke-width="3"/><circle cx="92" cy="176" r="8" fill="#f7ecc9"/><circle cx="92" cy="176" r="5" fill="${I}"/></g>
+      ${ayakta(195, 152, 66, true)}<path d="M203 112l22 30" stroke="${I}" stroke-width="3.4" stroke-linecap="round"/></g>`;
+    },
+    afet() {
+      let dag = "M0 96", cadir = "", sira = "";
+      for (let x = 0; x <= 390; x += 30) dag += ` L${x} ${96 - R(14, 52)}`;
+      dag += " L390 96z";
+      const tek = (x, y, w) => `<g stroke="${I}" stroke-width="1.3"><path d="M${x - w} ${y} L${x} ${y - w * 0.9} L${x + w} ${y}z" fill="${K}"/><path d="M${x} ${y - w * 0.9} L${x + w} ${y} H${x + w * 0.3}z" ${TA}/><path d="M${x - w * 0.16} ${y} L${x} ${y - w * 0.46} L${x + w * 0.16} ${y}z" fill="${I}"/><circle cx="${x - w * 0.42}" cy="${y - w * 0.32}" r="${w * 0.13}" fill="#f7ecc9"/><path d="M${x - w * 0.5} ${y - w * 0.32}h${w * 0.16}M${x - w * 0.42} ${y - w * 0.4}v${w * 0.16}" stroke="${KZ}" stroke-width="1.6"/></g>`;
+      for (let i = 0; i < 6; i++) cadir += tek(34 + i * 62, 128, 24);
+      for (let i = 0; i < 5; i++) cadir += tek(64 + i * 70, 158, 32);
+      for (let i = 0; i < 7; i++) sira += ayakta(206 + i * 22, 202 - (i % 2) * 2, 44 + (i % 3) * 4, i % 2 === 0);
+      return gok(80, [[110, 26, 70, 14], [310, 20, 60, 12]]) + `<g filter="url(#se)"><path d="${dag}" ${TB} stroke="${I}" stroke-width="1.2"/>
+      <g stroke="${I}" stroke-width="1.2"><rect x="250" y="52" width="40" height="46" ${TA} transform="rotate(7 270 98)"/><rect x="300" y="60" width="34" height="38" ${TB} transform="rotate(-9 317 98)"/><path d="M240 98l14-20 10 12 12-22 16 30z" fill="${I}"/>
+       <line x1="60" y1="96" x2="60" y2="34"/><path d="M44 34h32l-4 -9h-24z" fill="${I}"/><path d="M48 36 L20 96 H100 L72 36z" fill="#f7ecc9" opacity=".4"/></g>
+      ${zemin(96, "#d8c69c")}${cadir}
+      <g transform="translate(96,198)" stroke="${I}" stroke-width="1.4"><rect x="-58" y="-40" width="74" height="30" fill="${K}"/><rect x="-58" y="-40" width="74" height="30" ${TA} opacity=".4"/><rect x="16" y="-32" width="30" height="22" fill="${KZ}"/><path d="M22 -28h16v10h-16z" fill="#f7ecc9"/><circle cx="-38" cy="-6" r="10" fill="${I}"/><circle cx="-38" cy="-6" r="4" fill="${K}"/><circle cx="26" cy="-6" r="10" fill="${I}"/><circle cx="26" cy="-6" r="4" fill="${K}"/><circle cx="-21" cy="-25" r="8" fill="#f7ecc9"/><path d="M-26 -25h10M-21 -30v10" stroke="${KZ}" stroke-width="2.6"/></g>${sira}</g>`;
+    },
+    mahalle() {
+      const dukkan = (x, w, ad, kz) => `<g stroke="${I}" stroke-width="1.2"><rect x="${x}" y="26" width="${w}" height="110" fill="${K}"/><rect x="${x}" y="26" width="${w}" height="110" ${kz ? TA : TB} opacity=".4"/>
+        ${Array.from({ length: Math.floor(w / 26) }, (_, i) => `<rect x="${x + 8 + i * 26}" y="36" width="14" height="20" fill="${i % 2 ? I : "#f7ecc9"}"/><path d="M${x + 6 + i * 26} 58h18" stroke-width="2"/><rect x="${x + 8 + i * 26}" y="66" width="14" height="14" fill="#f7ecc9"/>`).join("")}
+        <rect x="${x + 4}" y="88" width="${w - 8}" height="13" fill="${kz ? KZ : I}"/><rect x="${x + 8}" y="104" width="${w * 0.5}" height="32" fill="#f7ecc9"/><path d="M${x + 8} 120h${w * 0.5}" stroke-width=".7"/><rect x="${x + w * 0.62}" y="106" width="${w * 0.26}" height="30" fill="${I}"/></g>${yazi(x + w / 2, 98, ad, 7, K, 1.4)}`;
+      const masa = (x, y) => `<g stroke="${I}" stroke-width="1.2"><ellipse cx="${x}" cy="${y}" rx="15" ry="5" fill="#f7ecc9"/><line x1="${x}" y1="${y + 5}" x2="${x}" y2="${y + 22}"/><path d="M${x - 8} ${y + 22}h16"/><rect x="${x - 6}" y="${y - 6}" width="3" height="5" fill="${KZ}"/><rect x="${x + 3}" y="${y - 6}" width="3" height="5" fill="${KZ}"/></g>${kisi(x - 24, y - 12, 7, rnd() < 0.5)}${kisi(x + 24, y - 12, 7, rnd() < 0.5)}`;
+      let cam = "";
+      for (let i = 0; i < 9; i++) cam += `<path d="M${118 + i * 17} 22 q3 ${8 + (i % 3) * 3} 8 0" fill="${i % 3 ? K : KZ}" stroke="${I}" stroke-width=".8"/><rect x="${121 + i * 17}" y="22" width="${6 + (i % 2) * 4}" height="${10 + (i % 3) * 3}" fill="${i % 2 ? "#f7ecc9" : K}" stroke="${I}" stroke-width=".8"/>`;
+      return gok(26, [[195, 10, 60, 8]]) + `<g filter="url(#se)">${dukkan(-6, 112, "BAKKAL", true)}${dukkan(104, 86, "BERBER", false)}${dukkan(280, 116, "KIRAATHANE", true)}
+      <g stroke="${I}" stroke-width="1.2"><rect x="190" y="14" width="90" height="122" fill="${K}"/><rect x="190" y="14" width="90" height="122" ${TA} opacity=".3"/>${Array.from({ length: 6 }, (_, i) => `<rect x="${200 + (i % 3) * 26}" y="${26 + Math.floor(i / 3) * 34}" width="14" height="20" fill="${i % 2 ? "#f7ecc9" : I}"/>`).join("")}<rect x="222" y="100" width="24" height="36" fill="${I}"/></g>
+      <path d="M112 20 Q195 30 284 20" fill="none" stroke="${I}" stroke-width=".8"/>${cam}
+      <path d="M0 136h390" stroke="${I}" stroke-width="1.6"/>${zemin(136)}
+      <g stroke="${I}" stroke-width="1.2"><line x1="148" y1="136" x2="148" y2="96"/><circle cx="148" cy="82" r="20" ${TC}/><circle cx="136" cy="92" r="12" ${TC}/></g>
+      ${masa(60, 172)}${masa(330, 170)}${masa(250, 186)}${ayakta(170, 196, 62, true)}${ayakta(192, 200, 50, false)}
+      <path d="M118 196q4-10 10-4q2-8 6 0l2 8h-18z" fill="${I}"/></g>`;
+    },
+    sandik() {
+      let sira = "";
+      for (let i = 0; i < 6; i++) sira += ayakta(262 + i * 24, 200 - (i % 2) * 3, 74 - i * 2, i % 2 === 0);
+      return `<rect width="390" height="130" ${TA} opacity=".16"/><g filter="url(#se)">
+      <g stroke="${I}" stroke-width="1.4"><rect x="104" y="20" width="182" height="74" fill="${I}"/><rect x="110" y="26" width="170" height="62" fill="#3a2f20"/><rect x="100" y="94" width="190" height="5" fill="${K}"/>
+       <rect x="20" y="24" width="62" height="74" fill="#f7ecc9"/><path d="M51 24v74M20 60h62" stroke-width=".9"/><rect x="20" y="24" width="62" height="74" ${TY} opacity=".3"/>
+       <rect x="308" y="20" width="64" height="110" fill="${K}"/><path d="M312 22 q8 54 0 108 M324 22 q8 54 0 108 M336 22 q8 54 0 108 M348 22 q8 54 0 108 M360 22 q8 54 0 108" fill="none" stroke-width=".9"/><rect x="304" y="16" width="72" height="6" fill="${I}"/></g>
+      ${yazi(195, 52, "13 HAZİRAN", 13, K, 2)}${yazi(195, 72, "SANDIK NO 1042", 7.5, K, 2)}
+      <path d="M0 130h390" stroke="${I}" stroke-width="1.6"/>${zemin(130)}
+      ${kisi(96, 110, 9, true)}${kisi(150, 110, 9, false)}${kisi(240, 110, 9, true)}
+      <g stroke="${I}" stroke-width="1.4"><rect x="56" y="134" width="226" height="10" fill="${K}"/><rect x="62" y="144" width="214" height="52" fill="${K}"/><rect x="62" y="144" width="214" height="52" ${TA} opacity=".4"/>
+       <rect x="166" y="90" width="58" height="46" fill="#f7ecc9"/><rect x="166" y="90" width="58" height="46" ${TY} opacity=".3"/><rect x="160" y="84" width="70" height="8" fill="${I}"/><rect x="182" y="86" width="26" height="3" fill="${K}"/>
+       <circle cx="195" cy="114" r="9" fill="${KZ}"/><path d="M190 114l4 4 7-8" fill="none" stroke="${K}" stroke-width="2"/>
+       <rect x="80" y="126" width="30" height="8" fill="#f7ecc9"/><rect x="236" y="124" width="24" height="10" fill="#f7ecc9"/><path d="M196 84 l8 -22 l10 4z" fill="#f7ecc9"/></g>${sira}</g>`;
+    },
+  };
+  const f = S1[ad];
+  return f ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 205">${bas}${f()}</svg>` : "";
+}
+function sahneHtml(ev) {
+  const ad = sahneAdi(ev);
+  if (!ad) return "";
+  if (!SAHNE_ONBELLEK[ad]) {
+    const svg = sahneCiz(ad);
+    if (!svg) return "";
+    SAHNE_ONBELLEK[ad] = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  }
+  return `<figure class="sahne" data-sahne="${ad}"><img src="${SAHNE_ONBELLEK[ad]}" alt="" decoding="async"><figcaption>${SAHNE_ALT[ad] || ""}</figcaption></figure>`;
+}
+/* Kart ekrana sığmıyorsa gravür kaldırılır: önce karar, sonra süs */
+function kartTasiyorMu() {
+  const dos = document.getElementById("dossier"),
+    stage = document.getElementById("stage"),
+    zemin = document.getElementById("map-ground");
+  if (!dos || !stage || !zemin) return false;
+  const cs = getComputedStyle(stage);
+  return dos.offsetHeight > zemin.clientHeight - 58 - parseFloat(cs.paddingTop || 0) - parseFloat(cs.paddingBottom || 0) - 6;
+}
+/* Belge künyesi: karargâha düşen notun saati ve sıra numarası (olaya göre sabit) */
+function belgeKunye(ev) {
+  const el = document.getElementById("d-kunye");
+  if (!el) return;
+  if (!ev) {
+    el.innerHTML = "";
+    return;
+  }
+  let h = 7;
+  const id = ev.id || ev.title || "";
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+  const acil = ["KRİZ", "SKANDAL", "RAKİP", "FİNAL"].includes(ev.cat);
+  const saat = acil ? 5 + (h % 3) : 7 + (h % 4);
+  const dk = (h >> 3) % 6 * 10;
+  const no = String((100 - S.daysLeft) * 7 + (h % 7) + 101).padStart(4, "0");
+  el.textContent = `${acil ? "ACELE · " : ""}KARARGÂH NOTU · SAAT ${String(saat).padStart(2, "0")}.${String(dk).padStart(2, "0")} · NO ${no}`;
 }
 function mergedFx(o) {
   const fx = {
@@ -33734,11 +34893,18 @@ function chooseOpt(ev, o) {
   const stampTxt = mult > 1.2 ? "BÜYÜK BAŞARI" : mult < 0 ? "TERS TEPTİ" : "ONAYLANDI";
   document.getElementById("d-stamp").style.display = "none";
   const body = document.getElementById("d-body");
-  body.innerHTML = `<div class="stamp-anim" style="${mult < 0 ? "color:#e0836b;border-color:#e0836b" : ""}">${stampTxt}</div>
-  <div class="o-narr">${riskNote ? riskNote + " " : ""}${outcomeNarr(mult, ev, o)}${flip ? ` <b>Ama bir hafta önceki ${LINE_LABEL[flip.from]} çizginizden döndünüz; "çark etti" başlıkları gecikmedi.</b>` : ""}${kAcik ? ` <b>Kasa yetmedi: ${kAcik.acik} M₺'lik açık borçla kapatıldı, faturayı itibarınız ödedi.</b>` : ""}</div>
+  body.innerHTML = `${sahneHtml(ev).replace('class="sahne"', 'class="sahne yan"')}<div class="stamp-anim" style="${mult < 0 ? "color:#e0836b;border-color:#e0836b" : ""}">${stampTxt}</div>
+  <div class="o-narr">${riskNote ? riskNote + " " : ""}${outcomeNarr(mult, ev, o)}${flip ? ` <b>Ama bir hafta önceki ${LINE_LABEL[flip.from]} çizginizden döndünüz. "Çark etti" başlıkları gecikmedi.</b>` : ""}${kAcik ? ` <b>Kasa yetmedi: ${kAcik.acik} M₺'lik açık borçla kapatıldı, faturayı itibarınız ödedi.</b>` : ""}</div>
   <div class="fx-list">${fxChips(applied)}</div>
   <button class="btn" id="btn-next">Günü Kapat →</button>
   <div class="dokun-ipucu">veya kartın boş bir yerine dokunun</div>`;
+  {
+    const dos = document.getElementById("dossier");
+    dos.classList.remove("compact", "split", "tight");
+    dos.style.maxHeight = "";
+    const sah = body.querySelector(".sahne");
+    if (sah && kartTasiyorMu()) sah.remove();
+  }
   sonucDokunDevam();
   document.getElementById("btn-next").onclick = birKez(o.opensDebate ? startDebate : endDay);
   if (o.opensDebate) document.getElementById("btn-next").textContent = "Yayına Çık →";
@@ -34069,7 +35235,7 @@ function outcomeNarr(m, ev, o) {
     "Sosyal medyada ilk tepkiler karışık, gözler sonraki adımlarımıza çevrilmiş.",
   ];
   const bad = [
-    "Genel merkezde sessizlik... Bu günü unutmak en iyisi.",
+    "Genel merkezde kimse konuşmuyor. Bu günü unutmak en iyisi.",
     "Rakipler görüntüleri şimdiden reklama çevirdi.",
   ];
   return pick(tier === "g" ? good : tier === "b" ? bad : mid);
@@ -34185,7 +35351,7 @@ function meclisTahmini() {
   const topSeats = seats[top.id] || 0;
   let not;
   if (!my)
-    not = `<b>Baraj altı.</b> %${SEAT_THRESHOLD} için ${f1(SEAT_THRESHOLD - S.share)} puan eksik; bugün seçim olsa Meclis'e giremezdiniz.`;
+    not = `<b>Baraj altı.</b> %${SEAT_THRESHOLD} için ${f1(SEAT_THRESHOLD - S.share)} puan eksik. Bugün seçim olsa Meclis'e giremezdiniz.`;
   else if (top.me && topSeats >= SEAT_MAJORITY) not = `<b>${my} vekil:</b> tek başına çoğunluk sizde.`;
   else if (topSeats >= SEAT_MAJORITY)
     not = `${top.n} tek başına çoğunlukta (${topSeats}). Sizin <b>${my} vekiliniz</b> muhalefette kalır.`;
@@ -34683,6 +35849,7 @@ function haritaCiz() {
     "</g>" +
     '<g id="mp-yapi" aria-hidden="true"></g>' +
     "</svg>";
+  haritaCanliKur();
 }
 const HARITA_KATMANLARI = ["oy", "agirlik", "lider", "fark"];
 const KATMAN_AD = {
@@ -34950,7 +36117,7 @@ function acilisYap() {
     y.durum = "iskele";
     y.bas = S.daysLeft;
     y.bitis = S.daysLeft - 8;
-    addTicker("MEDYA", `${REGION_CITY[k]}'deki ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} açılışa yetişmedi; kurdele iskelenin önünde kesildi.`);
+    addTicker("MEDYA", `${REGION_CITY[k]}'deki ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} açılışa yetişmedi, kurdele iskelenin önünde kesildi.`);
     return applyFx({ mut: -2, med: -1 }, 1);
   }
   yapiTamamla(y, false);
@@ -35002,96 +36169,241 @@ function yapiIlerleme(y) {
   if (y.durum !== "iskele" || !y.bas || !y.bitis) return 0;
   return clamp((y.bas - S.daysLeft) / Math.max(1, y.bas - y.bitis), 0, 1);
 }
-/* ---- Gravür tarzı yapı simgeleri (taban 0'da, yukarı doğru ~28 birim) ---- */
+/* ---- Yapı sahaları: her proje türü coğrafyaya uyan bir yere konur ----
+   [x, y, ad, etiketler]. Koordinatlar gerçek enlem/boylamdan çevrildi. */
+const YAPI_SAHA = {
+  mar: [
+    [216, 98, "Kocaeli", "sehir sanayi"], [161, 134, "Bursa", "sehir sanayi"], [172, 60, "Boğaz", "bogaz"],
+    [82, 74, "Tekirdağ", "sehir ova"], [56, 58, "Edirne", "sehir nehir ova"], [28, 132, "Çanakkale", "bogaz kiyi tepe"],
+    [100, 166, "Balıkesir", "sehir ova tepe"], [252, 112, "Sakarya", "sehir nehir"],
+  ],
+  ege: [
+    [90, 226, "Manisa", "sehir sanayi"], [98, 292, "Aydın", "sehir ova"], [163, 296, "Denizli", "sehir sanayi"],
+    [128, 334, "Muğla", "kir kiyi"], [64, 204, "Bergama", "tepe kir"], [180, 250, "Uşak", "sehir"],
+    [210, 190, "Kütahya", "sehir nehir"], [236, 232, "Afyon", "sehir ova"], [124, 258, "Gediz", "nehir ova"],
+  ],
+  akd: [
+    [489, 348, "Adana", "sehir sanayi ova"], [452, 360, "Mersin", "sehir kiyi"], [537, 386, "Hatay", "sehir"],
+    [239, 298, "Isparta", "sehir kir"], [290, 354, "Manavgat", "nehir kiyi"], [572, 312, "Kahramanmaraş", "sehir nehir"],
+    [166, 368, "Fethiye", "kiyi tepe kir"], [538, 344, "Osmaniye", "ova"],
+  ],
+  ica: [
+    [342, 290, "Konya", "sehir ova"], [500, 232, "Kayseri", "sehir sanayi"], [237, 162, "Eskişehir", "sehir sanayi"],
+    [579, 164, "Sivas", "sehir"], [414, 188, "Hirfanlı", "nehir"], [458, 242, "Nevşehir", "kir tepe"],
+    [322, 186, "Polatlı", "ova"], [463, 158, "Yozgat", "sehir tepe"], [420, 262, "Aksaray", "ova sehir"],
+  ],
+  kar: [
+    [540, 76, "Samsun", "sehir kiyi"], [310, 66, "Zonguldak", "sehir sanayi"], [632, 96, "Ordu", "ova kiyi"],
+    [763, 92, "Rize", "kir tepe"], [516, 102, "Amasya", "nehir sehir"], [410, 62, "Kastamonu", "kir sehir"],
+    [295, 98, "Bolu", "tepe kir"], [828, 66, "Artvin", "nehir tepe"],
+  ],
+  dog: [
+    [915, 247, "Van", "sehir"], [878, 120, "Kars", "sehir ova"], [671, 227, "Elazığ", "nehir sehir"],
+    [647, 257, "Malatya", "sehir sanayi"], [815, 233, "Muş", "ova"], [763, 220, "Bingöl", "tepe kir"],
+    [897, 166, "Ağrı", "tepe"], [710, 164, "Erzincan", "sehir nehir"], [930, 306, "Hakkâri", "tepe kir"],
+  ],
+  gdo: [
+    [600, 344, "Gaziantep", "sehir sanayi"], [673, 340, "Şanlıurfa", "sehir ova"], [640, 302, "Fırat", "nehir"],
+    [773, 330, "Mardin", "sehir tepe"], [794, 290, "Batman", "sehir sanayi"], [820, 318, "Siirt", "kir tepe"],
+  ],
+};
+/* Tür hangi araziyi arar (öncelik sırasıyla) */
+const YAPI_ARAZI = {
+  kopru: ["bogaz", "nehir"],
+  baraj: ["nehir"],
+  enerji: ["tepe", "kiyi"],
+  tarim: ["ova"],
+  koruma: ["kir", "kiyi"],
+  fabrika: ["sanayi", "sehir"],
+  hal: ["sehir", "ova"],
+  konut: ["sehir"],
+  hastane: ["sehir"],
+  okul: ["sehir"],
+  afet: ["sehir"],
+  ofis: ["sehir"],
+};
+function sahaSec(y) {
+  const N = YAPI_SAHA[y.r];
+  if (!N) return 0;
+  const dolu = new Set(
+    yapilar()
+      .filter((x) => x !== y && x.r === y.r && typeof x.s === "number" && x.tur !== "otoyol" && x.tur !== "tren")
+      .map((x) => x.s),
+  );
+  const ister = YAPI_ARAZI[y.tur] || ["sehir"];
+  for (const e of ister) {
+    const i = N.findIndex((n, j) => !dolu.has(j) && n[3].split(" ").includes(e));
+    if (i >= 0) return i;
+  }
+  const bos = N.findIndex((n, j) => !dolu.has(j));
+  return bos >= 0 ? bos : 0;
+}
+function yapiYer(y) {
+  if (typeof y.s !== "number" || !YAPI_SAHA[y.r] || !YAPI_SAHA[y.r][y.s]) y.s = sahaSec(y);
+  return YAPI_SAHA[y.r][y.s];
+}
+/* ---- Gravür tarzı yapı simgeleri (taban 0'da, yukarı doğru ~30 birim) ---- */
+function yapiCam(x, y, n, m, dx, dy) {
+  let s = "";
+  for (let i = 0; i < n; i++)
+    for (let j = 0; j < m; j++)
+      s += `<rect class="yp-cam${(i + j) % 3 ? "" : " k"}" x="${x + i * (dx || 4)}" y="${y + j * (dy || 4.6)}" width="2" height="2.8"/>`;
+  return s;
+}
+function yapiBayrak(x, y, h) {
+  return `<path class="yp-bayrak-sap" d="M${x} ${y}V${y - h}"/><path class="yp-bayrak" d="M${x} ${y - h}q3 -1.6 5 .4t5 .2v4.4q-2.5 1.4 -5 -.2t-5 -.2z"/>`;
+}
 function yapiGlif(tur) {
   const T = 'fill="url(#yp-tar)"';
   switch (tur) {
     case "hastane":
-      return `<rect x="-12" y="-17" width="24" height="17"/><rect class="yp-g" x="5" y="-17" width="7" height="17" ${T}/>
-        <path class="yp-ic" d="M-9 -12h3M-3 -12h3M-9 -6h3M-3 -6h3"/><rect x="-5" y="-26" width="10" height="9"/><path class="yp-kz" d="M0 -24.5v6M-3 -21.5h6"/>`;
+      return `<rect x="-14" y="-14" width="28" height="14"/><rect x="-6" y="-25" width="12" height="25"/><rect class="yp-g" x="9" y="-14" width="5" height="14" ${T}/>
+        <path class="yp-dolu" d="M-15.5 -15.6h31v1.8h-31z"/><circle cx="0" cy="-19" r="4"/><path class="yp-kz" d="M-2.4 -19h4.8M0 -21.4v4.8"/>
+        ${yapiCam(-12, -11, 2, 2, 3, 4.6)}${yapiCam(8.2 - 0.6, -11, 1, 2, 3, 4.6)}<rect class="yp-dolu" x="-2" y="-6" width="4" height="6"/>`;
     case "fabrika":
-      return `<path d="M-14 0V-10l6-5v5l6-5v5l6-5v5l4 0V0z"/><path class="yp-g" d="M4 0V-10h4V0z" ${T}/><rect x="9" y="-25" width="4" height="15"/>
-        <path class="yp-duman" d="M11 -28c-2-2 1-4 3-3c1-2 5-1 4 1c2 0 2 3 0 3"/><path class="yp-ic" d="M-11 -4h3M-5 -4h3M1 -4h3"/>`;
+      return `<path d="M-17 0v-11l7 -5.5v5.5l7 -5.5v5.5l7 -5.5V0z"/><path class="yp-g" d="M-17 0v-11l7 -5.5v5.5l7 -5.5v5.5l7 -5.5V0z" ${T} opacity=".55"/>
+        <rect x="6" y="-27" width="5" height="27"/><rect class="yp-g" x="8.6" y="-27" width="2.4" height="27" ${T}/><path class="yp-dolu" d="M5 -28.6h7v2.2h-7z"/>
+        <rect x="12" y="-9" width="8" height="9"/>${yapiCam(13.4, -7, 2, 1, 3.2)}${yapiCam(-14.5, -6.6, 5, 1, 3.6)}
+        <g class="yp-duman"><path d="M8.5 -30q-4 -3 0 -6q4 -3 -1 -7"/><circle cx="6.5" cy="-41" r="2.6"/><circle cx="10.5" cy="-46" r="3.4"/></g>`;
     case "baraj":
-      return `<path class="yp-su" d="M-16 -3c3-2 5 2 8 0s5 2 8 0 5 2 8 0 5 2 8 0"/><path d="M-15 0Q0 -22 15 0z"/><path class="yp-g" d="M4 0Q9 -10 15 0z" ${T}/>
-        <path class="yp-ic" d="M-8 -4v-6M-2 -4v-9M4 -4v-8"/>`;
+      return `<path class="yp-su" d="M-18 -13c3 -2 5 2 8 0s5 2 8 0s5 2 8 0s5 2 8 0M-16 -17c3 -2 5 2 8 0s5 2 8 0s5 2 8 0"/>
+        <path d="M-18 -10Q0 -5 18 -10L14 0Q0 4 -14 0z"/><path class="yp-g" d="M2 -7.2Q10 -7.8 18 -10L14 0Q8 2 2 2.4z" ${T}/>
+        <path class="yp-ic" d="M-11 -7.8l1.6 7.4M-5 -6.8l.8 8M1 -6.6v8.4M7 -7l-.8 8.2M12.6 -8.4l-1.8 7.6"/><path class="yp-su" d="M-3 3.6q3 3 0 6M2 3.6q3 3 0 6"/>`;
     case "kopru":
-      return `<path class="yp-su" d="M-17 3c3-2 5 2 8 0s5 2 8 0 5 2 8 0 5 2 8 0"/><path class="yp-kablo" d="M-17 -5Q-12 -9 -8 -21Q0 -7 8 -21Q12 -9 17 -5"/>
-        <path class="yp-kablo" d="M-12 -5v-8M-4 -5v-6M4 -5v-6M12 -5v-8"/><rect x="-9.5" y="-22" width="3" height="18"/><rect x="6.5" y="-22" width="3" height="18"/><rect x="-18" y="-6" width="36" height="3"/>`;
+      return `<path class="yp-su" d="M-19 4c3 -2 5 2 8 0s5 2 8 0s5 2 8 0s5 2 8 0"/><path class="yp-kablo" d="M-19 -5Q-13 -8 -9 -22Q0 -6 9 -22Q13 -8 19 -5"/>
+        <path class="yp-kablo" d="M-15 -5v-5M-12 -5v-9M-5.5 -5v-9M-2.5 -5v-5.5M2.5 -5v-5.5M5.5 -5v-9M12 -5v-9M15 -5v-5"/>
+        <rect x="-10.4" y="-23" width="2.8" height="20"/><rect x="7.6" y="-23" width="2.8" height="20"/><path class="yp-dolu" d="M-20 -6h40v2.6h-40z"/>`;
     case "konut":
-      return `<rect x="-13" y="-22" width="11" height="22"/><rect x="0" y="-15" width="13" height="15"/><rect class="yp-g" x="8" y="-15" width="5" height="15" ${T}/>
-        <path class="yp-ic" d="M-10 -18h2M-6 -18h2M-10 -13h2M-6 -13h2M-10 -8h2M-6 -8h2M3 -11h2M3 -6h2"/>`;
+      return `<rect x="-14" y="-25" width="12" height="25"/><rect x="0" y="-17" width="13" height="17"/><rect class="yp-g" x="-5" y="-25" width="3" height="25" ${T}/><rect class="yp-g" x="9" y="-17" width="4" height="17" ${T}/>
+        ${yapiCam(-12.4, -22.4, 2, 5, 3.6, 4.4)}${yapiCam(1.8, -14.4, 2, 3, 3.6, 4.4)}<path class="yp-dolu" d="M-15 -26.2h14v1.4h-14zM-1 -18.2h15v1.4h-15z"/>
+        <path class="yp-agac" d="M17 -4a3.4 3.4 0 1 1 4.6 -1.6a3 3 0 1 1 -1.6 5h-2a2.6 2.6 0 0 1 -1 -3.4z"/><path class="yp-kablo" d="M19 0v-3"/>`;
     case "okul":
-      return `<path d="M-14 -14L0 -23 14 -14z"/><rect x="-13" y="-14" width="26" height="14"/><rect class="yp-g" x="7" y="-14" width="6" height="14" ${T}/>
-        <path class="yp-ic" d="M-9 -12v10M-4 -12v10M1 -12v10"/><path class="yp-kz" d="M0 -23v-6l5 1.6L0 -26"/>`;
+      return `<rect x="-14" y="-12" width="28" height="12"/><path d="M-16 -12L0 -21 16 -12z"/><path class="yp-g" d="M-10 -12.8L0 -18.6 10 -12.8z" ${T}/>
+        <path class="yp-ic" d="M-10.5 -11v10M-6 -11v10M-1.5 -11v10M3 -11v10M7.5 -11v10M11.5 -11v10"/><path class="yp-dolu" d="M-16 -1.6h32V0h-32z"/>${yapiBayrak(0, -21, 9)}`;
     case "enerji":
-      return `<path class="yp-kablo" d="M0 0V-20"/><path d="M-3 0h6l-1.5 -20h-3z"/><circle cx="0" cy="-21" r="1.8"/>
-        <path class="yp-kanat" d="M0 -21l1 -11M0 -21l9.5 5.5M0 -21l-9.5 5.5"/><path class="yp-kablo" d="M-12 0h24"/>`;
+      return `<path class="yp-kablo" d="M-16 0h32"/><path d="M-9.4 0h2.8l-.8 -22h-1.2z"/><path d="M6.8 0h2.4l-.7 -15h-1z"/>
+        <g class="yp-pervane" style="transform-origin:-8px -23px"><path d="M-8 -23l1 -12.5M-8 -23l10.6 6.4M-8 -23l-10.6 6.4"/></g>
+        <g class="yp-pervane p2" style="transform-origin:8px -16px"><path d="M8 -16l.7 -8.6M8 -16l7.4 4.4M8 -16l-7.4 4.4"/></g>
+        <circle class="yp-dolu" cx="-8" cy="-23" r="1.6"/><circle class="yp-dolu" cx="8" cy="-16" r="1.3"/>`;
     case "tarim":
-      return `<path d="M-13 0V-15a4 4 0 0 1 8 0V0z"/><path class="yp-g" d="M-7 0V-15a4 4 0 0 0 -2 -3.4V0z" ${T}/><path d="M-3 0V-10l7 -5 7 5V0z"/><path class="yp-ic" d="M2 0v-5h4V0"/>`;
+      return `<path d="M-15 0v-16a4.5 4.5 0 0 1 9 0V0z"/><path d="M-6 0v-12a4 4 0 0 1 8 0V0z"/><path class="yp-g" d="M-8.5 0v-18.6a4.5 4.5 0 0 1 2.5 2.6V0z" ${T}/>
+        <path class="yp-ic" d="M-15 -11h9M-15 -6h9M-6 -8h8M-6 -4h8"/><path d="M3 0v-8l7 -4.5 7 4.5V0z"/><rect class="yp-dolu" x="8" y="-5" width="4" height="5"/>
+        <path class="yp-ic" d="M-19 2.5h38M-17 5h34"/>`;
     case "koruma":
-      return `<path class="yp-agac" d="M-8 -12a6 6 0 1 1 9 -5a5 5 0 1 1 7 6a5 5 0 0 1 -6 7h-6a5 5 0 0 1 -4 -8z"/><path class="yp-kablo" d="M0 0v-9M0 -5l3 -3M0 -6l-3 -3"/><path class="yp-kablo" d="M-12 0h24"/>`;
+      return `<path class="yp-agac" d="M-12 -9a6 6 0 1 1 8 -6a5.4 5.4 0 1 1 6 7h-9a5 5 0 0 1 -5 -1z"/><path class="yp-agac" d="M3 -5a4.6 4.6 0 1 1 7 -3.6a4.2 4.2 0 1 1 3 6.6h-7a4 4 0 0 1 -3 -3z"/>
+        <path class="yp-kablo" d="M-5 0v-8M-5 -4l3 -3M-5 -5l-3 -3M8.5 0v-5.4M8.5 -3l2.4 -2.2"/><path class="yp-kablo" d="M-16 0h32"/><path class="yp-ic" d="M-13 -11.5q2 -2.6 4.6 -1M4 -8q2 -2.4 4 -1"/>`;
     case "afet":
-      return `<path d="M-14 0L0 -20 14 0z"/><path class="yp-g" d="M0 -20L14 0H5z" ${T}/><path class="yp-kz" d="M-4 -6a4 4 0 1 0 6 -3a3 3 0 1 1 -6 3"/>`;
+      return `<path d="M-15 0L-3 -17 9 0z"/><path class="yp-g" d="M-3 -17L9 0H2z" ${T}/><path class="yp-dolu" d="M-5 0l2 -7 2 7z"/><circle cx="-3" cy="-10.4" r="2.6"/><path class="yp-kz" d="M-4.6 -10.4h3.2M-3 -12v3.2"/>
+        <path class="yp-kablo" d="M14 0V-22M14 -22l-4 4M14 -22l4 4M14 -16l-3 3M14 -16l3 3"/><rect x="9.5" y="-5" width="9" height="5"/>`;
     case "hal":
-      return `<path d="M-14 0V-9a14 9 0 0 1 28 0V0z"/><path class="yp-g" d="M6 0V-15a14 9 0 0 1 8 6V0z" ${T}/><path class="yp-ic" d="M-8 0v-7M-2 0v-9M4 0v-8"/>`;
+      return `<path d="M-17 0V-8a8.5 8 0 0 1 17 0a8.5 8 0 0 1 17 0V0z"/><path class="yp-g" d="M8.5 0V-15.6a8.5 8 0 0 1 8.5 7.6V0z" ${T}/>
+        <path class="yp-ic" d="M-17 -8h34M-12.5 0v-6M-8.5 0v-7M-4.5 0v-6M4.5 0v-6M8.5 0v-7M12.5 0v-6"/><path class="yp-dolu" d="M-2 0v-5h4V0z"/>
+        <rect x="-21" y="-3.4" width="3.4" height="3.4"/><rect class="yp-kzd" x="-20.4" y="-6.2" width="2.4" height="2.4"/>`;
     case "ofis":
-      return `<path d="M-9 0V-9L0 -16 9 -9V0z"/><path class="yp-g" d="M3 0V-12L9 -9V0z" ${T}/><path class="yp-ic" d="M-2 0v-6h4V0"/>
-        <path class="yp-bayrak-sap" d="M0 -16V-27"/><path class="yp-bayrak" d="M0 -27l8 2.6-8 2.6z"/>`;
+      return `<rect x="-10" y="-18" width="20" height="18"/><rect class="yp-g" x="4" y="-18" width="6" height="18" ${T}/><path class="yp-dolu" d="M-11.5 -18h23l-2 -3.4h-19z"/>
+        ${yapiCam(-7.4, -15.4, 3, 1, 4.8)}<path class="yp-kzd" d="M-10 -9h20l1.8 3.2h-23.6z"/><path class="yp-tente" d="M-6.2 -9l-1 3.2M-2 -9l-.6 3.2M2 -9l.6 3.2M6.2 -9l1 3.2"/>
+        <rect class="yp-dolu" x="-2.4" y="-5.4" width="4.8" height="5.4"/><rect class="yp-cam" x="-8" y="-4.8" width="3.6" height="3.2"/><rect class="yp-cam" x="4.4" y="-4.8" width="3.6" height="3.2"/>${yapiBayrak(0, -21.4, 10)}`;
     default:
       return `<circle cx="0" cy="-9" r="8"/>`;
   }
 }
 function yapiIskele() {
-  return `<path class="yp-iskele" d="M-13 0V-20M13 0V-20M-13 -7H13M-13 -14H13M-13 0L13 -14M-13 -14L13 0"/>
-    <path class="yp-vinc" d="M17 2V-30M10 -30H28M17 -30l11 4M24 -30v9"/><rect class="yp-vinc-kanca" x="22.5" y="-21" width="3" height="3"/>`;
+  return `<path class="yp-iskele" d="M-15 0V-24M-7.5 0V-24M0 0V-24M7.5 0V-24M-15 -6H7.5M-15 -12H7.5M-15 -18H7.5M-15 -24H7.5M-15 -6l7.5 -6M-7.5 -12l7.5 -6M0 -6l7.5 -6"/>
+    <path class="yp-vinc" d="M14 0V-34M14 -34H-6M14 -34h7M14 -29l-13 -5M14 -29l6 -5"/><g class="yp-vinc-yuk"><path class="yp-vinc" d="M-3 -34v8"/><rect class="yp-vinc-kanca" x="-5" y="-26" width="4" height="3"/></g>`;
 }
+function yolGuzergah(P, Q) {
+  const mx = (P[0] + Q[0]) / 2,
+    my = (P[1] + Q[1]) / 2 - Math.min(26, Math.abs(P[0] - Q[0]) * 0.12);
+  return `M${P[0]} ${P[1]}Q${mx} ${my} ${Q[0]} ${Q[1]}`;
+}
+const YAPI_OLCEK = 1.45;
 function yapiCiz() {
   const g = document.getElementById("mp-yapi");
   if (!g || !S) return;
   const l = yapilar();
-  const sayac = {};
   const etiketler = [];
   let out = "",
     yol = "";
   /* Önce kendi yapılarımız: ad etiketi çakışırsa öncelik onlarda */
   const sirali = l.filter((y) => (y.sahip || "ben") === "ben").concat(l.filter((y) => y.sahip === "rakip"));
   sirali.forEach((y) => {
-    const A = MAP_ANCHOR[y.r];
-    if (!A) return;
+    if (!MAP_ANCHOR[y.r]) return;
     const sahip = y.sahip || "ben";
     const cls = `yp ${y.durum} ${sahip}`;
     if (y.tur === "otoyol" || y.tur === "tren") {
-      const hedef = y.r === "ica" ? "mar" : "ica";
-      const P = YAPI_NOKTA[y.r][0],
-        Q = YAPI_NOKTA[hedef][0];
-      const mx = (P[0] + Q[0]) / 2,
-        my = (P[1] + Q[1]) / 2 - 26;
-      const d = `M${P[0]} ${P[1]}Q${mx} ${my} ${Q[0]} ${Q[1]}`;
+      /* Yollar şehirden şehre gider: bölge merkezi ile Ankara (İç Anadolu'daysa İstanbul) */
+      const d = yolGuzergah(SEHIR_KONUM[y.r], SEHIR_KONUM[y.r === "ica" ? "mar" : "ica"]);
       yol +=
         y.tur === "tren"
           ? `<g class="${cls} demiryol"><path class="ray-tr" d="${d}"/><path class="ray" d="${d}"/></g>`
           : `<g class="${cls} yol"><path class="yol-dis" d="${d}"/><path class="yol-ic" d="${d}"/></g>`;
       return;
     }
-    const i = (sayac[y.r] = (sayac[y.r] || 0) + 1) - 1;
-    const N = YAPI_NOKTA[y.r];
-    const P = N[(i + 1) % N.length];
+    const P = yapiYer(y);
     const yeni = y.g === S.daysLeft ? " yeni" : "";
     const ilerleme = y.durum === "iskele" ? Math.round(yapiIlerleme(y) * 100) : 0;
-    const ad = YAPI_TUR[y.tur].ad;
-    const ey = P[1] + 6 + (y.durum === "iskele" ? 21 : 12);
-    const ew = ad.length * 4.3 + 4;
-    const kutu = [P[0] - ew / 2, ey - 6, P[0] + ew / 2, ey + 2];
+    const ad = YAPI_TUR[y.tur].ad.toLocaleUpperCase("tr");
+    const alt = y.durum === "iskele" ? `İNŞAAT · %${ilerleme}` : y.durum === "vaat" ? "SÖZ" : sahip === "rakip" ? "RAKİP" : "";
+    const ew = Math.max(ad.length, alt.length) * 3.5 + 8;
+    const eh = alt ? 14 : 8.6;
+    const OL = YAPI_OLCEK;
+    const kutu = [P[0] - (ew / 2) * OL, P[1] + 3 * OL, P[0] + (ew / 2) * OL, P[1] + (3 + eh) * OL];
     const cakisir = etiketler.some((b) => kutu[0] < b[2] && kutu[2] > b[0] && kutu[1] < b[3] && kutu[3] > b[1]);
     if (!cakisir) etiketler.push(kutu);
-    out += `<g class="${cls}${yeni}" transform="translate(${P[0]} ${P[1] + 6})"><ellipse class="yp-golge" cx="0" cy="0.5" rx="17" ry="3.2"/><g class="yp-govde">${yapiGlif(
+    const levha = cakisir
+      ? ""
+      : `<g class="yp-levha" transform="translate(0 3.4)"><rect x="${-ew / 2}" y="0" width="${ew}" height="${eh}"/><text class="yp-ad" x="0" y="6.2">${esc(ad)}</text>${alt ? `<text class="yp-alt" x="0" y="11.8">${alt}</text>` : ""}</g>`;
+    out += `<g class="${cls}${yeni}" transform="translate(${P[0]} ${P[1]}) scale(${YAPI_OLCEK})"><ellipse class="yp-golge" cx="4" cy="1" rx="19" ry="3.4"/><g class="yp-govde">${yapiGlif(
       y.tur,
-    )}</g>${y.durum === "iskele" ? yapiIskele() + `<text class="yp-yuzde" x="0" y="11">%${ilerleme}</text>` : ""}${cakisir ? "" : `<text class="yp-ad" x="0" y="${y.durum === "iskele" ? 21 : 12}">${esc(ad)}</text>`}</g>`;
+    )}</g>${y.durum === "iskele" ? yapiIskele() : ""}${levha}</g>`;
   });
   g.innerHTML = out;
   const gy = document.getElementById("mp-yol");
-  if (gy) gy.innerHTML = yol;
+  if (gy) gy.innerHTML = yol + konvoyCiz();
+}
+/* Bu haftanın mitingine giden konvoy: Ankara'dan miting şehrine */
+function konvoyCiz() {
+  const kv = S && S.ek && S.ek.konvoy;
+  if (!kv || !SEHIR_KONUM[kv.r] || kv.g - S.daysLeft > 6 || kv.g < S.daysLeft) return "";
+  const A = SEHIR_KONUM[kv.r === "ica" ? "mar" : "ica"],
+    B = SEHIR_KONUM[kv.r];
+  const d = yolGuzergah(A, B);
+  const hareket = HAREKET_VAR ? `<animateMotion dur="11s" repeatCount="indefinite" path="${d}"/>` : "";
+  const dur = HAREKET_VAR ? "" : ` transform="translate(${(A[0] + B[0]) / 2} ${(A[1] + B[1]) / 2 - 8})"`;
+  return `<path class="kv-yol" d="${d}"/><g class="kv-arac"${dur}><rect x="-7" y="-5" width="14" height="7" rx="1.6"/><rect class="kv-cam" x="-5" y="-3.6" width="6.4" height="2.6"/><path class="kv-serit" d="M-7 .4h14"/><circle cx="-3.6" cy="2.6" r="1.6"/><circle cx="3.8" cy="2.6" r="1.6"/>${hareket}</g>`;
+}
+const HAREKET_VAR = !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+/* Denizler, vapurlar, martılar, bulut gölgeleri: harita bir kez kurulurken eklenir */
+function haritaCanliKur() {
+  const c = mapCam();
+  const svg = c && c.querySelector("svg");
+  if (!svg || svg.querySelector("#mp-dalga")) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const alt = document.createElementNS(NS, "g");
+  alt.id = "mp-dalga";
+  alt.setAttribute("aria-hidden", "true");
+  const vapur = (yol, sure, gecikme) =>
+    `<g class="mp-vapur"><path class="vp-iz" d="M-9 3q-7 -1 -14 2M-9 5.4q-8 1 -15 5"/><path class="vp-govde" d="M-8 0h15l3.4 -3h-21.8z"/><rect class="vp-ust" x="-5.4" y="-6" width="9" height="3"/><rect class="vp-baca" x="-1" y="-9" width="2.2" height="3"/>${
+      HAREKET_VAR ? `<animateMotion dur="${sure}s" begin="-${gecikme}s" repeatCount="indefinite" rotate="auto" path="${yol}"/>` : ""
+    }</g>`;
+  const durgun = (x, y) => (HAREKET_VAR ? "" : ` transform="translate(${x} ${y})"`);
+  alt.innerHTML =
+    `<defs><pattern id="mp-dalga-d" width="22" height="8" patternUnits="userSpaceOnUse"><path d="M0 4q5.5 -3.4 11 0t11 0" fill="none" stroke="#efe3c8" stroke-width=".55" opacity=".3"/></pattern></defs>` +
+    `<rect x="-400" y="-300" width="1800" height="1050" fill="url(#mp-dalga-d)"/>`;
+  svg.insertBefore(alt, svg.querySelector("defs") ? svg.querySelector("defs").nextSibling : svg.firstChild);
+  const ust = document.createElementNS(NS, "g");
+  ust.id = "mp-canli";
+  ust.setAttribute("aria-hidden", "true");
+  ust.innerHTML =
+    vapur("M250 16 C 400 6, 560 14, 700 28 S 900 20, 960 30 C 800 44, 520 30, 250 16", 150, 20).replace("<g ", `<g${durgun(430, 14)} `) +
+    vapur("M150 424 C 260 440, 380 432, 470 420 S 560 428, 600 432 C 470 446, 280 446, 150 424", 130, 60).replace("<g ", `<g${durgun(300, 432)} `) +
+    vapur("M10 150 C 0 210, 14 280, 30 340 C 22 290, 12 210, 10 150", 110, 5).replace("<g ", `<g${durgun(12, 200)} `) +
+    [[330, 22], [342, 16], [118, 408], [130, 402], [14, 190], [760, 26]]
+      .map(([x, y], i) => `<path class="mp-marti m${i % 3}" d="M${x} ${y}q2 -2.2 3.8 0q1.8 -2.2 3.8 0"/>`)
+      .join("") +
+    `<defs><radialGradient id="mp-bulut-g"><stop offset="0" stop-color="#16202a" stop-opacity=".2"/><stop offset="1" stop-color="#16202a" stop-opacity="0"/></radialGradient></defs>` +
+    `<g class="mp-bulut b1"><ellipse cx="0" cy="170" rx="110" ry="42" fill="url(#mp-bulut-g)"/></g><g class="mp-bulut b2"><ellipse cx="0" cy="300" rx="90" ry="34" fill="url(#mp-bulut-g)"/></g>`;
+  svg.appendChild(ust);
 }
 function yapiKartSatirlari(k) {
   const l = yapilar().filter((y) => y.r === k);
@@ -35133,34 +36445,61 @@ function izEkle(e) {
   });
   if (l.length > IZ_MAX) l.splice(0, l.length - IZ_MAX);
 }
+function izMuhur(x, y, neg, i) {
+  let d = "";
+  for (let k = 0; k < 12; k++) {
+    const a = (k / 12) * 6.283,
+      r = k % 2 ? 3.3 : 3.9;
+    d += (k ? "L" : "M") + (Math.cos(a) * r).toFixed(1) + " " + (Math.sin(a) * r).toFixed(1);
+  }
+  return `<g class="iz-muhur${neg ? " neg" : ""}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(i * 37) % 30 - 15})"><path d="${d}z"/><path class="iz-im" d="${neg ? "M-1.3 -1.3l2.6 2.6M1.3 -1.3l-2.6 2.6" : "M-1.6 .1l1.2 1.3 2.2 -2.7"}"/></g>`;
+}
+/* Miting yapılan şehirde kürsü, bayrak, kalabalık ve sayı rozeti */
+function mitingIsareti(k) {
+  const n = mitingSayisi(k);
+  if (!n || !SEHIR_KONUM[k]) return "";
+  const P = SEHIR_KONUM[k];
+  const x = P[0] + (k === "ege" ? -8 : k === "mar" ? 18 : -16),
+    y = P[1] + (k === "ege" ? 26 : 16);
+  let h = (k.charCodeAt(0) * 131 + k.charCodeAt(2) * 17) | 0,
+    kal = "";
+  const r = () => ((h = (h * 16807) % 2147483647), (h & 0xffff) / 0xffff);
+  const adet = Math.min(70, 26 + n * 14);
+  for (let i = 0; i < adet; i++) {
+    const a = r() * 6.283,
+      u = 4 + Math.sqrt(r()) * (9 + n * 2);
+    kal += `<circle class="${r() < 0.22 ? "mt-k kz" : "mt-k"}" cx="${(Math.cos(a) * u).toFixed(1)}" cy="${(Math.sin(a) * u * 0.6 + 1.5).toFixed(1)}" r="${(0.55 + r() * 0.5).toFixed(2)}"/>`;
+  }
+  const taze = S.ek && S.ek.konvoy && S.ek.konvoy.r === k && S.ek.konvoy.g - S.daysLeft <= 6;
+  return `<g class="mp-miting${taze ? " taze" : ""}" transform="translate(${x} ${y}) scale(1.3)"><circle class="mt-halka" r="${12 + n * 2}"/>${taze ? '<circle class="mt-nabiz" r="10"/>' : ""}${kal}
+    <path class="mt-kursu" d="M-4.6 0h9.2l1.3 2.8h-11.8z"/><rect class="mt-hatip" x="-1" y="-4.4" width="2" height="4.4"/><circle class="mt-bas" cy="-5.8" r="1.4"/>
+    <path class="mt-sap" d="M5.6 0V-12"/><path class="mt-bayrak" d="M5.6 -12q3 -1.6 5 .4t5 .2v4.4q-2.5 1.4 -5 -.2t-5 -.2z"/>
+    <g transform="translate(14 -14)"><circle class="mt-rozet" r="4.6"/><text class="mt-sayi" y="1.8">${n}</text></g></g>`;
+}
 function izCiz() {
   const g = document.getElementById("mp-iz");
   if (!g || !S) return;
   const l = izListesi();
   let out = "";
   RK.forEach((k) => {
+    out += mitingIsareti(k);
     const A = MAP_ANCHOR[k];
-    const hep = l.filter((e) => e.r === k);
+    const hep = l.filter((e) => e.r === k && e.u !== "miting");
     if (!hep.length) return;
-    const son = hep.slice(-16);
-    const sat = 8,
-      ara = 8;
+    const son = hep.slice(-14);
+    const sat = 7,
+      ara = 9.4;
     const gen = Math.min(son.length, sat) * ara;
     const x0 = A[0] - gen / 2 + ara / 2,
-      y0 = A[1] + 42;
+      y0 = A[1] + 44;
     son.forEach((e, i) => {
       const x = x0 + (i % sat) * ara,
-        y = y0 + Math.floor(i / sat) * 18;
-      const neg = e.v < 0;
-      if (e.u === "rakip")
-        out += `<circle class="iz-rakip" cx="${(x + 0.2).toFixed(1)}" cy="${(y + 7).toFixed(1)}" r="3.2"/>`;
-      else if (e.u === "miting")
-        out += `<path class="iz-bayrak" d="M${x.toFixed(1)} ${(y + 14).toFixed(1)}V${y.toFixed(1)}l6.5 3.2-6.5 3.2"/>`;
-      else
-        out += `<line class="iz-cizgi${neg ? " neg" : ""}" x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="${(x + (i % 3 === 1 ? 0.8 : -0.4)).toFixed(1)}" y2="${(y + 14).toFixed(1)}"/>`;
+        y = y0 + Math.floor(i / sat) * 10;
+      if (e.u === "rakip") out += `<circle class="iz-rakip" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3"/>`;
+      else out += izMuhur(x, y, e.v < 0, i + e.g);
     });
     if (hep.length > son.length)
-      out += `<text class="iz-fazla" x="${(x0 + gen + 2).toFixed(1)}" y="${(y0 + 9).toFixed(1)}">+${hep.length - son.length}</text>`;
+      out += `<text class="iz-fazla" x="${(x0 + gen + 1).toFixed(1)}" y="${(y0 + 3).toFixed(1)}">+${hep.length - son.length}</text>`;
   });
   g.innerHTML = out;
 }
@@ -36723,6 +38062,32 @@ function startNight() {
     )
     .join("");
   const reported = new Set();
+  const yuz = (r) => (r.me ? partyIco(S.me) : (PARTIES.find((p) => p.id === r.id) || {}).ico || "p-devlet");
+  const duel = document.getElementById("yy-duel");
+  const akan = document.getElementById("yy-akan");
+  let duelAnahtar = "";
+  const duelCiz = (a, b, av, bv, var_) => {
+    const anahtar = a.id + "|" + b.id;
+    if (anahtar !== duelAnahtar) {
+      duelAnahtar = anahtar;
+      const taraf = (r, sag) =>
+        `<div class="yy-ad${sag ? " sag" : ""}${r.me ? " ben" : ""}" style="--c:${r.c}"><span class="yy-yuz"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#${yuz(r)}"/></svg></span><small>${esc(r.n)}</small><b>${esc(r.ldr || "")}</b><em id="yy-${sag ? "b" : "a"}">%0,0</em></div>`;
+      duel.innerHTML = taraf(a, false) + `<div class="yy-fark">FARK<b id="yy-f">0,0</b>PUAN</div>` + taraf(b, true);
+    }
+    document.getElementById("yy-a").textContent = var_ ? "%" + f1(av) : "—";
+    document.getElementById("yy-b").textContent = var_ ? "%" + f1(bv) : "—";
+    document.getElementById("yy-f").textContent = var_ ? f1(Math.abs(av - bv)) : "—";
+  };
+  const akanYaz = () => {
+    const l = [...reported].map((k) => {
+      const w = FINAL.regWin[k];
+      return `<b>${REGION_KEYS[k].toLocaleUpperCase("tr")}</b> ${esc(w.n)} önde`;
+    });
+    const metin = l.length ? l.join("<i>│</i>") : "<b>SEÇİM 2027</b> Sandıklar kapandı, sayım başladı<i>│</i>İlk sonuçlar doğudan bekleniyor";
+    akan.innerHTML = `<span>${metin}<i>│</i></span><span>${metin}<i>│</i></span>`;
+  };
+  akanYaz();
+  duelCiz(FINAL.rows[0], FINAL.rows[1], 0, 0, false);
   const brk = document.getElementById("brk-txt");
   brk.textContent = "Türkiye nefesini tuttu, ilk sonuçlar geliyor…";
   const paint = () => {
@@ -36756,6 +38121,7 @@ function startNight() {
     for (const k of RK) {
       if (!reported.has(k) && opened >= REGION_REPORT[k]) {
         reported.add(k);
+        akanYaz();
         brk.textContent = NIGHT_NEWS[k];
         paint();
         document.getElementById("breaking").classList.remove("flash");
@@ -36800,6 +38166,10 @@ function startNight() {
       document.getElementById("rl-" + i).style.display =
         i === leadIdx && opn.length ? "inline-block" : "none";
     });
+    {
+      const sira = shown.map((v, i) => i).sort((x, y) => shown[y] - shown[x]);
+      duelCiz(FINAL.rows[sira[0]], FINAL.rows[sira[1]], shown[sira[0]], shown[sira[1]], opn.length > 0);
+    }
     if (opn.length && lastLeader !== null && leadIdx !== lastLeader) {
       brk.textContent = `ÖNE GEÇTİ: ${FINAL.rows[leadIdx].n} · açılan sandık %${Math.round(opened)}`;
       document.getElementById("breaking").classList.add("flip");
@@ -36815,6 +38185,7 @@ function startNight() {
         document.getElementById("rb-" + i).style.width = r.s * 1.7 + "%";
       });
       const w = FINAL.rows[0];
+      duelCiz(FINAL.rows[0], FINAL.rows[1], FINAL.rows[0].s, FINAL.rows[1].s, true);
       brk.textContent = `KESİN OLMAYAN SONUÇLARA GÖRE BİRİNCİ: ${w.n} · %${f1(w.s)}`;
       document.getElementById("btn-faster").style.display = "none";
       document.getElementById("btn-final").style.display = "";

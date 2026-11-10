@@ -74,3 +74,21 @@ Eski katmanlardaki çakışan kurallar o bölümden ezilir; yeni ekranlar önce 
 - **Menü düğmesi** oyundan çıkarmaz, "Kampanya Molası" sayfasını açar.
 - Bir ekranda en fazla bir kızıl dolu düğme kuralı açılış ekranı için de geçerlidir: kayıt varsa
   "Devam Et" kızıl, "Yeni Kampanya" çerçevelidir.
+
+## Belge dili, yaşayan harita, gravürler, yayın paketi
+- **Olay = karargâh notu.** Kart haritaya raptiyeyle tutturulur; başlığın altında künye satırı
+  (KARARGÂH NOTU · SAAT · NO) vardır. Gövde daktilo yazısıdır (Plex Mono). "Telgraf" kelimesi kullanılmaz.
+- **Seçenek = karar fişi.** Sol kenar delikli, sağda kesik çizgili damga yeri. Dokununca mor ONAY
+  damgası iner, öbür fişler solar, sonra sonuç açılır. Sürükleme yoktur.
+- **Harita iki boyutlu kalır.** Yapılar `YAPI_SAHA` içindeki gerçek yerlere konur; tür araziyi seçer
+  (`YAPI_ARAZI`: köprü boğaz/nehir, baraj nehir, rüzgâr tepe/kıyı, depo ova, fabrika sanayi şehri…).
+  Yeni saha eklerken noktanın bölge sınırı içinde olduğunu doğrulayın.
+- **Harita işaretleri:** biten yapı dolu gravür, inşaat iskele + vinç, söz kesik çizgi, rakip gri.
+  Karar izleri mum mühürdür (yeşil ✓, kızıl ✗). Miting şehrinde kürsü, bayrak, kalabalık ve sayı rozeti durur.
+- **Hareket:** bayrak, baca dumanı, pervane, vinç yükü, konvoy, vapur, martı, bulut gölgesi.
+  Hepsi `prefers-reduced-motion` ile kapanır.
+- **Gravürler** `sahneCiz()` ile kodla üretilir (13 sahne). Olay türü `SAHNE_KAT`, başlıktaki kelime
+  `SAHNE_KELIME` ile sahneye bağlanır. Sonuç kartında solda küçük baskı olarak, geniş ekranda olay
+  kartının üstünde bant olarak görünür. Kart sığmıyorsa gravür kaldırılır.
+- **Yayın paketi** (seçim gecesi) oyunun paletini kullanır: koyu kahve zemin, kâğıt rengi yazı,
+  kızıl logo, altın vurgu. Lacivert ve parlak kırmızı yok.
