@@ -33484,7 +33484,8 @@ function acilisOlayi() {
   const T = YAPI_TUR[o.tur];
   if (!T) return null;
   const ad = T.ad.toLocaleLowerCase("tr");
-  const sehir = REGION_CITY[o.r];
+  const sehir = o.yer || REGION_CITY[o.r];
+  const sehirDe = yerEk(sehir, "de");
   const fonVar = S.usedIds.includes("eco_fon");
   let tip = "ihale";
   if (o.tur === "finans") tip = "fon";
@@ -33495,8 +33496,8 @@ function acilisOlayi() {
       cat: "GÜNDEM",
       title: "Finans Merkezi, Fon Krizinin Gölgesinde",
       body: fonVar
-        ? `${sehir}'de açılan Finans Merkezi'nin ardından muhalefet ve basın aynı soruyu soruyor: fon krizinin kayıpları ortadayken bu kule kimin kasasından yükseldi?`
-        : `${sehir}'de açılan Finans Merkezi'nin ardından basın, kulenin maliyetini ve kiracı listesini soruyor.`,
+        ? `${sehirDe} açılan Finans Merkezi'nin ardından muhalefet ve basın aynı soruyu soruyor: fon krizinin kayıpları ortadayken bu kule kimin kasasından yükseldi?`
+        : `${sehirDe} açılan Finans Merkezi'nin ardından basın, kulenin maliyetini ve kiracı listesini soruyor.`,
       opts: [
         { t: "Kiracı listesini ve maliyeti açıkla", d: "Şeffaflık güven verir ama tartışmayı da uzatır.", fx: { med: 2, mut: 1, oy: 0.3 } },
         { t: "Yatırımcı toplantısı düzenle", d: "Piyasa ve medya rahatlar, harcama büyür.", fx: { but: -3, med: 3, oy: 0.3 } },
@@ -33509,7 +33510,7 @@ function acilisOlayi() {
       id: "_acilis",
       cat: "SAHA",
       title: `${sehir} Açılışında Protesto`,
-      body: `${sehir}'de açılan ${ad} töreninde çevre ve çiftçi grupları pankart açtı. Kamera görüntüleri akşam haberlerinde.`,
+      body: `${sehirDe} açılan ${ad} töreninde çevre ve çiftçi grupları pankart açtı. Kamera görüntüleri akşam haberlerinde.`,
       opts: [
         { t: "Heyetle görüş, talepleri dinle", d: "Gerilimi düşürür, uzun sürer.", fx: { mut: 2, med: 1, oy: 0.3 } },
         { t: "Bilirkişi raporunu kamuoyuna aç", d: "Hazırlık gerekir, tartışmayı teknik zemine çeker.", fx: { but: -2, med: 2, oy: 0.4 } },
@@ -33521,7 +33522,7 @@ function acilisOlayi() {
     id: "_acilis",
     cat: "GÜNDEM",
     title: `${T.ad} İhalesi Tartışılıyor`,
-    body: `${sehir}'de açılan ${ad} için ihale süreci basında. Muhalefet tek teklifli ihale iddiasını gündeme taşıdı.`,
+    body: `${sehirDe} açılan ${ad} için ihale süreci basında. Muhalefet tek teklifli ihale iddiasını gündeme taşıdı.`,
     opts: [
       { t: "İhale dosyasını açıkla", d: "Şeffaflık eleştiriyi yumuşatır, kurum ödün verir.", fx: { med: 2, mut: 1, oy: 0.3 } },
       { t: "Denetim talep et", d: "Kasadan harcama gerektirir, güveni artırır.", fx: { but: -2, mut: 2, oy: 0.4 } },
@@ -34168,7 +34169,7 @@ function drawWeekBoard() {
         : a.cost < 0
           ? `<span class="p-cost neg">+${-a.cost} M₺</span>`
           : "";
-    b.innerHTML = `${costTxt}<svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#${a.ico}"/></svg><span class="p-t">${a.t}</span><span class="p-d">${picked && weekPick.proje && (a.id === "temel" || a.id === "proje") ? esc(REGION_CITY[weekPick.proje.r] + " · " + YAPI_TUR[weekPick.proje.tur].ad) : a.d}</span>${
+    b.innerHTML = `${costTxt}<svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#${a.ico}"/></svg><span class="p-t">${a.t}</span><span class="p-d">${picked && weekPick.proje && (a.id === "temel" || a.id === "proje") ? esc(REGION_KEYS[weekPick.proje.r] + " · " + YAPI_TUR[weekPick.proje.tur].ad) : a.d}</span>${
       kilitli ? `<span class="p-kilit">KİLİTLİ · ${a.kilit.et} ≥ ${a.kilit.min}</span>` : a.kilit ? `<span class="p-kilit acik">AÇILDI · ${a.kilit.et} ≥ ${a.kilit.min}</span>` : ""
     }`;
     if (!cannot) b.onclick = () => toggleWeekPick(a.id);
@@ -36641,13 +36642,13 @@ function yapiTamamla(y, tören) {
   S.reg[y.r] = clamp(S.reg[y.r] + reg, 1, 75);
   out.push({ k: REGION_KEYS[y.r], v: Math.round(reg * 10) / 10 });
   out.push(...applyFx(fx, 1));
-  if (dert) addTicker("HARİTA", `${REGION_CITY[y.r]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} tam ihtiyaca denk geldi: ${BOLGE_DERT[y.r][y.tur].toLocaleLowerCase("tr")}.`);
+  if (dert) addTicker("HARİTA", `${yerEk(yerAd(y), "de")} ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} tam ihtiyaca denk geldi: ${BOLGE_DERT[y.r][y.tur].toLocaleLowerCase("tr")}.`);
   /* sinerji: bölgede tamamlanmış ortak proje varsa tek seferlik bonus */
   const ortak = yapiOrtagi(y.tur).find((t) => yapilar().some((q) => q !== y && q.r === y.r && q.tur === t && q.durum === "tamam" && (q.sahip || "ben") === "ben"));
   if (ortak) {
     S.reg[y.r] = clamp(S.reg[y.r] + 1.5, 1, 75);
     out.push({ k: "Birlikte etki", v: 1.5, unit: "" });
-    addTicker("HARİTA", `${REGION_CITY[y.r]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} ile ${YAPI_TUR[ortak].ad.toLocaleLowerCase("tr")} birbirini tamamladı.`);
+    addTicker("HARİTA", `${yerEk(yerAd(y), "de")} ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} ile ${YAPI_TUR[ortak].ad.toLocaleLowerCase("tr")} birbirini tamamladı.`);
   }
   return out;
 }
@@ -36677,8 +36678,8 @@ function yapiSecenektenOku(ev, o, fx, mult) {
     addTicker(
       "HARİTA",
       durum === "vaat"
-        ? `${S.me.name}: ${REGION_CITY[en]} için ${YAPI_TUR[tur].ad.toLocaleLowerCase("tr")} sözü kayda geçti.`
-        : `${REGION_CITY[en]}'de ${YAPI_TUR[tur].ad.toLocaleLowerCase("tr")} hizmete açıldı.`,
+        ? `${S.me.name}: ${yerAd(y)} için ${YAPI_TUR[tur].ad.toLocaleLowerCase("tr")} sözü kayda geçti.`
+        : `${yerEk(yerAd(y), "de")} ${YAPI_TUR[tur].ad.toLocaleLowerCase("tr")} hizmete açıldı.`,
     );
 }
 function vaatYapisi(key) {
@@ -36720,7 +36721,7 @@ function temelAt(p) {
   delete y.uyar;
   y.bas = S.daysLeft;
   y.bitis = S.daysLeft - Math.round(rnd(12, 16));
-  addTicker("AA", `${REGION_CITY[y.r]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} için temel atıldı.`);
+  addTicker("AA", `${yerEk(yerAd(y), "de")} ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} için temel atıldı.`);
   return applyFx({ reg: { [y.r]: 0.6 }, med: 1 }, 1);
 }
 function acilisYap() {
@@ -36729,8 +36730,8 @@ function acilisYap() {
     .sort((a, b) => a.bitis - b.bitis)[0];
   if (suren) {
     const chips = yapiTamamla(suren, true);
-    addTicker("AA", `${REGION_CITY[suren.r]}'de ${YAPI_TUR[suren.tur].ad.toLocaleLowerCase("tr")} törenle açıldı.`);
-    if (S.ek && !S.ek.acilisOlayi) S.ek.acilisOlayi = { tur: suren.tur, r: suren.r, g: S.daysLeft };
+    addTicker("AA", `${yerEk(yerAd(suren), "de")} ${YAPI_TUR[suren.tur].ad.toLocaleLowerCase("tr")} törenle açıldı.`);
+    if (S.ek && !S.ek.acilisOlayi) S.ek.acilisOlayi = { tur: suren.tur, r: suren.r, g: S.daysLeft, yer: yerAd(suren) };
     return applyFx({ med: 2, oy: 0.25 }, 1).concat(chips);
   }
   const k = firsatBolgesi();
@@ -36740,11 +36741,11 @@ function acilisYap() {
     y.durum = "iskele";
     y.bas = S.daysLeft;
     y.bitis = S.daysLeft - 8;
-    addTicker("MEDYA", `${REGION_CITY[k]}'deki ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} açılışa yetişmedi, kurdele iskelenin önünde kesildi.`);
+    addTicker("MEDYA", `${yerEk(yerAd(y), "deki")} ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} açılışa yetişmedi, kurdele iskelenin önünde kesildi.`);
     return applyFx({ mut: -2, med: -1 }, 1);
   }
   const chips = yapiTamamla(y, false);
-  addTicker("AA", `${REGION_CITY[k]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} aceleyle açıldı.`);
+  addTicker("AA", `${yerEk(yerAd(y), "de")} ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} aceleyle açıldı.`);
   return applyFx({ med: 1 }, 1).concat(chips);
 }
 function projeSozu(p) {
@@ -36753,7 +36754,7 @@ function projeSozu(p) {
   const y = yapiEkle(p ? p.tur : turSec(k), k, "vaat");
   if (!y || yapilar().length === once) return applyFx({ mut: 1 }, 1);
   const sozler = yapilar().filter((x) => x.durum === "vaat" && (x.sahip || "ben") === "ben").length;
-  addTicker("SAHA", `${S.me.leader}: "${REGION_CITY[k]}'e ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} yapacağız." Proje taslağı kamuoyuyla paylaşıldı.`);
+  addTicker("SAHA", `${S.me.leader}: "${yerEk(yerAd(y), "e")} ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} yapacağız." Proje taslağı kamuoyuyla paylaşıldı.`);
   if (sozler >= 4 && Math.random() < 0.45) {
     addTicker("RAKİP", `İktidar sözcüsü: "${S.me.name}'nın haritası hayal projeleriyle dolu."`);
     return applyFx({ reg: { [k]: 0.5 }, med: -2 }, 1);
@@ -36772,10 +36773,10 @@ function rakipAcilisi(r) {
   const l = yapilar().filter((y) => y.sahip === "rakip");
   if (l.length >= 10) return false;
   const tur = pick(BOLGE_IHTIYAC[k].filter((t) => t !== "ofis"));
-  yapiEkle(tur, k, "tamam", "rakip");
+  const ry = yapiEkle(tur, k, "tamam", "rakip");
   S.reg[k] = clamp(S.reg[k] - 0.4, 1, 75);
   r.share = clamp(r.share + 0.2, 1.5, 55);
-  addTicker("AA", `${r.leader}, ${REGION_CITY[k]}'de ${YAPI_TUR[tur].ad.toLocaleLowerCase("tr")} açılışı yaptı.`);
+  addTicker("AA", `${r.leader}, ${ry ? yerEk(yerAd(ry), "de") : yerEk(REGION_CITY[k], "de")} ${YAPI_TUR[tur].ad.toLocaleLowerCase("tr")} açılışı yaptı.`);
   return true;
 }
 function yapiGun() {
@@ -36783,7 +36784,7 @@ function yapiGun() {
     const ben = (y.sahip || "ben") === "ben";
     if (y.durum === "iskele" && y.bitis && S.daysLeft <= y.bitis) {
       yapiTamamla(y, false);
-      addTicker("AA", `${REGION_CITY[y.r]}'deki ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} tamamlandı ve hizmete girdi.`);
+      addTicker("AA", `${yerEk(yerAd(y), "deki")} ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} tamamlandı ve hizmete girdi.`);
     }
     if (y.durum === "tamam" && ben) {
       const dert = yapiDertMi(y.r, y.tur);
@@ -36803,10 +36804,10 @@ function yapiGun() {
       addTicker(
         r ? "RAKİP" : "MEDYA",
         r
-          ? `${r.leader}: "${S.me.leader} ${REGION_CITY[y.r]} için ${ad} sözü verdi, temel hâlâ atılmadı."`
-          : `${REGION_CITY[y.r]}'e söz verilen ${ad} hâlâ kâğıtta.`,
+          ? `${r.leader}: "${S.me.leader} ${yerAd(y)} için ${ad} sözü verdi, temel hâlâ atılmadı."`
+          : `${yerEk(yerAd(y), "e")} söz verilen ${ad} hâlâ kâğıtta.`,
       );
-      notice(`${REGION_CITY[y.r]} için verdiğiniz ${ad} sözü hâlâ kâğıtta. İtibar kaybediyorsunuz.`, "warn");
+      notice(`${yerAd(y)} için verdiğiniz ${ad} sözü hâlâ kâğıtta. İtibar kaybediyorsunuz.`, "warn");
     }
   });
 }
@@ -36920,6 +36921,20 @@ function sahaSec(y) {
     }
   });
   return en >= 0 ? en : 0;
+}
+/* Yapının gerçek yeri (il adı) ve Türkçe ek uyumu: İstanbul'da, Antalya'da, Edremit'te */
+function yerAd(y) {
+  const a = yapiYer(y)[2];
+  return a === "Boğaz" ? "İstanbul Boğazı" : a;
+}
+function yerEk(ad, ek) {
+  if (/Boğazı$/.test(ad)) return ad + "'n" + (ek === "e" ? "a" : "da") + (ek === "deki" ? "ki" : "");
+  const v = ad.toLocaleLowerCase("tr").replace(/[^aeıioöuü]/g, "").slice(-1);
+  const on = "eiöü".includes(v);
+  const sert = /[çfhkpsşt]$/i.test(ad);
+  if (ek === "e") return ad + "'" + (/[aeıioöuü]$/i.test(ad) ? "y" : "") + (on ? "e" : "a");
+  const l = (sert ? "t" : "d") + (on ? "e" : "a");
+  return ad + "'" + l + (ek === "deki" ? "ki" : "");
 }
 function yapiYer(y) {
   if (typeof y.s !== "number" || !YAPI_SAHA[y.r] || !YAPI_SAHA[y.r][y.s]) y.s = sahaSec(y);
@@ -37369,7 +37384,7 @@ function projeKartiAc(k) {
       weekPick.proje = { r: k, tur: b.dataset.t };
       haptic(14);
       sfx("coin");
-      addTicker("SAHA", `${REGION_CITY[k]} için ${YAPI_TUR[b.dataset.t].ad.toLocaleLowerCase("tr")} gündemde.`);
+      addTicker("SAHA", `${REGION_KEYS[k]} için ${YAPI_TUR[b.dataset.t].ad.toLocaleLowerCase("tr")} gündemde.`);
       projeAsamaBitir();
     };
   });
