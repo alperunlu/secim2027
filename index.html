@@ -2419,11 +2419,13 @@ body.phase-final .panel {
   color: var(--atlas-kagit);
   border: 1px solid rgba(43, 35, 24, 0.5);
   box-shadow: 0 2px 0 rgba(43, 35, 24, 0.35);
-  padding: 0.28rem 0.6rem;
+  padding: 0.3rem 0.6rem;
   font-family: var(--mono);
   font-size: 0.69rem;
-  letter-spacing: 0.14em;
-  white-space: nowrap;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  white-space: pre-line;
+  max-width: calc(100% - 20px);
 }
 #map-ground.miting-kipi .mp-bolge-alan {
   cursor: pointer;
@@ -8966,6 +8968,45 @@ body:has(#screen-end.active) .notice {
     padding: 0.5rem;
   }
 }
+/* Plan onay düğmesi: yuvarlak mühür yerine tek satır, iki katmanlı geniş düğme */
+#dossier .wk-actions {
+  display: block !important;
+  margin: 0.9rem -1.7rem 0 !important;
+}
+#dossier .wk-actions .kagit-imza {
+  display: none !important;
+}
+#dossier .wk-actions .muhur,
+.week-card .wk-actions .muhur {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 3.4rem;
+  margin: 0 !important;
+  padding: 0.55rem 1rem !important;
+  border-radius: 2px !important;
+  font-family: var(--font-display, var(--serif)) !important;
+  font-weight: 700;
+  font-size: 1rem !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+#dossier .wk-actions .muhur br {
+  display: none;
+}
+#dossier .wk-actions .muhur small {
+  margin: 0 !important;
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 0.69rem !important;
+  letter-spacing: 0.08em !important;
+  opacity: 0.92;
+}
 </style>
 </head>
 <body>
@@ -9482,7 +9523,6 @@ body:has(#screen-end.active) .notice {
     <div id="title-atlas" aria-hidden="true"></div>
   <div class="title-vignette"></div>
   <div class="title-levha tl-v2">
-    <div class="tl-ust"><span>ERKEN SEÇİM ÖZEL SAYISI</span><span>SİYASET SİMÜLASYONU</span></div>
     <div class="tl-harita" id="tl-harita" aria-hidden="true"></div>
     <h1 class="title-main">SEÇİM <span>2027</span></h1>
     <div class="tl-kural" aria-hidden="true"></div>
@@ -9496,12 +9536,6 @@ body:has(#screen-end.active) .notice {
     <div class="tl-alt">
       <button class="km-sifirla" id="btn-rozet" onclick="rozetAc()">Rozetler</button>
       <button class="km-sifirla" onclick="ipucSifirla()">İpuçlarını sıfırla</button>
-    </div>
-    <div class="yazi-boyut" role="group" aria-label="Yazı boyutu">
-      <span class="yb-et">YAZI BOYUTU</span>
-      <button type="button" data-yb="1" aria-label="Normal yazı" style="font-size:.85rem">A</button>
-      <button type="button" data-yb="1.12" aria-label="Büyük yazı" style="font-size:1.05rem">A</button>
-      <button type="button" data-yb="1.25" aria-label="Çok büyük yazı" style="font-size:1.3rem">A</button>
     </div>
   </div>
 </section>
@@ -30107,7 +30141,7 @@ EVENTS.push(
     day: 97,
     cat: "TOPLUM",
     once: true,
-    title: "8 Mart: Meydanlar Mor",
+    title: "8 Mart: Dünya Kadınlar Günü",
     body: "Dünya Kadınlar Günü bu yıl bayram arifesine denk geldi. Büyükşehirlerde yürüyüşler var ve kadın seçmen her partiden tek bir şey bekliyor: somut bir söz.",
     opts: [
       {
@@ -30227,8 +30261,8 @@ EVENTS.push(
     day: 84,
     cat: "BÖLGE",
     once: true,
-    title: "Newroz",
-    body: "21 Mart. Diyarbakır'da ve büyükşehirlerde Newroz kutlamaları var. Bu yıl süreç masası açık olduğu için kürsüden okunacak her mesaj ülke genelinde dinleniyor.",
+    title: "Nevruz",
+    body: "21 Mart. Diyarbakır'da ve büyükşehirlerde Nevruz kutlamaları var. Bu yıl süreç masası açık olduğu için kürsüden okunacak her mesaj ülke genelinde dinleniyor.",
     opts: [
       {
         t: "Bayram mesajı yayınla, barış vurgusu yap",
@@ -33576,10 +33610,10 @@ function disCubuklari() {
   return Object.keys(DIS_AKTOR)
     .map((k) => {
       const v = disDeger(k);
-      const et = v >= 35 ? "YAKIN" : v <= -35 ? "GERGİN" : "MESAFELİ";
+      const et = olcekEtiket((v + 100) / 2);
       const sol = v < 0 ? 50 + v / 2 : 50,
         gen = Math.abs(v) / 2;
-      return `<div class="ds-satir${v <= -35 ? " gergin" : v >= 35 ? " yakin" : ""}"><span class="gd-ad">${DIS_AKTOR[k].ad}</span><span class="ds-bar"><u></u><i style="left:${sol}%;width:${gen}%"></i></span><span class="gd-et">${et}</span></div>`;
+      return `<div class="ds-satir${v <= -20 ? " gergin" : v >= 20 ? " yakin" : ""}"><span class="gd-ad">${DIS_AKTOR[k].ad}</span><span class="ds-bar"><u></u><i style="left:${sol}%;width:${gen}%"></i></span><span class="gd-et">${et}</span></div>`;
     })
     .join("");
 }
@@ -33686,12 +33720,20 @@ function donemGoster() {
   pulseCard();
   sfx("paper");
 }
+/* Ortak ölçek: 0-100 değeri beş basamaklı sözlü etikete çevirir */
+function olcekEtiket(p) {
+  return p >= 80 ? "ÇOK İYİ" : p >= 62 ? "İYİ" : p > 38 ? "NÖTR" : p > 20 ? "KÖTÜ" : "ÇOK KÖTÜ";
+}
 function gundemCubuklari() {
   if (!S || !S.ek || !S.ek.gundem) return "";
   return Object.keys(GUNDEM_KONU)
     .map((k) => {
       const v = Math.round(gundemDeger(k));
-      const et = v >= 65 ? "SICAK" : v <= 32 ? "SAKİN" : "ILIK";
+      /* Çubuk konunun ne kadar gündemde olduğunu gösterir; etiket bunun SİZE etkisini söyler */
+      const h = (v - 50) / 50;
+      const yon =
+        k === "guv" ? (S.me.incumbent || S.me.id === "cephe" ? 0.6 : 0) : S.me.incumbent ? -1 : 1;
+      const et = olcekEtiket(50 + 50 * yon * h);
       return `<div class="gd-satir${v >= 65 ? " sicak" : ""}"><span class="gd-ad">${GUNDEM_KONU[k].ad}</span><span class="gd-bar"><i style="width:${v}%"></i></span><span class="gd-et">${et}</span></div>`;
     })
     .join("");
@@ -33933,7 +33975,7 @@ function drawWeekBoard() {
   <div class="plan-grid" id="plan-grid"></div>
   <div class="wk-actions">
     <div class="kagit-imza"><span id="wk-imza">-</span></div>
-    <button class="muhur" id="wk-go">HAFTAYI<br>ONAYLA<small id="wk-muhur-n">0/2</small></button>
+    <button class="muhur" id="wk-go"><span>Haftayı Onayla</span><small id="wk-muhur-n">0/2</small></button>
   </div>`;
   const g = document.getElementById("plan-grid");
   PLAN_ACTIONS.filter((a) => a.id !== "rally" && hamleUygun(a)).forEach((a) => {
@@ -33966,7 +34008,7 @@ function drawWeekBoard() {
       const x = PLAN_ACTIONS.find((q) => q.id === id);
       return t + (x && x.cost > 0 ? x.cost : 0);
     }, 0);
-    mn.textContent = weekPick.sel.length + "/2" + (harc ? " · −" + harc + " M₺" : "");
+    mn.textContent = weekPick.sel.length + " / 2 hamle" + (harc ? " · −" + harc + " M₺" : "");
   }
   const os = document.getElementById("oneri-slot");
   if (os && ilkHafta() && weekPick.sel.length < 2) {
@@ -37009,12 +37051,12 @@ function oneriBolge() {
 function mitingListeCiz() {
   const el = document.getElementById("miting-liste");
   if (!el) return;
-  const acik = !!mitingAsama && mitingKipi();
-  el.hidden = !acik;
-  if (!acik) {
-    el.innerHTML = "";
-    return;
-  }
+  /* Bölge seçimi doğrudan haritadan yapılır; alttaki bölge şeridi kaldırıldı */
+  el.hidden = true;
+  el.innerHTML = "";
+  return;
+  // eslint-disable-next-line no-unreachable
+  const acik = true;
   const oneri = oneriBolge();
   const sira = RK.slice().sort((a, b) => (b === oneri) - (a === oneri) || REGION_WEIGHT[b] - REGION_WEIGHT[a]);
   el.innerHTML = sira
@@ -37048,7 +37090,7 @@ function mitingSeridiGuncelle() {
         REGION_KEYS[weekPick.region].toLocaleUpperCase("tr") +
         (kez ? " · " + (kez + 1) + ". KEZ" : "")
       : "MİTİNG İÇİN BİR BÖLGE SEÇİN" +
-        " · FIRSAT: " + REGION_KEYS[oneriBolge()].toLocaleUpperCase("tr");
+        "\nFIRSAT: " + REGION_KEYS[oneriBolge()].toLocaleUpperCase("tr");
     s.classList.toggle("secili", !!secili);
     s.classList.toggle("asama", !!mitingAsama && !secili);
   }
