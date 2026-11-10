@@ -11,14 +11,31 @@ Siyaset simülasyonu: 100 gün  _(28)_
 ## Tanıtım Metni (en çok 170, sürüm göndermeden değiştirilebilir)
 Kurgusal bir ittifakı 100 günde sandığa taşıyın. Her karar bir bedel taşır, ikinci turda koalisyon masası sizi bekler. _(≈ 118)_
 
+## Tanıtım Metni (Promotional Text, en çok 170)
+Haritada projeni seç, sözünü ver, 100 günde sandığa taşı. Her karar bir bedel taşır; ikinci turda koalisyon masası seni bekler.  _(127)_
+
+## Bu Sürümde Yenilikler (What's New)
+SÜRÜM 1.2
+
+• Yeni harita görünümü: yapılar, yollar ve bölgeler artık haritada canlı. Projeler haritada yükseliyor, açılışlar töreniyle görünüyor.
+• Proje seçimi baştan yazıldı: "Temel Atma" veya "Proje Sözü" dediğinizde harita açılır, bir bölgeye dokunur ve o bölgeye hangi projeyi götüreceğinizi seçersiniz.
+• Projeler artık farklı sonuç doğuruyor: hastane, fabrika, baraj, konut ve diğerleri farklı seçmen kesimlerini güçlendirir; bölgenin derdine denk gelen proje çok daha etkili olur.
+• Hesap sorulan sözler: verdiğiniz sözün temeli zamanında atılmazsa rakipleriniz ve basın hatırlatır.
+• Açılışların ardından yeni olaylar: ihale tartışması, protesto, fon krizi gölgesinde açılış.
+• Olay kartları yeniden tasarlandı: gravür sahneler, belge görünümü ve özel günler için büyük kapaklar.
+• Mobil okunabilirlik: daha büyük ve net yazılar, daha düzenli kartlar.
+• Yeni olaylar, düzeltilmiş metinler ve genel denge ayarları.
+
 ## Açıklama (en çok 4000)
-100 gün. Tek sandık. Sözün sende.
+100 gün. Tek sandık. Söz sende.
 
 SEÇİM 2027, tamamen kurgusal bir siyaset simülasyonudur. Altı ittifaktan birini seçin, kampanyanızı yönetin ve seçim gecesini sandık sandık izleyin.
 
 NASIL OYNANIR
-• Her gün bir olay önünüze düşer: kriz, fırsat, tuzak ya da bir yurttaşın zor sorusu. Seçtiğiniz her yol bir şey kazandırır, bir şey götürür.
-• Haritada bölge bölge desteğinizi büyütün. Miting yapın, vaat verin, ama verdiğiniz sözlerin hesabı sizden sorulur.
+• Her gün bir olay önünüze düşer: kriz, fırsat, tuzak ya da bir yurttaşın zor sorusu. Seçtiğiniz her yol bir şey kazandırır, bir şey götürür. Olaylar gazete kupürü, karargâh notu ya da gravür sahnelerle gelir.
+• Haritada bölge bölge desteğinizi büyütün. Miting yapın, bir bölge seçip oraya proje götürün, saha ofisi açın.
+• Projeleri siz seçersiniz: hastane, fabrika, baraj, konut, köprü, hızlı tren ve daha fazlası. Her proje farklı bir seçmen kesimine seslenir; bölgenin gerçek derdine denk gelen proje çok daha güçlü etki yapar.
+• Verdiğiniz sözlerin hesabı sizden sorulur. Temeli atılmayan bir proje, rakiplerinizin eline koz verir.
 • Anketleri canlı takip edin, rakiplerinizin hamlelerine karşılık verin.
 • Seçim gecesi sandıklar tek tek açılır. Sonuç sandalye dağılımıyla Meclis'e yansır.
 
@@ -26,7 +43,7 @@ NASIL OYNANIR
 İlk turda kimse %50'yi aşamadıysa asıl oyun başlar. Aday olarak elenen partilerin kapısını çalın, pazarlık kredinizi akıllıca harcayın. Ya da küçük bir parti olarak kilit sizdeyse, iki adayın taleplerini tartın ve Cumhurbaşkanı'nı siz belirleyin. Her gün yalnızca bir masayla görüşebilirsiniz.
 
 ALTI FARKLI İTTİFAK
-Her ittifakın kendi hedefi, kendi baskı noktaları ve kendi oynanışı var: birinci olmak, kilit parti olmak ya da barajı aşıp Meclis'e girmek.
+Her ittifakın kendi hedefi, kendi baskı noktaları ve kendi oynanışı var: birinci olmak, kilit parti olmak ya da barajı aşıp Meclis'e girmek. İktidar ittifakı temel atıp açılış yapar, muhalefet ise proje sözü verip sahada örgütlenir.
 
 PAYLAŞIN
 Sonucunuz, gazete ilanı tarzında bir kartla hazır. Tek dokunuşla paylaşın ya da hikâye boyutunda kaydedin.
