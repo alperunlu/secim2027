@@ -1,5 +1,7 @@
 # Game Center kurulumu (yeni build gerektirir)
 
+> 1.2.0'da Game Center devre dışı: modül `mobile/_bekleyen/game-center` altında, `App.js` köprüsü ve `app.json` yetkisi kaldırıldı. Geri getirmek için modülü `mobile/modules` altına taşıyıp App.js ve app.json değişikliklerini geri alın.
+
 Kod tarafı hazır: `mobile/modules/game-center` (GameKit), `App.js` köprüsü ve
 `app.json` içindeki `com.apple.developer.game-center` yetkisi. Oyun, rozet kazanıldığında
 ve kampanya bittiğinde `{type:"gc"}` mesajı gönderir. Modül yoksa (eski build, Android,

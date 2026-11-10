@@ -68,6 +68,6 @@ Tüm ittifaklar, liderler ve olaylar kurgusaldır; gerçek siyasi parti ya da ki
 İlk sürüm. İyi seçimler!
 
 ## Ekran Görüntüleri
-store/screenshots/ içinde (6.9", 1290×2796): 01-giris, 02-parti-secimi, 03-gunluk-olay, 04-harita, 05-anket.
+store/screenshots/ içinde (6.9", 1290×2796): 01-giris, 02-parti-secimi, 03-gunluk-olay, 04-harita, 05-proje-secimi, 06-anket.
 Başlıklar: "100 gün, tek sandık" · "Kendi ittifakınızı seçin" · "Her karar bir bedel taşır" · "Bölge bölge desteğinizi büyütün" · "Rakiplerinizi canlı takip edin".
 iPad ekran görüntüsü gerekmez (`supportsTablet: false`).
