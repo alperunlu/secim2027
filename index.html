@@ -2488,6 +2488,123 @@ body.phase-final .panel {
   cursor: pointer;
   min-height: 40px;
 }
+#proje-karti {
+  position: absolute;
+  left: 50%;
+  bottom: 3.7rem;
+  transform: translateX(-50%);
+  z-index: 8;
+  width: min(21rem, 92%);
+  background: var(--atlas-kagit);
+  color: var(--atlas-murekkep);
+  border: 1px solid var(--atlas-murekkep);
+  box-shadow: 0 3px 0 rgba(43, 35, 24, 0.4), 0 10px 24px rgba(0, 0, 0, 0.35);
+  padding: 0.55rem 0.6rem 0.6rem;
+  touch-action: auto;
+}
+#proje-karti[hidden] {
+  display: none;
+}
+#proje-karti .pk-baslik {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 0.69rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.4rem;
+  gap: 0.5rem;
+}
+#proje-karti .pk-baslik b {
+  font-family: var(--serif);
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+#proje-karti .pk-satir {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(43, 35, 24, 0.35);
+  padding: 0.35rem 0.4rem;
+  margin-top: 0.3rem;
+  min-height: 48px;
+  cursor: pointer;
+}
+#proje-karti .pk-satir:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+#proje-karti .pk-satir.dert {
+  border-color: var(--atlas-murekkep);
+  background: rgba(43, 35, 24, 0.07);
+}
+#proje-karti .pk-satir svg {
+  width: 2.6rem;
+  height: 2.2rem;
+}
+#proje-karti .pk-satir b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+}
+#proje-karti .pk-satir small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.69rem;
+  line-height: 1.35;
+  color: var(--atlas-murekkep-2);
+}
+#proje-karti .pk-rozet {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.69rem;
+  letter-spacing: 0.08em;
+  border: 1px solid currentColor;
+  padding: 0 0.3rem;
+  margin: 0.15rem 0.25rem 0 0;
+}
+#proje-karti .pk-rozet.dert {
+  background: var(--atlas-murekkep);
+  color: var(--atlas-kagit);
+}
+@media (max-height: 760px) {
+  #proje-karti {
+    bottom: 3.5rem;
+    padding: 0.4rem 0.5rem 0.45rem;
+  }
+  #proje-karti .pk-satir {
+    min-height: 40px;
+    padding: 0.2rem 0.35rem;
+    margin-top: 0.2rem;
+    grid-template-columns: 2.1rem 1fr;
+  }
+  #proje-karti .pk-satir svg {
+    width: 2.1rem;
+    height: 1.8rem;
+  }
+  #proje-karti .pk-satir small {
+    display: none;
+  }
+  #proje-karti .pk-satir span > .pk-rozet {
+    margin-top: 0.1rem;
+  }
+}
+#proje-karti .pk-kapat {
+  background: transparent;
+  border: 0;
+  font-family: var(--mono);
+  font-size: 0.69rem;
+  letter-spacing: 0.1em;
+  color: var(--atlas-murekkep-2);
+  min-height: 32px;
+  padding: 0 0.3rem;
+  cursor: pointer;
+}
 #region-card {
   position: absolute;
   left: 50%;
@@ -9633,6 +9750,7 @@ body:has(#screen-end.active) .notice {
     <div id="miting-serit" hidden>MİTİNG İÇİN BİR BÖLGE SEÇİN</div>
     <div id="miting-liste" hidden aria-label="Miting bölgeleri"></div>
     <button id="miting-atla" hidden onclick="mitingAsamaGec()">BU HAFTA MİTİNG YOK</button>
+    <div id="proje-karti" hidden role="dialog" aria-label="Proje seçimi"></div>
     <div id="stage">
     <div id="stage-inner">
       <div class="dossier" id="dossier">
@@ -33358,6 +33476,59 @@ function karsilikOlayi() {
     ],
   };
 }
+/* Açılışın ertesi günü: türe özgü tartışma kartı */
+function acilisOlayi() {
+  const o = S.ek && S.ek.acilisOlayi;
+  if (!o || S.daysLeft >= o.g) return null;
+  delete S.ek.acilisOlayi;
+  const T = YAPI_TUR[o.tur];
+  if (!T) return null;
+  const ad = T.ad.toLocaleLowerCase("tr");
+  const sehir = REGION_CITY[o.r];
+  const fonVar = S.usedIds.includes("eco_fon");
+  let tip = "ihale";
+  if (o.tur === "finans") tip = "fon";
+  else if (["enerji", "baraj", "fabrika", "tarim", "koruma"].includes(o.tur)) tip = "protesto";
+  if (tip === "fon") {
+    return {
+      id: "_acilis",
+      cat: "GÜNDEM",
+      title: "Finans Merkezi, Fon Krizinin Gölgesinde",
+      body: fonVar
+        ? `${sehir}'de açılan Finans Merkezi'nin ardından muhalefet ve basın aynı soruyu soruyor: fon krizinin kayıpları ortadayken bu kule kimin kasasından yükseldi?`
+        : `${sehir}'de açılan Finans Merkezi'nin ardından basın, kulenin maliyetini ve kiracı listesini soruyor.`,
+      opts: [
+        { t: "Kiracı listesini ve maliyeti açıkla", d: "Şeffaflık güven verir ama tartışmayı da uzatır.", fx: { med: 2, mut: 1, oy: 0.3 } },
+        { t: "Yatırımcı toplantısı düzenle", d: "Piyasa ve medya rahatlar, harcama büyür.", fx: { but: -3, med: 3, oy: 0.3 } },
+        { t: "Eleştirileri yok say", d: "Kasa korunur, itibar sorgulanır.", fx: { med: -3, mut: -2, oy: -0.3 } },
+      ],
+    };
+  }
+  if (tip === "protesto") {
+    return {
+      id: "_acilis",
+      cat: "SAHA",
+      title: `${sehir} Açılışında Protesto`,
+      body: `${sehir}'de açılan ${ad} töreninde çevre ve çiftçi grupları pankart açtı. Kamera görüntüleri akşam haberlerinde.`,
+      opts: [
+        { t: "Heyetle görüş, talepleri dinle", d: "Gerilimi düşürür, uzun sürer.", fx: { mut: 2, med: 1, oy: 0.3 } },
+        { t: "Bilirkişi raporunu kamuoyuna aç", d: "Hazırlık gerekir, tartışmayı teknik zemine çeker.", fx: { but: -2, med: 2, oy: 0.4 } },
+        { t: "Töreni sürdür, kordonu sıkılaştır", d: "Görüntü sertleşir, işi hızlı kapatır.", fx: { med: -3, mut: -3, oy: -0.3 } },
+      ],
+    };
+  }
+  return {
+    id: "_acilis",
+    cat: "GÜNDEM",
+    title: `${T.ad} İhalesi Tartışılıyor`,
+    body: `${sehir}'de açılan ${ad} için ihale süreci basında. Muhalefet tek teklifli ihale iddiasını gündeme taşıdı.`,
+    opts: [
+      { t: "İhale dosyasını açıkla", d: "Şeffaflık eleştiriyi yumuşatır, kurum ödün verir.", fx: { med: 2, mut: 1, oy: 0.3 } },
+      { t: "Denetim talep et", d: "Kasadan harcama gerektirir, güveni artırır.", fx: { but: -2, mut: 2, oy: 0.4 } },
+      { t: "İddiaları reddet", d: "Hızlı kapanır, tartışma tabanı yorabilir.", fx: { med: -1, mut: -1, oy: 0 } },
+    ],
+  };
+}
 /* ---- Değişken kartlar: gündem şokundan doğan ve bölgeye özgü olaylar ---- */
 const GUNDEM_KART = {
   eko: {
@@ -33926,6 +34097,8 @@ function renderWeeklyBoard() {
     sel: [],
     region: null,
   };
+  projeAsama = null;
+  projeKartiKapat();
   if (S.lastWeek > 0) {
     rakipHaftasi();
     disHaftasi();
@@ -33995,7 +34168,7 @@ function drawWeekBoard() {
         : a.cost < 0
           ? `<span class="p-cost neg">+${-a.cost} M₺</span>`
           : "";
-    b.innerHTML = `${costTxt}<svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#${a.ico}"/></svg><span class="p-t">${a.t}</span><span class="p-d">${a.d}</span>${
+    b.innerHTML = `${costTxt}<svg class="p-ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#${a.ico}"/></svg><span class="p-t">${a.t}</span><span class="p-d">${picked && weekPick.proje && (a.id === "temel" || a.id === "proje") ? esc(REGION_CITY[weekPick.proje.r] + " · " + YAPI_TUR[weekPick.proje.tur].ad) : a.d}</span>${
       kilitli ? `<span class="p-kilit">KİLİTLİ · ${a.kilit.et} ≥ ${a.kilit.min}</span>` : a.kilit ? `<span class="p-kilit acik">AÇILDI · ${a.kilit.et} ≥ ${a.kilit.min}</span>` : ""
     }`;
     if (!cannot) b.onclick = () => toggleWeekPick(a.id);
@@ -34066,6 +34239,7 @@ function toggleWeekPick(id) {
   if (i >= 0) {
     weekPick.sel.splice(i, 1);
     if (id === "rally") weekPick.region = null;
+    if (id === "temel" || id === "proje") weekPick.proje = null;
   } else {
     if (weekPick.sel.length >= 2) return;
     const a = PLAN_ACTIONS.find((x) => x.id === id);
@@ -34079,6 +34253,11 @@ function toggleWeekPick(id) {
       return;
     }
     weekPick.sel.push(id);
+    if (id === "temel" || id === "proje") {
+      drawWeekBoard();
+      projeAsamaBaslat(id);
+      return;
+    }
   }
   const doldu = weekPick.sel.length >= 2;
   drawWeekBoard();
@@ -34094,6 +34273,12 @@ function toggleWeekPick(id) {
 function confirmWeek() {
   if (weekPick.sel.includes("rally") && !weekPick.region) {
     notice("Miting için önce bir bölge seçin.", "warn");
+    return false;
+  }
+  const pid = weekPick.sel.find((x) => x === "temel" || x === "proje");
+  if (pid && !weekPick.proje) {
+    notice("Önce haritadan bir bölge ve proje seçin.", "warn");
+    projeAsamaBaslat(pid);
     return false;
   }
   const applied = [];
@@ -34138,11 +34323,11 @@ function confirmWeek() {
             : `${REGION_CITY[k]}'de bir miting daha. Yerel basın bile "yine mi" diye yazdı.`,
       );
     } else if (id === "temel") {
-      applied.push(...temelAt());
+      applied.push(...temelAt(weekPick.proje));
     } else if (id === "acilis") {
       applied.push(...acilisYap());
     } else if (id === "proje") {
-      applied.push(...projeSozu());
+      applied.push(...projeSozu(weekPick.proje));
     } else if (id === "ofis") {
       applied.push(...ofisAc());
     } else if (a.fx) {
@@ -34307,6 +34492,8 @@ function chooseDailyEvent() {
   if (anchor) return anchor;
   const kar = karsilikOlayi();
   if (kar) return kar;
+  const acl = acilisOlayi();
+  if (acl) return acl;
   if (S.ek && S.ek.sokKart && d < S.ek.sokKart.g) {
     const sk = S.ek.sokKart;
     delete S.ek.sokKart;
@@ -36349,6 +36536,57 @@ const YAPI_KURAL = [
   [/okul|yurt|kampüs/i, "okul"],
   [/rüzgâr|rüzgar|güneş enerjisi|yenilenebilir/i, "enerji"],
 ];
+/* Türe göre etki: hangi seçmen grubunu ve hangi göstergeyi güçlendirir */
+const YAPI_ETKI = {
+  hastane: { seg: { emekli: 3 }, fx: { mut: 2 }, et: "Emekli · Memnuniyet" },
+  fabrika: { seg: { isci: 3 }, fx: { but: 3 }, et: "İşçi · Kasa" },
+  baraj: { seg: { ciftci: 3 }, fx: { mut: 1 }, et: "Çiftçi · Memnuniyet" },
+  konut: { seg: { kent: 3 }, fx: { mut: 1 }, et: "Kentli · Memnuniyet" },
+  finans: { seg: { kent: 1 }, fx: { med: 3, but: 4 }, gunKasa: 0.2, et: "Medya · Kasa · günlük gelir" },
+  kopru: { seg: { esnaf: 3 }, fx: { med: 1 }, et: "Esnaf · Medya" },
+  okul: { seg: { genc: 3 }, fx: { mut: 1 }, et: "Genç · Memnuniyet" },
+  enerji: { seg: { kent: 2 }, fx: { but: 2 }, et: "Kentli · Kasa" },
+  tarim: { seg: { ciftci: 2, esnaf: 2 }, fx: {}, gunKasa: 0.12, et: "Çiftçi · Esnaf · günlük gelir" },
+  koruma: { seg: { kent: 2, genc: 1 }, fx: { mut: 1 }, et: "Kentli · Genç" },
+  afet: { seg: { kent: 2 }, fx: { mut: 2 }, et: "Kentli · Memnuniyet" },
+  hal: { seg: { esnaf: 3 }, fx: { mut: 1 }, et: "Esnaf · Memnuniyet" },
+  tren: { seg: { kent: 2, esnaf: 1 }, fx: { med: 1 }, et: "Kentli · Esnaf" },
+  otoyol: { seg: { esnaf: 3 }, fx: { med: 1 }, et: "Esnaf · Medya" },
+};
+/* Bölgenin gerçek derdi: denk gelen proje çift etki yapar, gerisi zayıf kalır */
+const BOLGE_DERT = {
+  mar: { konut: "Kira ve deprem riski", finans: "Fon krizi sonrası güven arayışı" },
+  ege: { koruma: "Zeytinlik alanları tartışmada", enerji: "Yenilenebilir enerji yatırımı bekleniyor" },
+  akd: { afet: "Deprem sonrası afet hazırlığı", hal: "Üretici ve hal fiyatları" },
+  ica: { baraj: "Kuraklık ve sulama sorunu", fabrika: "Sanayi ve istihdam" },
+  kar: { tarim: "Depolama ve sevkiyat sorunu", otoyol: "Dağlık kıyı yolunda ulaşım" },
+  dog: { hastane: "Uzman hekim eksikliği", otoyol: "Kışın kapanan yollar" },
+  gdo: { baraj: "Sulama ve tarım", fabrika: "İşsizlik ve genç nüfus" },
+};
+const YAPI_DERT_CARPAN = 1.7;
+const YAPI_UYUM_CARPAN = 0.6;
+function yapiDertMi(r, tur) {
+  return !!(BOLGE_DERT[r] && BOLGE_DERT[r][tur]);
+}
+/* Aynı bölgede birbirini tamamlayan projeler */
+const YAPI_SINERJI = [
+  ["tren", "fabrika"],
+  ["otoyol", "tarim"],
+  ["baraj", "tarim"],
+  ["konut", "okul"],
+  ["hastane", "konut"],
+  ["enerji", "fabrika"],
+  ["kopru", "otoyol"],
+  ["finans", "tren"],
+];
+function yapiOrtagi(tur) {
+  const o = [];
+  YAPI_SINERJI.forEach(([a, b]) => {
+    if (a === tur) o.push(b);
+    if (b === tur) o.push(a);
+  });
+  return o;
+}
 function yapilar() {
   if (!S) return [];
   if (!S.ek) S.ek = {};
@@ -36367,23 +36605,51 @@ function yapiEkle(tur, r, durum, sahip) {
     if (var_.durum === "vaat" && durum !== "vaat") {
       var_.durum = durum;
       var_.g = S.daysLeft;
+      delete var_.son;
+      delete var_.uyar;
     }
     return var_;
   }
   const y = { tur, r, durum, g: S.daysLeft, sahip };
+  /* İktidarın verdiği söz için süre başlar: üç hafta içinde temel atılmazsa hesabı sorulur */
+  if (durum === "vaat" && sahip === "ben" && S.me.incumbent) y.son = S.daysLeft - 21;
   l.push(y);
   return y;
 }
+/* Biten proje: türe ve bölgenin derdine göre etki; sinerji bonusu. Ekranda gösterilecek kalemleri döndürür. */
 function yapiTamamla(y, tören) {
   y.durum = "tamam";
   y.g = S.daysLeft;
   delete y.bitis;
   delete y.bas;
-  const t = YAPI_TUR[y.tur];
-  if ((y.sahip || "ben") === "ben") {
-    if (t.seg && S.ek && S.ek.seg) S.ek.seg[t.seg] = clamp(S.ek.seg[t.seg] + 2.5, 5, 95);
-    S.reg[y.r] = clamp(S.reg[y.r] + (tören ? 2.8 : 1.2), 1, 75);
+  delete y.son;
+  delete y.uyar;
+  const out = [];
+  if ((y.sahip || "ben") !== "ben") return out;
+  const E = YAPI_ETKI[y.tur] || { seg: {}, fx: {} };
+  const dert = yapiDertMi(y.r, y.tur);
+  const k = dert ? YAPI_DERT_CARPAN : YAPI_UYUM_CARPAN;
+  if (S.ek && S.ek.seg)
+    for (const g in E.seg) {
+      S.ek.seg[g] = clamp(S.ek.seg[g] + E.seg[g] * k, 5, 95);
+      const sg = SEGMENTLER.find((q) => q.id === g);
+      out.push({ k: sg ? sg.ad.charAt(0) + sg.ad.slice(1).toLocaleLowerCase("tr") : g, v: Math.round(E.seg[g] * k * 10) / 10, unit: " puan" });
+    }
+  const fx = {};
+  for (const x in E.fx) fx[x] = E.fx[x] * k;
+  const reg = (tören ? 2.8 : 1.2) * k;
+  S.reg[y.r] = clamp(S.reg[y.r] + reg, 1, 75);
+  out.push({ k: REGION_KEYS[y.r], v: Math.round(reg * 10) / 10 });
+  out.push(...applyFx(fx, 1));
+  if (dert) addTicker("HARİTA", `${REGION_CITY[y.r]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} tam ihtiyaca denk geldi: ${BOLGE_DERT[y.r][y.tur].toLocaleLowerCase("tr")}.`);
+  /* sinerji: bölgede tamamlanmış ortak proje varsa tek seferlik bonus */
+  const ortak = yapiOrtagi(y.tur).find((t) => yapilar().some((q) => q !== y && q.r === y.r && q.tur === t && q.durum === "tamam" && (q.sahip || "ben") === "ben"));
+  if (ortak) {
+    S.reg[y.r] = clamp(S.reg[y.r] + 1.5, 1, 75);
+    out.push({ k: "Birlikte etki", v: 1.5, unit: "" });
+    addTicker("HARİTA", `${REGION_CITY[y.r]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} ile ${YAPI_TUR[ortak].ad.toLocaleLowerCase("tr")} birbirini tamamladı.`);
   }
+  return out;
 }
 function turSec(k) {
   const var_ = yapilar().filter((y) => y.r === k && (y.sahip || "ben") === "ben").map((y) => y.tur);
@@ -36432,17 +36698,26 @@ function firsatBolgesi() {
   }
   return ust[0].k;
 }
-function temelAt() {
-  const vaat = yapilar().find((y) => y.durum === "vaat" && (y.sahip || "ben") === "ben");
-  let y;
-  if (vaat) {
-    y = vaat;
-    y.durum = "iskele";
+function temelAt(p) {
+  let y = null;
+  if (p) {
+    const var_ = yapilar().find((q) => q.durum === "vaat" && q.r === p.r && q.tur === p.tur && (q.sahip || "ben") === "ben");
+    y = var_ || yapiEkle(p.tur, p.r, "iskele");
+    if (y && y.durum === "vaat") y.durum = "iskele";
   } else {
-    const k = firsatBolgesi();
-    y = yapiEkle(turSec(k), k, "iskele");
+    const vaat = yapilar().find((q) => q.durum === "vaat" && (q.sahip || "ben") === "ben");
+    if (vaat) {
+      y = vaat;
+      y.durum = "iskele";
+    } else {
+      const k = firsatBolgesi();
+      y = yapiEkle(turSec(k), k, "iskele");
+    }
   }
   if (!y) return [];
+  if (y.durum !== "iskele") y.durum = "iskele";
+  delete y.son;
+  delete y.uyar;
   y.bas = S.daysLeft;
   y.bitis = S.daysLeft - Math.round(rnd(12, 16));
   addTicker("AA", `${REGION_CITY[y.r]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} için temel atıldı.`);
@@ -36453,9 +36728,10 @@ function acilisYap() {
     .filter((y) => y.durum === "iskele" && (y.sahip || "ben") === "ben")
     .sort((a, b) => a.bitis - b.bitis)[0];
   if (suren) {
-    yapiTamamla(suren, true);
+    const chips = yapiTamamla(suren, true);
     addTicker("AA", `${REGION_CITY[suren.r]}'de ${YAPI_TUR[suren.tur].ad.toLocaleLowerCase("tr")} törenle açıldı.`);
-    return applyFx({ med: 2, oy: 0.25 }, 1).concat([{ k: REGION_KEYS[suren.r], v: 2.8 }]);
+    if (S.ek && !S.ek.acilisOlayi) S.ek.acilisOlayi = { tur: suren.tur, r: suren.r, g: S.daysLeft };
+    return applyFx({ med: 2, oy: 0.25 }, 1).concat(chips);
   }
   const k = firsatBolgesi();
   const y = yapiEkle(turSec(k), k, "tamam");
@@ -36467,14 +36743,14 @@ function acilisYap() {
     addTicker("MEDYA", `${REGION_CITY[k]}'deki ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} açılışa yetişmedi, kurdele iskelenin önünde kesildi.`);
     return applyFx({ mut: -2, med: -1 }, 1);
   }
-  yapiTamamla(y, false);
+  const chips = yapiTamamla(y, false);
   addTicker("AA", `${REGION_CITY[k]}'de ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} aceleyle açıldı.`);
-  return applyFx({ med: 1 }, 1).concat([{ k: REGION_KEYS[k], v: 1.2 }]);
+  return applyFx({ med: 1 }, 1).concat(chips);
 }
-function projeSozu() {
-  const k = firsatBolgesi();
+function projeSozu(p) {
+  const k = p ? p.r : firsatBolgesi();
   const once = yapilar().length;
-  const y = yapiEkle(turSec(k), k, "vaat");
+  const y = yapiEkle(p ? p.tur : turSec(k), k, "vaat");
   if (!y || yapilar().length === once) return applyFx({ mut: 1 }, 1);
   const sozler = yapilar().filter((x) => x.durum === "vaat" && (x.sahip || "ben") === "ben").length;
   addTicker("SAHA", `${S.me.leader}: "${REGION_CITY[k]}'e ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} yapacağız." Proje taslağı kamuoyuyla paylaşıldı.`);
@@ -36504,12 +36780,34 @@ function rakipAcilisi(r) {
 }
 function yapiGun() {
   yapilar().forEach((y) => {
+    const ben = (y.sahip || "ben") === "ben";
     if (y.durum === "iskele" && y.bitis && S.daysLeft <= y.bitis) {
       yapiTamamla(y, false);
       addTicker("AA", `${REGION_CITY[y.r]}'deki ${YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr")} tamamlandı ve hizmete girdi.`);
     }
-    if (y.durum === "tamam" && (y.sahip || "ben") === "ben")
-      S.reg[y.r] = clamp(S.reg[y.r] + YAPI_TUR[y.tur].gun, 1, 75);
+    if (y.durum === "tamam" && ben) {
+      const dert = yapiDertMi(y.r, y.tur);
+      const E = YAPI_ETKI[y.tur] || {};
+      S.reg[y.r] = clamp(S.reg[y.r] + YAPI_TUR[y.tur].gun * (dert ? YAPI_DERT_CARPAN : YAPI_UYUM_CARPAN), 1, 75);
+      if (E.gunKasa) S.stats.but = clamp(S.stats.but + E.gunKasa * (dert ? 1.5 : 1), 0, 150);
+    }
+    /* Hesap sorulan söz: süre dolunca rakip ve gazete hatırlatır, itibar kaybedilir */
+    if (y.durum === "vaat" && ben && S.me.incumbent && y.son != null && S.daysLeft <= y.son && (y.uyar || 0) < 3) {
+      y.uyar = (y.uyar || 0) + 1;
+      y.son = S.daysLeft - 14;
+      S.reg[y.r] = clamp(S.reg[y.r] - 0.7 * y.uyar, 1, 75);
+      S.stats.med = clamp(S.stats.med - 2 * y.uyar, 0, 100);
+      S.stats.mut = clamp(S.stats.mut - 1, 0, 100);
+      const r = S.rivals.length ? pick(S.rivals) : null;
+      const ad = YAPI_TUR[y.tur].ad.toLocaleLowerCase("tr");
+      addTicker(
+        r ? "RAKİP" : "MEDYA",
+        r
+          ? `${r.leader}: "${S.me.leader} ${REGION_CITY[y.r]} için ${ad} sözü verdi, temel hâlâ atılmadı."`
+          : `${REGION_CITY[y.r]}'e söz verilen ${ad} hâlâ kâğıtta.`,
+      );
+      notice(`${REGION_CITY[y.r]} için verdiğiniz ${ad} sözü hâlâ kâğıtta. İtibar kaybediyorsunuz.`, "warn");
+    }
   });
 }
 function yapiIlerleme(y) {
@@ -36995,6 +37293,98 @@ function mitingKipi() {
     !!document.querySelector("#dossier.week-card")
   );
 }
+/* Proje seçimi: Temel Atma / Proje Sözü haritadan bölge, karttan proje seçtirir */
+let projeAsama = null;
+function projeAsamaBaslat(id) {
+  projeAsama = id;
+  weekPick.proje = null;
+  haritaTamAyarla(true);
+  mitingSeridiGuncelle();
+  haptic(8);
+  sfx("paper");
+}
+/* Yol ve hat projeleri haritada çizgi olarak görünür; kartta küçük bir simge kullanılır */
+function projeSimge(t) {
+  if (t === "tren")
+    return `<svg viewBox="0 0 40 36" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 30 L18 4 M34 30 L22 4"/><path d="M9 22 H31 M12 14 H28 M7 29 H33" stroke-width="1.3"/></g><rect x="14" y="2" width="12" height="8" fill="currentColor"/></svg>`;
+  if (t === "otoyol")
+    return `<svg viewBox="0 0 40 36" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 32 L16 4 M36 32 L24 4"/></g><path d="M20 30 V25 M20 20 V15 M20 11 V7" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>`;
+  return `<svg viewBox="-20 -32 40 36" aria-hidden="true"><g class="yp tamam ben"><g class="yp-govde">${yapiGlif(t)}</g></g></svg>`;
+}
+function projeKartiKapat() {
+  const k = document.getElementById("proje-karti");
+  if (k) {
+    k.hidden = true;
+    k.innerHTML = "";
+  }
+}
+function projeAsamaBitir() {
+  projeAsama = null;
+  projeKartiKapat();
+  haritaTamAyarla(false);
+  mitingSeridiGuncelle();
+  drawWeekBoard();
+  pulseCard();
+  sfx("paper");
+}
+function projeVazgec() {
+  const id = projeAsama;
+  const i = weekPick.sel.indexOf(id);
+  if (i >= 0) weekPick.sel.splice(i, 1);
+  weekPick.proje = null;
+  projeAsamaBitir();
+}
+function projeKartiAc(k) {
+  const kart = document.getElementById("proje-karti");
+  if (!kart || !BOLGE_IHTIYAC[k]) return;
+  const temel = projeAsama === "temel";
+  const A = MAP_ANCHOR[k];
+  const B = gorunurBant();
+  kam.z = Math.min(kam.maxZ, Math.max(kam.minZ * 2.6, B.gw / MAP_W * 1.6));
+  kam.x = B.gw / 2 - A[0] * kam.z;
+  kam.y = B.gh * 0.22 - A[1] * kam.z;
+  const yk = kam.y;
+  kamSinirla();
+  kam.y = yk; /* bölge kartın üstündeki bantta kalsın: dikey ortalamayı geçersiz kıl */
+  kamAnim(450);
+  const mevcut = yapilar().filter((y) => y.r === k && (y.sahip || "ben") === "ben");
+  const satirlar = BOLGE_IHTIYAC[k]
+    .slice()
+    .sort((x, y) => yapiDertMi(k, y) - yapiDertMi(k, x))
+    .map((t) => {
+      const var_ = mevcut.find((y) => y.tur === t);
+      const dolu = var_ && !(temel && var_.durum === "vaat");
+      const dert = yapiDertMi(k, t);
+      const E = YAPI_ETKI[t] || { et: "" };
+      const ortak = yapiOrtagi(t).find((o) => mevcut.some((y) => y.tur === o && y.durum !== "vaat"));
+      const rozet = [];
+      if (dert) rozet.push(`<span class="pk-rozet dert">BÖLGE DERDİ</span>`);
+      else rozet.push(`<span class="pk-rozet">ZAYIF ETKİ</span>`);
+      if (var_ && var_.durum === "vaat") rozet.push(`<span class="pk-rozet">SÖZ VERİLDİ</span>`);
+      else if (var_) rozet.push(`<span class="pk-rozet">${var_.durum === "tamam" ? "AÇILDI" : "İNŞAATTA"}</span>`);
+      if (ortak) rozet.push(`<span class="pk-rozet">+ ${esc(YAPI_TUR[ortak].ad.toLocaleUpperCase("tr"))} BAĞI</span>`);
+      return `<button class="pk-satir${dert ? " dert" : ""}" data-t="${t}"${dolu ? " disabled" : ""}>
+        ${projeSimge(t)}
+        <span><b>${esc(YAPI_TUR[t].ad)}</b><small>${esc(dert ? BOLGE_DERT[k][t] : E.et)}</small>${rozet.join("")}</span></button>`;
+    })
+    .join("");
+  kart.innerHTML = `<div class="pk-baslik"><span>${temel ? "TEMEL ATMA" : "PROJE SÖZÜ"} · ${esc(REGION_CITY[k].toLocaleUpperCase("tr"))}</span><button class="pk-kapat" id="pk-geri">BÖLGE DEĞİŞTİR</button></div>${satirlar}`;
+  kart.hidden = false;
+  kart.querySelectorAll(".pk-satir").forEach((b) => {
+    b.onclick = () => {
+      weekPick.proje = { r: k, tur: b.dataset.t };
+      haptic(14);
+      sfx("coin");
+      addTicker("SAHA", `${REGION_CITY[k]} için ${YAPI_TUR[b.dataset.t].ad.toLocaleLowerCase("tr")} gündemde.`);
+      projeAsamaBitir();
+    };
+  });
+  document.getElementById("pk-geri").onclick = () => {
+    projeKartiKapat();
+    kamOrtala(true);
+  };
+  haptic(8);
+}
 let mitingAsama = false;
 function mitingAsamaBaslat() {
   mitingAsama = true;
@@ -37015,11 +37405,20 @@ function mitingAsamaBitir() {
   ipucGoster("hafta");
 }
 function mitingAsamaGec() {
+  if (projeAsama) {
+    projeVazgec();
+    return;
+  }
   if (!mitingAsama) return;
   mitingBirakSessiz();
   mitingAsamaBitir();
 }
 function mitingAsamaIptal() {
+  if (projeAsama) {
+    projeAsama = null;
+    projeKartiKapat();
+    haritaTamAyarla(false);
+  }
   if (!mitingAsama) return;
   mitingAsama = false;
   haritaTamAyarla(false);
@@ -37093,26 +37492,31 @@ function mitingSeridiGuncelle() {
     s = document.getElementById("miting-serit");
   const acik = mitingKipi();
   const atla = document.getElementById("miting-atla");
-  if (atla) atla.hidden = !mitingAsama;
+  if (atla) {
+    atla.hidden = !(mitingAsama || projeAsama);
+    atla.textContent = projeAsama ? "VAZGEÇ" : "BU HAFTA MİTİNG YOK";
+  }
   mitingListeCiz();
   if (g) g.classList.toggle("miting-kipi", acik);
   if (s) {
     const secili = acik && weekPick.sel.indexOf("rally") >= 0 && weekPick.region;
-    s.hidden = !(acik && (mitingAsama || secili));
+    s.hidden = !(acik && (mitingAsama || projeAsama || secili));
     const kez = secili ? mitingSayisi(weekPick.region) : 0;
-    s.textContent = secili
+    s.textContent = projeAsama
+      ? (projeAsama === "temel" ? "TEMEL İÇİN BİR BÖLGE SEÇİN" : "PROJE SÖZÜ İÇİN BİR BÖLGE SEÇİN")
+      : secili
       ? "MİTİNG · " +
         REGION_KEYS[weekPick.region].toLocaleUpperCase("tr") +
         (kez ? " · " + (kez + 1) + ". KEZ" : "")
       : "MİTİNG İÇİN BİR BÖLGE SEÇİN" +
         "\nFIRSAT: " + REGION_KEYS[oneriBolge()].toLocaleUpperCase("tr");
-    s.classList.toggle("secili", !!secili);
-    s.classList.toggle("asama", !!mitingAsama && !secili);
+    s.classList.toggle("secili", !!secili && !projeAsama);
+    s.classList.toggle("asama", (!!mitingAsama || !!projeAsama) && !secili);
   }
   const c = mapCam();
   if (c) {
     const a = c.querySelectorAll(".mp-bolge-alan");
-    const oneri = acik && mitingAsama && !weekPick.region ? oneriBolge() : null;
+    const oneri = acik && mitingAsama && !projeAsama && !weekPick.region ? oneriBolge() : null;
     for (let i = 0; i < a.length; i++) {
       a[i].classList.toggle("miting", acik && weekPick.region === a[i].dataset.r);
       a[i].classList.toggle("oneri", a[i].dataset.r === oneri);
@@ -37121,6 +37525,10 @@ function mitingSeridiGuncelle() {
 }
 function bolgeSec(k) {
   if (!S || !S.me) return;
+  if (projeAsama && mitingKipi()) {
+    projeKartiAc(k);
+    return;
+  }
   if (mitingKipi()) {
     if (!mitingAsama && weekPick.sel.indexOf("rally") >= 0 && weekPick.region === k) {
       mitingBirak();
