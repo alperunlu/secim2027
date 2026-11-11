@@ -9733,7 +9733,7 @@ body:has(#screen-end.active) .notice {
 </svg>
 <div id="vignette"></div>
 <div id="notice" class="notice"><span class="notice-rule"></span><span class="notice-msg"></span></div>
-<div id="kurmay" hidden>
+<div id="kurmay" hidden style="display:none !important">
   <div class="km-atac" aria-hidden="true"></div>
   <div class="km-bas">KURMAY NOTU</div>
   <div class="km-metin" id="km-metin"></div>
@@ -9768,7 +9768,7 @@ body:has(#screen-end.active) .notice {
     </div>
     <div class="tl-alt">
       <button class="km-sifirla" id="btn-rozet" onclick="rozetAc()">Rozetler</button>
-      <button class="km-sifirla" onclick="ipucSifirla()">İpuçlarını sıfırla</button>
+      <button class="km-sifirla" onclick="ipucSifirla()" hidden>İpuçlarını sıfırla</button>
     </div>
   </div>
 </section>
@@ -31754,6 +31754,8 @@ const KURMAY_NOT = {
     "Dört raunt var ve süre işliyor. Sessiz kalırsanız salon rakibe kayar. Hazır cevap kadar <b>ton</b> da puan getirir.",
 };
 function ipucGoster(anahtar) {
+  /* Oyun içi ipucu/tooltip balonları oyuncuya gösterilmez (kod ileride açılabilsin diye duruyor) */
+  if (!IPUCLAR_ACIK) return;
   if (!KURMAY_NOT[anahtar] || ipucGorulen.has(anahtar)) return;
   const el = document.getElementById("kurmay");
   if (!el) return;
@@ -31770,6 +31772,7 @@ function ipucGoster(anahtar) {
   el.hidden = false;
   haptic(6);
 }
+const IPUCLAR_ACIK = false;
 function ipucKapat() {
   const el = document.getElementById("kurmay");
   if (el) el.hidden = true;
@@ -33088,7 +33091,7 @@ function duraklatAc() {
       ).join("")}</span></div>
       <div class="dk-linkler">
         <button id="dk-rozet">Rozetler</button>
-        <button id="dk-ipuc">İpuçlarını sıfırla</button>
+        <button id="dk-ipuc" hidden>İpuçlarını sıfırla</button>
       </div>
       <button class="btn ghost" id="dk-cik">Ana Menüye Dön</button>
       <div class="dk-not">Kampanyanız kaydedilir, kaldığınız günden devam edersiniz.</div>
@@ -38539,7 +38542,7 @@ function renderNews() {
     NEWS_OUTLETS.map(
       (x) => `<button class="np-tab" role="tab" type="button"
     aria-selected="${x.id === o.id}" onclick="newsSwitch('${x.id}')">
-    <span>${x.tab}</span><span class="np-tab-slant">${esc(x.slant)}</span>
+    <span>${x.tab}</span>
     <span class="np-dot" style="display:${unread ? "" : "none"}"></span>
    </button>`,
     ).join("") +
