@@ -7652,6 +7652,115 @@ h1, h2, h3, .dossier-title, #d-title, #end-title {
   align-items: center;
   z-index: 3;
 }
+/* ---- Telefonda daha az kaydırma: plan listesi sıkı, dönem raporu ekrana sığar ---- */
+@media (max-width: 560px) {
+  #dossier .plan-opt {
+    padding: 0.5rem 0.1rem !important;
+  }
+  #dossier .plan-opt .p-d {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 0.78rem !important;
+    line-height: 1.3 !important;
+  }
+  #dossier .plan-opt.picked .p-d {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+  #dossier .plan-opt.kilitli .p-d,
+  #dossier .plan-opt.disabled:not(.picked) .p-d {
+    display: none;
+  }
+  #dossier .plan-opt .p-t {
+    font-size: 0.95rem !important;
+  }
+  #dossier .oneri-plan {
+    padding: 0.45rem 0.7rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  #dossier .oneri-plan .op-alt,
+  #dossier .oneri-plan .op-et {
+    display: none;
+  }
+  #dossier .oneri-plan .op-ad {
+    font-size: 0.92rem !important;
+    line-height: 1.3;
+  }
+  #dossier .oneri-plan .op-ad::before {
+    content: "ÖNERİ · ";
+    font-family: var(--mono);
+    font-size: 0.69rem;
+    letter-spacing: 0.12em;
+    color: var(--ad-kizil);
+    font-weight: 500;
+  }
+  #dossier .week-head-note {
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+    margin-bottom: 0.4rem !important;
+  }
+  #dossier .plan-opt.kilitli {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+  }
+  #dossier .wk-ozet {
+    margin-bottom: 0.5rem !important;
+  }
+  #dossier .wk-takvim {
+    margin: 0.6rem 0 0 !important;
+  }
+}
+#dossier.compact .donem-brief,
+#dossier.sikis .donem-brief {
+  display: none;
+}
+#dossier.compact .donem-kart {
+  padding: 0.5rem 0.7rem !important;
+}
+#dossier.compact .donem-kart small {
+  font-size: 0.8rem !important;
+  line-height: 1.35 !important;
+}
+#dossier.sikis .gundem-ozet {
+  display: none;
+}
+#dossier.sikis .donem-kart small {
+  font-size: 0.76rem !important;
+  line-height: 1.3 !important;
+}
+#dossier .plan-kilitli {
+  grid-column: 1 / -1;
+  padding: 0.55rem 0.1rem 0.4rem;
+  border-bottom: 1px solid var(--g3-cizgi);
+  opacity: 0.75;
+}
+#dossier .pkl-et {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.69rem;
+  letter-spacing: 0.14em;
+  color: var(--ad-murekkep-2);
+  margin-bottom: 0.25rem;
+}
+#dossier .pkl-satir {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+#dossier .pkl-satir b {
+  font-weight: 600;
+}
+#dossier .pkl-satir i {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ad-murekkep-2);
+}
 #dossier .wk-actions::after {
   content: "";
   position: absolute;
@@ -32508,7 +32617,7 @@ function fitDossier() {
   const stage = document.getElementById("stage"),
     dos = document.getElementById("dossier");
   if (!stage || !dos) return 0;
-  dos.classList.remove("compact", "split", "tight");
+  dos.classList.remove("compact", "split", "tight", "sikis");
   dos.style.maxHeight = "";
   if (dos.classList.contains("week-card")) return 0;
   const brief = dos.querySelector(".brief"),
@@ -32542,6 +32651,9 @@ function fitDossier() {
   if (!fits()) {
     dos.classList.add("compact");
     level = 1;
+  }
+  if (!fits() && !opts && dos.querySelector(".donem-liste")) {
+    dos.classList.add("sikis");
   }
   if (!fits() && brief && opts) {
     dos.classList.add("split");
@@ -33885,7 +33997,7 @@ function donemGoster() {
   belgeKunye(null);
   const g = S.ek.gundem;
   document.getElementById("d-body").innerHTML =
-    `<div class="brief">Kurmay masasına sabah gelen rapor. Bu kampanya bu koşullarda geçecek.</div>
+    `<div class="brief donem-brief">Kurmay masasına sabah gelen rapor. Bu kampanya bu koşullarda geçecek.</div>
      <div class="donem-liste">${donemKartlari()
        .map((k, i) => `<div class="donem-kart"><span class="dk-no">${["I", "II"][i]}</span><span><b>${k.ad}</b><small>${k.d}</small></span></div>`)
        .join("")}</div>
@@ -33896,6 +34008,7 @@ function donemGoster() {
     saveGame();
     renderDay();
   });
+  fitDossier();
   pulseCard();
   sfx("paper");
 }
@@ -34150,17 +34263,22 @@ function drawWeekBoard() {
   body.innerHTML = `
   <div class="wk-ozet"><span class="wk-oz"><small>KASA</small><b>${fund} M₺</b></span><span class="wk-oz"><small>HAMLE</small><b><span id="wk-sel">0</span>/2</b></span></div>
   ${ilkHafta() ? `<div class="week-head-note">Bu hafta en fazla <b>2 hamle</b> seçin. Kasadan yalnızca hamleler harcar.</div>` : ""}
-  ${takvimSatiri()}
   <div id="region-slot"></div>
   <div id="oneri-slot"></div>
   <div class="plan-grid" id="plan-grid"></div>
+  ${takvimSatiri()}
   <div class="wk-actions">
     <div class="kagit-imza"><span id="wk-imza">-</span></div>
     <button class="muhur" id="wk-go"><span>Haftayı Onayla</span><small id="wk-muhur-n">0/2</small></button>
   </div>`;
   const g = document.getElementById("plan-grid");
+  const kilitliListe = [];
   PLAN_ACTIONS.filter((a) => a.id !== "rally" && hamleUygun(a)).forEach((a) => {
     const picked = weekPick.sel.includes(a.id);
+    if (!picked && hamleKilitli(a)) {
+      kilitliListe.push(a);
+      return;
+    }
     const spent = weekPick.sel.reduce((t, id) => {
       const x = PLAN_ACTIONS.find((y) => y.id === id);
       return t + Math.max(0, x.cost || 0);
@@ -34182,6 +34300,17 @@ function drawWeekBoard() {
     if (!cannot) b.onclick = () => toggleWeekPick(a.id);
     g.appendChild(b);
   });
+  /* Kilitli hamleler tek kompakt blokta: her biri tam satır kaplamasın */
+  if (kilitliListe.length) {
+    const k = document.createElement("div");
+    k.className = "plan-kilitli";
+    k.innerHTML =
+      `<span class="pkl-et">KİLİTLİ HAMLELER</span>` +
+      kilitliListe
+        .map((a) => `<span class="pkl-satir"><b>${a.t}</b><i>${a.kilit.et} ≥ ${a.kilit.min}</i></span>`)
+        .join("");
+    g.appendChild(k);
+  }
   document.getElementById("wk-sel").textContent = weekPick.sel.length;
   const mn = document.getElementById("wk-muhur-n");
   if (mn) {
