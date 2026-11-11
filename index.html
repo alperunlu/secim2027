@@ -34730,7 +34730,7 @@ function renderDailyEvent() {
   document.getElementById("dossier").className = "dossier" + (ev.twist ? " twist" : "");
   const catEl = document.getElementById("d-cat");
   catEl.textContent =
-    (ev.cat || "GÜNDEM") + " · " + S.daysLeft + ". GÜN" + (gundemSicak(ev.cat) ? " · GÜNDEMDE" : "");
+    S.daysLeft + ". GÜN";
   catEl.className = "dossier-cat" + (ev.twist ? " twist" : isCrisis ? " crisis" : "");
   document.getElementById("d-title").textContent = tok(ev.title);
   belgeKunye(ev);
@@ -34828,7 +34828,7 @@ const SAHNE_KELIME = [
 const SAHNE_ALT = {
   miting: "Meydan, akşamüstü", studyo: "Stüdyo, yayından az önce", grev: "Fabrika kapısı", meclis: "Genel kurul",
   pazar: "Semt pazarı", borsa: "Borsa salonu, öğleden sonra", tarla: "Ova, hasat zamanı", kampus: "Kampüs girişi", basin: "Basın toplantısı",
-  zirve: "Görüşme salonu", karargah: "Karargâh, gece yarısı", afet: "Çadır kent", mahalle: "Mahalle arası", sandik: "Sandık başı",
+  zirve: "Görüşme salonu", karargah: "Genel Merkez, gece yarısı", afet: "Çadır kent", mahalle: "Mahalle arası", sandik: "Sandık başı",
 };
 function sahneAdi(ev) {
   if (!ev) return null;
@@ -35258,7 +35258,7 @@ function belgeKunye(ev) {
   const saat = acil ? 5 + (h % 3) : 7 + (h % 4);
   const dk = ((h >>> 3) % 6) * 10;
   const no = String((100 - S.daysLeft) * 7 + (h % 7) + 101).padStart(4, "0");
-  el.textContent = `${acil ? "ACELE · " : ""}KARARGÂH NOTU · SAAT ${String(saat).padStart(2, "0")}.${String(dk).padStart(2, "0")} · NO ${no}`;
+  el.textContent = `${acil ? "ACELE · " : ""}GENEL MERKEZ NOTU · ${String(saat).padStart(2, "0")}.${String(dk).padStart(2, "0")} · NO ${no}`;
 }
 function mergedFx(o) {
   const fx = {
@@ -37660,15 +37660,14 @@ function mitingSeridiGuncelle() {
       ? "MİTİNG · " +
         REGION_KEYS[weekPick.region].toLocaleUpperCase("tr") +
         (kez ? " · " + (kez + 1) + ". KEZ" : "")
-      : "MİTİNG İÇİN BİR BÖLGE SEÇİN" +
-        "\nFIRSAT: " + REGION_KEYS[oneriBolge()].toLocaleUpperCase("tr");
+      : "MİTİNG İÇİN BİR BÖLGE SEÇİN";
     s.classList.toggle("secili", !!secili && !projeAsama);
     s.classList.toggle("asama", (!!mitingAsama || !!projeAsama) && !secili);
   }
   const c = mapCam();
   if (c) {
     const a = c.querySelectorAll(".mp-bolge-alan");
-    const oneri = acik && mitingAsama && !projeAsama && !weekPick.region ? oneriBolge() : null;
+    const oneri = null; /* fırsat bölgesi ipucu gösterilmez: oyuncu kendisi bulsun */
     for (let i = 0; i < a.length; i++) {
       a[i].classList.toggle("miting", acik && weekPick.region === a[i].dataset.r);
       a[i].classList.toggle("oneri", a[i].dataset.r === oneri);
