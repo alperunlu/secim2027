@@ -4970,18 +4970,21 @@ body.phase-final .panel {
   color: var(--ink-3);
   font-variant-numeric: tabular-nums lining-nums;
 }
-.np-folio {
-  flex-wrap: wrap;
-  row-gap: 0.1rem;
-}
 .np-folio > span {
   white-space: nowrap;
 }
-.np-folio .np-folio-c {
+.np-folio.np-folio-tarih {
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.np-folio.np-folio-tarih .np-folio-c {
   white-space: normal;
   text-align: center;
-  flex: 1 1 auto;
-  min-width: 0;
+}
+@media (max-width: 380px) {
+  .np-folio {
+    letter-spacing: 0.08em;
+  }
 }
 .np-folio .np-folio-c {
   color: var(--ink-2);
@@ -38511,9 +38514,9 @@ function newsMasthead(o) {
    <div class="np-mast-orn">${orn}</div>
    <h2 class="np-name">${esc(o.name)}</h2>
    <div class="np-mast-rule"></div>
+   <div class="np-folio np-folio-tarih"><span class="np-folio-c">${newsLongDate(S.daysLeft)}</span></div>
    <div class="np-folio">
      <span>${o.folioL}</span>
-     <span class="np-folio-c">${newsLongDate(S.daysLeft)}</span>
      <span>SAYI ${issue}</span>
    </div>
    <div class="np-folio" style="margin-top:4px">
