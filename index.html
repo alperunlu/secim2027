@@ -4981,9 +4981,13 @@ body.phase-final .panel {
   white-space: normal;
   text-align: center;
 }
+.np-folio.np-folio-tek {
+  margin-top: 0.2rem;
+}
 @media (max-width: 380px) {
   .np-folio {
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
+    font-size: 0.64rem;
   }
 }
 .np-folio .np-folio-c {
@@ -38514,16 +38518,7 @@ function newsMasthead(o) {
    <div class="np-mast-orn">${orn}</div>
    <h2 class="np-name">${esc(o.name)}</h2>
    <div class="np-mast-rule"></div>
-   <div class="np-folio np-folio-tarih"><span class="np-folio-c">${newsLongDate(S.daysLeft)}</span></div>
-   <div class="np-folio">
-     <span>${o.folioL}</span>
-     <span>SAYI ${issue}</span>
-   </div>
-   <div class="np-folio" style="margin-top:4px">
-     <span>${o.folioR}</span>
-     <span class="np-folio-c">SEÇİME ${S.daysLeft} GÜN</span>
-     <span>${o.price}</span>
-   </div>
+   <div class="np-folio np-folio-tek"><span>${newsLongDate(S.daysLeft)}</span><span>SAYI ${issue}</span></div>
    ${tail}
  </header>`;
 }
