@@ -37813,6 +37813,9 @@ document.addEventListener(
 function haritaTamAc() {
   const sg = document.getElementById("screen-game");
   if (!sg) return;
+  /* Açık bir panel varsa önce kapanır; miting ya da proje seçimi sırasında harita zaten tam ekran */
+  if (typeof closeSheet === "function" && openSheetId) closeSheet();
+  if (mitingAsama || projeAsama) return;
   haritaTamAyarla(!sg.classList.contains("harita-tam"));
   haptic(8);
   sfx("tick");
