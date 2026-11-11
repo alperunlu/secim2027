@@ -5639,6 +5639,10 @@ body,
 #screen-name .wrap {
   padding-top: 0.2rem;
 }
+#screen-select .sel-back,
+#screen-name .sel-back {
+  margin-top: 0 !important;
+}
 #screen-select .wrap {
   padding-bottom: 1.2rem;
 }
@@ -36107,7 +36111,7 @@ function renderPanels() {
   const tarStr = tar.getDate() + " " + TRMONTHS[tar.getMonth()] + " " + tar.getFullYear();
   pbx.innerHTML =
     '<div class="kagit">' +
-    '<div class="kagit-bas">Taahhütler Defteri</div>' +
+    '<div class="kagit-bas">Vaatler Defteri</div>' +
     (keys.length
       ? keys
           .map(function (k, i) {
@@ -38170,7 +38174,7 @@ const NEWS_BANK = {
     ],
     neutral: [
       "{P} yeni bir vaat açıkladı",
-      "Taahhüt defterine bir madde daha",
+      "Vaat defterine bir madde daha",
       "Kampanyanın yeni başlığı belli oldu",
     ],
     anti: [
