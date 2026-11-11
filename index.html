@@ -1349,6 +1349,9 @@ body.phase-final #tabbar {
   pointer-events: auto;
 }
 .sheet {
+  overflow-x: hidden;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
   position: fixed;
   left: 0;
   right: 0;
@@ -4967,8 +4970,18 @@ body.phase-final .panel {
   color: var(--ink-3);
   font-variant-numeric: tabular-nums lining-nums;
 }
+.np-folio {
+  flex-wrap: wrap;
+  row-gap: 0.1rem;
+}
 .np-folio > span {
   white-space: nowrap;
+}
+.np-folio .np-folio-c {
+  white-space: normal;
+  text-align: center;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .np-folio .np-folio-c {
   color: var(--ink-2);
